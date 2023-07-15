@@ -1,7 +1,7 @@
----shudhusadhsuhduasdusadhscacscsac
-create database ToTo2
+
+create database ToTo
 GO
-USE ToTo2
+USE ToTo
 GO
 
 CREATE TABLE NhanVien (
