@@ -8,6 +8,8 @@ package domainmodel;
  *
  * @author Admin
  */
-public class TaiKhoan {
-   private  String 
+public enum Role {
+    QuanLy,
+    PhaChe,
+    NhanVien,
 }
