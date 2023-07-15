@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 ﻿
 CREATE DATABASE ToTo
-=======
-
-create database ToTo
->>>>>>> 8ede6b8d9c02bb4e1da77ef70f528ac573499940
 GO
 USE ToTo
 GO
@@ -59,6 +54,7 @@ MaNguoiTao INT NOT NULL,
 TrangThai INT NOT NULL,
 FOREIGN KEY (MaNguoiTao) REFERENCES NhanVien(MaNhanVien)
 );
+
 
 GO
 
@@ -133,3 +129,9 @@ VALUES
 (N'Hồng trà sữa',1,N'thơm ngon',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T)),
 (N'Bạc sỉu',1,N'thơm ngon',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T)),
 (N'Tranh đào',1,N'thơm ngon',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T))
+
+--nạp dữ liệu bảng mã giảm giá
+INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai)
+VALUES (24,1,40.4,'2022-06-06',1001,1),
+(20,1,30.4,'2022-06-06',1001,1),
+(10,1,20.4,'2022-06-06',1001,1)
