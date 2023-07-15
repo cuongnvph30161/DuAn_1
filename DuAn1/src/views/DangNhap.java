@@ -177,28 +177,35 @@ public class DangNhap extends javax.swing.JFrame {
         String maTaiKhoan = txtTaiKhoan.getText();
         String matKhau = txtMatKhau.getText();
         TaiKhoanDomail taiKhoan = iTaiKhoanService.getTaiKhoanByMaTaiKhoanAndMatKhau(maTaiKhoan, matKhau);
+
         if (taiKhoan == null) {
-            JOptionPane.showMessageDialog(this, "Đăng nhập thất bại ");
+            JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
             return;
         } else {
-            switch (taiKhoan.getRole()) {
-                case QuanLy:
-                    new TraSua_QL().setVisible(true);
-                    this.dispose();
-                    break;
-                case PhaChe:
-                    new TraSua_PC().setVisible(true);
-                    this.dispose();
-                    break;
-                case NhanVien:
-                    new TraSua_NV().setVisible(true);
-                    this.dispose();
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(this, "Role không hợp lệ ");
-                    break;
+            // Kiểm tra tài khoản và mật khẩu (phân biệt chữ hoa/chữ thường)
+            if (taiKhoan.getMaTaiKhoan().equals(maTaiKhoan) && taiKhoan.getMatKhau().equals(matKhau)) {
+                switch (taiKhoan.getRole()) {
+                    case QuanLy:
+                        new TraSua_QL().setVisible(true);
+                        this.dispose();
+                        break;
+                    case PhaChe:
+                        new TraSua_PC().setVisible(true);
+                        this.dispose();
+                        break;
+                    case NhanVien:
+                        new TraSua_NV().setVisible(true);
+                        this.dispose();
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(this, "Role không hợp lệ");
+                        break;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
             }
         }
+
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /**

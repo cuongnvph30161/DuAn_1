@@ -17,7 +17,7 @@ public class DBConnect {
     private static Connection con = null;
     private static PreparedStatement st = null;
     public static final String url = "jdbc:sqlserver://localhost:1433;"
-            + "DatabaseName=FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041;encrypt=true;trustServerCertificate=true";
+            + "DatabaseName=ToTo;encrypt=true;trustServerCertificate=true";
 
     public static Connection getConnect() {
         Connection connect = null;
@@ -28,7 +28,7 @@ public class DBConnect {
 
         }
         try {
-            connect = DriverManager.getConnection(url, "SA", "18101999");
+            connect = DriverManager.getConnection(url, "sa", "sa");
             return connect;
         } catch (Exception e) {
             System.out.println("sai ten database hoac pass");
