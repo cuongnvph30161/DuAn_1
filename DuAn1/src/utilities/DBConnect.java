@@ -17,7 +17,7 @@ public class DBConnect {
     private static Connection con = null;
     private static PreparedStatement st = null;
     public static final String url = "jdbc:sqlserver://localhost:1433;"
-            + "DatabaseName=FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041;encrypt=true;trustServerCertificate=true";
+            + "DatabaseName=Toto;encrypt=true;trustServerCertificate=true";
 
     public static Connection getConnect() {
         Connection connect = null;
