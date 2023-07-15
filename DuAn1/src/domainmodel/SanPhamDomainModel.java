@@ -10,4 +10,5 @@ package domainmodel;
  */
 public class SanPhamDomainModel {
     private String abc;
+    private String aaa;
 }
