@@ -123,9 +123,9 @@ VALUES
 --nạp dữ liệu bảng tài khoản
 INSERT INTO TaiKhoan(MaTaiKhoan,MaNhanVien,MatKhau,VaiTro,TrangThai)
 VALUES
-('TK01',1001,'admin123',N'quản lý',1),
-('TK02',1002,'admin123',N'thu ngân',1),
-('TK03',1003,'admin123',N'pha chế',1)
+('TK01',1001,'admin123',N'QuanLy',1),
+('TK02',1002,'admin123',N'PhaChe',1),
+('TK03',1003,'admin123',N'NhanVien',1)
 
 --nạp dữ liệu bảng sản phẩm
 INSERT INTO SanPham(TenSanPham,TrangThai,MoTa,Anh)
