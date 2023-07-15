@@ -1,4 +1,4 @@
---test
+--ggg
 create database ToTo
 GO
 USE ToTo
