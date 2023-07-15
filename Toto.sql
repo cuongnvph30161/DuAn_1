@@ -105,4 +105,4 @@ FOREIGN KEY (MaHoaDon) REFERENCES HoaDon(MaHoaDon),
 FOREIGN KEY (MaChiTietSanPham) REFERENCES ChiTietSanPham(MaChiTietSanPham)
 );
 
---tungcuong
+--tungcuongcâcscsac
