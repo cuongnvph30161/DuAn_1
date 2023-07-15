@@ -1,4 +1,4 @@
-
+--test
 create database ToTo
 GO
 USE ToTo
