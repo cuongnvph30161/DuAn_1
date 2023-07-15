@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import interfacerepositorys.ITaiKhoanRepositorys;
+import java.util.ArrayList;
 import utilities.DBConnect;
 
 /**
@@ -50,6 +51,29 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
 
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<TaiKhoanDomail> getListTaiKhoan() {
+        ArrayList<TaiKhoanDomail> getList = new ArrayList<>();
+        try {
+            String query = "select * from TaiKhoan";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String maTaiKhoan = rs.getString("MaTaiKhoan");
+                int maNhanVien = rs.getInt("MaNhanVien");
+                String matKhau = rs.getString("MatKhau");
+                Role role = Role.valueOf(rs.getString("role"));
+                int trangThai = rs.getInt("TrangThai");
+                TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail(maTaiKhoan, maNhanVien, matKhau, role, trangThai);
+                getList.add(taiKhoanDomail);
+            }
+            return getList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

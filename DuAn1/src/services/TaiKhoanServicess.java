@@ -9,20 +9,35 @@ import java.util.ArrayList;
 import repositorys.TaiKhoanRepositorys;
 import interfacerepositorys.ITaiKhoanRepositorys;
 import interfaceservices.ITaiKhoanServicess;
+import viewmodel.TaiKhoanViewModel;
+
 /**
  *
  * @author Admin
  */
-public class TaiKhoanServicess implements ITaiKhoanServicess{
-public ITaiKhoanRepositorys iTaiKhoanRepository = new TaiKhoanRepositorys();
+public class TaiKhoanServicess implements ITaiKhoanServicess {
+
+    public ITaiKhoanRepositorys iTaiKhoanRepository = new TaiKhoanRepositorys();
+
     @Override
     public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau) {
         return iTaiKhoanRepository.getTaiKhoanByMaTaiKhoanAndMatKhau(maTaiKhoan, matKhau);
     }
 
+    @Override
+    public ArrayList<TaiKhoanViewModel> getAll() {
+        ArrayList<TaiKhoanDomail> listTaiKhoan = iTaiKhoanRepository.getListTaiKhoan();
+        ArrayList<TaiKhoanViewModel> listTaiKhoanViewModel = new ArrayList<>();
+        for (TaiKhoanDomail taiKhoanDomail : listTaiKhoan) {
+            TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
+            taiKhoanViewModel.setMaTaiKhoan(taiKhoanDomail.getMaTaiKhoan());
+            taiKhoanViewModel.setMaNhanVien(taiKhoanDomail.getMaNhanVien());
+            taiKhoanViewModel.setMatKhau(taiKhoanDomail.getMatKhau());
+            taiKhoanViewModel.setRole(taiKhoanDomail.getRole());
+            taiKhoanViewModel.setTrangThai(taiKhoanDomail.getTrangThai());
+            listTaiKhoanViewModel.add(taiKhoanViewModel);
+        }
+        return listTaiKhoanViewModel;
+    }
 
-
-
-  
-    
 }

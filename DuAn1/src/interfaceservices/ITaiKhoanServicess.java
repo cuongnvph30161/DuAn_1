@@ -7,6 +7,8 @@ package interfaceservices;
 import domainmodel.TaiKhoanDomail;
 import repositorys.TaiKhoanRepositorys;
 import interfacerepositorys.ITaiKhoanRepositorys;
+import java.util.ArrayList;
+import viewmodel.TaiKhoanViewModel;
 
 /**
  *
@@ -15,4 +17,5 @@ import interfacerepositorys.ITaiKhoanRepositorys;
 public interface ITaiKhoanServicess {
 
     public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau);
+    public ArrayList<TaiKhoanViewModel> getAll();
 }
