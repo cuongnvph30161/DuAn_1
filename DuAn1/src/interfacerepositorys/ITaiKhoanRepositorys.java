@@ -5,6 +5,7 @@
 package interfacerepositorys;
 
 import domainmodel.TaiKhoanDomail;
+import java.util.ArrayList;
 
 /**
  *
@@ -12,4 +13,5 @@ import domainmodel.TaiKhoanDomail;
  */
 public interface ITaiKhoanRepositorys {
    public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau);
+   public ArrayList<TaiKhoanDomail> getListTaiKhoan();
 }
