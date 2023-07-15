@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 ﻿
 CREATE DATABASE ToTo
+=======
+
+create database ToTo
+>>>>>>> 8ede6b8d9c02bb4e1da77ef70f528ac573499940
 GO
 USE ToTo
 GO
