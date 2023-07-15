@@ -77,6 +77,7 @@ ThoiGian DATETIME NOT NULL,
 TrangThaiThanhToan INT NOT NULL,
 TrangThaiOrder INT NOT NULL,
 MaVoucher INT,
+GhiChu NVARCHAR(MAX),
 FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
 FOREIGN KEY (MaVoucher) REFERENCES MaGiamGia(MaVoucher)
 );
@@ -121,7 +122,7 @@ VALUES
 (N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T),N'nhân viên'),
 (N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T),N'nhân viên')
 go
-SELECT * FROM NhanVien
+
 --nạp dữ liệu bảng tài khoản
 INSERT INTO TaiKhoan(MaTaiKhoan,MaNhanVien,MatKhau,VaiTro,TrangThai)
 VALUES
@@ -148,22 +149,24 @@ VALUES (N'bàn 01',1,0),
 (N'bàn 02',1,0),
 (N'bàn 03',1,0)
 go
---nạp dữ liệu hóa đơn
-INSERT INTO HoaDon(MaNhanVien,ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher)
-VALUES(1001,GETDATE(),1,1,1000),
-(1001,GETDATE(),1,1,1000),
-(1001,GETDATE(),1,1,1000)
 
+--nạp dữ liệu hóa đơn
+INSERT INTO HoaDon
+VALUES(1001,GETDATE(),1,1,1000,N'ít đường'),
+(1001,GETDATE(),1,1,1000,N'nhiều đường'),
+(1001,GETDATE(),1,1,1000,N'nhiều đá')
+
+go
 --nạp dữ liệu bàn-hóa đơn
 INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
 VALUES(1000,1000),
 (1001,1001)
-
+go
 --nạp dữ liệu chi tiết sản phẩm
 INSERT INTO ChiTietSanPham(MaSanPham,Size,Gia)
 VALUES(1000,'M',45.4),
 (1001,'S',45.4)
-
+go
 --nạp dữ liệu chi tiết hóa đơn
 INSERT INTO ChiTietHoaDon(MaHoaDon,MaChiTietSanPham,SoLuong,Gia)
 VALUES(1000,1000,4,44.5)
