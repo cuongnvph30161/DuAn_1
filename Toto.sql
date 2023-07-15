@@ -1,4 +1,4 @@
---test
+
 create database ToTo
 GO
 USE ToTo
@@ -105,4 +105,4 @@ FOREIGN KEY (MaHoaDon) REFERENCES HoaDon(MaHoaDon),
 FOREIGN KEY (MaChiTietSanPham) REFERENCES ChiTietSanPham(MaChiTietSanPham)
 );
 
---haha
+--thu lan 02
