@@ -6,7 +6,7 @@ CREATE DATABASE ToTo
 GO
 USE ToTo
 GO
--- tuan anh
+-- tuan anh abc
 CREATE TABLE NhanVien (
 MaNhanVien INT IDENTITY(1000,1) PRIMARY KEY,
 HoVaTen NVARCHAR(40) NOT NULL,
