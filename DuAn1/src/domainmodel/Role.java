@@ -8,6 +8,8 @@ package domainmodel;
  *
  * @author Admin
  */
+
+  
 public enum Role {
     QuanLy,
     PhaChe,

@@ -3,12 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package utilities;
+<<<<<<< HEAD
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 /**
  *
  * @author Admin
+=======
+
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+/**
+ *
+ * @author ADMIN
+>>>>>>> 8a5cbe30e6b37ccf6ae2fa898d1531086e4a8de6
  */
 public class DBConnect {
 
@@ -26,7 +37,11 @@ public class DBConnect {
 
         }
         try {
+<<<<<<< HEAD
             connect = DriverManager.getConnection(url, "sa", "sa");
+=======
+            connect = DriverManager.getConnection(url, "SA", "18101999");
+>>>>>>> 8a5cbe30e6b37ccf6ae2fa898d1531086e4a8de6
             return connect;
         } catch (Exception e) {
             System.out.println("sai ten database hoac pass");
