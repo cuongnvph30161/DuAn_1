@@ -151,3 +151,13 @@ INSERT INTO HoaDon(MaNhanVien,ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVouch
 VALUES(1001,GETDATE(),1,1,1000),
 (1001,GETDATE(),1,1,1000),
 (1001,GETDATE(),1,1,1000)
+
+--nạp dữ liệu bàn-hóa đơn
+INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
+VALUES(1000,1000),
+(1001,1001)
+
+--nạp dữ liệu bàn-hóa đơn
+INSERT INTO ChiTietSanPham(MaSanPham,Size,Gia)
+VALUES(1000,'M',45.4),
+(1001,'S',45.4)
