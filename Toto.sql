@@ -21,7 +21,7 @@ Anh VARBINARY(MAX),
 ChucVu NVARCHAR(100) NOT NULL
 );
 
-
+-- duy an cut
 GO
 
 CREATE TABLE TaiKhoan (
