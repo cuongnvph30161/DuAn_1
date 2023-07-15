@@ -9,5 +9,5 @@ package domainmodel;
  * @author Admin
  */
 public class TaiKhoan {
-    
+   private  String 
 }
