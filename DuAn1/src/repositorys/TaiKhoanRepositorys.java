@@ -10,8 +10,8 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
-import utilities.DbConnector;
 import interfacerepositorys.ITaiKhoanRepositorys;
+import utilities.DBConnect;
 
 /**
  *
@@ -23,7 +23,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
 
     static {
         try {
-            connection = DbConnector.getConnection();
+            connection = DBConnect.getConnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
