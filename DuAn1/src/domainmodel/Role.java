@@ -9,9 +9,7 @@ package domainmodel;
  * @author Admin
  */
 
-public class TaiKhoan {
   
-
 public enum Role {
     QuanLy,
     PhaChe,

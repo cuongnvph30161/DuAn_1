@@ -78,6 +78,10 @@ FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
 FOREIGN KEY (MaVoucher) REFERENCES MaGiamGia(MaVoucher)
 );
 
+--nạp dữ liệu bảng hóa đơn
+INSERT INTO HoaDon(MaNhanVien,ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher)
+VALUES(1002,GETDATE(),)
+
 GO
 
 CREATE TABLE Ban_HoaDon(

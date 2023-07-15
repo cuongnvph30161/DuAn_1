@@ -18,24 +18,9 @@ public class NhanVienViewModel {
     private String email;
     private String soDienThoai;
     private String ghiChu;
-    private Blob anh;
+    private byte[] anh;
     private String chucVu;
 
-    public NhanVienViewModel() {
-    }
-
-    public NhanVienViewModel(int maNhanVien, Date ngaySinh, String diaChi, String CCCD, int trangThai, String email, String soDienThoai, String ghiChu, Blob anh, String chucVu) {
-        this.maNhanVien = maNhanVien;
-        this.ngaySinh = ngaySinh;
-        this.diaChi = diaChi;
-        this.CCCD = CCCD;
-        this.trangThai = trangThai;
-        this.email = email;
-        this.soDienThoai = soDienThoai;
-        this.ghiChu = ghiChu;
-        this.anh = anh;
-        this.chucVu = chucVu;
-    }
-    
+   
     
 }
