@@ -135,3 +135,9 @@ INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,HanSuDung,MaNguoiTao
 VALUES (24,1,40.4,'2022-06-06',1001,1),
 (20,1,30.4,'2022-06-06',1001,1),
 (10,1,20.4,'2022-06-06',1001,1)
+
+--nạp dữ liệu bảng bàn
+INSERT INTO Ban(TenBan,Tang,TrangThai)
+VALUES (N'bàn 01',1,0),
+(N'bàn 02',1,0),
+(N'bàn 03',1,0)
