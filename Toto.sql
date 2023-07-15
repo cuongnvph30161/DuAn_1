@@ -111,6 +111,8 @@ PRIMARY KEY (MaHoaDon,MaChiTietSanPham),
 FOREIGN KEY (MaHoaDon) REFERENCES HoaDon(MaHoaDon),
 FOREIGN KEY (MaChiTietSanPham) REFERENCES ChiTietSanPham(MaChiTietSanPham)
 );
+
+
 go
 -- nạp dữ liệu bảng nhân viên
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
@@ -157,7 +159,11 @@ INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
 VALUES(1000,1000),
 (1001,1001)
 
---nạp dữ liệu bàn-hóa đơn
+--nạp dữ liệu chi tiết sản phẩm
 INSERT INTO ChiTietSanPham(MaSanPham,Size,Gia)
 VALUES(1000,'M',45.4),
 (1001,'S',45.4)
+
+--nạp dữ liệu chi tiết hóa đơn
+INSERT INTO ChiTietHoaDon(MaHoaDon,MaChiTietSanPham,SoLuong,Gia)
+VALUES(1000,1000,4,44.5)
