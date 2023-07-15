@@ -1,4 +1,4 @@
---duy update cuong
+
 create database ToTo
 GO
 USE ToTo
