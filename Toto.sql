@@ -1,4 +1,7 @@
-﻿
+﻿USE master
+GO
+DROP DATABASE ToTo
+GO
 CREATE DATABASE ToTo
 GO
 USE ToTo
@@ -78,10 +81,6 @@ FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
 FOREIGN KEY (MaVoucher) REFERENCES MaGiamGia(MaVoucher)
 );
 
---nạp dữ liệu bảng hóa đơn
-INSERT INTO HoaDon(MaNhanVien,ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher)
-VALUES(1002,GETDATE(),)
-
 GO
 
 CREATE TABLE Ban_HoaDon(
@@ -112,36 +111,43 @@ PRIMARY KEY (MaHoaDon,MaChiTietSanPham),
 FOREIGN KEY (MaHoaDon) REFERENCES HoaDon(MaHoaDon),
 FOREIGN KEY (MaChiTietSanPham) REFERENCES ChiTietSanPham(MaChiTietSanPham)
 );
-
+go
 -- nạp dữ liệu bảng nhân viên
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
 VALUES 
 (N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T),N'quản lý'),
 (N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T),N'nhân viên'),
 (N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T),N'nhân viên')
-
+go
+SELECT * FROM NhanVien
 --nạp dữ liệu bảng tài khoản
 INSERT INTO TaiKhoan(MaTaiKhoan,MaNhanVien,MatKhau,VaiTro,TrangThai)
 VALUES
-('TK01',1001,'admin123',N'QuanLy',1),
-('TK02',1002,'admin123',N'PhaChe',1),
-('TK03',1003,'admin123',N'NhanVien',1)
-
+('TK01',1000,'admin123',N'QuanLy',1),
+('TK02',1001,'admin123',N'PhaChe',1),
+('TK03',1002,'admin123',N'NhanVien',1)
+go
 --nạp dữ liệu bảng sản phẩm
 INSERT INTO SanPham(TenSanPham,TrangThai,MoTa,Anh)
 VALUES
 (N'Hồng trà sữa',1,N'thơm ngon',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T)),
 (N'Bạc sỉu',1,N'thơm ngon',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T)),
 (N'Tranh đào',1,N'thơm ngon',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T))
-
+go
 --nạp dữ liệu bảng mã giảm giá
 INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai)
 VALUES (24,1,40.4,'2022-06-06',1001,1),
 (20,1,30.4,'2022-06-06',1001,1),
 (10,1,20.4,'2022-06-06',1001,1)
-
+go
 --nạp dữ liệu bảng bàn
 INSERT INTO Ban(TenBan,Tang,TrangThai)
 VALUES (N'bàn 01',1,0),
 (N'bàn 02',1,0),
 (N'bàn 03',1,0)
+go
+--nạp dữ liệu hóa đơn
+INSERT INTO HoaDon(MaNhanVien,ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher)
+VALUES(1001,GETDATE(),1,1,1000),
+(1001,GETDATE(),1,1,1000),
+(1001,GETDATE(),1,1,1000)
