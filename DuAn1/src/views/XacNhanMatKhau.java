@@ -4,15 +4,25 @@
  */
 package views;
 
+import interfaceservices.INhanVienService;
+import interfaceservices.ITaiKhoanServicess;
+import services.NhanVienService;
+import services.TaiKhoanServicess;
 import utilities.XImages;
 
 public class XacNhanMatKhau extends javax.swing.JFrame {
 
-    public XacNhanMatKhau() {
+    public INhanVienService iNhanVienService = new NhanVienService();
+    public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
+    private static String email;
+
+    public XacNhanMatKhau(String email) {
         initComponents();
         setLocationRelativeTo(null);
         lblMatMo1.setVisible(false);
         lblMatMo2.setVisible(false);
+        this.email = email;
+
         init();
     }
 
@@ -38,7 +48,6 @@ public class XacNhanMatKhau extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hệ thống quản lý trà sữa ToTo");
-        setPreferredSize(new java.awt.Dimension(409, 400));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Nhập mật khẩu mới");
@@ -67,6 +76,11 @@ public class XacNhanMatKhau extends javax.swing.JFrame {
         btnTiepTuc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTiepTuc.setForeground(new java.awt.Color(255, 255, 255));
         btnTiepTuc.setText("Tiếp tục");
+        btnTiepTuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTiepTucActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnTiepTuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 292, -1, -1));
 
         lblMatMo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eye_20px.png"))); // NOI18N
@@ -105,7 +119,7 @@ public class XacNhanMatKhau extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        new NhapMaBaoMat().setVisible(true);
+        new NhapMaBaoMat(email).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
 
@@ -149,12 +163,21 @@ public class XacNhanMatKhau extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblMatDong2MouseClicked
 
-    public static void main(String args[]) {
+    private void btnTiepTucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTiepTucActionPerformed
+        String matKhauMoi = txtNhapMatKhauMoi.getText();
+        String nhapLaiMatKhauMoi = txtNhapLaiMatKhauMoi.getText();
+        int maNhanVien = iNhanVienService.getMaNhanVienByEmail(email);
+        System.out.println("email XacNhanMatKhau" + " " + email);
+        System.out.println("maNV" + " " + maNhanVien);
+        String updateSuccess = iTaiKhoanServicess.updateMatKhauByMaNhanVien(matKhauMoi, maNhanVien);
+    }//GEN-LAST:event_btnTiepTucActionPerformed
 
+       public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new XacNhanMatKhau().setVisible(true);
+                XacNhanMatKhau xacNhanMatKhau = new XacNhanMatKhau(email);
+                xacNhanMatKhau.setVisible(true);
             }
         });
     }

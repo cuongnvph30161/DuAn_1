@@ -76,4 +76,17 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
         }
     }
 
+    @Override
+    public String updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien) {
+        try {
+            String query = "update TaiKhoan set MatKhau =? where MaNhanVien =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, newPassWord);
+            ps.setInt(2, maNhanVien);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

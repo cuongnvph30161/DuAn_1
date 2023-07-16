@@ -6,7 +6,7 @@ CREATE DATABASE ToTo
 GO
 USE ToTo
 GO
-
+-- tuan anh abc
 CREATE TABLE NhanVien (
 MaNhanVien INT IDENTITY(1000,1) PRIMARY KEY,
 HoVaTen NVARCHAR(40) NOT NULL,
@@ -20,8 +20,8 @@ GhiChu NVARCHAR(1000),
 Anh VARBINARY(MAX),
 ChucVu NVARCHAR(100) NOT NULL
 );
-
-
+-- duy 123
+-- duy an cut
 GO
 
 CREATE TABLE TaiKhoan (

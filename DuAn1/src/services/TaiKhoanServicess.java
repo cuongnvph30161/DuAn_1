@@ -8,6 +8,7 @@ import domainmodel.TaiKhoanDomail;
 import java.util.ArrayList;
 import repositorys.TaiKhoanRepositorys;
 import interfacerepositorys.ITaiKhoanRepositorys;
+import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
 import viewmodel.TaiKhoanViewModel;
 
@@ -38,6 +39,11 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
             listTaiKhoanViewModel.add(taiKhoanViewModel);
         }
         return listTaiKhoanViewModel;
+    }
+
+    @Override
+    public String updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien) {
+        return iTaiKhoanRepository.updateMatKhauByMaNhanVien(newPassWord, maNhanVien);
     }
 
 }

@@ -4,14 +4,26 @@
  */
 package views;
 
+import interfaceservices.INhanVienService;
+import interfaceservices.ITaiKhoanServicess;
+import javax.swing.JOptionPane;
+import services.EmailSender;
+import services.NhanVienService;
+import services.TaiKhoanServicess;
 import utilities.XImages;
 
 public class NhapMaBaoMat extends javax.swing.JFrame {
 
-    public NhapMaBaoMat() {
+    public INhanVienService iNhanVienService = new NhanVienService();
+    public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
+    public static String email;
+
+    public NhapMaBaoMat(String email) {
         initComponents();
         setLocationRelativeTo(null);
         init();
+        this.email = email;
+
     }
 
     public void init() {
@@ -24,7 +36,7 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtMaBaoMat = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnHuy = new javax.swing.JButton();
         btnTiepTuc = new javax.swing.JButton();
@@ -40,7 +52,7 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
 
         jLabel2.setText("Vui lòng kiểm tra email để xem tin nhắn văn bản có mã. ");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtMaBaoMat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jLabel3.setText("Nhập mã");
 
@@ -77,7 +89,7 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtMaBaoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -107,7 +119,7 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5))
-                    .addComponent(jTextField1))
+                    .addComponent(txtMaBaoMat))
                 .addGap(40, 40, 40)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
@@ -124,18 +136,35 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
         new QuenMatKhau().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHuyMouseClicked
+    public class CodeValidator {
+
+        public static boolean validateCode(String inputCode) {
+            String sentCode = EmailSender.getSentCode(); // Lấy mã xác nhận đã gửi đi từ sendEmailRepository
+            return inputCode.equals(sentCode);
+        }
+    }
 
     private void btnTiepTucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTiepTucActionPerformed
-        new XacNhanMatKhau().setVisible(true);
-        this.dispose();
+        String ma = txtMaBaoMat.getText();
+        CodeValidator codeValidator = new CodeValidator();
+        System.out.println("emailxb" + email);
+        // Kiểm tra mã xác nhận có khớp với mã đã gửi đi hay không
+        if (codeValidator.validateCode(ma)) {
+            // Mã xác nhận hợp lệ
+            new XacNhanMatKhau(email).setVisible(true);
+            this.dispose();
+        } else {
+            // Mã xác nhận không hợp lệ
+            JOptionPane.showMessageDialog(this, "Mã xác nhận không hợp lệ. Vui lòng kiểm tra lại.");
+        }
     }//GEN-LAST:event_btnTiepTucActionPerformed
 
-    public static void main(String args[]) {
-
+       public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new NhapMaBaoMat().setVisible(true);
+                NhapMaBaoMat nhapMaBaoMat = new NhapMaBaoMat(email);
+                nhapMaBaoMat.setVisible(true);
             }
         });
     }
@@ -149,6 +178,6 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtMaBaoMat;
     // End of variables declaration//GEN-END:variables
 }

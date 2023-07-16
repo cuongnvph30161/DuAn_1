@@ -21,13 +21,13 @@ public class NhanVienDomainModel {
     private String email;
     private String soDienThoai;
     private String ghiChu;
-    private Blob anh;
+    private byte[] anh;
     private String chucVu;
 
     public NhanVienDomainModel() {
     }
 
-    public NhanVienDomainModel(int maNhanVien, String hoVaTen, Date ngaySinh, String diaChi, String CCCD, int trangThai, String email, String soDienThoai, String ghiChu, Blob anh, String chucVu) {
+    public NhanVienDomainModel(int maNhanVien, String hoVaTen, Date ngaySinh, String diaChi, String CCCD, int trangThai, String email, String soDienThoai, String ghiChu, byte[] anh, String chucVu) {
         this.maNhanVien = maNhanVien;
         this.hoVaTen = hoVaTen;
         this.ngaySinh = ngaySinh;
@@ -113,11 +113,11 @@ public class NhanVienDomainModel {
         this.ghiChu = ghiChu;
     }
 
-    public Blob getAnh() {
+    public byte[] getAnh() {
         return anh;
     }
 
-    public void setAnh(Blob anh) {
+    public void setAnh(byte[] anh) {
         this.anh = anh;
     }
 
@@ -127,6 +127,11 @@ public class NhanVienDomainModel {
 
     public void setChucVu(String chucVu) {
         this.chucVu = chucVu;
+    }
+
+    @Override
+    public String toString() {
+        return "NhanVienDomainModel{" + "maNhanVien=" + maNhanVien + ", hoVaTen=" + hoVaTen + ", ngaySinh=" + ngaySinh + ", diaChi=" + diaChi + ", CCCD=" + CCCD + ", trangThai=" + trangThai + ", email=" + email + ", soDienThoai=" + soDienThoai + ", ghiChu=" + ghiChu + ", anh=" + anh + ", chucVu=" + chucVu + '}';
     }
 
 }

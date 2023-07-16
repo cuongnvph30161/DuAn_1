@@ -4,7 +4,14 @@
  */
 package views;
 
+import interfaceservices.INhanVienService;
+import interfaceservices.ITaiKhoanServicess;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
+import services.EmailSender;
+import services.NhanVienService;
+import services.TaiKhoanServicess;
 import utilities.XImages;
 
 /**
@@ -12,6 +19,10 @@ import utilities.XImages;
  * @author ADMIN
  */
 public class QuenMatKhau extends javax.swing.JFrame {
+
+    public INhanVienService iNhanVienService = new NhanVienService();
+    public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
+    public String email;
 
     /**
      * Creates new form DangNhap
@@ -41,14 +52,14 @@ public class QuenMatKhau extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txttaikhoan = new javax.swing.JTextField();
+        txtTaiKhoan = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnKhoiPhuc = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblDangNhap = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
@@ -78,35 +89,30 @@ public class QuenMatKhau extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Quên Mật Khẩu");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 180, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Email");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Tài Khoản");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
-        txttaikhoan.setBackground(new java.awt.Color(255, 255, 255));
-        txttaikhoan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txttaikhoan.setForeground(new java.awt.Color(0, 0, 0));
-        txttaikhoan.setBorder(null);
-        txttaikhoan.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTaiKhoan.setBorder(null);
+        txtTaiKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txttaikhoanMouseClicked(evt);
+                txtTaiKhoanMouseClicked(evt);
             }
         });
-        txttaikhoan.addActionListener(new java.awt.event.ActionListener() {
+        txtTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txttaikhoanActionPerformed(evt);
+                txtTaiKhoanActionPerformed(evt);
             }
         });
-        jPanel1.add(txttaikhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 240, 30));
+        jPanel1.add(txtTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 240, 30));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/user.png"))); // NOI18N
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
@@ -114,35 +120,30 @@ public class QuenMatKhau extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/email.png"))); // NOI18N
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("______________________________________________________");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 260, -1));
 
-        jButton1.setBackground(new java.awt.Color(204, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Khôi Phục");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnKhoiPhuc.setBackground(new java.awt.Color(204, 255, 255));
+        btnKhoiPhuc.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnKhoiPhuc.setText("Khôi Phục");
+        btnKhoiPhuc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnKhoiPhuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnKhoiPhucActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 270, 30));
+        jPanel1.add(btnKhoiPhuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 270, 30));
 
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("_________________________________________________________");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 280, -1));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setBorder(null);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 142, 230, 40));
+        txtEmail.setBorder(null);
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 142, 230, 40));
 
-        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("<Quay lại đăng nhập");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
+        lblDangNhap.setBackground(new java.awt.Color(255, 255, 255));
+        lblDangNhap.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblDangNhap.setText("<Quay lại đăng nhập");
+        jPanel1.add(lblDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 330, 340));
 
@@ -158,12 +159,11 @@ public class QuenMatKhau extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txttaikhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txttaikhoanMouseClicked
+    private void txtTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTaiKhoanMouseClicked
         // TODO add your handling code here:
 
-      
 
-    }//GEN-LAST:event_txttaikhoanMouseClicked
+    }//GEN-LAST:event_txtTaiKhoanMouseClicked
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
@@ -174,52 +174,59 @@ public class QuenMatKhau extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void txttaikhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttaikhoanActionPerformed
+    private void txtTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaiKhoanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txttaikhoanActionPerformed
+    }//GEN-LAST:event_txtTaiKhoanActionPerformed
+    public class EmailValidator {
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        private static final Pattern EMAIL_PATTERN = Pattern.compile(
+                "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+        );
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuenMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuenMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuenMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuenMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        public static boolean isValidEmail(String email) {
+            return EMAIL_PATTERN.matcher(email).matches();
         }
-        //</editor-fold>
-        //</editor-fold>
+    }
 
-        /* Create and display the form */
+    private void btnKhoiPhucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhoiPhucActionPerformed
+        String email = txtEmail.getText();
+        // Kiểm tra trường email có rỗng không
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập địa chỉ email.");
+        } else if (!EmailValidator.isValidEmail(email)) { // Kiểm tra tính hợp lệ của địa chỉ email
+            JOptionPane.showMessageDialog(this, "Địa chỉ email không hợp lệ.");
+        } else {
+            // Gửi email xác nhận đến địa chỉ email người dùng
+
+            String code = EmailSender.sendEmail(email, "nguyendhph23086@fpt.edu.vn", "mnkfjdqlxlkbntqh");
+
+            // Kiểm tra kết quả gửi email
+            if (code != null) {
+                JOptionPane.showMessageDialog(this, "Gửi email xác nhận thành công.");
+                new NhapMaBaoMat(email).setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gửi email xác nhận thất bại. Vui lòng thử lại sau.");
+                return;
+            }
+    }//GEN-LAST:event_btnKhoiPhucActionPerformed
+    }
+    /**
+         * @param args the command line arguments
+         */
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new QuenMatKhau().setVisible(true);
+                QuenMatKhau quenMatKhau = new QuenMatKhau();
+                quenMatKhau.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnKhoiPhuc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -227,12 +234,12 @@ public class QuenMatKhau extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField txttaikhoan;
+    private javax.swing.JLabel lblDangNhap;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }
