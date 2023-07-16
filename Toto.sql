@@ -20,7 +20,7 @@ GhiChu NVARCHAR(1000),
 Anh VARBINARY(MAX),
 ChucVu NVARCHAR(100) NOT NULL
 );
-
+-- duy 123
 -- duy an cut
 GO
 
