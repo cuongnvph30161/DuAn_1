@@ -170,3 +170,65 @@ go
 --nạp dữ liệu chi tiết hóa đơn
 INSERT INTO ChiTietHoaDon(MaHoaDon,MaChiTietSanPham,SoLuong,Gia)
 VALUES(1000,1000,4,44.5)
+
+--1 .NhanVien
+-- SELECT MaNhanVien,HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu FROM NhanVien
+--INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu) 
+--VALUES(?,?,?,?,?,?,?,?,?,?)
+--DELETE FROM NhanVien WHERE 
+--UPDATE NhanVien SET ? WHERE ?
+
+--2.TaiKhoan
+--SELECT MaTaiKhoan,MaNhanVien,MatKhau,VaiTro,TrangThai FROM TaiKhoan
+--INSERT INTO TaiKhoan(MaNhanVien,MatKhau,VaiTro,TrangThai) 
+--VALUES(?,?,?,?)
+--DELETE FROM TaiKhoan WHERE
+--UPDATE TaiKhoan SET =? WHERE =?
+
+--3.SanPham
+--SELECT MaSanPham,TenSanPham,TrangThai,MoTa,Anh FROM SanPham
+--INSERT INTO SanPham(TenSanPham,TrangThai,MoTa,Anh)
+--VALUES(?,?,?,?)
+--DELETE FROM SanPham WHERE =?
+--UPDATE SanPham SET =? WHERE =?
+
+--4.MaGiamGia
+--SELECT MaVoucher,PhanTramGiam,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai FROM MaGiamGia 
+--INSERT INTO MaGiamGia(PhanTramGiam,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai)
+--VALUES(?,?,?,?,?)
+--DELETE FROM MaGiamGia WHERE =?
+--UPDATE MaGiamGia SET? WHERE?
+
+--5.Ban
+--SELECT MaBan,TenBan,Tang,TrangThai FROM Ban
+--INSERT INTO BAN(TenBan,Tang,TrangThai) VALUES(?,?,?)
+--DELETE FROM BAN WHERE=?
+--UPDATE BAN SET =? WHERE =?
+
+--6.HoaDon
+--SELECT MaHoaDon,MaNhanVien,ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher FROM HoaDon
+--INSERT INTO HoaDon(ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher)
+--VALUES(?,?,?,?)
+--DELETE FROM HoaDon WHERE=ThoiGian=?
+--UPDATE HoaDon SET ThoiGian=? WHERE MaHoaDon=?
+
+--7.Ban_HoaDon
+--SELECT MaHoaDon,MaBan FROM Ban_HoaDon
+--INSERT INTO Ban_HoaDon(MaHoaDon,MaBan) 
+--VALUES(?,?)
+--DELETE FROM Ban_HoaDon WHERE MaHoaDon=?
+--UPDATE Ban_HoaDon SET MaBan WHERE MaHoaDon=?
+
+--8.ChiTietSanPham
+--SELECT MaChiTietSanPham,MaSanPham,Size,Gia FROM ChiTietSanPham
+--INSERT INTO ChiTietSanPham(MaSanPham,Size,Gia) 
+--VALUES(?,?,?) 
+--DELETE FROM ChiTietSanPham WHERE MaChiTietSanPham=?
+--UPDATE ChiTietSanPham SET MaChiTietSanPham=? WHERE MaChiTietSanPham=?
+
+--9.ChiTietHoaDon
+--SELECT MaHoaDon,MaChiTietSanPham,SoLuong,Gia FROM ChiTietHoaDon
+--INSERT INTO ChiTietHoaDon(MaHoaDon,MaChiTietSanPham,SoLuong,Gia)
+--VALUES(?,?,?,?)
+--DELETE FROM ChiTietHoaDon WHERE MaHoaDon=?
+--UPDATE ChiTietHoaDon SET MaChiTietSanPham=? WHERE MaHoaDon=?
