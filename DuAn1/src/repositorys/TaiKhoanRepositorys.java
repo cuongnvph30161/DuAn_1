@@ -77,16 +77,37 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
     }
 
     @Override
-    public String updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien) {
+    public boolean updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien) {
         try {
             String query = "update TaiKhoan set MatKhau =? where MaNhanVien =?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, newPassWord);
             ps.setInt(2, maNhanVien);
             ps.executeUpdate();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return null;
+
+    }
+
+    @Override
+    public String checkTaiKhoan(String maTaiKhoan) {
+
+        try {
+            String query = "select MaTaiKhoan from TaiKhoan where maTaiKhoan =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, maTaiKhoan);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("MaTaiKhoan");
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

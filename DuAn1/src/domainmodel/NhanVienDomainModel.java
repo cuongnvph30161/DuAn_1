@@ -21,13 +21,13 @@ public class NhanVienDomainModel {
     private String email;
     private String soDienThoai;
     private String ghiChu;
-    private byte[] anh;
+    private Blob anh;
     private String chucVu;
 
     public NhanVienDomainModel() {
     }
 
-    public NhanVienDomainModel(int maNhanVien, String hoVaTen, Date ngaySinh, String diaChi, String CCCD, int trangThai, String email, String soDienThoai, String ghiChu, byte[] anh, String chucVu) {
+    public NhanVienDomainModel(int maNhanVien, String hoVaTen, Date ngaySinh, String diaChi, String CCCD, int trangThai, String email, String soDienThoai, String ghiChu, Blob anh, String chucVu) {
         this.maNhanVien = maNhanVien;
         this.hoVaTen = hoVaTen;
         this.ngaySinh = ngaySinh;
@@ -113,11 +113,11 @@ public class NhanVienDomainModel {
         this.ghiChu = ghiChu;
     }
 
-    public byte[] getAnh() {
+    public Blob getAnh() {
         return anh;
     }
 
-    public void setAnh(byte[] anh) {
+    public void setAnh(Blob anh) {
         this.anh = anh;
     }
 

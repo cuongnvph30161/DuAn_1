@@ -17,7 +17,10 @@ import viewmodel.TaiKhoanViewModel;
 public interface ITaiKhoanServicess {
 
     public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau);
+
     public ArrayList<TaiKhoanViewModel> getAll();
+
     public String updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien);
-    
+
+    public String checkTaiKhoan(String maTaiKhoan);
 }

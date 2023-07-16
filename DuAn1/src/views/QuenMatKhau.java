@@ -143,6 +143,11 @@ public class QuenMatKhau extends javax.swing.JFrame {
         lblDangNhap.setBackground(new java.awt.Color(255, 255, 255));
         lblDangNhap.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblDangNhap.setText("<Quay lại đăng nhập");
+        lblDangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDangNhapMouseClicked(evt);
+            }
+        });
         jPanel1.add(lblDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 330, 340));
@@ -190,18 +195,25 @@ public class QuenMatKhau extends javax.swing.JFrame {
     }
 
     private void btnKhoiPhucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhoiPhucActionPerformed
-        String email = txtEmail.getText();
-        // Kiểm tra trường email có rỗng không
-        if (email.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập địa chỉ email.");
-        } else if (!EmailValidator.isValidEmail(email)) { // Kiểm tra tính hợp lệ của địa chỉ email
-            JOptionPane.showMessageDialog(this, "Địa chỉ email không hợp lệ.");
+        String maTaiKhoan = txtTaiKhoan.getText();
+        String taiKhoanFromDatabase = iTaiKhoanServicess.checkTaiKhoan(maTaiKhoan);
+        if (taiKhoanFromDatabase != null && taiKhoanFromDatabase.equals(maTaiKhoan)) {
         } else {
-            // Gửi email xác nhận đến địa chỉ email người dùng
+            JOptionPane.showMessageDialog(this, "Nhập sai tên tài khoản");
+            return;
+        }
 
+        String email = txtEmail.getText();
+        String emailFromDatabase = iNhanVienService.checkEmail(email);
+        System.out.println("check email: " + emailFromDatabase);
+        if (email.isEmpty() || !EmailValidator.isValidEmail(email)) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập một địa chỉ email hợp lệ.");
+            return;
+        }
+
+        if (emailFromDatabase != null && emailFromDatabase.equals(email)) {
             String code = EmailSender.sendEmail(email, "nguyendhph23086@fpt.edu.vn", "mnkfjdqlxlkbntqh");
 
-            // Kiểm tra kết quả gửi email
             if (code != null) {
                 JOptionPane.showMessageDialog(this, "Gửi email xác nhận thành công.");
                 new NhapMaBaoMat(email).setVisible(true);
@@ -210,11 +222,20 @@ public class QuenMatKhau extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Gửi email xác nhận thất bại. Vui lòng thử lại sau.");
                 return;
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Nhập sai email bạn đã đăng kí");
+            return;
+        }
     }//GEN-LAST:event_btnKhoiPhucActionPerformed
-    }
+
+    private void lblDangNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangNhapMouseClicked
+        new DangNhap().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lblDangNhapMouseClicked
+
     /**
-         * @param args the command line arguments
-         */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override

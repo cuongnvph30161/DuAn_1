@@ -43,7 +43,17 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
 
     @Override
     public String updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien) {
-        return iTaiKhoanRepository.updateMatKhauByMaNhanVien(newPassWord, maNhanVien);
+        if (iTaiKhoanRepository.updateMatKhauByMaNhanVien(newPassWord, maNhanVien)) {
+            return "Đổi mật khẩu thành công";
+        } else {
+            return "Đổi mật khẩu thất bại";
+        }
+
+    }
+
+    @Override
+    public String checkTaiKhoan(String maTaiKhoan) {
+        return iTaiKhoanRepository.checkTaiKhoan(maTaiKhoan);
     }
 
 }

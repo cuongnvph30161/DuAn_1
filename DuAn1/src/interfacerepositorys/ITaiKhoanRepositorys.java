@@ -17,5 +17,7 @@ public interface ITaiKhoanRepositorys {
 
     public ArrayList<TaiKhoanDomail> getListTaiKhoan();
 
-    public String updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien);
+    public boolean updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien);
+
+    public String checkTaiKhoan(String maTaiKhoan);
 }

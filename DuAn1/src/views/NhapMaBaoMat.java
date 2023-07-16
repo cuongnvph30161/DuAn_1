@@ -64,6 +64,11 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
                 btnHuyMouseClicked(evt);
             }
         });
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
 
         btnTiepTuc.setBackground(new java.awt.Color(0, 65, 123));
         btnTiepTuc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -159,7 +164,12 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnTiepTucActionPerformed
 
-       public static void main(String args[]) {
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        new DangNhap().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnHuyActionPerformed
+
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {

@@ -18,5 +18,10 @@ public INhanVienRepository iNhanVienRepository = new NhanVienRepository();
     public int getMaNhanVienByEmail(String email) {
         return iNhanVienRepository.getMaNhanVienByEmail(email);
     }
+
+    @Override
+    public String checkEmail(String email) {
+        return iNhanVienRepository.checkEmail(email);
+    }
     
 }

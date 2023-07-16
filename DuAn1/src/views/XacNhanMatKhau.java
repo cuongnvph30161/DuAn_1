@@ -6,6 +6,7 @@ package views;
 
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
+import javax.swing.JOptionPane;
 import services.NhanVienService;
 import services.TaiKhoanServicess;
 import utilities.XImages;
@@ -119,7 +120,7 @@ public class XacNhanMatKhau extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        new NhapMaBaoMat(email).setVisible(true);
+        new DangNhap().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
 
@@ -166,13 +167,30 @@ public class XacNhanMatKhau extends javax.swing.JFrame {
     private void btnTiepTucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTiepTucActionPerformed
         String matKhauMoi = txtNhapMatKhauMoi.getText();
         String nhapLaiMatKhauMoi = txtNhapLaiMatKhauMoi.getText();
+        if (matKhauMoi.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu mới");
+            return;
+        }
+        if (nhapLaiMatKhauMoi.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập lại mật khẩu mới");
+            return;
+        }
+        if (!matKhauMoi.equals(nhapLaiMatKhauMoi)) {
+            JOptionPane.showMessageDialog(this, "2 mật khẩu phải trùng nhau");
+            return;
+        }
+
         int maNhanVien = iNhanVienService.getMaNhanVienByEmail(email);
         System.out.println("email XacNhanMatKhau" + " " + email);
         System.out.println("maNV" + " " + maNhanVien);
         String updateSuccess = iTaiKhoanServicess.updateMatKhauByMaNhanVien(matKhauMoi, maNhanVien);
+        System.out.println("tai khoan update" + " " + updateSuccess);
+        JOptionPane.showMessageDialog(this, updateSuccess);
+        new DangNhap().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnTiepTucActionPerformed
 
-       public static void main(String args[]) {
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {

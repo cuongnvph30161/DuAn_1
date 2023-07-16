@@ -10,4 +10,5 @@ package interfacerepositorys;
  */
 public interface INhanVienRepository {
     public int getMaNhanVienByEmail(String email);
+    public String checkEmail(String email);
 }

@@ -15,8 +15,9 @@ import utilities.DBConnect;
  *
  * @author Admin
  */
-public class NhanVienRepository implements INhanVienRepository{
-   private static Connection connection = null;
+public class NhanVienRepository implements INhanVienRepository {
+
+    private static Connection connection = null;
 
     static {
         try {
@@ -26,6 +27,7 @@ public class NhanVienRepository implements INhanVienRepository{
         }
 
     }
+
     @Override
     public int getMaNhanVienByEmail(String email) {
         int maNhanVien = 0;
@@ -41,5 +43,23 @@ public class NhanVienRepository implements INhanVienRepository{
             e.printStackTrace();
         }
         return maNhanVien;
+    }
+
+    @Override
+    public String checkEmail(String email) {
+        try {
+            String query = "select Email from NhanVien  where email = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Email");
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

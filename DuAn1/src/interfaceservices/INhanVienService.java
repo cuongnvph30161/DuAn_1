@@ -9,5 +9,8 @@ package interfaceservices;
  * @author Admin
  */
 public interface INhanVienService {
+
     public int getMaNhanVienByEmail(String email);
+
+    public String checkEmail(String email); 
 }
