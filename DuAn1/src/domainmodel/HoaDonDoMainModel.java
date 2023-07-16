@@ -18,17 +18,19 @@ public class HoaDonDoMainModel {
     private int trangThaiThanhToan;
     private int trangThaiOrder;
     private int maVoucher;
+    private String ghiChu;
 
     public HoaDonDoMainModel() {
     }
 
-    public HoaDonDoMainModel(int maHoaDon, int maNhanVien, Timestamp thoiGian, int trangThaiThanhToan, int trangThaiOrder, int maVoucher) {
+    public HoaDonDoMainModel(int maHoaDon, int maNhanVien, Timestamp thoiGian, int trangThaiThanhToan, int trangThaiOrder, int maVoucher, String ghiChu) {
         this.maHoaDon = maHoaDon;
         this.maNhanVien = maNhanVien;
         this.thoiGian = thoiGian;
         this.trangThaiThanhToan = trangThaiThanhToan;
         this.trangThaiOrder = trangThaiOrder;
         this.maVoucher = maVoucher;
+        this.ghiChu = ghiChu;
     }
 
     public int getMaHoaDon() {
@@ -77,6 +79,14 @@ public class HoaDonDoMainModel {
 
     public void setMaVoucher(int maVoucher) {
         this.maVoucher = maVoucher;
+    }
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
     }
 
 }
