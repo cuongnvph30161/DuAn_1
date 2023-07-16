@@ -27,16 +27,16 @@ public class HoaDonRepository implements IHoaDonRepository {
             List<HoaDonDoMainModel> lst = new ArrayList<>();
             con = DBConnect.getConnect();
             String lenh = "SELECT MaHoaDon,MaNhanVien,ThoiGian,"
-                    + "TrangThaiThanhToan,TrangThaiOrder,MaVoucher FROM HoaDon";
+                    + "TrangThaiThanhToan,TrangThaiOrder,MaVoucher,GhiChu FROM HoaDon";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
-//            while (rs.next()) {
-//                lst.add(new HoaDonDoMainModel(rs.getInt(1),
-//                        rs.getInt(2), rs.getTimestamp(3),
-//                        rs.getInt(4), rs.getInt(5),
-//                        rs.getInt(6)));
-//
-//            }
+            while (rs.next()) {
+                lst.add(new HoaDonDoMainModel(rs.getInt(1),
+                        rs.getInt(1), rs.getTimestamp(3),
+                        rs.getInt(4), rs.getInt(5),
+                        rs.getInt(6), rs.getString(7)));
+
+            }
             return lst;
         } catch (Exception e) {
         }
