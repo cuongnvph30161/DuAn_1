@@ -52,7 +52,7 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         btnDangNhap = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
+        lblQuenMatKhau = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txtMatKhau = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
@@ -129,9 +129,14 @@ public class DangNhap extends javax.swing.JFrame {
         });
         jPanel1.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 270, 30));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setText("Quên mật khẩu?");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
+        lblQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblQuenMatKhau.setText("Quên mật khẩu?");
+        lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuenMatKhauMouseClicked(evt);
+            }
+        });
+        jPanel1.add(lblQuenMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
 
         jLabel14.setText("_________________________________________________________");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 280, -1));
@@ -208,6 +213,11 @@ public class DangNhap extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
+    private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
+        new QuenMatKhau().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lblQuenMatKhauMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -253,10 +263,10 @@ public class DangNhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblQuenMatKhau;
     private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables

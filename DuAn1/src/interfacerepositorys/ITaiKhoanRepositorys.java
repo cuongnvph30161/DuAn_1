@@ -12,6 +12,10 @@ import java.util.ArrayList;
  * @author Admin
  */
 public interface ITaiKhoanRepositorys {
-   public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau);
-   public ArrayList<TaiKhoanDomail> getListTaiKhoan();
+
+    public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau);
+
+    public ArrayList<TaiKhoanDomail> getListTaiKhoan();
+
+    public String updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien);
 }
