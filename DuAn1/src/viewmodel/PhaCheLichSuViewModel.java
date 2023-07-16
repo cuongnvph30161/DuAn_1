@@ -109,6 +109,11 @@ public class PhaCheLichSuViewModel {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
+
+    @Override
+    public String toString() {
+        return "PhaCheLichSuViewModel{" + "maHoaDon=" + maHoaDon + ", tenBan=" + tenBan + ", tang=" + tang + ", thoiGian=" + thoiGian + ", ghiChu=" + ghiChu + ", maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", size=" + size + ", soLuong=" + soLuong + '}';
+    }
     
     
     

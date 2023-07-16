@@ -89,4 +89,9 @@ public class HoaDonDoMainModel {
         this.ghiChu = ghiChu;
     }
 
+    @Override
+    public String toString() {
+        return "HoaDonDoMainModel{" + "maHoaDon=" + maHoaDon + ", maNhanVien=" + maNhanVien + ", thoiGian=" + thoiGian + ", trangThaiThanhToan=" + trangThaiThanhToan + ", trangThaiOrder=" + trangThaiOrder + ", maVoucher=" + maVoucher + ", ghiChu=" + ghiChu + '}';
+    }
+
 }
