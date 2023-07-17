@@ -19,15 +19,6 @@ import viewmodel.PhaCheLichSuViewModel;
 
 public class TraSua_PC extends javax.swing.JFrame {
 
-    private String maTaiKhoan;
-
-    public void setMaTaiKhoan(String maTaiKhoan) {
-        this.maTaiKhoan = maTaiKhoan;
-
-    }
-
-    public TraSua_PC() {
-
     DefaultTableModel modelLichSuHoaDon = new DefaultTableModel();
     DefaultTableModel modelLichSuDanhSachSp = new DefaultTableModel();
     IPhaCheLichSuServices LichSuServices = new PhaCheLichSuServices();
@@ -36,7 +27,15 @@ public class TraSua_PC extends javax.swing.JFrame {
     List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP = LichSuServices.getDSSP();
     List<PhaCheLichSuViewModel> lst = new ArrayList<>();
 
-    public TraSua_PC() {
+    private String maTaiKhoan;
+
+    public void setMaTaiKhoan(String maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
+
+    }
+
+    public TraSua_PC(String maTaiKhoan) {
+
         initComponents();
         jPanel1.setSize(1050, 2570);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
