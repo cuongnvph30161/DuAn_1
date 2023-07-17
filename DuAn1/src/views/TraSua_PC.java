@@ -26,7 +26,7 @@ public class TraSua_PC extends javax.swing.JFrame {
 
     }
 
-    public TraSua_PC(String maTaiKhoan) {
+    public TraSua_PC() {
 
     DefaultTableModel modelLichSuHoaDon = new DefaultTableModel();
     DefaultTableModel modelLichSuDanhSachSp = new DefaultTableModel();
@@ -36,63 +36,63 @@ public class TraSua_PC extends javax.swing.JFrame {
     List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP = LichSuServices.getDSSP();
     List<PhaCheLichSuViewModel> lst = new ArrayList<>();
 
-//    public TraSua_PC() {
-//        initComponents();
-//        jPanel1.setSize(1050, 2570);
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        init();
-//        modelLichSuHoaDon = (DefaultTableModel) tbllichsudonhang.getModel();
-//        modelLichSuDanhSachSp = (DefaultTableModel) tbllichsudanhsachsphoadon.getModel();
-//        fillTableLichSuHoaDon();
-//        showGhiChu(0);
-//        fillTableDSSP(1000);
-//    }
+    public TraSua_PC() {
+        initComponents();
+        jPanel1.setSize(1050, 2570);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        init();
+        modelLichSuHoaDon = (DefaultTableModel) tbllichsudonhang.getModel();
+        modelLichSuDanhSachSp = (DefaultTableModel) tbllichsudanhsachsphoadon.getModel();
+        fillTableLichSuHoaDon();
+        showGhiChu(0);
+        fillTableDSSP(1000);
+    }
 
-//    public void init() {
-//        setIconImage(XImages.getIconApp());
-//    }
+    public void init() {
+        setIconImage(XImages.getIconApp());
+    }
 
-//    public void fillTableLichSuHoaDon() {
-//        lst = LichSuServices.getList(mapBan, mapHoaDon, lstSP);
-//        modelLichSuHoaDon.setRowCount(0);
-//        lbllichsumahoadon.setText("Hóa đơn " + lst.get(0).getMaHoaDon());
-//        for (PhaCheLichSuViewModel a : lst) {
-//            modelLichSuHoaDon.addRow(new Object[]{a.getMaHoaDon(), a.getTenBan(),
-//                a.getTang(), a.getThoiGian(), a.getGhiChu()});
-//        }
-//
-//    }
+    public void fillTableLichSuHoaDon() {
+        lst = LichSuServices.getList(mapBan, mapHoaDon, lstSP);
+        modelLichSuHoaDon.setRowCount(0);
+        lbllichsumahoadon.setText("Hóa đơn " + lst.get(0).getMaHoaDon());
+        for (PhaCheLichSuViewModel a : lst) {
+            modelLichSuHoaDon.addRow(new Object[]{a.getMaHoaDon(), a.getTenBan(),
+                a.getTang(), a.getThoiGian(), a.getGhiChu()});
+        }
 
-//    public void fillTableDSSP(int maHoaDon) {
-//        try {
-//
-//            modelLichSuDanhSachSp.setRowCount(0);
-//            List<PhaCheLichSuDanhSachSanPhamViewmodel> lstFill = new ArrayList<>();
-//
-//            for (PhaCheLichSuViewModel a : lst) {
-//                if (a.getMaHoaDon() == maHoaDon) {
-//                    lstFill = a.getDanhSachSP();
-//                }
-//            }
-//            if (lstFill.size() >= 0) {
-//
-//                for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstFill) {
-//                    int stt = 1;
-//                    modelLichSuDanhSachSp.addRow(new Object[]{
-//                        stt, a.getMaSanPham(), a.getTenSanPham(), a.getSize(), a.getSoLuong()
-//                    });
-//                    stt++;
-//                }
-//            } else {
-//                modelLichSuDanhSachSp.addRow(new Object[]{
-//                    "null", "null", "null", "null", "null"
-//                });
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, "danh sách sản phẩm hóa đơn trống");
-//            return;
-//        }
-//
+    }
+
+    public void fillTableDSSP(int maHoaDon) {
+        try {
+
+            modelLichSuDanhSachSp.setRowCount(0);
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> lstFill = new ArrayList<>();
+
+            for (PhaCheLichSuViewModel a : lst) {
+                if (a.getMaHoaDon() == maHoaDon) {
+                    lstFill = a.getDanhSachSP();
+                }
+            }
+            if (lstFill.size() >= 0) {
+
+                for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstFill) {
+                    int stt = 1;
+                    modelLichSuDanhSachSp.addRow(new Object[]{
+                        stt, a.getMaSanPham(), a.getTenSanPham(), a.getSize(), a.getSoLuong()
+                    });
+                    stt++;
+                }
+            } else {
+                modelLichSuDanhSachSp.addRow(new Object[]{
+                    "null", "null", "null", "null", "null"
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "danh sách sản phẩm hóa đơn trống");
+            return;
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -1403,8 +1403,6 @@ public class TraSua_PC extends javax.swing.JFrame {
         jpnSanPham.setVisible(false);
         jpnHoaDon.setVisible(false);
         jpnLichSu.setVisible(false);
-
-
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
     private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked
@@ -1497,17 +1495,17 @@ public class TraSua_PC extends javax.swing.JFrame {
     }//GEN-LAST:event_lblbanhangMouseEntered
 
     private void tbllichsudonhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbllichsudonhangMouseClicked
-//        // TODO add your handling code here:
-//        int index = tbllichsudonhang.getSelectedRow();
-//        showGhiChu(index);
-//        int maHoaDon = lst.get(index).getMaHoaDon();
-//        fillTableDSSP(maHoaDon);
-//        lbllichsumahoadon.setText("Hóa đơn " + maHoaDon);
+        // TODO add your handling code here:
+        int index = tbllichsudonhang.getSelectedRow();
+        showGhiChu(index);
+        int maHoaDon = lst.get(index).getMaHoaDon();
+        fillTableDSSP(maHoaDon);
+        lbllichsumahoadon.setText("Hóa đơn " + maHoaDon);
     }//GEN-LAST:event_tbllichsudonhangMouseClicked
 
     public void showGhiChu(int index) {
 
-//        txtlichsuGhiChu.setText(lst.get(index).getGhiChu());
+        txtlichsuGhiChu.setText(lst.get(index).getGhiChu());
     }
 
     public static void main(String args[]) {
