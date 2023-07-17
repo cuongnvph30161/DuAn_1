@@ -1259,15 +1259,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             new String [] {
                 "Mã hóa đơn", "Tên bàn", "Tầng", "Thời gian", "Ghi chú"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tbllichsudonhang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbllichsudonhangMouseClicked(evt);
