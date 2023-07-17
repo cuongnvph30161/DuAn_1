@@ -243,7 +243,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                 lblHoaDonMouseClicked(evt);
             }
         });
-        jpnMenu.add(lblHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 220, -1));
+        jpnMenu.add(lblHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 220, -1));
 
         lblLichSuDonHang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblLichSuDonHang.setForeground(new java.awt.Color(255, 255, 255));
@@ -308,7 +308,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                 lblSanPhamMouseEntered(evt);
             }
         });
-        jpnMenu.add(lblSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 220, -1));
+        jpnMenu.add(lblSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 220, -1));
 
         lblbanhang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblbanhang.setForeground(new java.awt.Color(255, 255, 255));

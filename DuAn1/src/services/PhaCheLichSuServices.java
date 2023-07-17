@@ -53,18 +53,20 @@ public class PhaCheLichSuServices implements IPhaCheLichSuServices {
         for (BanHoaDonDomainModel a : listBanHoaDon) {
             ban = (BanDomainModel) mapBan.get(a.getMaBan() + "");
             hoaDon = (HoaDonDoMainModel) mapHoaDon.get(a.getMaHoaDon() + "");
-            for (PhaCheLichSuDanhSachSanPhamViewmodel b : DSSP) {
-                if (b.getMaHoaDon() == a.getMaHoaDon()) {
-                    listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
-                            ban.getTenBan(), ban.getTang(),
-                            hoaDon.getThoiGian(), hoaDon.getGhiChu(),
-                            DSSP));
+            if (hoaDon.getTrangThaiThanhToan() == 1) {
+                for (PhaCheLichSuDanhSachSanPhamViewmodel b : DSSP) {
+                    if (b.getMaHoaDon() == a.getMaHoaDon()) {
+                        listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
+                                ban.getTenBan(), ban.getTang(),
+                                hoaDon.getThoiGian(), hoaDon.getGhiChu(),
+                                DSSP));
 
-                } else {
-                    listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
-                            ban.getTenBan(), ban.getTang(),
-                            hoaDon.getThoiGian(), hoaDon.getGhiChu(),
-                            null));
+                    } else {
+                        listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
+                                ban.getTenBan(), ban.getTang(),
+                                hoaDon.getThoiGian(), hoaDon.getGhiChu(),
+                                null));
+                    }
                 }
             }
 
