@@ -27,6 +27,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP = LichSuServices.getDSSP();
     List<PhaCheLichSuViewModel> lst = new ArrayList<>();
 
+
     private String maTaiKhoan;
 
     public void setMaTaiKhoan(String maTaiKhoan) {
@@ -1262,15 +1263,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             new String [] {
                 "Mã hóa đơn", "Tên bàn", "Tầng", "Thời gian", "Ghi chú"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tbllichsudonhang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbllichsudonhangMouseClicked(evt);
@@ -1503,8 +1496,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     }//GEN-LAST:event_tbllichsudonhangMouseClicked
 
     public void showGhiChu(int index) {
-
-        txtlichsuGhiChu.setText(lst.get(index).getGhiChu());
+       txtlichsuGhiChu.setText(lst.get(index).getGhiChu());
     }
 
     public static void main(String args[]) {
