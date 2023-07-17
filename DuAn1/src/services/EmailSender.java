@@ -13,6 +13,8 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 import jakarta.mail.internet.InternetAddress;
+//import java.net.Authenticator;
+//import java.net.PasswordAuthentication;
 
 /**
  *
