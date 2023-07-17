@@ -6,6 +6,7 @@ package interfaceservices;
 
 import java.util.List;
 import java.util.Map;
+import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
 import viewmodel.PhaCheLichSuViewModel;
 
 /**
@@ -13,6 +14,9 @@ import viewmodel.PhaCheLichSuViewModel;
  * @author ADMIN
  */
 public interface IPhaCheLichSuServices {
-    List<PhaCheLichSuViewModel> getList(Map<String, String> maBan);
-    Map<String, Object> getMaBan();
+    List<PhaCheLichSuViewModel> getList(Map<String, Object> Ban,
+            Map<String, Object> hoaDon,List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP);
+    Map<String, Object> getBan();
+    Map<String, Object> getHoaDon();
+    List<PhaCheLichSuDanhSachSanPhamViewmodel> getDSSP();
 }

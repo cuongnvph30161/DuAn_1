@@ -5,6 +5,8 @@
 package viewmodel;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,25 +19,19 @@ public class PhaCheLichSuViewModel {
     private int tang;
     private Timestamp thoiGian;
     private String ghiChu;
-    
-    private int maSanPham;
-    private String tenSanPham;
-    private String size;
-    private int  soLuong;
+
+    List<PhaCheLichSuDanhSachSanPhamViewmodel> danhSachSP;
 
     public PhaCheLichSuViewModel() {
     }
 
-    public PhaCheLichSuViewModel(int maHoaDon, String tenBan, int tang, Timestamp thoiGian, String ghiChu, int maSanPham, String tenSanPham, String size, int soLuong) {
+    public PhaCheLichSuViewModel(int maHoaDon, String tenBan, int tang, Timestamp thoiGian, String ghiChu, List<PhaCheLichSuDanhSachSanPhamViewmodel> danhSachSP) {
         this.maHoaDon = maHoaDon;
         this.tenBan = tenBan;
         this.tang = tang;
         this.thoiGian = thoiGian;
         this.ghiChu = ghiChu;
-        this.maSanPham = maSanPham;
-        this.tenSanPham = tenSanPham;
-        this.size = size;
-        this.soLuong = soLuong;
+        this.danhSachSP = danhSachSP;
     }
 
     public int getMaHoaDon() {
@@ -78,44 +74,12 @@ public class PhaCheLichSuViewModel {
         this.ghiChu = ghiChu;
     }
 
-    public int getMaSanPham() {
-        return maSanPham;
+    public List<PhaCheLichSuDanhSachSanPhamViewmodel> getDanhSachSP() {
+        return danhSachSP;
     }
 
-    public void setMaSanPham(int maSanPham) {
-        this.maSanPham = maSanPham;
+    public void setDanhSachSP(List<PhaCheLichSuDanhSachSanPhamViewmodel> danhSachSP) {
+        this.danhSachSP = danhSachSP;
     }
-
-    public String getTenSanPham() {
-        return tenSanPham;
-    }
-
-    public void setTenSanPham(String tenSanPham) {
-        this.tenSanPham = tenSanPham;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    @Override
-    public String toString() {
-        return "PhaCheLichSuViewModel{" + "maHoaDon=" + maHoaDon + ", tenBan=" + tenBan + ", tang=" + tang + ", thoiGian=" + thoiGian + ", ghiChu=" + ghiChu + ", maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", size=" + size + ", soLuong=" + soLuong + '}';
-    }
-    
-    
-    
 
 }

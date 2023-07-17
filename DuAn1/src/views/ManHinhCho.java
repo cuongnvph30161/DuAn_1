@@ -66,13 +66,13 @@ public class ManHinhCho extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hệ thống quản lý quán trà sữa ToTo");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(prgloading, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 770, 20));
+        getContentPane().add(prgloading, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 770, 10));
 
         lblphantram.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblphantram.setForeground(new java.awt.Color(0, 0, 0));
         lblphantram.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblphantram.setText("jLabel1");
-        getContentPane().add(lblphantram, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 410, 80, -1));
+        getContentPane().add(lblphantram, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, 80, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/anhnenchao.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

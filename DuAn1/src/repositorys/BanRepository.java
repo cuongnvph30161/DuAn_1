@@ -35,5 +35,5 @@ public class BanRepository implements IBanRepository {
         } catch (Exception e) {
         }
         return null;
-    } 
+    }
 }
