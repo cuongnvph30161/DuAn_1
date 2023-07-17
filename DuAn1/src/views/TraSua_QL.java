@@ -10,7 +10,15 @@ import utilities.XImages;
 
 public class TraSua_QL extends javax.swing.JFrame {
 
-    public TraSua_QL() {
+    private String maTaiKhoan;
+
+    public void setMaTaiKhoan(String maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
+
+    }
+
+    public TraSua_QL(String maTaiKhoan) {
+
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         init();
@@ -2705,7 +2713,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNhanVien.setVisible(false);
         jpnQLBan.setVisible(false);
         jpnBackupHeThong.setVisible(false);
-        new DoiMatKhau().setVisible(true);
+        new DoiMatKhau(maTaiKhoan).setVisible(true);
 
     }//GEN-LAST:event_lblDoiMatKhauMouseClicked
 
@@ -2735,7 +2743,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNhanVien.setVisible(false);
         jpnQLBan.setVisible(false);
         jpnBackupHeThong.setVisible(true);
-        new DoiMatKhau().setVisible(false);
+        new DoiMatKhau(maTaiKhoan).setVisible(false);
     }//GEN-LAST:event_lblBackupHeThongMouseClicked
 
     private void lblquanlyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblquanlyMouseClicked
@@ -2774,7 +2782,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNhanVien.setVisible(false);
         jpnQLBan.setVisible(false);
         jpnBackupHeThong.setVisible(false);
-        new DoiMatKhau().setVisible(false);
+        new DoiMatKhau(maTaiKhoan).setVisible(false);
     }//GEN-LAST:event_lblVoucherMouseClicked
 
     private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHoaDonMouseClicked
@@ -2803,7 +2811,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNhanVien.setVisible(false);
         jpnQLBan.setVisible(false);
         jpnBackupHeThong.setVisible(false);
-        new DoiMatKhau().setVisible(false);
+        new DoiMatKhau(maTaiKhoan).setVisible(false);
     }//GEN-LAST:event_lblHoaDonMouseClicked
 
     private void lblQuanLyBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLyBanMouseClicked
@@ -2832,7 +2840,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNhanVien.setVisible(false);
         jpnQLBan.setVisible(true);
         jpnBackupHeThong.setVisible(false);
-        new DoiMatKhau().setVisible(false);
+        new DoiMatKhau(maTaiKhoan).setVisible(false);
     }//GEN-LAST:event_lblQuanLyBanMouseClicked
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
@@ -2861,7 +2869,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNhanVien.setVisible(false);
         jpnQLBan.setVisible(false);
         jpnBackupHeThong.setVisible(false);
-        new DoiMatKhau().setVisible(false);
+        new DoiMatKhau(maTaiKhoan).setVisible(false);
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhanVienMouseClicked
@@ -2890,7 +2898,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNhanVien.setVisible(true);
         jpnQLBan.setVisible(false);
         jpnBackupHeThong.setVisible(false);
-        new DoiMatKhau().setVisible(false);
+        new DoiMatKhau(maTaiKhoan).setVisible(false);
     }//GEN-LAST:event_lblNhanVienMouseClicked
 
     private void btnKhieuNaiHoTroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseEntered
@@ -2942,7 +2950,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNhanVien.setVisible(false);
         jpnQLBan.setVisible(false);
         jpnBackupHeThong.setVisible(false);
-        new DoiMatKhau().setVisible(false);
+        new DoiMatKhau(maTaiKhoan).setVisible(false);
     }//GEN-LAST:event_lblTaiKhoanMouseClicked
 
     private void lblTaiKhoan2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTaiKhoan2MouseClicked
@@ -2954,7 +2962,12 @@ public class TraSua_QL extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new TraSua_QL().setVisible(true);
+                String maTaiKhoan = ""; // Lấy mã tài khoản từ giao diện đăng nhập
+//                System.out.println("mTK" + " " + maTaiKhoan);
+
+                TraSua_QL traSua_QL = new TraSua_QL(maTaiKhoan);
+                traSua_QL.setMaTaiKhoan(maTaiKhoan);
+                traSua_QL.setVisible(true);
             }
         });
     }

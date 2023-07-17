@@ -9,10 +9,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import utilities.XImages;
+import viewmodel.TaiKhoanViewModel;
 
 public class TraSua_NV extends javax.swing.JFrame {
 
-    public TraSua_NV() {
+    private String maTaiKhoan;
+
+    public void setMaTaiKhoan(String maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
+
+    }
+
+    public TraSua_NV(String maTaiKhoan) {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         btnThem.setVisible(false);
@@ -1967,6 +1975,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
     private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked
+
         lblDoiMatKhau.setOpaque(true);
         lblDoiMatKhau.setBackground(Color.gray);
 
@@ -1977,7 +1986,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         lblHoaDon.setBackground(Color.red);
         lblHoaDon.setOpaque(false);
 
-        new DoiMatKhau().setVisible(true);
+        new DoiMatKhau(maTaiKhoan).setVisible(true);
     }//GEN-LAST:event_lblDoiMatKhauMouseClicked
 
     private void lblThietLapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThietLapMouseClicked
@@ -2109,7 +2118,10 @@ public class TraSua_NV extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new TraSua_NV().setVisible(true);
+                String maTaiKhoan = ""; // Lấy mã tài khoản từ giao diện đăng nhập
+                TraSua_NV traSua_NV = new TraSua_NV(maTaiKhoan);
+                traSua_NV.setMaTaiKhoan(maTaiKhoan);
+                traSua_NV.setVisible(true);
             }
         });
     }

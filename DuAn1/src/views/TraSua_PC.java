@@ -10,7 +10,14 @@ import utilities.XImages;
 
 public class TraSua_PC extends javax.swing.JFrame {
 
-    public TraSua_PC() {
+    private String maTaiKhoan;
+
+    public void setMaTaiKhoan(String maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
+
+    }
+
+    public TraSua_PC(String maTaiKhoan) {
 
         initComponents();
         jPanel1.setSize(1050, 2570);
@@ -1341,7 +1348,7 @@ public class TraSua_PC extends javax.swing.JFrame {
         lblLichSuDonHang.setOpaque(false);
         lblLichSuDonHang.setBackground(Color.yellow);
 
-        new DoiMatKhau().setVisible(true);
+        new DoiMatKhau(maTaiKhoan).setVisible(true);
     }//GEN-LAST:event_lblDoiMatKhauMouseClicked
 
     private void lblthietlapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblthietlapMouseClicked
@@ -1377,10 +1384,10 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHoaDonMouseClicked
         lblHoaDon.setOpaque(true);
         lblHoaDon.setBackground(Color.gray);
-        
+
         lblSanPham.setOpaque(false);
         lblSanPham.setBackground(Color.red);
-        
+
         lblLichSuDonHang.setOpaque(false);
         lblLichSuDonHang.setBackground(Color.red);
         lblDoiMatKhau.setOpaque(false);
@@ -1424,7 +1431,12 @@ public class TraSua_PC extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new TraSua_PC().setVisible(true);
+                String maTaiKhoan = ""; // Lấy mã tài khoản từ giao diện đăng nhập
+                TraSua_PC traSua_PC = new TraSua_PC(maTaiKhoan);
+                System.out.println("mTK giao dien PC" + " " + maTaiKhoan);
+
+                traSua_PC.setMaTaiKhoan(maTaiKhoan);
+                traSua_PC.setVisible(true);
             }
         });
     }

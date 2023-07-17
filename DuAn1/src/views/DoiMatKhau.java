@@ -4,12 +4,32 @@
  */
 package views;
 
+import domainmodel.TaiKhoanDomail;
+import interfaceservices.ITaiKhoanServicess;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import utilities.XImages;
+import viewmodel.TaiKhoanViewModel;
+import interfaceservices.ITaiKhoanServicess;
+import services.TaiKhoanServicess;
 
 public class DoiMatKhau extends javax.swing.JFrame {
 
-    public DoiMatKhau() {
+    private String maTaiKhoan;
+
+    public void setMaTaiKhoan(String maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
+    }
+
+    public String getMaTaiKhoan() {
+        return maTaiKhoan;
+    }
+    public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
+
+    public DoiMatKhau(String maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
+
         initComponents();
         setLocationRelativeTo(null);
         lblMatMo1.setVisible(false);
@@ -71,6 +91,11 @@ public class DoiMatKhau extends javax.swing.JFrame {
         btnDoiMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDoiMatKhauMouseClicked(evt);
+            }
+        });
+        btnDoiMatKhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoiMatKhauActionPerformed(evt);
             }
         });
         getContentPane().add(btnDoiMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 301, 253, 40));
@@ -170,7 +195,7 @@ public class DoiMatKhau extends javax.swing.JFrame {
             lblMatDong2.setVisible(true);
             lblMatMo2.setVisible(false);
         } else {
-
+//
         }
     }//GEN-LAST:event_lblMatMo2MouseClicked
 
@@ -203,13 +228,58 @@ public class DoiMatKhau extends javax.swing.JFrame {
             txtNhapLaiMatKhauMoi.setEchoChar((char) '\u2022');
         }
     }//GEN-LAST:event_lblMatDong3MouseClicked
+    public TaiKhoanDomail getData() {
+        TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
+        String matKhauHienTai = txtMatKhauHienTai.getText();
+        String matKhauMoi = txtMatKhauMoi.getText();
+        String nhapLaiMatKhauMoi = txtNhapLaiMatKhauMoi.getText();
+        String checkMatKhau= iTaiKhoanServicess.checkMatKhau(maTaiKhoan);
+        boolean hasError = false; // Biến kiểm tra lỗi
+
+        // Kiểm tra trường rỗng
+        if (matKhauHienTai.trim().isEmpty() || matKhauMoi.trim().isEmpty() || nhapLaiMatKhauMoi.trim().isEmpty()) {
+            hasError = true;
+            JOptionPane.showMessageDialog(this, "Không được bỏ trống");
+            return null;
+        }
+
+        // Kiểm tra mật khẩu hiện tại
+        if (!matKhauHienTai.equals(checkMatKhau)) {
+            hasError = true;
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng mật khẩu hiện tại");
+            return null;
+        }
+
+        // Kiểm tra mật khẩu mới và nhập lại mật khẩu mới
+        if (!matKhauMoi.equals(nhapLaiMatKhauMoi)) {
+            hasError = true;
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu mới khớp nhau");
+            return null;
+        }
+        taiKhoanDomail.setMatKhau(matKhauMoi);
+        return taiKhoanDomail;
+    }
+    private void btnDoiMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiMatKhauActionPerformed
+        TaiKhoanDomail taiKhoanDomail = getData();
+        if (taiKhoanDomail == null) {
+            return;
+        }
+        JOptionPane.showMessageDialog(this, iTaiKhoanServicess.doiMatKhau(taiKhoanDomail.getMatKhau(), maTaiKhoan));
+        System.out.println("mTK doi mat khau giao dien" + " " + maTaiKhoan);
+        System.out.println("matkhau doi mat khau moi giao dien" + " " + taiKhoanDomail.getMatKhau());
+        this.dispose();
+
+    }//GEN-LAST:event_btnDoiMatKhauActionPerformed
 
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new DoiMatKhau().setVisible(true);
+                String maTaiKhoan = ""; // Lấy mã tài khoản từ giao diện đăng nhập
+                DoiMatKhau doiMatKhau = new DoiMatKhau(maTaiKhoan);
+                doiMatKhau.setMaTaiKhoan(maTaiKhoan);
+                doiMatKhau.setVisible(true);
             }
         });
     }

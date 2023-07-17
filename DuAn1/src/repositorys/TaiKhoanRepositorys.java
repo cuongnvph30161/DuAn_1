@@ -19,18 +19,18 @@ import utilities.DBConnect;
  * @author Admin
  */
 public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
-
+    
     private static Connection connection = null;
-
+    
     static {
         try {
             connection = DBConnect.getConnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
     }
-
+    
     @Override
     public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau) {
         try {
@@ -48,11 +48,11 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             }
         } catch (Exception e) {
             e.printStackTrace();
-
+            
         }
         return null;
     }
-
+    
     @Override
     public ArrayList<TaiKhoanDomail> getListTaiKhoan() {
         ArrayList<TaiKhoanDomail> getList = new ArrayList<>();
@@ -66,7 +66,12 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
                 String matKhau = rs.getString("MatKhau");
                 Role role = Role.valueOf(rs.getString("role"));
                 int trangThai = rs.getInt("TrangThai");
-                TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail(maTaiKhoan, maNhanVien, matKhau, role, trangThai);
+                TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
+                taiKhoanDomail.setMaTaiKhoan(maTaiKhoan);
+                taiKhoanDomail.setMaNhanVien(maNhanVien);
+                taiKhoanDomail.setMatKhau(matKhau);
+                taiKhoanDomail.setRole(role);
+                taiKhoanDomail.setTrangThai(trangThai);
                 getList.add(taiKhoanDomail);
             }
             return getList;
@@ -75,7 +80,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             return null;
         }
     }
-
+    
     @Override
     public boolean updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien) {
         try {
@@ -89,12 +94,12 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             e.printStackTrace();
             return false;
         }
-
+        
     }
-
+    
     @Override
     public String checkTaiKhoan(String maTaiKhoan) {
-
+        
         try {
             String query = "select MaTaiKhoan from TaiKhoan where maTaiKhoan =?";
             PreparedStatement ps = connection.prepareStatement(query);
@@ -102,6 +107,41 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getString("MaTaiKhoan");
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    @Override
+    public boolean doiMatKhau( String matKhau, String maTaiKhoan) {
+        try {
+            System.out.println("matkhau repository"+" "+matKhau);
+            System.out.println("mataikhoan repository"+" "+maTaiKhoan);
+            String query = "update TaiKhoan set MatKhau = ? where MaTaiKhoan = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, matKhau);
+            ps.setString(2, maTaiKhoan);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    @Override
+    public String checkMatKhau(String maTaiKhoan) {
+        try {
+            String query = "select MatKhau from TaiKhoan where MaTaiKhoan =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, maTaiKhoan);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("MatKhau");
             } else {
                 return null;
             }

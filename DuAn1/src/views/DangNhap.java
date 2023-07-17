@@ -22,10 +22,15 @@ public class DangNhap extends javax.swing.JFrame {
      * Creates new form DangNhap
      */
     public DangNhap() {
+
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
         init();
+//        String maTaiKhoan = txtTaiKhoan.getText();
+//        TaiKhoanDomail taiKhoan = new TaiKhoanDomail();
+//        taiKhoan.setDoiMatKhau(new DoiMatKhau(maTaiKhoan));
+
     }
 
     public void init() {
@@ -191,15 +196,21 @@ public class DangNhap extends javax.swing.JFrame {
             if (taiKhoan.getMaTaiKhoan().equals(maTaiKhoan) && taiKhoan.getMatKhau().equals(matKhau)) {
                 switch (taiKhoan.getRole()) {
                     case QuanLy:
-                        new TraSua_QL().setVisible(true);
+                        TraSua_QL traSuaQL = new TraSua_QL(maTaiKhoan);
+                        traSuaQL.setMaTaiKhoan(maTaiKhoan);
+                        traSuaQL.setVisible(true);
                         this.dispose();
                         break;
                     case PhaChe:
-                        new TraSua_PC().setVisible(true);
+                        TraSua_PC traSua_PC = new TraSua_PC(maTaiKhoan);
+                        traSua_PC.setMaTaiKhoan(maTaiKhoan);
+                        traSua_PC.setVisible(true);
                         this.dispose();
                         break;
                     case NhanVien:
-                        new TraSua_NV().setVisible(true);
+                        TraSua_NV traSua_NV = new TraSua_NV(maTaiKhoan);
+                        traSua_NV.setMaTaiKhoan(maTaiKhoan);
+                        traSua_NV.setVisible(true);
                         this.dispose();
                         break;
                     default:

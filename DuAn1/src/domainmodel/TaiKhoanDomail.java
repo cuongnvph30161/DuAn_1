@@ -5,6 +5,7 @@
 package domainmodel;
 
 import java.util.Date;
+import views.DoiMatKhau;
 
 /**
  *
@@ -17,16 +18,18 @@ public class TaiKhoanDomail {
     private String matKhau;
     private Role role;
     private int trangThai;
+    private DoiMatKhau doiMatKhau;
 
-    public TaiKhoanDomail(String maTaiKhoan, int maNhanVien, String matKhau, Role role, int trangThai) {
+    public TaiKhoanDomail() {
+    }
+
+    public TaiKhoanDomail(String maTaiKhoan, int maNhanVien, String matKhau, Role role, int trangThai, DoiMatKhau doiMatKhau) {
         this.maTaiKhoan = maTaiKhoan;
         this.maNhanVien = maNhanVien;
         this.matKhau = matKhau;
         this.role = role;
         this.trangThai = trangThai;
-    }
-
-    public TaiKhoanDomail() {
+        this.doiMatKhau = doiMatKhau;
     }
 
     public String getMaTaiKhoan() {
@@ -69,9 +72,18 @@ public class TaiKhoanDomail {
         this.trangThai = trangThai;
     }
 
-    @Override
-    public String toString() {
-        return "TaiKhoan{" + "maTaiKhoan=" + maTaiKhoan + ", maNhanVien=" + maNhanVien + ", matKhau=" + matKhau + ", role=" + role + ", trangThai=" + trangThai + '}';
+    public DoiMatKhau getDoiMatKhau() {
+        return doiMatKhau;
     }
 
+    public void setDoiMatKhau(DoiMatKhau doiMatKhau) {
+        this.doiMatKhau = doiMatKhau;
+    }
+
+    @Override
+    public String toString() {
+        return "TaiKhoanDomail{" + "maTaiKhoan=" + maTaiKhoan + ", maNhanVien=" + maNhanVien + ", matKhau=" + matKhau + ", role=" + role + ", trangThai=" + trangThai + ", doiMatKhau=" + doiMatKhau + '}';
+    }
+
+   
 }

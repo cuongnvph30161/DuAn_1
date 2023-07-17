@@ -23,4 +23,7 @@ public interface ITaiKhoanServicess {
     public String updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien);
 
     public String checkTaiKhoan(String maTaiKhoan);
+
+    public String doiMatKhau(String matKhau, String maTaiKhoan);
+    public String checkMatKhau(String maTaiKhoan);
 }

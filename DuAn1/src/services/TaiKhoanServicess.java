@@ -10,6 +10,7 @@ import repositorys.TaiKhoanRepositorys;
 import interfacerepositorys.ITaiKhoanRepositorys;
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
+import javax.swing.JOptionPane;
 import viewmodel.TaiKhoanViewModel;
 
 /**
@@ -54,6 +55,21 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
     @Override
     public String checkTaiKhoan(String maTaiKhoan) {
         return iTaiKhoanRepository.checkTaiKhoan(maTaiKhoan);
+    }
+
+    @Override
+    public String doiMatKhau(String matKhau, String maTaiKhoan) {
+        if (iTaiKhoanRepository.doiMatKhau(matKhau, maTaiKhoan)) {
+            System.out.println("test mat khau" + " " + iTaiKhoanRepository.doiMatKhau(matKhau, maTaiKhoan));
+            return "Đổi mật khẩu thành công";
+        } else {
+            return "Đổi mật khẩu thất bại";
+        }
+    }
+
+    @Override
+    public String checkMatKhau(String maTaiKhoan) {
+        return iTaiKhoanRepository.checkMatKhau(maTaiKhoan);
     }
 
 }

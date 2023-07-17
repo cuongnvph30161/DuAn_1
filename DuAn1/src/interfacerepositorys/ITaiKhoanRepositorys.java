@@ -20,4 +20,7 @@ public interface ITaiKhoanRepositorys {
     public boolean updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien);
 
     public String checkTaiKhoan(String maTaiKhoan);
+
+    public boolean doiMatKhau(String matKhau, String maTaiKhoan);
+    public String checkMatKhau(String maTaiKhoan);
 }
