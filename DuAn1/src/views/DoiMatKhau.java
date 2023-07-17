@@ -233,9 +233,28 @@ public class DoiMatKhau extends javax.swing.JFrame {
         String matKhauHienTai = txtMatKhauHienTai.getText();
         String matKhauMoi = txtMatKhauMoi.getText();
         String nhapLaiMatKhauMoi = txtNhapLaiMatKhauMoi.getText();
-        String checkMatKhau= iTaiKhoanServicess.checkMatKhau(maTaiKhoan);
+        String checkMatKhau = iTaiKhoanServicess.checkMatKhau(maTaiKhoan);
         boolean hasError = false; // Biến kiểm tra lỗi
+// Kiểm tra mật khẩu hiện tại
+        if (matKhauHienTai.contains(" ")) {
+            hasError = true;
+            JOptionPane.showMessageDialog(this, "Mật khẩu hiện tại không được chứa dấu cách");
+            return null;
+        }
 
+// Kiểm tra mật khẩu mới
+        if (matKhauMoi.contains(" ")) {
+            hasError = true;
+            JOptionPane.showMessageDialog(this, "Mật khẩu mới không được chứa dấu cách");
+            return null;
+        }
+
+        // Kiểm tra nhập lại mật khẩu 
+        if (nhapLaiMatKhauMoi.contains(" ")) {
+            hasError = true;
+            JOptionPane.showMessageDialog(this, "Nhập lại mật khẩu không được chứa dấu cách");
+            return null;
+        }
         // Kiểm tra trường rỗng
         if (matKhauHienTai.trim().isEmpty() || matKhauMoi.trim().isEmpty() || nhapLaiMatKhauMoi.trim().isEmpty()) {
             hasError = true;
@@ -265,8 +284,6 @@ public class DoiMatKhau extends javax.swing.JFrame {
             return;
         }
         JOptionPane.showMessageDialog(this, iTaiKhoanServicess.doiMatKhau(taiKhoanDomail.getMatKhau(), maTaiKhoan));
-        System.out.println("mTK doi mat khau giao dien" + " " + maTaiKhoan);
-        System.out.println("matkhau doi mat khau moi giao dien" + " " + taiKhoanDomail.getMatKhau());
         this.dispose();
 
     }//GEN-LAST:event_btnDoiMatKhauActionPerformed

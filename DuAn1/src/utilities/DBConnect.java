@@ -29,7 +29,7 @@ public class DBConnect {
         }
         try {
 
-            connect = DriverManager.getConnection(url, "SA", "18101999");
+            connect = DriverManager.getConnection(url, "sa", "sa");
 
             return connect;
         } catch (Exception e) {
