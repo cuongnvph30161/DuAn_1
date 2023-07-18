@@ -4,6 +4,8 @@
  */
 package interfaceservices;
 
+import domainmodel.ChiTietHoaDonDomainModel;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import viewmodel.NhanVienHoaDonViewModel;
@@ -16,11 +18,14 @@ import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
 public interface INhanVienHoaDonServices {
 
     List<NhanVienHoaDonViewModel> getList(List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP,
-            Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan);
+            Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan
+    ,List<ChiTietHoaDonDomainModel> listCTHD
+    );
 
     List<PhaCheLichSuDanhSachSanPhamViewmodel> getDSSP();
 
     Map<Integer, String> mapTenNV();
 
     Map<Integer, String> mapTenBan();
+    List<ChiTietHoaDonDomainModel> getlistCTHD();
 }

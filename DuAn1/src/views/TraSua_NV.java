@@ -4,15 +4,31 @@
  */
 package views;
 
+import domainmodel.ChiTietHoaDonDomainModel;
+import interfaceservices.INhanVienHoaDonServices;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import services.NhanVienHoaDonServices;
 import utilities.XImages;
+import viewmodel.NhanVienHoaDonViewModel;
+import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
 import viewmodel.TaiKhoanViewModel;
 
 public class TraSua_NV extends javax.swing.JFrame {
 
+    INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
+    List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
+    Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
+    Map<Integer, String> mapTenBan = NVHoaDonSv.mapTenBan();
+    List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
+    DefaultTableModel modelNVhoaDon = new DefaultTableModel();
+    List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD);
     private String maTaiKhoan;
 
     public void setMaTaiKhoan(String maTaiKhoan) {
@@ -23,16 +39,30 @@ public class TraSua_NV extends javax.swing.JFrame {
     public TraSua_NV(String maTaiKhoan) {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        modelNVhoaDon = (DefaultTableModel) tblNhanVienHoaDon.getModel();
         btnThem.setVisible(false);
         btnthem2.setVisible(false);
         init();
-
         jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
+        fillTableNVHD();
     }
 
     public void init() {
         setIconImage(XImages.getIconApp());
+    }
+
+    public void fillTableNVHD() {
+        modelNVhoaDon.setRowCount(0);
+        String trangThai = "";
+        for (NhanVienHoaDonViewModel a : listNhanVienHDView) {
+            trangThai = a.getTrangThai() == 1 ? "đã thanh toán" : "chưa thanh toán";
+            modelNVhoaDon.addRow(new Object[]{
+                a.getMaHoaDon(), a.getMaNguoiTao(), a.getThoiGian(), a.getTongThanhToan(), trangThai,
+                a.getGhiChu()
+            });
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -227,7 +257,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         lblTimKiem = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblNhanVienHoaDon = new javax.swing.JTable();
         jpnTrangThai = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -1867,7 +1897,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 70, -1, 30));
         jpnHoaDon1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 890, 30));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblNhanVienHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
@@ -1884,7 +1914,7 @@ public class TraSua_NV extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTable2);
+        jScrollPane5.setViewportView(tblNhanVienHoaDon);
 
         jpnHoaDon1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 890, 530));
 
@@ -2294,7 +2324,6 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
@@ -2331,5 +2360,6 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JLabel lblThietLap;
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTraSua;
+    private javax.swing.JTable tblNhanVienHoaDon;
     // End of variables declaration//GEN-END:variables
 }

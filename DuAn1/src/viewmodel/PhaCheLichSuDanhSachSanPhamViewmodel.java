@@ -4,6 +4,8 @@
  */
 package viewmodel;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author ADMIN
@@ -15,6 +17,8 @@ public class PhaCheLichSuDanhSachSanPhamViewmodel {
     private String tenSanPham;
     private String size;
     private int soLuong;
+    private BigDecimal giaBigDecimal;
+    
 
     public PhaCheLichSuDanhSachSanPhamViewmodel() {
     }
@@ -25,6 +29,15 @@ public class PhaCheLichSuDanhSachSanPhamViewmodel {
         this.tenSanPham = tenSanPham;
         this.size = size;
         this.soLuong = soLuong;
+    }
+
+    public PhaCheLichSuDanhSachSanPhamViewmodel(int maHoaDon, int maSanPham, String tenSanPham, String size, int soLuong, BigDecimal giaBigDecimal) {
+        this.maHoaDon = maHoaDon;
+        this.maSanPham = maSanPham;
+        this.tenSanPham = tenSanPham;
+        this.size = size;
+        this.soLuong = soLuong;
+        this.giaBigDecimal = giaBigDecimal;
     }
 
     public int getMaHoaDon() {
@@ -67,4 +80,13 @@ public class PhaCheLichSuDanhSachSanPhamViewmodel {
         this.soLuong = soLuong;
     }
 
+    public BigDecimal getGiaBigDecimal() {
+        return giaBigDecimal;
+    }
+
+    public void setGiaBigDecimal(BigDecimal giaBigDecimal) {
+        this.giaBigDecimal = giaBigDecimal;
+    }
+
+   
 }
