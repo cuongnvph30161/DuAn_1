@@ -1959,14 +1959,22 @@ public class TraSua_NV extends javax.swing.JFrame {
         jpnThoiGian1.add(jdcDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 180, 25));
 
         jpnHoaDon1.add(jpnThoiGian1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 270, 140));
+
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/2.png"))); // NOI18N
         jpnHoaDon1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 740, -1, 25));
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/4.png"))); // NOI18N
         jpnHoaDon1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 740, -1, 25));
 
         jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("Trạng 1/1");
+        jLabel25.setText("Bản ghi 1/1");
         jpnHoaDon1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 740, 120, 25));
+
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/3.png"))); // NOI18N
         jpnHoaDon1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 740, -1, 25));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/1.png"))); // NOI18N
         jpnHoaDon1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 740, -1, 25));
 
         jpnTong.add(jpnHoaDon1, "card5");

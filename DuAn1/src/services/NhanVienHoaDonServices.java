@@ -150,4 +150,9 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
         List<ChiTietHoaDonDomainModel> lst = chiTietHDRepository.getList();
         return lst;
     }
+
+    @Override
+    public List<NhanVienHoaDonViewModel> timHD() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
