@@ -4,7 +4,7 @@
  */
 package repository.iRepository;
 
-import interfacerepositorys.*;
+//import interfacerepositorys.*;
 import domainmodel.MaGiamGiaDomainModel;
 import java.util.List;
 
