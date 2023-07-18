@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import services.NhanVienService;
 import services.TaiKhoanServicess;
 import utilities.XImages;
+import viewmodel.NhanVienViewModel;
 import viewmodel.TaiKhoanViewModel;
 
 public class TraSua_QL extends javax.swing.JFrame {
@@ -34,8 +35,19 @@ public class TraSua_QL extends javax.swing.JFrame {
         init();
         lblMaSanPham2.setEnabled(false);
         loadTableTaiKhoan(iTaiKhoanServicess.getAll());
+        loadTableNhanVien(iNhanVienService.getAll());
         loadComBoBoxTrangThaiThemTaiKhoan();
         loadComBoBoxVaiTroTaiKhoan();
+    }
+
+    public void loadTableNhanVien(ArrayList<NhanVienViewModel> list) {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tblNhanVienForm.getModel();
+        defaultTableModel.setRowCount(0);
+        for (NhanVienViewModel nhanVienViewModel : list) {
+            defaultTableModel.addRow(new Object[]{
+                nhanVienViewModel.getMaNhanVien(), nhanVienViewModel.getHoVaTen(), nhanVienViewModel.getCCCD(), nhanVienViewModel.getSoDienThoai(), nhanVienViewModel.getEmail(), nhanVienViewModel.getChucVu()
+            });
+        }
     }
 
     public void init() {
@@ -51,6 +63,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             });
         }
     }
+//
 
     public void loadComBoBoxTrangThaiThemTaiKhoan() {
         ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
@@ -64,6 +77,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
         }
     }
+//
 
     public void loadComBoBoxVaiTroTaiKhoan() {
         ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
@@ -77,6 +91,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
         }
     }
+// 
+//    public void loadComBoBoxMaNhanVien
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -154,7 +170,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblMaSanPham29 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        tblNhanVienForm = new javax.swing.JTable();
         jLabel86 = new javax.swing.JLabel();
         jComboBox13 = new javax.swing.JComboBox<>();
         jpnSanPham = new javax.swing.JPanel();
@@ -858,12 +874,9 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("Thêm mới nhân viên", jPanel12);
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tblNhanVienForm.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã nhân viên", "Họ và tên", "CCCD", "SDT", "Email", "Chức vụ"
@@ -877,7 +890,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane10.setViewportView(jTable6);
+        jScrollPane10.setViewportView(tblNhanVienForm);
 
         jLabel86.setText("Trạng thái");
 
@@ -902,7 +915,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                         .addGroup(jpnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField12)
                             .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE))))
-                .addContainerGap(675, Short.MAX_VALUE))
+                .addContainerGap(676, Short.MAX_VALUE))
         );
         jpnNhanVienLayout.setVerticalGroup(
             jpnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2318,6 +2331,12 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtMaTaiKhoanThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
+        cbbMaNhanVienThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbMaNhanVienThemActionPerformed(evt);
+            }
+        });
+
         txtMatKhauThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         jButton12.setBackground(new java.awt.Color(45, 132, 252));
@@ -2994,6 +3013,10 @@ public class TraSua_QL extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblTaiKhoan2MouseClicked
 
+    private void cbbMaNhanVienThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbMaNhanVienThemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbMaNhanVienThemActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -3221,7 +3244,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
@@ -3307,6 +3329,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel lblTraSua;
     private javax.swing.JLabel lblVoucher;
     private javax.swing.JLabel lblquanly;
+    private javax.swing.JTable tblNhanVienForm;
     private javax.swing.JTable tblTaiKhoanForm;
     private javax.swing.JTextField txtMaTaiKhoanThem;
     private javax.swing.JTextField txtMatKhauThem;
