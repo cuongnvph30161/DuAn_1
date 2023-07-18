@@ -4,6 +4,7 @@
  */
 package views;
 
+import domainmodel.Role;
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
 import java.awt.Color;
@@ -16,8 +17,9 @@ import utilities.XImages;
 import viewmodel.TaiKhoanViewModel;
 
 public class TraSua_QL extends javax.swing.JFrame {
-public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
-public INhanVienService iNhanVienService = new NhanVienService();
+
+    public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
+    public INhanVienService iNhanVienService = new NhanVienService();
     private String maTaiKhoan;
 
     public void setMaTaiKhoan(String maTaiKhoan) {
@@ -32,22 +34,50 @@ public INhanVienService iNhanVienService = new NhanVienService();
         init();
         lblMaSanPham2.setEnabled(false);
         loadTableTaiKhoan(iTaiKhoanServicess.getAll());
+        loadComBoBoxTrangThaiThemTaiKhoan();
+        loadComBoBoxVaiTroTaiKhoan();
     }
 
     public void init() {
         setIconImage(XImages.getIconApp());
     }
-public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
-    DefaultTableModel defaultTableModel = (DefaultTableModel) tblTaiKhoanForm.getModel();
-    defaultTableModel.setRowCount(0);
-    for(TaiKhoanViewModel taiKhoanViewModel: list){
-       defaultTableModel.addRow(new Object[]{
-       taiKhoanViewModel.getMaTaiKhoan(), taiKhoanViewModel.getMaNhanVien(),taiKhoanViewModel.getMatKhau(),taiKhoanViewModel.getRole(),taiKhoanViewModel.getTrangThai()==0?"Khoá":"Không Khoá"
-       });
-    }
-}
 
-public 
+    public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list) {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tblTaiKhoanForm.getModel();
+        defaultTableModel.setRowCount(0);
+        for (TaiKhoanViewModel taiKhoanViewModel : list) {
+            defaultTableModel.addRow(new Object[]{
+                taiKhoanViewModel.getMaTaiKhoan(), taiKhoanViewModel.getMaNhanVien(), taiKhoanViewModel.getMatKhau(), taiKhoanViewModel.getRole(), taiKhoanViewModel.getTrangThai() == 0 ? "Khoá" : "Không Khoá"
+            });
+        }
+    }
+
+    public void loadComBoBoxTrangThaiThemTaiKhoan() {
+        ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
+        ArrayList<String> existingTrangThai = new ArrayList<>();
+
+        for (TaiKhoanViewModel taiKhoanViewModel : list) {
+            String trangThaiString = taiKhoanViewModel.getTrangThai() == 0 ? "Khoá" : "Không khoá";
+            if (!existingTrangThai.contains(trangThaiString)) {
+                existingTrangThai.add(trangThaiString);
+                cbbTrangThaiTaiKhoanThem.addItem(trangThaiString);
+            }
+        }
+    }
+
+    public void loadComBoBoxVaiTroTaiKhoan() {
+        ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
+        ArrayList<Role> existingVaiTro = new ArrayList<>();
+
+        for (TaiKhoanViewModel taiKhoanViewModel : list) {
+            Role vaiTro = taiKhoanViewModel.getRole();
+            if (!existingVaiTro.contains(vaiTro)) {
+                cbbTrangThaiVaiTroThem.addItem(vaiTro.toString());
+                existingVaiTro.add(vaiTro);
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
