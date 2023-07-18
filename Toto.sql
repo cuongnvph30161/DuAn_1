@@ -1,6 +1,7 @@
 ﻿USE master
 GO
-DROP DATABASE ToTo
+
+DROP DATABASE if exists ToTo
 GO
 CREATE DATABASE ToTo
 GO
@@ -113,6 +114,10 @@ FOREIGN KEY (MaHoaDon) REFERENCES HoaDon(MaHoaDon),
 FOREIGN KEY (MaChiTietSanPham) REFERENCES ChiTietSanPham(MaChiTietSanPham)
 );
 
+go
+-- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
+alter table HoaDon
+ADD DichVuPhatSinh money Default 0
 
 go
 -- nạp dữ liệu bảng nhân viên
@@ -170,6 +175,13 @@ go
 --nạp dữ liệu chi tiết hóa đơn
 INSERT INTO ChiTietHoaDon(MaHoaDon,MaChiTietSanPham,SoLuong,Gia)
 VALUES(1000,1000,4,44.5)
+
+go
+-- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
+alter table HoaDon
+ADD DichVuPhatSinh money Default 0
+go
+
 
 --1 .NhanVien
 -- SELECT MaNhanVien,HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu FROM NhanVien
