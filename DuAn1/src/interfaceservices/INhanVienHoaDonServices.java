@@ -5,6 +5,7 @@
 package interfaceservices;
 
 import java.util.List;
+import java.util.Map;
 import viewmodel.NhanVienHoaDonViewModel;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
 
@@ -13,6 +14,15 @@ import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
  * @author ADMIN
  */
 public interface INhanVienHoaDonServices {
-    List<NhanVienHoaDonViewModel> getList( List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP);
+
+    List<NhanVienHoaDonViewModel> getList(List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP,
+            Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan, Map<Integer, Object> mapChiTietHD);
+
     List<PhaCheLichSuDanhSachSanPhamViewmodel> getDSSP();
+
+    Map<Integer, String> mapTenNV();
+
+    Map<Integer, String> mapTenBan();
+
+    Map<Integer, Object> mapChiTietHD();
 }
