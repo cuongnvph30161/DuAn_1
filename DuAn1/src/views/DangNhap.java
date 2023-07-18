@@ -27,9 +27,7 @@ public class DangNhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.setResizable(false);
         init();
-//        String maTaiKhoan = txtTaiKhoan.getText();
-//        TaiKhoanDomail taiKhoan = new TaiKhoanDomail();
-//        taiKhoan.setDoiMatKhau(new DoiMatKhau(maTaiKhoan));
+
 
     }
 

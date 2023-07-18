@@ -816,9 +816,9 @@
                                       <Component id="jLabel93" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
                                       <Component id="jLabel95" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel96" min="-2" pref="117" max="-2" attributes="0"/>
+                                          <Component id="lblAnhNhanVien" min="-2" pref="117" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="jButton16" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnAnhNhanVien" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
@@ -832,15 +832,15 @@
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="lblMaSanPham26" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="lblMaSanPham24" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="lblMaSanPham29" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="lblMaSanPham28" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="lblMaSanPham23" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="lblMaSanPham27" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="lblMaSanPham25" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jComboBox15" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jComboBox14" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtMaNhanVienThem" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtHoVaTenThem" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtNgaySinhThem" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtDiaChiThem" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtCCCDThem" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtEmailThem" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtSDTThem" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="cbbChucVuNhanVienThem" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="cbbTrangThaiNhanVienThem" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="jScrollPane11" alignment="0" min="-2" pref="256" max="-2" attributes="0"/>
@@ -857,57 +857,57 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                      <Component id="jLabel96" min="-2" pref="128" max="-2" attributes="0"/>
+                                      <Component id="lblAnhNhanVien" min="-2" pref="128" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                      <Component id="jButton16" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnAnhNhanVien" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel92" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMaSanPham26" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtMaNhanVienThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel90" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMaSanPham24" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtHoVaTenThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel94" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMaSanPham29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNgaySinhThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel87" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMaSanPham28" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtDiaChiThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel95" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMaSanPham23" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCCCDThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel93" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMaSanPham27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtEmailThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel89" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMaSanPham25" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtSDTThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel97" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBox15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbbChucVuNhanVienThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel88" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBox14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbbTrangThaiNhanVienThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Component id="jLabel91" min="-2" max="-2" attributes="0"/>
@@ -941,7 +941,7 @@
                         <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="lblMaSanPham23">
+                    <Component class="javax.swing.JTextField" name="txtCCCDThem">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -952,7 +952,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="lblMaSanPham24">
+                    <Component class="javax.swing.JTextField" name="txtHoVaTenThem">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -963,7 +963,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="lblMaSanPham25">
+                    <Component class="javax.swing.JTextField" name="txtSDTThem">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -979,7 +979,7 @@
                         <Property name="text" type="java.lang.String" value="Ghi ch&#xfa;"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="lblMaSanPham26">
+                    <Component class="javax.swing.JTextField" name="txtMaNhanVienThem">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -990,15 +990,10 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox14">
+                    <Component class="javax.swing.JComboBox" name="cbbTrangThaiNhanVienThem">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -1041,7 +1036,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextArea5">
+                        <Component class="javax.swing.JTextArea" name="txtGhiChuThem">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
@@ -1049,7 +1044,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JTextField" name="lblMaSanPham27">
+                    <Component class="javax.swing.JTextField" name="txtEmailThem">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -1065,7 +1060,7 @@
                         <Property name="text" type="java.lang.String" value="CCCD"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="lblMaSanPham28">
+                    <Component class="javax.swing.JTextField" name="txtDiaChiThem">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -1076,7 +1071,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel96">
+                    <Component class="javax.swing.JLabel" name="lblAnhNhanVien">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="H&#xec;nh &#x1ea3;nh"/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1086,7 +1081,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton16">
+                    <Component class="javax.swing.JButton" name="btnAnhNhanVien">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="fc" green="84" red="2d" type="rgb"/>
@@ -1099,16 +1094,14 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n &#x1ea3;nh"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnhNhanVienActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox15">
+                    <Component class="javax.swing.JComboBox" name="cbbChucVuNhanVienThem">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -1120,7 +1113,7 @@
                         <Property name="text" type="java.lang.String" value="Ch&#x1ee9;c v&#x1ee5;"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="lblMaSanPham29">
+                    <Component class="javax.swing.JTextField" name="txtNgaySinhThem">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">

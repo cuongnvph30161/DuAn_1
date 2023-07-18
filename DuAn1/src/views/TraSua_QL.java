@@ -4,12 +4,24 @@
  */
 package views;
 
+import java.sql.Blob; // Thêm dòng này vào đầu tệp Java
 import domainmodel.Role;
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import services.NhanVienService;
 import services.TaiKhoanServicess;
@@ -78,6 +90,43 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
     }
 //
+
+//    public NhanVienViewModel getDataNhanVien() {
+//        NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
+//        String maNhanVien = txtMaNhanVienThem.getText();
+//        String hoVaTen = txtHoVaTenThem.getText();
+//        String ngaySinh = txtNgaySinhThem.getText();
+//        String diaChi = txtDiaChiThem.getText();
+//        String cccd = txtCCCDThem.getText();
+//        String email = txtEmailThem.getText();
+//        String soDienThoai = txtSDTThem.getText();
+//        String ghiChu = txtGhiChuThem.getText();
+//        String trangThai = cbbTrangThaiNhanVienThem.getSelectedItem().toString();
+//        String chucVu = cbbChucVuNhanVienThem.getSelectedItem().toString();
+//        Icon icon = lblAnhNhanVien.getIcon(); // Giả sử JLabel chứa hình ảnh trong biến icon
+//        byte[] imageData = getImageDataFromIcon(icon);
+//
+//       
+//
+//    }
+
+    private byte[] getImageDataFromIcon(Icon icon) {
+        // Chuyển Icon thành BufferedImage để lấy dữ liệu hình ảnh
+        BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+        icon.paintIcon(null, bufferedImage.getGraphics(), 0, 0);
+
+        // Chuyển BufferedImage thành mảng byte (byte[])
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bufferedImage, "png", baos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] imageData = baos.toByteArray();
+        return imageData;
+    }
+
+
 
     public void loadComBoBoxVaiTroTaiKhoan() {
         ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
@@ -148,26 +197,26 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel88 = new javax.swing.JLabel();
         jLabel89 = new javax.swing.JLabel();
         jLabel90 = new javax.swing.JLabel();
-        lblMaSanPham23 = new javax.swing.JTextField();
-        lblMaSanPham24 = new javax.swing.JTextField();
-        lblMaSanPham25 = new javax.swing.JTextField();
+        txtCCCDThem = new javax.swing.JTextField();
+        txtHoVaTenThem = new javax.swing.JTextField();
+        txtSDTThem = new javax.swing.JTextField();
         jLabel91 = new javax.swing.JLabel();
-        lblMaSanPham26 = new javax.swing.JTextField();
-        jComboBox14 = new javax.swing.JComboBox<>();
+        txtMaNhanVienThem = new javax.swing.JTextField();
+        cbbTrangThaiNhanVienThem = new javax.swing.JComboBox<>();
         jLabel92 = new javax.swing.JLabel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
         jButton15 = new javax.swing.JButton();
         jScrollPane11 = new javax.swing.JScrollPane();
-        jTextArea5 = new javax.swing.JTextArea();
-        lblMaSanPham27 = new javax.swing.JTextField();
+        txtGhiChuThem = new javax.swing.JTextArea();
+        txtEmailThem = new javax.swing.JTextField();
         jLabel95 = new javax.swing.JLabel();
-        lblMaSanPham28 = new javax.swing.JTextField();
-        jLabel96 = new javax.swing.JLabel();
-        jButton16 = new javax.swing.JButton();
-        jComboBox15 = new javax.swing.JComboBox<>();
+        txtDiaChiThem = new javax.swing.JTextField();
+        lblAnhNhanVien = new javax.swing.JLabel();
+        btnAnhNhanVien = new javax.swing.JButton();
+        cbbChucVuNhanVienThem = new javax.swing.JComboBox<>();
         jLabel97 = new javax.swing.JLabel();
-        lblMaSanPham29 = new javax.swing.JTextField();
+        txtNgaySinhThem = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
         jScrollPane10 = new javax.swing.JScrollPane();
         tblNhanVienForm = new javax.swing.JTable();
@@ -730,17 +779,15 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jLabel90.setText("Họ và tên");
 
-        lblMaSanPham23.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtCCCDThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        lblMaSanPham24.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtHoVaTenThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        lblMaSanPham25.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtSDTThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         jLabel91.setText("Ghi chú");
 
-        lblMaSanPham26.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-
-        jComboBox14.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtMaNhanVienThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         jLabel92.setText("Mã nhân viên");
 
@@ -753,29 +800,32 @@ public class TraSua_QL extends javax.swing.JFrame {
         jButton15.setForeground(new java.awt.Color(255, 255, 255));
         jButton15.setText("Cập nhật nhân viên");
 
-        jTextArea5.setColumns(20);
-        jTextArea5.setRows(5);
-        jScrollPane11.setViewportView(jTextArea5);
+        txtGhiChuThem.setColumns(20);
+        txtGhiChuThem.setRows(5);
+        jScrollPane11.setViewportView(txtGhiChuThem);
 
-        lblMaSanPham27.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtEmailThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         jLabel95.setText("CCCD");
 
-        lblMaSanPham28.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtDiaChiThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        jLabel96.setText("Hình ảnh");
-        jLabel96.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblAnhNhanVien.setText("Hình ảnh");
+        lblAnhNhanVien.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton16.setBackground(new java.awt.Color(45, 132, 252));
-        jButton16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton16.setForeground(new java.awt.Color(255, 255, 255));
-        jButton16.setText("Chọn ảnh");
-
-        jComboBox15.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnAnhNhanVien.setBackground(new java.awt.Color(45, 132, 252));
+        btnAnhNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAnhNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        btnAnhNhanVien.setText("Chọn ảnh");
+        btnAnhNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnhNhanVienActionPerformed(evt);
+            }
+        });
 
         jLabel97.setText("Chức vụ");
 
-        lblMaSanPham29.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtNgaySinhThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -791,9 +841,9 @@ public class TraSua_QL extends javax.swing.JFrame {
                         .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel12Layout.createSequentialGroup()
-                            .addComponent(jLabel96, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAnhNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(30, 30, 30)
-                            .addComponent(jButton16))
+                            .addComponent(btnAnhNhanVien))
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -805,15 +855,15 @@ public class TraSua_QL extends javax.swing.JFrame {
                                     .addComponent(jLabel92, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMaSanPham26)
-                                    .addComponent(lblMaSanPham24)
-                                    .addComponent(lblMaSanPham29)
-                                    .addComponent(lblMaSanPham28)
-                                    .addComponent(lblMaSanPham23)
-                                    .addComponent(lblMaSanPham27)
-                                    .addComponent(lblMaSanPham25)
-                                    .addComponent(jComboBox15, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox14, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(txtMaNhanVienThem)
+                                    .addComponent(txtHoVaTenThem)
+                                    .addComponent(txtNgaySinhThem)
+                                    .addComponent(txtDiaChiThem)
+                                    .addComponent(txtCCCDThem)
+                                    .addComponent(txtEmailThem)
+                                    .addComponent(txtSDTThem)
+                                    .addComponent(cbbChucVuNhanVienThem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbbTrangThaiNhanVienThem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -823,46 +873,46 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jLabel96, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblAnhNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(jButton16)))
+                        .addComponent(btnAnhNhanVien)))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel92)
-                    .addComponent(lblMaSanPham26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaNhanVienThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel90)
-                    .addComponent(lblMaSanPham24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHoVaTenThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel94)
-                    .addComponent(lblMaSanPham29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNgaySinhThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel87)
-                    .addComponent(lblMaSanPham28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDiaChiThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel95)
-                    .addComponent(lblMaSanPham23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCCCDThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel93)
-                    .addComponent(lblMaSanPham27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmailThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel89)
-                    .addComponent(lblMaSanPham25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSDTThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel97)
-                    .addComponent(jComboBox15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbChucVuNhanVienThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel88)
-                    .addComponent(jComboBox14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbTrangThaiNhanVienThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addComponent(jLabel91)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3017,6 +3067,38 @@ public class TraSua_QL extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbMaNhanVienThemActionPerformed
 
+    private void btnAnhNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnhNhanVienActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String filePath = selectedFile.getAbsolutePath();
+
+            // Tạo ImageIcon từ đường dẫn tệp tin ảnh
+            ImageIcon imageIcon = new ImageIcon(filePath);
+
+            // Lấy kích thước của JLabel
+            int labelWidth = lblAnhNhanVien.getWidth();
+            int labelHeight = lblAnhNhanVien.getHeight();
+
+            // Lấy Image từ ImageIcon
+            Image image = imageIcon.getImage();
+
+            // Thay đổi kích thước của ảnh để khớp với kích thước của JLabel
+            Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+            // Tạo ImageIcon mới từ ảnh đã được thay đổi kích thước
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+            // Thiết lập ImageIcon mới cho JLabel
+            lblAnhNhanVien.setIcon(scaledIcon);
+    }//GEN-LAST:event_btnAnhNhanVienActionPerformed
+    }
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -3033,9 +3115,12 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnhNhanVien;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnKhieuNaiHoTro;
+    private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
     private javax.swing.JComboBox<String> cbbMaNhanVienThem;
+    private javax.swing.JComboBox<String> cbbTrangThaiNhanVienThem;
     private javax.swing.JComboBox<String> cbbTrangThaiTaiKhoanThem;
     private javax.swing.JComboBox<String> cbbTrangThaiVaiTroThem;
     private javax.swing.JButton jButton1;
@@ -3045,7 +3130,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
@@ -3082,8 +3166,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox11;
     private javax.swing.JComboBox<String> jComboBox12;
     private javax.swing.JComboBox<String> jComboBox13;
-    private javax.swing.JComboBox<String> jComboBox14;
-    private javax.swing.JComboBox<String> jComboBox15;
     private javax.swing.JComboBox<String> jComboBox16;
     private javax.swing.JComboBox<String> jComboBox17;
     private javax.swing.JComboBox<String> jComboBox18;
@@ -3198,7 +3280,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
-    private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
@@ -3249,7 +3330,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextArea jTextArea5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
@@ -3276,6 +3356,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JPanel jpnTaiKhoan;
     private javax.swing.JPanel jpnTong;
     private javax.swing.JPanel jpnVoucher;
+    private javax.swing.JLabel lblAnhNhanVien;
     private javax.swing.JLabel lblBackupHeThong;
     private javax.swing.JLabel lblDoiMatKhau;
     private javax.swing.JLabel lblHoaDon;
@@ -3291,13 +3372,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField lblMaSanPham20;
     private javax.swing.JTextField lblMaSanPham21;
     private javax.swing.JTextField lblMaSanPham22;
-    private javax.swing.JTextField lblMaSanPham23;
-    private javax.swing.JTextField lblMaSanPham24;
-    private javax.swing.JTextField lblMaSanPham25;
-    private javax.swing.JTextField lblMaSanPham26;
-    private javax.swing.JTextField lblMaSanPham27;
-    private javax.swing.JTextField lblMaSanPham28;
-    private javax.swing.JTextField lblMaSanPham29;
     private javax.swing.JTextField lblMaSanPham3;
     private javax.swing.JTextField lblMaSanPham30;
     private javax.swing.JTextField lblMaSanPham31;
@@ -3331,7 +3405,15 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel lblquanly;
     private javax.swing.JTable tblNhanVienForm;
     private javax.swing.JTable tblTaiKhoanForm;
+    private javax.swing.JTextField txtCCCDThem;
+    private javax.swing.JTextField txtDiaChiThem;
+    private javax.swing.JTextField txtEmailThem;
+    private javax.swing.JTextArea txtGhiChuThem;
+    private javax.swing.JTextField txtHoVaTenThem;
+    private javax.swing.JTextField txtMaNhanVienThem;
     private javax.swing.JTextField txtMaTaiKhoanThem;
     private javax.swing.JTextField txtMatKhauThem;
+    private javax.swing.JTextField txtNgaySinhThem;
+    private javax.swing.JTextField txtSDTThem;
     // End of variables declaration//GEN-END:variables
 }

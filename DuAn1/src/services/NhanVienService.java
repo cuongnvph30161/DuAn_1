@@ -51,4 +51,26 @@ public class NhanVienService implements INhanVienService {
         return listNhanVienViewModels;
     }
 
+    @Override
+    public String insertNhanVien(NhanVienViewModel nhanVienViewModel) {
+        NhanVienDomainModel nhanVienDomainModel = new NhanVienDomainModel();
+        nhanVienDomainModel.setMaNhanVien(nhanVienViewModel.getMaNhanVien());
+        nhanVienDomainModel.setHoVaTen(nhanVienViewModel.getHoVaTen());
+        nhanVienDomainModel.setNgaySinh(nhanVienViewModel.getNgaySinh());
+        nhanVienDomainModel.setDiaChi(nhanVienViewModel.getDiaChi());
+        nhanVienDomainModel.setCCCD(nhanVienViewModel.getCCCD());
+        nhanVienDomainModel.setTrangThai(nhanVienViewModel.getTrangThai());
+        nhanVienDomainModel.setEmail(nhanVienViewModel.getEmail());
+        nhanVienDomainModel.setSoDienThoai(nhanVienDomainModel.getSoDienThoai());
+        nhanVienDomainModel.setGhiChu(nhanVienViewModel.getGhiChu());
+        nhanVienDomainModel.setAnh(nhanVienViewModel.getAnh());
+        nhanVienDomainModel.setChucVu(nhanVienDomainModel.getChucVu());
+        if (iNhanVienRepository.insertNhanVien(nhanVienDomainModel)) {
+            return "Thêm nhân viên thành công";
+        } else {
+            return "Thêm nhân viên thất bại";
+        }
+
+    }
+
 }

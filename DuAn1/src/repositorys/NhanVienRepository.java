@@ -100,9 +100,10 @@ public class NhanVienRepository implements INhanVienRepository {
     }
 
     @Override
-    public boolean insert(NhanVienDomainModel object) {
-        // TODO Auto-generated method stub
+    public boolean insert(NhanVienDomainModel nhanVienDomainModel) {
+        //
         return false;
+
     }
 
     @Override
@@ -149,6 +150,30 @@ public class NhanVienRepository implements INhanVienRepository {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public boolean insertNhanVien(NhanVienDomainModel nhanVienDomainModel) {
+        try {
+            String query = "insert into NhanVien values(?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, nhanVienDomainModel.getMaNhanVien());
+            ps.setString(2, nhanVienDomainModel.getHoVaTen());
+            ps.setDate(3, nhanVienDomainModel.getNgaySinh());
+            ps.setString(4, nhanVienDomainModel.getDiaChi());
+            ps.setString(5, nhanVienDomainModel.getCCCD());
+            ps.setInt(6, nhanVienDomainModel.getTrangThai());
+            ps.setString(7, nhanVienDomainModel.getEmail());
+            ps.setString(8, nhanVienDomainModel.getSoDienThoai());
+            ps.setString(9, nhanVienDomainModel.getGhiChu());
+            ps.setBlob(10, nhanVienDomainModel.getAnh());
+            ps.setString(11, nhanVienDomainModel.getChucVu());
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
