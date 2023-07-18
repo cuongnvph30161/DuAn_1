@@ -4,6 +4,9 @@
  */
 package interfaceservices;
 
+import java.util.ArrayList;
+import viewmodel.NhanVienViewModel;
+
 /**
  *
  * @author Admin
@@ -13,4 +16,5 @@ public interface INhanVienService {
     public int getMaNhanVienByEmail(String email);
 
     public String checkEmail(String email); 
+    public ArrayList<NhanVienViewModel> getAll();
 }

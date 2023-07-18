@@ -9,11 +9,12 @@ import java.util.List;
 
 import domainmodel.NhanVienDomainModel;
 import repository.iRepository.INhanVienRepository;
-
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.sql.Date;
 import utilities.DBConnect;
 
 /**
@@ -68,9 +69,9 @@ public class NhanVienRepository implements INhanVienRepository {
         }
     }
 
-	@Override
-	public List<NhanVienDomainModel> getAll(int... page) {
-		 try {
+    @Override
+    public List<NhanVienDomainModel> getAll(int... page) {
+        try {
             List<NhanVienDomainModel> lst = new ArrayList<>();
             connection = DBConnect.getConnect();
             String lenh = "SELECT MaNhanVien,HoVaTen,NgaySinh,DiaChi,CCCD,"
@@ -79,7 +80,7 @@ public class NhanVienRepository implements INhanVienRepository {
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
                 lst.add(new NhanVienDomainModel(rs.getInt(1),
-                        rs.getString(2), rs.getDate(3), 
+                        rs.getString(2), rs.getDate(3),
                         rs.getString(4), rs.getString(5),
                         rs.getInt(6), rs.getString(7),
                         rs.getString(8), rs.getString(9),
@@ -90,35 +91,64 @@ public class NhanVienRepository implements INhanVienRepository {
         }
         return null;
 
-	}
+    }
 
-	@Override
-	public NhanVienDomainModel getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public NhanVienDomainModel getById(String id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean insert(NhanVienDomainModel object) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean insert(NhanVienDomainModel object) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean update(NhanVienDomainModel object) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean update(NhanVienDomainModel object) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean deleteById(String id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean deleteById(String id) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public List<NhanVienDomainModel> getBySql(String sql, Object... args) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<NhanVienDomainModel> getBySql(String sql, Object... args) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public ArrayList<NhanVienDomainModel> getAll() {
+        ArrayList<NhanVienDomainModel> getList = new ArrayList<>();
+        try {
+            String query = "select * from NhanVien";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int maNhanVien = rs.getInt("MaNhanVien");
+                String hoVaTen = rs.getString("HoVaTen");
+                Date ngaySinh = rs.getDate("NgaySinh");
+                String diaChi = rs.getString("DiaChi");
+                String cccd = rs.getString("CCCD");
+                int trangThai = rs.getInt("TrangThai");
+                String email = rs.getString("Email");
+                String soDienThoai = rs.getString("SoDienThoai");
+                String ghiChu = rs.getString("GhiChu");
+                Blob anh = rs.getBlob("Anh");
+                String chucVu = rs.getString("ChucVu");
+                NhanVienDomainModel nhanVienDomainModel = new NhanVienDomainModel(maNhanVien, hoVaTen, ngaySinh, diaChi, cccd, trangThai, email, soDienThoai, ghiChu, anh, chucVu);
+                getList.add(nhanVienDomainModel);
+            }
+            return getList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -5,6 +5,7 @@
 package repository.iRepository;
 
 import domainmodel.NhanVienDomainModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,4 +14,5 @@ import domainmodel.NhanVienDomainModel;
 public interface INhanVienRepository extends DAO<String,NhanVienDomainModel>{
     public int getMaNhanVienByEmail(String email);
     public String checkEmail(String email);
+    public ArrayList<NhanVienDomainModel> getAll();
 }
