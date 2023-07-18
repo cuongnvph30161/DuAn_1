@@ -18,18 +18,17 @@ public class TaiKhoanDomail {
     private String matKhau;
     private Role role;
     private int trangThai;
-    private DoiMatKhau doiMatKhau;
+ 
 
     public TaiKhoanDomail() {
     }
 
-    public TaiKhoanDomail(String maTaiKhoan, int maNhanVien, String matKhau, Role role, int trangThai, DoiMatKhau doiMatKhau) {
+    public TaiKhoanDomail(String maTaiKhoan, int maNhanVien, String matKhau, Role role, int trangThai) {
         this.maTaiKhoan = maTaiKhoan;
         this.maNhanVien = maNhanVien;
         this.matKhau = matKhau;
         this.role = role;
         this.trangThai = trangThai;
-        this.doiMatKhau = doiMatKhau;
     }
 
     public String getMaTaiKhoan() {
@@ -72,18 +71,12 @@ public class TaiKhoanDomail {
         this.trangThai = trangThai;
     }
 
-    public DoiMatKhau getDoiMatKhau() {
-        return doiMatKhau;
-    }
-
-    public void setDoiMatKhau(DoiMatKhau doiMatKhau) {
-        this.doiMatKhau = doiMatKhau;
-    }
-
     @Override
     public String toString() {
-        return "TaiKhoanDomail{" + "maTaiKhoan=" + maTaiKhoan + ", maNhanVien=" + maNhanVien + ", matKhau=" + matKhau + ", role=" + role + ", trangThai=" + trangThai + ", doiMatKhau=" + doiMatKhau + '}';
+        return "TaiKhoanDomail{" + "maTaiKhoan=" + maTaiKhoan + ", maNhanVien=" + maNhanVien + ", matKhau=" + matKhau + ", role=" + role + ", trangThai=" + trangThai + '}';
     }
+
+  
 
    
 }

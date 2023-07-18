@@ -4,6 +4,7 @@
  */
 package domainmodel;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
@@ -18,6 +19,7 @@ public class HoaDonDoMainModel {
     private int trangThaiThanhToan;
     private int trangThaiOrder;
     private int maVoucher;
+    private BigDecimal dichVuPhatSinh;
     private String ghiChu;
 
     public HoaDonDoMainModel() {
@@ -30,6 +32,17 @@ public class HoaDonDoMainModel {
         this.trangThaiThanhToan = trangThaiThanhToan;
         this.trangThaiOrder = trangThaiOrder;
         this.maVoucher = maVoucher;
+        this.ghiChu = ghiChu;
+    }
+
+    public HoaDonDoMainModel(int maHoaDon, int maNhanVien, Timestamp thoiGian, int trangThaiThanhToan, int trangThaiOrder, int maVoucher, BigDecimal dichVuPhatSinh, String ghiChu) {
+        this.maHoaDon = maHoaDon;
+        this.maNhanVien = maNhanVien;
+        this.thoiGian = thoiGian;
+        this.trangThaiThanhToan = trangThaiThanhToan;
+        this.trangThaiOrder = trangThaiOrder;
+        this.maVoucher = maVoucher;
+        this.dichVuPhatSinh = dichVuPhatSinh;
         this.ghiChu = ghiChu;
     }
 
@@ -81,17 +94,20 @@ public class HoaDonDoMainModel {
         this.maVoucher = maVoucher;
     }
 
+    public BigDecimal getDichVuPhatSinh() {
+        return dichVuPhatSinh;
+    }
+
+    public void setDichVuPhatSinh(BigDecimal dichVuPhatSinh) {
+        this.dichVuPhatSinh = dichVuPhatSinh;
+    }
+
     public String getGhiChu() {
         return ghiChu;
     }
 
     public void setGhiChu(String ghiChu) {
         this.ghiChu = ghiChu;
-    }
-
-    @Override
-    public String toString() {
-        return "HoaDonDoMainModel{" + "maHoaDon=" + maHoaDon + ", maNhanVien=" + maNhanVien + ", thoiGian=" + thoiGian + ", trangThaiThanhToan=" + trangThaiThanhToan + ", trangThaiOrder=" + trangThaiOrder + ", maVoucher=" + maVoucher + ", ghiChu=" + ghiChu + '}';
     }
 
 }

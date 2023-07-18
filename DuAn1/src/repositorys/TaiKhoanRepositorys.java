@@ -67,7 +67,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
                 String maTaiKhoan = rs.getString("MaTaiKhoan");
                 int maNhanVien = rs.getInt("MaNhanVien");
                 String matKhau = rs.getString("MatKhau");
-                Role role = Role.valueOf(rs.getString("role"));
+                Role role = Role.valueOf(rs.getString("VaiTro"));
                 int trangThai = rs.getInt("TrangThai");
                 TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
                 taiKhoanDomail.setMaTaiKhoan(maTaiKhoan);
