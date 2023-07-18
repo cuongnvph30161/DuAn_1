@@ -6,12 +6,15 @@ package repositorys;
 
 import domainmodel.Role;
 import domainmodel.TaiKhoanDomail;
+import repository.iRepository.ITaiKhoanRepositorys;
+
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
-import interfacerepositorys.ITaiKhoanRepositorys;
 import java.util.ArrayList;
+import java.util.List;
+
 import utilities.DBConnect;
 
 /**
@@ -150,4 +153,40 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             return null;
         }
     }
+
+	@Override
+	public List<TaiKhoanDomail> selectAll(int... page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TaiKhoanDomail getById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean insert(TaiKhoanDomail object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(TaiKhoanDomail object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<TaiKhoanDomail> getBySql(String sql, Object... args) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

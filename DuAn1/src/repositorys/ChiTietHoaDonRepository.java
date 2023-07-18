@@ -7,8 +7,9 @@ package repositorys;
 import java.sql.*;
 import domainmodel.BanDomainModel;
 import domainmodel.ChiTietHoaDonDomainModel;
-import interfacerepositorys.IBanRepository;
-import interfacerepositorys.IChiTietHoaDonRepository;
+import repository.iRepository.IBanRepository;
+import repository.iRepository.IChiTietHoaDonRepository;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +43,41 @@ public class ChiTietHoaDonRepository implements IChiTietHoaDonRepository {
         return null;
         
     }
+
+	@Override
+	public List<ChiTietHoaDonDomainModel> selectAll(int... page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ChiTietHoaDonDomainModel getById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean insert(ChiTietHoaDonDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(ChiTietHoaDonDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<ChiTietHoaDonDomainModel> getBySql(String sql, Object... args) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

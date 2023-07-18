@@ -4,8 +4,8 @@
  */
 package services;
 
-import interfacerepositorys.INhanVienRepository;
 import interfaceservices.INhanVienService;
+import repository.iRepository.INhanVienRepository;
 import repositorys.NhanVienRepository;
 
 /**

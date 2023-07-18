@@ -1,9 +1,10 @@
-/services/
-/views/
-/Img/
-/domainmodel/
 /interfacerepositorys/
+/Img/
+/views/
+/domainmodel/
 /interfaceservices/
 /repositorys/
+/services/
 /utilities/
 /viewmodel/
+/repository/

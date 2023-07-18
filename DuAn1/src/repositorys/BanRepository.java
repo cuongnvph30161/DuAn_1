@@ -6,7 +6,8 @@ package repositorys;
 
 import java.sql.*;
 import domainmodel.BanDomainModel;
-import interfacerepositorys.IBanRepository;
+import repository.iRepository.IBanRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import utilities.DBConnect;
@@ -36,4 +37,40 @@ public class BanRepository implements IBanRepository {
         }
         return null;
     }
+
+	@Override
+	public List<BanDomainModel> selectAll(int... page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BanDomainModel getById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean insert(BanDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(BanDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<BanDomainModel> getBySql(String sql, Object... args) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

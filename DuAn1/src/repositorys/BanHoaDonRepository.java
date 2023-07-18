@@ -7,8 +7,9 @@ package repositorys;
 import java.sql.*;
 import domainmodel.BanDomainModel;
 import domainmodel.BanHoaDonDomainModel;
-import interfacerepositorys.IBanHoaDonRepository;
-import interfacerepositorys.IBanRepository;
+import repository.iRepository.IBanHoaDonRepository;
+import repository.iRepository.IBanRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import utilities.DBConnect;
@@ -38,5 +39,41 @@ public class BanHoaDonRepository implements IBanHoaDonRepository {
         }
         return null;   
     }
+
+	@Override
+	public List<BanHoaDonDomainModel> selectAll(int... page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BanHoaDonDomainModel getById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean insert(BanHoaDonDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(BanHoaDonDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<BanHoaDonDomainModel> getBySql(String sql, Object... args) {
+		// TODO Auto-generated method stub
+		return null;
+	}
    
 }

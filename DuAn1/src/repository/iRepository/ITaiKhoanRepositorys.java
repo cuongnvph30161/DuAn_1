@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package interfacerepositorys;
+package repository.iRepository;
 
 import domainmodel.TaiKhoanDomail;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public interface ITaiKhoanRepositorys {
+public interface ITaiKhoanRepositorys extends DAO<String,TaiKhoanDomail>{
 
     public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau);
 

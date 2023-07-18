@@ -8,9 +8,10 @@ import java.sql.*;
 import domainmodel.BanDomainModel;
 import domainmodel.ChiTietHoaDonDomainModel;
 import domainmodel.ChiTietSanPhamDomainModel;
-import interfacerepositorys.IBanRepository;
-import interfacerepositorys.IChiTietHoaDonRepository;
-import interfacerepositorys.IChiTietSanPhamRepository;
+import repository.iRepository.IBanRepository;
+import repository.iRepository.IChiTietHoaDonRepository;
+import repository.iRepository.IChiTietSanPhamRepository;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,5 +44,41 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         return null;
 
     }
+
+	@Override
+	public List<ChiTietSanPhamDomainModel> selectAll(int... page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ChiTietSanPhamDomainModel getById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean insert(ChiTietSanPhamDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(ChiTietSanPhamDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<ChiTietSanPhamDomainModel> getBySql(String sql, Object... args) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

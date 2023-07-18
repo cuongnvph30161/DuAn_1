@@ -7,9 +7,10 @@ package services;
 import domainmodel.TaiKhoanDomail;
 import java.util.ArrayList;
 import repositorys.TaiKhoanRepositorys;
-import interfacerepositorys.ITaiKhoanRepositorys;
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
+import repository.iRepository.ITaiKhoanRepositorys;
+
 import javax.swing.JOptionPane;
 import viewmodel.TaiKhoanViewModel;
 

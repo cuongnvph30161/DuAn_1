@@ -4,8 +4,12 @@
  */
 package repositorys;
 
-import interfacerepositorys.INhanVienRepository;
 import java.sql.Statement;
+import java.util.List;
+
+import domainmodel.NhanVienDomainModel;
+import repository.iRepository.INhanVienRepository;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
@@ -62,4 +66,40 @@ public class NhanVienRepository implements INhanVienRepository {
             return null;
         }
     }
+
+	@Override
+	public List<NhanVienDomainModel> selectAll(int... page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NhanVienDomainModel getById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean insert(NhanVienDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(NhanVienDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<NhanVienDomainModel> getBySql(String sql, Object... args) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -9,10 +9,11 @@ import domainmodel.BanDomainModel;
 import domainmodel.ChiTietHoaDonDomainModel;
 import domainmodel.ChiTietSanPhamDomainModel;
 import domainmodel.SanPhamDomainModel;
-import interfacerepositorys.IBanRepository;
-import interfacerepositorys.IChiTietHoaDonRepository;
-import interfacerepositorys.IChiTietSanPhamRepository;
-import interfacerepositorys.ISanPhamRepository;
+import repository.iRepository.IBanRepository;
+import repository.iRepository.IChiTietHoaDonRepository;
+import repository.iRepository.IChiTietSanPhamRepository;
+import repository.iRepository.ISanPhamRepository;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +46,41 @@ public class SanPhamRepository implements ISanPhamRepository {
         return null;
 
     }
+
+	@Override
+	public List<SanPhamDomainModel> selectAll(int... page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SanPhamDomainModel getById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean insert(SanPhamDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(SanPhamDomainModel object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<SanPhamDomainModel> getBySql(String sql, Object... args) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
