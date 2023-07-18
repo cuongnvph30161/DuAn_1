@@ -155,7 +155,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
     }
 
 	@Override
-	public List<TaiKhoanDomail> selectAll(int... page) {
+	public List<TaiKhoanDomail> getAll(int... page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -179,7 +179,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean deleteById(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

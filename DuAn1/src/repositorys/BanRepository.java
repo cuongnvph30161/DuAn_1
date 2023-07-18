@@ -39,7 +39,7 @@ public class BanRepository implements IBanRepository {
     }
 
 	@Override
-	public List<BanDomainModel> selectAll(int... page) {
+	public List<BanDomainModel> getAll(int... page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -63,7 +63,7 @@ public class BanRepository implements IBanRepository {
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean deleteById(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

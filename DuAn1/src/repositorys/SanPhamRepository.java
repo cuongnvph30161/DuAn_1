@@ -48,7 +48,7 @@ public class SanPhamRepository implements ISanPhamRepository {
     }
 
 	@Override
-	public List<SanPhamDomainModel> selectAll(int... page) {
+	public List<SanPhamDomainModel> getAll(int... page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -72,7 +72,7 @@ public class SanPhamRepository implements ISanPhamRepository {
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean deleteById(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

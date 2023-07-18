@@ -45,7 +45,7 @@ public class ChiTietHoaDonRepository implements IChiTietHoaDonRepository {
     }
 
 	@Override
-	public List<ChiTietHoaDonDomainModel> selectAll(int... page) {
+	public List<ChiTietHoaDonDomainModel> getAll(int... page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -69,7 +69,7 @@ public class ChiTietHoaDonRepository implements IChiTietHoaDonRepository {
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean deleteById(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

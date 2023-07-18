@@ -45,7 +45,7 @@ public class HoaDonRepository implements IHoaDonRepository {
     }
 
 	@Override
-	public List<HoaDonDoMainModel> selectAll(int... page) {
+	public List<HoaDonDoMainModel> getAll(int... page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -69,7 +69,7 @@ public class HoaDonRepository implements IHoaDonRepository {
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean deleteById(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
