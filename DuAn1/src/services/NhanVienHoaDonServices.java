@@ -16,6 +16,7 @@ import domainmodel.SanPhamDomainModel;
 import interfaceservices.INhanVienHoaDonServices;
 import interfaceservices.INhanVienService;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,12 +38,13 @@ import repositorys.NhanVienRepository;
 import repositorys.SanPhamRepository;
 import viewmodel.NhanVienHoaDonViewModel;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author ADMIN
  */
-
 public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
 
     IHoaDonRepository hoaDonRepository = new HoaDonRepository();
@@ -152,7 +154,23 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
     }
 
     @Override
-    public List<NhanVienHoaDonViewModel> timHD() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<NhanVienHoaDonViewModel> timHD(java.util.Date ngayTu, java.util.Date ngayDen, int maHoaDon, int trangThai, List<NhanVienHoaDonViewModel> listTim) {
+        try {
+            List<NhanVienHoaDonViewModel> list = new ArrayList<>();
+            for (NhanVienHoaDonViewModel a : listTim) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String thoiGian = a.getThoiGian() + "";
+                java.util.Date TG = df.parse(thoiGian);
+                if (TG.compareTo(ngayTu) >= 0 && TG.compareTo(ngayDen) <= 0) {
+                    if(a.getTrangThai()==trangThai && a.getMaHoaDon()==maHoaDon){
+                        list.add(a);
+                    }
+                }
+            }
+            return list;
+        } catch (Exception e) {
+        }
+        return null;
     }
+
 }

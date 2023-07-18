@@ -7,6 +7,7 @@ package views;
 import domainmodel.ChiTietHoaDonDomainModel;
 import interfaceservices.INhanVienHoaDonServices;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,23 +46,27 @@ public class TraSua_NV extends javax.swing.JFrame {
         init();
         jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
-        fillTableNVHD();
+        fillTableNVHD(listNhanVienHDView);
     }
 
     public void init() {
         setIconImage(XImages.getIconApp());
     }
 
-    public void fillTableNVHD() {
+    public void fillTableNVHD(List<NhanVienHoaDonViewModel> list) {
         modelNVhoaDon.setRowCount(0);
         String trangThai = "";
-        for (NhanVienHoaDonViewModel a : listNhanVienHDView) {
+        for (NhanVienHoaDonViewModel a : list) {
             trangThai = a.getTrangThai() == 1 ? "đã thanh toán" : "chưa thanh toán";
             modelNVhoaDon.addRow(new Object[]{
                 a.getMaHoaDon(), a.getMaNguoiTao(), a.getThoiGian(), a.getTongThanhToan(), trangThai,
                 a.getGhiChu()
             });
         }
+
+    }
+
+    public void timKiem() {
 
     }
 
@@ -255,13 +260,13 @@ public class TraSua_NV extends javax.swing.JFrame {
         jpnHoaDon1 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         lblTimKiem = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtNhanVienNhapMaHD = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblNhanVienHoaDon = new javax.swing.JTable();
         jpnTrangThai = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        cboTrangThai = new javax.swing.JComboBox<>();
+        cboNhanVienHDTrangThai = new javax.swing.JComboBox<>();
         jpnThoiGian1 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -1895,7 +1900,7 @@ public class TraSua_NV extends javax.swing.JFrame {
             }
         });
         jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 70, -1, 30));
-        jpnHoaDon1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 890, 30));
+        jpnHoaDon1.add(txtNhanVienNhapMaHD, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 890, 30));
 
         tblNhanVienHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1930,8 +1935,8 @@ public class TraSua_NV extends javax.swing.JFrame {
         jLabel15.setText("Trạng thái");
         jpnTrangThai.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 25));
 
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chưa thanh toán", "Đã thanh toán" }));
-        jpnTrangThai.add(cboTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 170, 25));
+        cboNhanVienHDTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa thanh toán", "Đã thanh toán" }));
+        jpnTrangThai.add(cboNhanVienHDTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 170, 25));
 
         jpnHoaDon1.add(jpnTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 270, 120));
 
@@ -1950,11 +1955,12 @@ public class TraSua_NV extends javax.swing.JFrame {
         jLabel18.setText("Từ");
         jpnThoiGian1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, 25));
 
-        jdcTu.setDateFormatString("dd-MM-yyyy");
+        jdcTu.setDateFormatString("yyyy-MM-dd");
+        jdcTu.setFocusCycleRoot(true);
         jdcTu.setIcon(null);
         jpnThoiGian1.add(jdcTu, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 180, 25));
 
-        jdcDen.setDateFormatString("dd-MM-yyyy");
+        jdcDen.setDateFormatString("yyyy-MM-dd");
         jdcDen.setIcon(null);
         jpnThoiGian1.add(jdcDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 180, 25));
 
@@ -2105,7 +2111,20 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "hihi");
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String ngay1 = df.format(jdcTu.getDate());
+            String ngay2 = df.format(jdcDen.getDate());
+            java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
+            java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
+            int maHoaDon = Integer.parseInt(txtNhanVienNhapMaHD.getText());
+            int trangThai = (cboNhanVienHDTrangThai.getSelectedItem() + "").equalsIgnoreCase("Đã thanh toán") ? 1 : 0;
+            List<NhanVienHoaDonViewModel> lst = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD);
+            List<NhanVienHoaDonViewModel> lstTim = NVHoaDonSv.timHD(ngayTu, ngayDen, maHoaDon, trangThai, lst);
+            fillTableNVHD(lstTim);
+        } catch (Exception e) {
+        }
+
     }//GEN-LAST:event_lblTimKiemMouseClicked
 
     private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHangMouseClicked
@@ -2174,7 +2193,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JButton btnTang5;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnthem2;
-    private javax.swing.JComboBox<String> cboTrangThai;
+    private javax.swing.JComboBox<String> cboNhanVienHDTrangThai;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -2336,7 +2355,6 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private com.toedter.calendar.JDateChooser jdcDen;
     private com.toedter.calendar.JDateChooser jdcTu;
@@ -2369,5 +2387,6 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTraSua;
     private javax.swing.JTable tblNhanVienHoaDon;
+    private javax.swing.JTextField txtNhanVienNhapMaHD;
     // End of variables declaration//GEN-END:variables
 }
