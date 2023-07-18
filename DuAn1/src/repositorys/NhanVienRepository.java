@@ -13,6 +13,7 @@ import repository.iRepository.INhanVienRepository;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import utilities.DBConnect;
 
 /**
@@ -69,8 +70,26 @@ public class NhanVienRepository implements INhanVienRepository {
 
 	@Override
 	public List<NhanVienDomainModel> getAll(int... page) {
-		// TODO Auto-generated method stub
-		return null;
+		 try {
+            List<NhanVienDomainModel> lst = new ArrayList<>();
+            connection = DBConnect.getConnect();
+            String lenh = "SELECT MaNhanVien,HoVaTen,NgaySinh,DiaChi,CCCD,"
+                    + "TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu FROM NhanVien";
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                lst.add(new NhanVienDomainModel(rs.getInt(1),
+                        rs.getString(2), rs.getDate(3), 
+                        rs.getString(4), rs.getString(5),
+                        rs.getInt(6), rs.getString(7),
+                        rs.getString(8), rs.getString(9),
+                        rs.getBlob(10), rs.getString(11)));
+            }
+            return lst;
+        } catch (Exception e) {
+        }
+        return null;
+
 	}
 
 	@Override
