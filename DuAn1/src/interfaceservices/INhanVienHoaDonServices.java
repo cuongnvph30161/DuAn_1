@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import viewmodel.NhanVienHoaDonViewModel;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
+import java.sql.Date;
 
 /**
  *
@@ -28,4 +29,5 @@ public interface INhanVienHoaDonServices {
 
     Map<Integer, String> mapTenBan();
     List<ChiTietHoaDonDomainModel> getlistCTHD();
+    List<NhanVienHoaDonViewModel> timHD();
 }
