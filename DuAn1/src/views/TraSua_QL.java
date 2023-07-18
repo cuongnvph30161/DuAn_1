@@ -46,6 +46,8 @@ public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
        });
     }
 }
+
+public 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -314,11 +316,11 @@ public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
         jLabel72 = new javax.swing.JLabel();
         jLabel73 = new javax.swing.JLabel();
         jLabel74 = new javax.swing.JLabel();
-        lblMaSanPham14 = new javax.swing.JTextField();
-        cbbMaNhanVien = new javax.swing.JComboBox<>();
-        lblMaSanPham15 = new javax.swing.JTextField();
-        cbbTrangThaiVaiTro = new javax.swing.JComboBox<>();
-        cbbTrangThaiTaiKhoan = new javax.swing.JComboBox<>();
+        txtMaTaiKhoanThem = new javax.swing.JTextField();
+        cbbMaNhanVienThem = new javax.swing.JComboBox<>();
+        txtMatKhauThem = new javax.swing.JTextField();
+        cbbTrangThaiVaiTroThem = new javax.swing.JComboBox<>();
+        cbbTrangThaiTaiKhoanThem = new javax.swing.JComboBox<>();
         jButton12 = new javax.swing.JButton();
         jTextField11 = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -2215,12 +2217,6 @@ public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
 
         lblMaSanPham13.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -2290,15 +2286,9 @@ public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
 
         jLabel74.setText("Trạng thái");
 
-        lblMaSanPham14.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtMaTaiKhoanThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        cbbMaNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        lblMaSanPham15.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-
-        cbbTrangThaiVaiTro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbbTrangThaiTaiKhoan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtMatKhauThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         jButton12.setBackground(new java.awt.Color(45, 132, 252));
         jButton12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -2325,11 +2315,11 @@ public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
                         .addGap(57, 57, 57)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblMaSanPham15, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                .addComponent(lblMaSanPham14)
-                                .addComponent(cbbMaNhanVien, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(cbbTrangThaiVaiTro, 0, 175, Short.MAX_VALUE)
-                            .addComponent(cbbTrangThaiTaiKhoan, 0, 175, Short.MAX_VALUE))))
+                                .addComponent(txtMatKhauThem, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(txtMaTaiKhoanThem)
+                                .addComponent(cbbMaNhanVienThem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbbTrangThaiVaiTroThem, 0, 175, Short.MAX_VALUE)
+                            .addComponent(cbbTrangThaiTaiKhoanThem, 0, 175, Short.MAX_VALUE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -2338,23 +2328,23 @@ public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
                 .addGap(28, 28, 28)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel70)
-                    .addComponent(lblMaSanPham14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaTaiKhoanThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel71)
-                    .addComponent(cbbMaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbMaNhanVienThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel72)
-                    .addComponent(lblMaSanPham15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMatKhauThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel73)
-                    .addComponent(cbbTrangThaiVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbTrangThaiVaiTroThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel74)
-                    .addComponent(cbbTrangThaiTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbTrangThaiTaiKhoanThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
                 .addComponent(jButton12)
                 .addGap(23, 23, 23))
@@ -2992,9 +2982,9 @@ public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnKhieuNaiHoTro;
-    private javax.swing.JComboBox<String> cbbMaNhanVien;
-    private javax.swing.JComboBox<String> cbbTrangThaiTaiKhoan;
-    private javax.swing.JComboBox<String> cbbTrangThaiVaiTro;
+    private javax.swing.JComboBox<String> cbbMaNhanVienThem;
+    private javax.swing.JComboBox<String> cbbTrangThaiTaiKhoanThem;
+    private javax.swing.JComboBox<String> cbbTrangThaiVaiTroThem;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -3241,8 +3231,6 @@ public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
     private javax.swing.JTextField lblMaSanPham11;
     private javax.swing.JTextField lblMaSanPham12;
     private javax.swing.JTextField lblMaSanPham13;
-    private javax.swing.JTextField lblMaSanPham14;
-    private javax.swing.JTextField lblMaSanPham15;
     private javax.swing.JTextField lblMaSanPham16;
     private javax.swing.JTextField lblMaSanPham17;
     private javax.swing.JTextField lblMaSanPham18;
@@ -3290,5 +3278,7 @@ public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list){
     private javax.swing.JLabel lblVoucher;
     private javax.swing.JLabel lblquanly;
     private javax.swing.JTable tblTaiKhoanForm;
+    private javax.swing.JTextField txtMaTaiKhoanThem;
+    private javax.swing.JTextField txtMatKhauThem;
     // End of variables declaration//GEN-END:variables
 }

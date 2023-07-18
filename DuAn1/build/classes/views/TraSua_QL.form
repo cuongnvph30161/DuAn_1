@@ -4145,12 +4145,7 @@
                     <Component class="javax.swing.JComboBox" name="jComboBox5">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -4160,12 +4155,7 @@
                     <Component class="javax.swing.JComboBox" name="jComboBox6">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -4175,12 +4165,7 @@
                     <Component class="javax.swing.JComboBox" name="jComboBox7">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -4224,12 +4209,12 @@
                                       <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lblMaSanPham15" alignment="0" pref="175" max="32767" attributes="0"/>
-                                              <Component id="lblMaSanPham14" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="cbbMaNhanVien" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtMatKhauThem" alignment="0" pref="175" max="32767" attributes="0"/>
+                                              <Component id="txtMaTaiKhoanThem" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cbbMaNhanVienThem" alignment="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="cbbTrangThaiVaiTro" alignment="0" pref="175" max="32767" attributes="0"/>
-                                          <Component id="cbbTrangThaiTaiKhoan" alignment="0" pref="175" max="32767" attributes="0"/>
+                                          <Component id="cbbTrangThaiVaiTroThem" alignment="0" pref="175" max="32767" attributes="0"/>
+                                          <Component id="cbbTrangThaiTaiKhoanThem" alignment="0" pref="175" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -4243,27 +4228,27 @@
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel70" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMaSanPham14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtMaTaiKhoanThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel71" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbbMaNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbbMaNhanVienThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel72" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMaSanPham15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtMatKhauThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel73" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbbTrangThaiVaiTro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbbTrangThaiVaiTroThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel74" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbbTrangThaiTaiKhoan" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbbTrangThaiTaiKhoanThem" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="293" max="32767" attributes="0"/>
                               <Component id="jButton12" min="-2" max="-2" attributes="0"/>
@@ -4298,7 +4283,7 @@
                         <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng th&#xe1;i"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="lblMaSanPham14">
+                    <Component class="javax.swing.JTextField" name="txtMaTaiKhoanThem">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -4309,22 +4294,17 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="cbbMaNhanVien">
+                    <Component class="javax.swing.JComboBox" name="cbbMaNhanVienThem">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="lblMaSanPham15">
+                    <Component class="javax.swing.JTextField" name="txtMatKhauThem">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -4335,30 +4315,20 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="cbbTrangThaiVaiTro">
+                    <Component class="javax.swing.JComboBox" name="cbbTrangThaiVaiTroThem">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="cbbTrangThaiTaiKhoan">
+                    <Component class="javax.swing.JComboBox" name="cbbTrangThaiTaiKhoanThem">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                       </Properties>
                       <AuxValues>
