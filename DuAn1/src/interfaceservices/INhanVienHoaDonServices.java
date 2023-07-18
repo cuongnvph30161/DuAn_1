@@ -16,13 +16,11 @@ import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
 public interface INhanVienHoaDonServices {
 
     List<NhanVienHoaDonViewModel> getList(List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP,
-            Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan, Map<Integer, Object> mapChiTietHD);
+            Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan);
 
     List<PhaCheLichSuDanhSachSanPhamViewmodel> getDSSP();
 
     Map<Integer, String> mapTenNV();
 
     Map<Integer, String> mapTenBan();
-
-    Map<Integer, Object> mapChiTietHD();
 }
