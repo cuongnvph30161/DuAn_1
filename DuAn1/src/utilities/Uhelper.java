@@ -48,7 +48,7 @@ public class Uhelper {
     }
 
     public static boolean checkNullText(JTextField c, String mss) {
-        if (c.getText().equalsIgnoreCase("")) {
+        if (c.getText().trim().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, mss);
             c.requestFocus();
             return true;

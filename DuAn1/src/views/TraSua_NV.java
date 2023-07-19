@@ -47,7 +47,13 @@ public class TraSua_NV extends javax.swing.JFrame {
         init();
         jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
+        int soTrang = 1;
+
         fillTableNVHD(listNhanVienHDView);
+    }
+
+    public void phanTrang() {
+
     }
 
     public void init() {
@@ -2113,17 +2119,47 @@ public class TraSua_NV extends javax.swing.JFrame {
     }//GEN-LAST:event_lblHinhAnh1MouseEntered
 
     private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code her
         try {
             if (Uhelper.checkNullText(txtNhanVienNhapMaHD, "bạn chưa nhập mã hóa đơn")) {
                 return;
+            } else {
+                try {
+                    int maHD = Integer.parseInt(txtNhanVienNhapMaHD.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "mã hóa đơn phải là số, hãy đảm bảo mã hóa đơn không có khoảng trắng");
+                    txtNhanVienNhapMaHD.requestFocus();;
+                    return;
+                }
+            }
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+                String ngay1 = df.format(jdcTu.getDate());
+
+                java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "chưa nhập ngày bắt đầu");
+                jdcTu.requestFocus();
+                return;
+            }
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+                String ngay2 = df.format(jdcDen.getDate());
+
+                java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "chưa nhập ngày kết thúc");
+                jdcDen.requestFocus();
+                return;
             }
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            String ngay1 = "";
-            String ngay2 = "";
-            ngay1 = df.format(jdcTu.getDate());
-            ngay2 = df.format(jdcDen.getDate());
-         
+
+            String ngay1 = df.format(jdcTu.getDate());
+            String ngay2 = df.format(jdcDen.getDate());
 
             java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
             java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
@@ -2131,7 +2167,15 @@ public class TraSua_NV extends javax.swing.JFrame {
             int trangThai = (cboNhanVienHDTrangThai.getSelectedItem() + "").equalsIgnoreCase("Đã thanh toán") ? 1 : 0;
             List<NhanVienHoaDonViewModel> lst = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD);
             List<NhanVienHoaDonViewModel> lstTim = NVHoaDonSv.timHD(ngayTu, ngayDen, maHoaDon, trangThai, lst);
-            fillTableNVHD(lstTim);
+            if (lstTim.size() > 0) {
+                fillTableNVHD(lstTim);
+                JOptionPane.showMessageDialog(null, "danh sách đã hiển thị");
+                return;
+            } else {
+                JOptionPane.showMessageDialog(null, "không tìm thấy danh sách phù hợp");
+                return;
+            }
+
         } catch (Exception e) {
         }
 
