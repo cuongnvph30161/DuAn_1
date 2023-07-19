@@ -1611,6 +1611,9 @@
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JTextField" name="jTextField3">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel35">
                   <Properties>
@@ -3094,7 +3097,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField2">
+            <Component class="javax.swing.JTextField" name="txtNhanVienNhapMaHD">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="310" y="70" width="890" height="30"/>
@@ -3177,13 +3180,12 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="cboTrangThai">
+                <Component class="javax.swing.JComboBox" name="cboNhanVienHDTrangThai">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                        <StringItem index="1" value="Ch&#x1b0;a thanh to&#xe1;n"/>
-                        <StringItem index="2" value="&#x110;&#xe3; thanh to&#xe1;n"/>
+                      <StringArray count="2">
+                        <StringItem index="0" value="Ch&#x1b0;a thanh to&#xe1;n"/>
+                        <StringItem index="1" value="&#x110;&#xe3; thanh to&#xe1;n"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -3257,7 +3259,8 @@
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="jdcTu">
                   <Properties>
-                    <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+                    <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+                    <Property name="focusCycleRoot" type="boolean" value="true"/>
                     <Property name="icon" type="javax.swing.ImageIcon" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="null"/>
                     </Property>
@@ -3270,7 +3273,7 @@
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="jdcDen">
                   <Properties>
-                    <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+                    <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
                     <Property name="icon" type="javax.swing.ImageIcon" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="null"/>
                     </Property>
