@@ -156,19 +156,19 @@ public class NhanVienRepository implements INhanVienRepository {
     @Override
     public boolean insertNhanVien(NhanVienDomainModel nhanVienDomainModel) {
         try {
-            String query = "insert into NhanVien values(?,?,?,?,?,?,?,?,?,?,?)";
+            String query = "insert into NhanVien values(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, nhanVienDomainModel.getMaNhanVien());
-            ps.setString(2, nhanVienDomainModel.getHoVaTen());
-            ps.setDate(3, nhanVienDomainModel.getNgaySinh());
-            ps.setString(4, nhanVienDomainModel.getDiaChi());
-            ps.setString(5, nhanVienDomainModel.getCCCD());
-            ps.setInt(6, nhanVienDomainModel.getTrangThai());
-            ps.setString(7, nhanVienDomainModel.getEmail());
-            ps.setString(8, nhanVienDomainModel.getSoDienThoai());
-            ps.setString(9, nhanVienDomainModel.getGhiChu());
-            ps.setBlob(10, nhanVienDomainModel.getAnh());
-            ps.setString(11, nhanVienDomainModel.getChucVu());
+            ps.setString(1, nhanVienDomainModel.getHoVaTen());
+            ps.setDate(2, nhanVienDomainModel.getNgaySinh());
+            ps.setString(3, nhanVienDomainModel.getDiaChi());
+            ps.setString(4, nhanVienDomainModel.getCCCD());
+            ps.setInt(5, nhanVienDomainModel.getTrangThai());
+            ps.setString(6, nhanVienDomainModel.getEmail());
+            ps.setString(7, nhanVienDomainModel.getSoDienThoai());
+            ps.setString(8, nhanVienDomainModel.getGhiChu());
+            ps.setBlob(9, nhanVienDomainModel.getAnh());
+            ps.setString(10, nhanVienDomainModel.getChucVu());
+            System.out.println("sdt"+" "+nhanVienDomainModel.getSoDienThoai());
             ps.executeUpdate();
             return true;
         } catch (Exception e) {

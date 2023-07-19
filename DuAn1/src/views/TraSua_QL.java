@@ -10,6 +10,7 @@ import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -30,6 +31,9 @@ import viewmodel.NhanVienViewModel;
 import viewmodel.TaiKhoanViewModel;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+
 public class TraSua_QL extends javax.swing.JFrame {
 
     public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
@@ -49,8 +53,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblMaSanPham2.setEnabled(false);
         loadTableTaiKhoan(iTaiKhoanServicess.getAll());
         loadTableNhanVien(iNhanVienService.getAll());
-        loadComBoBoxTrangThaiThemTaiKhoan();
-        loadComBoBoxVaiTroTaiKhoan();
+
     }
 
     public void loadTableNhanVien(ArrayList<NhanVienViewModel> list) {
@@ -78,23 +81,9 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 //
 
-    public void loadComBoBoxTrangThaiThemTaiKhoan() {
-        ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
-        ArrayList<String> existingTrangThai = new ArrayList<>();
-
-        for (TaiKhoanViewModel taiKhoanViewModel : list) {
-            String trangThaiString = taiKhoanViewModel.getTrangThai() == 0 ? "Khoá" : "Không khoá";
-            if (!existingTrangThai.contains(trangThaiString)) {
-                existingTrangThai.add(trangThaiString);
-                cbbTrangThaiTaiKhoanThem.addItem(trangThaiString);
-            }
-        }
-    }
-//
 
     public NhanVienViewModel getDataNhanVien() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
-        String maNhanVien = txtMaNhanVienThem.getText();
         String hoVaTen = txtHoVaTenThem.getText();
         String ngaySinh = txtNgaySinhThem.getText();
         String diaChi = txtDiaChiThem.getText();
@@ -102,30 +91,95 @@ public class TraSua_QL extends javax.swing.JFrame {
         String email = txtEmailThem.getText();
         String soDienThoai = txtSDTThem.getText();
         String ghiChu = txtGhiChuThem.getText();
+        // lấy int từ  tên comBoBox
         String trangThai = cbbTrangThaiNhanVienThem.getSelectedItem().toString();
+        if (trangThai.equals("Đã nghỉ việc")) {
+            nhanVienViewModel.setTrangThai(0);
+        } else {
+            nhanVienViewModel.setTrangThai(1);
+        }
+        if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
+            return null;
+        }
+
+// Kiểm tra xem chuỗi cccd có phải là dạng số hay không
+        if (!cccd.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
+            return null; // Hoặc xử lý theo cách phù hợp với ứng dụng của bạn
+        }
+
+        nhanVienViewModel.setCCCD(cccd);
+        if (soDienThoai.isEmpty() || !soDienThoai.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.");
+            return null;
+        }
+
+// Kiểm tra độ dài của số điện thoại là 10 hoặc 11 số
+        if (soDienThoai.length() != 10 && soDienThoai.length() != 11) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 hoặc 11 số.");
+            return null;
+        }
+        nhanVienViewModel.setSoDienThoai(soDienThoai);
+        
         String chucVu = cbbChucVuNhanVienThem.getSelectedItem().toString();
+
+        nhanVienViewModel.setChucVu(chucVu);
+
         Icon icon = lblAnhNhanVien.getIcon(); // Giả sử JLabel chứa hình ảnh trong biến icon
         byte[] imageData = getImageDataFromIcon(icon);
-          
+
+        // check rỗng 
+        if (hoVaTen.trim().equals("") || ngaySinh.trim().equals("") || cccd.trim().equals("") || email.trim().equals("") || soDienThoai.trim().equals("")||diaChi.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được rỗng");
+            return null;
+        }
+
         // Tạo đối tượng Blob từ dữ liệu hình ảnh
         Blob anh = createBlobFromImageData(imageData);
+
         nhanVienViewModel.setAnh(anh);
-        int maNhanVienInt = Integer.parseInt(maNhanVien);
-        nhanVienViewModel.setMaNhanVien(maNhanVienInt);
+
         nhanVienViewModel.setDiaChi(diaChi);
+
         nhanVienViewModel.setGhiChu(ghiChu);
+        nhanVienViewModel.setEmail(email);
         nhanVienViewModel.setHoVaTen(hoVaTen);
         // định dạng ngày sinh
-       
-        
+
+        try {
+            LocalDate localDate = LocalDate.parse(ngaySinh);
+            nhanVienViewModel.setNgaySinh(java.sql.Date.valueOf(localDate));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày sinh");
+            return null;
+        }
+
         return nhanVienViewModel;
+    }
+
+    private boolean isValidEmail(String email) {
+        // Sử dụng biểu thức chính quy để kiểm tra định dạng email
+        // Biểu thức chính quy dưới đây kiểm tra các trường hợp cơ bản của email
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        return email.matches(regex);
     }
 
     private byte[] getImageDataFromIcon(Icon icon) {
         if (icon != null && icon instanceof ImageIcon) {
             // Chuyển đổi Icon thành mảng byte
             ImageIcon imageIcon = (ImageIcon) icon;
-            BufferedImage bufferedImage = (BufferedImage) imageIcon.getImage();
+            Image image = imageIcon.getImage();
+
+            // Tạo một BufferedImage trống để vẽ hình ảnh lên
+            BufferedImage bufferedImage = new BufferedImage(imageIcon.getIconWidth(), imageIcon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+
+            // Vẽ hình ảnh lên BufferedImage
+            Graphics2D g2d = bufferedImage.createGraphics();
+            g2d.drawImage(image, 0, 0, null);
+            g2d.dispose();
+
+            // Chuyển đổi BufferedImage thành mảng byte
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             try {
                 ImageIO.write(bufferedImage, "png", baos);
@@ -141,7 +195,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         Blob blob = null;
         try {
             blob = new SerialBlob(data);
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             // Hoặc xử lý theo cách phù hợp với ứng dụng của bạn, ví dụ:
             // throw new RuntimeException("Không thể tạo đối tượng Blob từ dữ liệu hình ảnh.", e);
@@ -149,21 +203,20 @@ public class TraSua_QL extends javax.swing.JFrame {
         return blob;
     }
 
-    public void loadComBoBoxVaiTroTaiKhoan() {
-        ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
-        ArrayList<Role> existingVaiTro = new ArrayList<>();
-
-        for (TaiKhoanViewModel taiKhoanViewModel : list) {
-            Role vaiTro = taiKhoanViewModel.getRole();
-            if (!existingVaiTro.contains(vaiTro)) {
-                cbbTrangThaiVaiTroThem.addItem(vaiTro.toString());
-                existingVaiTro.add(vaiTro);
-            }
-        }
-    }
+//    public void loadComBoBoxVaiTroTaiKhoan() {
+//        ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
+//        ArrayList<Role> existingVaiTro = new ArrayList<>();
+//        
+//        for (TaiKhoanViewModel taiKhoanViewModel : list) {
+//            Role vaiTro = taiKhoanViewModel.getRole();
+//            if (!existingVaiTro.contains(vaiTro)) {
+//                cbbTrangThaiVaiTroThem.addItem(vaiTro.toString());
+//                existingVaiTro.add(vaiTro);
+//            }
+//        }
+//    }
 // 
 //    public void loadComBoBoxMaNhanVien
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -227,7 +280,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel92 = new javax.swing.JLabel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
-        jButton15 = new javax.swing.JButton();
+        btnThemNhanVien = new javax.swing.JButton();
         jScrollPane11 = new javax.swing.JScrollPane();
         txtGhiChuThem = new javax.swing.JTextArea();
         txtEmailThem = new javax.swing.JTextField();
@@ -437,7 +490,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtMatKhauThem = new javax.swing.JTextField();
         cbbTrangThaiVaiTroThem = new javax.swing.JComboBox<>();
         cbbTrangThaiTaiKhoanThem = new javax.swing.JComboBox<>();
-        jButton12 = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         jTextField11 = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
         tblTaiKhoanForm = new javax.swing.JTable();
@@ -810,16 +863,23 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtMaNhanVienThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
+        cbbTrangThaiNhanVienThem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm việc", "Đã nghỉ việc" }));
+
         jLabel92.setText("Mã nhân viên");
 
         jLabel93.setText("Email");
 
         jLabel94.setText("Ngày sinh");
 
-        jButton15.setBackground(new java.awt.Color(45, 132, 252));
-        jButton15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton15.setForeground(new java.awt.Color(255, 255, 255));
-        jButton15.setText("Cập nhật nhân viên");
+        btnThemNhanVien.setBackground(new java.awt.Color(45, 132, 252));
+        btnThemNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThemNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        btnThemNhanVien.setText("Thêm");
+        btnThemNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemNhanVienActionPerformed(evt);
+            }
+        });
 
         txtGhiChuThem.setColumns(20);
         txtGhiChuThem.setRows(5);
@@ -844,6 +904,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
         });
 
+        cbbChucVuNhanVienThem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản lý", "Nhân viên", "Pha Chế" }));
+
         jLabel97.setText("Chức vụ");
 
         txtNgaySinhThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
@@ -855,7 +917,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton15)
+                    .addComponent(btnThemNhanVien)
                     .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel97, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel89, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -939,7 +1001,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jButton15)
+                .addComponent(btnThemNhanVien)
                 .addContainerGap())
         );
 
@@ -2410,10 +2472,10 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtMatKhauThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        jButton12.setBackground(new java.awt.Color(45, 132, 252));
-        jButton12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton12.setForeground(new java.awt.Color(255, 255, 255));
-        jButton12.setText("Cập nhật");
+        btnThem.setBackground(new java.awt.Color(45, 132, 252));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -2424,7 +2486,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton12))
+                        .addComponent(btnThem))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel74, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2466,7 +2528,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                     .addComponent(jLabel74)
                     .addComponent(cbbTrangThaiTaiKhoanThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
-                .addComponent(jButton12)
+                .addComponent(btnThem)
                 .addGap(23, 23, 23))
         );
 
@@ -3120,6 +3182,15 @@ public class TraSua_QL extends javax.swing.JFrame {
             lblAnhNhanVien.setIcon(scaledIcon);
     }//GEN-LAST:event_btnAnhNhanVienActionPerformed
     }
+    private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
+        NhanVienViewModel nhanVienViewModel = getDataNhanVien();
+        System.out.println("them nv" + " " + nhanVienViewModel);
+        if (nhanVienViewModel == null) {
+            return;
+        }
+        JOptionPane.showMessageDialog(this, iNhanVienService.insertNhanVien(nhanVienViewModel));
+        loadTableNhanVien(iNhanVienService.getAll());
+    }//GEN-LAST:event_btnThemNhanVienActionPerformed
 
     public static void main(String args[]) {
 
@@ -3140,6 +3211,8 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnAnhNhanVien;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnKhieuNaiHoTro;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThemNhanVien;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
     private javax.swing.JComboBox<String> cbbMaNhanVienThem;
     private javax.swing.JComboBox<String> cbbTrangThaiNhanVienThem;
@@ -3148,10 +3221,8 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
