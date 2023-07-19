@@ -58,17 +58,20 @@ public class TraSua_NV extends javax.swing.JFrame {
         int demSoBanGhi = 1;
         int demMap = 1;
         Map<Integer, List<NhanVienHoaDonViewModel>> map = new HashMap<>();
+        //lấy số trang
         if (listNhanVienHDView.size() > 100) {
             double so = listNhanVienHDView.size() / 100;
             soTrang = (int) Math.ceil(so);
         } else {
             soTrang = 1;
         }
+        //thêm vào list theo page
         List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
-        if (soTrang > 1) {
-            if (truSoBanGhi % 100 == 0) {
-                for (int i = demSoBanGhi; i <= demSoBanGhi + 99; i++) {
-                    listTrang.add(listNhanVienHDView.get(i));
+        if(soTrang>1){
+        for (int i = 0; i < soTrang; i++) {
+           if (truSoBanGhi % 100 == 0) {
+                for (int j = demSoBanGhi; j <= demSoBanGhi + 99; j++) {
+                    listTrang.add(listNhanVienHDView.get(j));
                 }
                 map.put(demMap, listTrang);
                 if (demMap <= soTrang) {
@@ -78,7 +81,12 @@ public class TraSua_NV extends javax.swing.JFrame {
                 truSoBanGhi -= 100;
                 demSoBanGhi += 100;
             }
-
+            
+            map.put(i, listTrang);
+        }
+        
+        }else{
+            map.put(1, listNhanVienHDView);
         }
 
         return map;
