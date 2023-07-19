@@ -25,6 +25,8 @@ import viewmodel.TaiKhoanViewModel;
 
 public class TraSua_NV extends javax.swing.JFrame {
 
+    List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
+    Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang = new HashMap<>();
     INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
     List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
     Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
@@ -51,57 +53,53 @@ public class TraSua_NV extends javax.swing.JFrame {
         jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
 
-        fillTableNVHD(listNhanVienHDView);
+        phanTrang();
+        truyenTrang(1);
+        fillTableNVHD(lstTruyenTrang);
+      
+    }
+
+    public void truyenTrang(int index) {
+        lstTruyenTrang = mapPhanTrang.get(index);
+          lblNhanVienTrangThaiTrang.setText("trang "+index+"/"+ soTrang);
     }
 
     public void phanTrang() {
-        Map<Integer, List<NhanVienHoaDonViewModel>> mapTrang = new HashMap<>();
         //lấy số trang
-          if (listNhanVienHDView.size() > 100) {
+        if (listNhanVienHDView.size() > 100) {
             double so = listNhanVienHDView.size() / 100;
             soTrang = (int) Math.ceil(so);
         } else {
             soTrang = 1;
         }
+        if (soTrang > 1) {
+            int viTriChay = 1;
+            int viTriDung = 100;
+            //add map
+            for (int i = 1; i <= soTrang; i++) {
+                List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
+                //add list
+
+                if (i <= soTrang - 1) {
+                    for (int k = viTriChay; k <= viTriDung; k++) {
+                        listTrang.add(listNhanVienHDView.get(k));
+                    }
+                    viTriDung += 100;
+                    viTriChay += 100;
+                } else {
+                    if (i == soTrang) {
+                        for (int j = (i - 1) * 100 + 1; j <= listNhanVienHDView.size(); j++) {
+                            listTrang.add(listNhanVienHDView.get(j));
+                        }
+                    }
+                }
+
+                mapPhanTrang.put(i, listTrang);
+            }
+        } else {
+            mapPhanTrang.put(1, listNhanVienHDView);
+        }
     }
-//    public Map<Integer, List<NhanVienHoaDonViewModel>> phanTrang() {
-//        int truSoBanGhi = soTrang*100;
-//        int demSoBanGhi = 1;
-//        int demMap = 1;
-//        Map<Integer, List<NhanVienHoaDonViewModel>> map = new HashMap<>();
-//        //lấy số trang
-//        if (listNhanVienHDView.size() > 100) {
-//            double so = listNhanVienHDView.size() / 100;
-//            soTrang = (int) Math.ceil(so);
-//        } else {
-//            soTrang = 1;
-//        }
-//        //thêm vào list theo page
-//        List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
-//        if(soTrang>1){
-//        for (int i = 0; i < soTrang; i++) {
-//           if (truSoBanGhi % 100 == 0) {
-//                for (int j = demSoBanGhi; j <= demSoBanGhi + 99; j++) {
-//                    listTrang.add(listNhanVienHDView.get(j));
-//                }
-//                map.put(demMap, listTrang);
-//                if (demMap <= soTrang) {
-//                    demMap++;
-//                }
-//
-//                truSoBanGhi -= 100;
-//                demSoBanGhi += 100;
-//            }
-//            
-//            map.put(i, listTrang);
-//        }
-//        
-//        }else{
-//            map.put(1, listNhanVienHDView);
-//        }
-//
-//        return map;
-//    }
 
     public void init() {
         setIconImage(XImages.getIconApp());
@@ -325,7 +323,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         jdcDen = new com.toedter.calendar.JDateChooser();
         jLabel19 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        lblNhanVienTrangThaiTrang = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
 
@@ -2028,10 +2026,10 @@ public class TraSua_NV extends javax.swing.JFrame {
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/4.png"))); // NOI18N
         jpnHoaDon1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 740, -1, 25));
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("Bản ghi 1/1");
-        jpnHoaDon1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 740, 120, 25));
+        lblNhanVienTrangThaiTrang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNhanVienTrangThaiTrang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNhanVienTrangThaiTrang.setText("Bản ghi 1/1");
+        jpnHoaDon1.add(lblNhanVienTrangThaiTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 740, 120, 25));
 
         jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/3.png"))); // NOI18N
         jpnHoaDon1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 740, -1, 25));
@@ -2384,7 +2382,6 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -2486,6 +2483,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JLabel lblHinhAnh1;
     private javax.swing.JLabel lblHinhAnh4;
     private javax.swing.JLabel lblHoaDon;
+    private javax.swing.JLabel lblNhanVienTrangThaiTrang;
     private javax.swing.JLabel lblQuanLyBan;
     private javax.swing.JLabel lblSanPham;
     private javax.swing.JLabel lblThietLap;
