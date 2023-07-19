@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import services.NhanVienHoaDonServices;
+import utilities.Uhelper;
 import utilities.XImages;
 import viewmodel.NhanVienHoaDonViewModel;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
@@ -63,10 +64,6 @@ public class TraSua_NV extends javax.swing.JFrame {
                 a.getGhiChu()
             });
         }
-
-    }
-
-    public void timKiem() {
 
     }
 
@@ -2118,9 +2115,16 @@ public class TraSua_NV extends javax.swing.JFrame {
     private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked
         // TODO add your handling code here:
         try {
+            if (Uhelper.checkNullText(txtNhanVienNhapMaHD, "bạn chưa nhập mã hóa đơn")) {
+                return;
+            }
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            String ngay1 = df.format(jdcTu.getDate());
-            String ngay2 = df.format(jdcDen.getDate());
+            String ngay1 = "";
+            String ngay2 = "";
+            ngay1 = df.format(jdcTu.getDate());
+            ngay2 = df.format(jdcDen.getDate());
+         
+
             java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
             java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
             int maHoaDon = Integer.parseInt(txtNhanVienNhapMaHD.getText());

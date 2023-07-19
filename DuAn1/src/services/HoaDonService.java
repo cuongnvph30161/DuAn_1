@@ -7,5 +7,5 @@ import interfaceservices.IHoaDonService;
  * @author Doanh
  */
 public class HoaDonService implements IHoaDonService{
-    public boolean insert(String maNhanVi)
+   // public boolean insert(String maNhanVi);
 }
