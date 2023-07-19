@@ -1,6 +1,5 @@
 ﻿USE master
 GO
-
 DROP DATABASE if exists ToTo
 GO
 CREATE DATABASE ToTo
@@ -149,7 +148,6 @@ VALUES
 (N'Trà sữa Matcha',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua matcha.jpg', single_blob) as T)),
 (N'Trà sữa ô long',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua o long.jpg', single_blob) as T)),
 (N'Trà sữa panda',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
-SELECT * FROM SanPham
 go
 --nạp dữ liệu bảng mã giảm giá
 INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai)
@@ -166,9 +164,9 @@ go
 
 --nạp dữ liệu hóa đơn
 INSERT INTO HoaDon
-VALUES(1001,GETDATE(),1,1,1000,N'ít đường'),
-(1001,GETDATE(),1,1,1000,N'nhiều đường'),
-(1001,GETDATE(),1,1,1000,N'nhiều đá')
+VALUES(1001,GETDATE(),1,1,1000,N'ít đường',33.3),
+(1001,GETDATE(),1,1,1000,N'nhiều đường',33.3),
+(1001,GETDATE(),1,1,1000,N'nhiều đá',33.3)
 
 go
 --nạp dữ liệu bàn-hóa đơn
@@ -187,11 +185,6 @@ VALUES(1000,1000,4,44.5)
 
 go
 -- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
-alter table HoaDon
-ADD DichVuPhatSinh money Default 0
-go
-
-
 --1 .NhanVien
 -- SELECT MaNhanVien,HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu FROM NhanVien
 --INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu) 

@@ -3,39 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/interfaceservices/DAO.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/views/DangNhap.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/interfaceservices/ISanPhamService.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/repositorys/iRepository/IBanHoaDonRepository.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/repositorys/iRepository/IChiTietSanPhamRepository.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/views/XacNhanMatKhau.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/viewmodel/NhanVienHoaDonViewModel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/views/TraSua_PC.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/viewmodel/defaultView/BanHoaDonViewModel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/domainmodel/SanPhamDomainModel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/viewmodel/PhaCheLichSuViewModel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/viewmodel/defaultView/SanPhamViewModel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/interfaceservices/INhanVienHoaDonServices.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/services/HoaDonService.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/utilities/DBConnect.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/services/nhanVien/SanPhamService.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/interfaceservices/IHoaDonService.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/repositorys/BanRepository.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/repositorys/iRepository/IBanRepository.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/repositorys/iRepository/ISanPhamRepository.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/repositorys/iRepository/DAO.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/utilities/PhaCheSanPhamJPanel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/viewmodel/defaultView/NhanVienViewModel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/interfaceservices/INhanVienService.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/viewmodel/PhaCheSanPhamViewModel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/services/ChiTietSanPhamService.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/viewmodel/PhaCheHoaDonViewModel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/repositorys/iRepository/IChiTietHoaDonRepository.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/services/SanPhamService.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/viewmodel/defaultView/BanViewModel.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/interfaceservices/IPhaCheLichSuServices.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/repositorys/SanPhamRepository.java</file>
-            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1/DuAn_1/DuAn1/src/viewmodel/defaultView/ChiTietSanPhamViewModel.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/github-duan1/DuAn_1/DuAn1/src/views/TraSua_NV.java</file>
         </group>
     </open-files>
 </project-private>
