@@ -25,6 +25,9 @@ import viewmodel.TaiKhoanViewModel;
 
 public class TraSua_NV extends javax.swing.JFrame {
 
+    int demTrang = 1;
+    List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
+    Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang = new HashMap<>();
     INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
     List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
     Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
@@ -51,57 +54,53 @@ public class TraSua_NV extends javax.swing.JFrame {
         jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
 
-        fillTableNVHD(listNhanVienHDView);
+        phanTrang();
+        truyenTrang(1);
+        fillTableNVHD(lstTruyenTrang);
+
+    }
+
+    public void truyenTrang(int index) {
+        lstTruyenTrang = mapPhanTrang.get(index);
+        lblNhanVienTrangThaiTrang.setText("trang " + index + "/" + soTrang);
     }
 
     public void phanTrang() {
-        Map<Integer, List<NhanVienHoaDonViewModel>> mapTrang = new HashMap<>();
         //lấy số trang
-          if (listNhanVienHDView.size() > 100) {
+        if (listNhanVienHDView.size() > 100) {
             double so = listNhanVienHDView.size() / 100;
             soTrang = (int) Math.ceil(so);
         } else {
             soTrang = 1;
         }
+        if (soTrang > 1) {
+            int viTriChay = 1;
+            int viTriDung = 100;
+            //add map
+            for (int i = 1; i <= soTrang; i++) {
+                List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
+                //add list
+
+                if (i <= soTrang - 1) {
+                    for (int k = viTriChay; k <= viTriDung; k++) {
+                        listTrang.add(listNhanVienHDView.get(k));
+                    }
+                    viTriDung += 100;
+                    viTriChay += 100;
+                } else {
+                    if (i == soTrang) {
+                        for (int j = (i - 1) * 100 + 1; j <= listNhanVienHDView.size(); j++) {
+                            listTrang.add(listNhanVienHDView.get(j));
+                        }
+                    }
+                }
+
+                mapPhanTrang.put(i, listTrang);
+            }
+        } else {
+            mapPhanTrang.put(1, listNhanVienHDView);
+        }
     }
-//    public Map<Integer, List<NhanVienHoaDonViewModel>> phanTrang() {
-//        int truSoBanGhi = soTrang*100;
-//        int demSoBanGhi = 1;
-//        int demMap = 1;
-//        Map<Integer, List<NhanVienHoaDonViewModel>> map = new HashMap<>();
-//        //lấy số trang
-//        if (listNhanVienHDView.size() > 100) {
-//            double so = listNhanVienHDView.size() / 100;
-//            soTrang = (int) Math.ceil(so);
-//        } else {
-//            soTrang = 1;
-//        }
-//        //thêm vào list theo page
-//        List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
-//        if(soTrang>1){
-//        for (int i = 0; i < soTrang; i++) {
-//           if (truSoBanGhi % 100 == 0) {
-//                for (int j = demSoBanGhi; j <= demSoBanGhi + 99; j++) {
-//                    listTrang.add(listNhanVienHDView.get(j));
-//                }
-//                map.put(demMap, listTrang);
-//                if (demMap <= soTrang) {
-//                    demMap++;
-//                }
-//
-//                truSoBanGhi -= 100;
-//                demSoBanGhi += 100;
-//            }
-//            
-//            map.put(i, listTrang);
-//        }
-//        
-//        }else{
-//            map.put(1, listNhanVienHDView);
-//        }
-//
-//        return map;
-//    }
 
     public void init() {
         setIconImage(XImages.getIconApp());
@@ -323,10 +322,10 @@ public class TraSua_NV extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jdcTu = new com.toedter.calendar.JDateChooser();
         jdcDen = new com.toedter.calendar.JDateChooser();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
+        lblNVTrangDau = new javax.swing.JLabel();
+        lblNVlui = new javax.swing.JLabel();
+        lblNhanVienTrangThaiTrang = new javax.swing.JLabel();
+        lblNVTien = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -2022,21 +2021,41 @@ public class TraSua_NV extends javax.swing.JFrame {
 
         jpnHoaDon1.add(jpnThoiGian1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 270, 140));
 
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/2.png"))); // NOI18N
-        jpnHoaDon1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 740, -1, 25));
+        lblNVTrangDau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/2.png"))); // NOI18N
+        lblNVTrangDau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNVTrangDauMouseClicked(evt);
+            }
+        });
+        jpnHoaDon1.add(lblNVTrangDau, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 740, -1, 25));
 
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/4.png"))); // NOI18N
-        jpnHoaDon1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 740, -1, 25));
+        lblNVlui.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/4.png"))); // NOI18N
+        lblNVlui.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNVluiMouseClicked(evt);
+            }
+        });
+        jpnHoaDon1.add(lblNVlui, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 740, -1, 25));
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("Bản ghi 1/1");
-        jpnHoaDon1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 740, 120, 25));
+        lblNhanVienTrangThaiTrang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNhanVienTrangThaiTrang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNhanVienTrangThaiTrang.setText("Bản ghi 1/1");
+        jpnHoaDon1.add(lblNhanVienTrangThaiTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 740, 120, 25));
 
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/3.png"))); // NOI18N
-        jpnHoaDon1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 740, -1, 25));
+        lblNVTien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/3.png"))); // NOI18N
+        lblNVTien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNVTienMouseClicked(evt);
+            }
+        });
+        jpnHoaDon1.add(lblNVTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 740, -1, 25));
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/1.png"))); // NOI18N
+        jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel27MouseClicked(evt);
+            }
+        });
         jpnHoaDon1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 740, -1, 25));
 
         jpnTong.add(jpnHoaDon1, "card5");
@@ -2275,6 +2294,47 @@ public class TraSua_NV extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
+    private void lblNVTrangDauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNVTrangDauMouseClicked
+        // TODO add your handling code here:
+        truyenTrang(1);
+        fillTableNVHD(lstTruyenTrang);
+        demTrang = 1;
+    }//GEN-LAST:event_lblNVTrangDauMouseClicked
+
+    private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
+        // TODO add your handling code here:
+        truyenTrang(soTrang);
+        fillTableNVHD(lstTruyenTrang);
+        demTrang = soTrang;
+    }//GEN-LAST:event_jLabel27MouseClicked
+
+    private void lblNVluiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNVluiMouseClicked
+        // TODO add your handling code here:
+        if (demTrang == 1) {
+            JOptionPane.showMessageDialog(this, "không thể lùi");
+            demTrang = 1;
+            return;
+        } else {
+            truyenTrang(demTrang);
+            fillTableNVHD(lstTruyenTrang);
+            demTrang--;
+        }
+
+    }//GEN-LAST:event_lblNVluiMouseClicked
+
+    private void lblNVTienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNVTienMouseClicked
+        // TODO add your handling code here:
+        if (demTrang == soTrang) {
+            JOptionPane.showMessageDialog(this, "không thể tiến");
+            demTrang = soTrang;
+            return;
+        } else {
+            truyenTrang(demTrang);
+            fillTableNVHD(lstTruyenTrang);
+            demTrang++;
+        }
+    }//GEN-LAST:event_lblNVTienMouseClicked
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -2377,15 +2437,11 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -2486,6 +2542,10 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JLabel lblHinhAnh1;
     private javax.swing.JLabel lblHinhAnh4;
     private javax.swing.JLabel lblHoaDon;
+    private javax.swing.JLabel lblNVTien;
+    private javax.swing.JLabel lblNVTrangDau;
+    private javax.swing.JLabel lblNVlui;
+    private javax.swing.JLabel lblNhanVienTrangThaiTrang;
     private javax.swing.JLabel lblQuanLyBan;
     private javax.swing.JLabel lblSanPham;
     private javax.swing.JLabel lblThietLap;
