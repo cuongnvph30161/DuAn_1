@@ -9,6 +9,7 @@ import interfaceservices.INhanVienHoaDonServices;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -32,6 +33,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     DefaultTableModel modelNVhoaDon = new DefaultTableModel();
     List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD);
     private String maTaiKhoan;
+    int soTrang = 1;
 
     public void setMaTaiKhoan(String maTaiKhoan) {
         this.maTaiKhoan = maTaiKhoan;
@@ -47,20 +49,46 @@ public class TraSua_NV extends javax.swing.JFrame {
         init();
         jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
-        int soTrang = 1;
 
-        fillTableNVHD(listNhanVienHDView);
+        //fillTableNVHD(listNhanVienHDView);
     }
 
-    public void phanTrang() {
+    public Map<Integer, List<NhanVienHoaDonViewModel>> phanTrang() {
+        int truSoBanGhi = soTrang*100;
+        int demSoBanGhi = 1;
+        int demMap = 1;
+        Map<Integer, List<NhanVienHoaDonViewModel>> map = new HashMap<>();
+        if (listNhanVienHDView.size() > 100) {
+            double so = listNhanVienHDView.size() / 100;
+            soTrang = (int) Math.ceil(so);
+        } else {
+            soTrang = 1;
+        }
+        List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
+        if (soTrang > 1) {
+            if (truSoBanGhi % 100 == 0) {
+                for (int i = demSoBanGhi; i <= demSoBanGhi + 99; i++) {
+                    listTrang.add(listNhanVienHDView.get(i));
+                }
+                map.put(demMap, listTrang);
+                if (demMap <= soTrang) {
+                    demMap++;
+                }
 
+                truSoBanGhi -= 100;
+                demSoBanGhi += 100;
+            }
+
+        }
+
+        return map;
     }
 
     public void init() {
         setIconImage(XImages.getIconApp());
     }
 
-    public void fillTableNVHD(List<NhanVienHoaDonViewModel> list) {
+    public void fillTableNVHD(Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang, int soTrang) {
         modelNVhoaDon.setRowCount(0);
         String trangThai = "";
         for (NhanVienHoaDonViewModel a : list) {
