@@ -9,6 +9,7 @@ import domainmodel.BanHoaDonDomainModel;
 import domainmodel.ChiTietHoaDonDomainModel;
 import domainmodel.ChiTietSanPhamDomainModel;
 import domainmodel.HoaDonDoMainModel;
+import domainmodel.MaGiamGiaDomainModel;
 
 import domainmodel.NhanVienDomainModel;
 import domainmodel.SanPhamDomainModel;
@@ -40,6 +41,8 @@ import viewmodel.NhanVienHoaDonViewModel;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import repositorys.MaGiamGiaRepository;
+import repositorys.iRepository.IMaGiamGiaRepository;
 
 /**
  *
@@ -54,16 +57,19 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
     IChiTietSanPhamRepository chiTietSPRepository = new ChiTietSanPhamRepository();
     ISanPhamRepository SPRepository = new SanPhamRepository();
     IBanHoaDonRepository banHoaDonRepository = new BanHoaDonRepository();
+    IMaGiamGiaRepository maGGRepository = new MaGiamGiaRepository();
 
     @Override
     public List<NhanVienHoaDonViewModel> getList(List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP,
-            Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan, List<ChiTietHoaDonDomainModel> lstCTHD) {
+            Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan,
+            List<ChiTietHoaDonDomainModel> lstCTHD, Map<Integer, Object> mapMaGiamGia) {
 
         List<NhanVienHoaDonViewModel> listNVHD = new ArrayList<>();
         List<HoaDonDoMainModel> listHD = hoaDonRepository.getList();
         String tenBan = "";
         String tenNguoiTao = "";
         double tongThanhToan = 0;
+        double tienChuaGiam = 0;
 
         for (HoaDonDoMainModel a : listHD) {
             tenBan = mapTenBan.get(a.getMaHoaDon());
@@ -73,7 +79,19 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
                 if (a.getMaHoaDon() == b.getMaHoaDon()) {
                     for (ChiTietHoaDonDomainModel c : lstCTHD) {
                         if (a.getMaHoaDon() == c.getMaHoaDon()) {
-                            tongThanhToan += c.getSoLuong() * c.getGia().doubleValue();
+                            MaGiamGiaDomainModel maGiamGia = (MaGiamGiaDomainModel) mapMaGiamGia.get(a.getMaVoucher());
+
+                            if (a.getMaVoucher() == maGiamGia.getMaVoucher()) {
+                                tienChuaGiam += (c.getSoLuong() * c.getGia().doubleValue());
+                                double tienGiam = 0;
+                                if (tienChuaGiam / 100 * maGiamGia.getPhanTramGiam() < maGiamGia.getGiamToiDa().doubleValue()) {
+                                    tongThanhToan = tienChuaGiam - tienGiam;
+                                } else {
+                                    tongThanhToan = tienChuaGiam - maGiamGia.getGiamToiDa().doubleValue();
+                                }
+                            } else {
+                                tongThanhToan = (c.getSoLuong() * c.getGia().doubleValue());
+                            }
                         }
                     }
                     listNVHD.add(new NhanVienHoaDonViewModel(a.getMaHoaDon(),
@@ -162,7 +180,7 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
                 String thoiGian = a.getThoiGian() + "";
                 java.util.Date TG = df.parse(thoiGian);
                 if (TG.compareTo(ngayTu) >= 0 && TG.compareTo(ngayDen) <= 0) {
-                    if(a.getTrangThai()==trangThai && a.getMaHoaDon()==maHoaDon){
+                    if (a.getTrangThai() == trangThai && a.getMaHoaDon() == maHoaDon) {
                         list.add(a);
                     }
                 }
@@ -173,4 +191,14 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
         return null;
     }
 
+    @Override
+    public Map<Integer, Object> mapMaGiamGia() {
+        Map<Integer, Object> maGiamGia = new HashMap<>();
+        List<MaGiamGiaDomainModel> lst = maGGRepository.getList();
+        for (MaGiamGiaDomainModel a : lst) {
+            maGiamGia.put(a.getMaVoucher(), a);
+        }
+        return maGiamGia;
+
+    }
 }

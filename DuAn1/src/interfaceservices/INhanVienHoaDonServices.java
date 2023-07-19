@@ -20,12 +20,13 @@ public interface INhanVienHoaDonServices {
 
     List<NhanVienHoaDonViewModel> getList(List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP,
             Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan
-    ,List<ChiTietHoaDonDomainModel> listCTHD
+    ,List<ChiTietHoaDonDomainModel> listCTHD,Map<Integer, Object> mapMaGiamGia
     );
 
     List<PhaCheLichSuDanhSachSanPhamViewmodel> getDSSP();
 
     Map<Integer, String> mapTenNV();
+    Map<Integer, Object> mapMaGiamGia();
 
     Map<Integer, String> mapTenBan();
     List<ChiTietHoaDonDomainModel> getlistCTHD();

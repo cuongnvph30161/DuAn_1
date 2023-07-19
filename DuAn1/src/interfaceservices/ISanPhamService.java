@@ -4,10 +4,13 @@
  */
 package interfaceservices;
 
+import java.util.List;
+import viewmodel.PhaCheSanPhamViewModel;
+
 /**
  *
  * @author Admin
  */
 public interface ISanPhamService {
-    
+    public List<PhaCheSanPhamViewModel> getList();
 }

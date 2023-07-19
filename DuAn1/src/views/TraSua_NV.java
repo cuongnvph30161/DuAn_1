@@ -9,6 +9,7 @@ import interfaceservices.INhanVienHoaDonServices;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import services.NhanVienHoaDonServices;
+import utilities.Uhelper;
 import utilities.XImages;
 import viewmodel.NhanVienHoaDonViewModel;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
@@ -27,10 +29,12 @@ public class TraSua_NV extends javax.swing.JFrame {
     List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
     Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
     Map<Integer, String> mapTenBan = NVHoaDonSv.mapTenBan();
+    Map<Integer, Object> maGiamGia = NVHoaDonSv.mapMaGiamGia();
     List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
     DefaultTableModel modelNVhoaDon = new DefaultTableModel();
-    List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD);
+    List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
     private String maTaiKhoan;
+    int soTrang = 1;
 
     public void setMaTaiKhoan(String maTaiKhoan) {
         this.maTaiKhoan = maTaiKhoan;
@@ -46,8 +50,58 @@ public class TraSua_NV extends javax.swing.JFrame {
         init();
         jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
+
         fillTableNVHD(listNhanVienHDView);
     }
+
+    public void phanTrang() {
+        Map<Integer, List<NhanVienHoaDonViewModel>> mapTrang = new HashMap<>();
+        //lấy số trang
+          if (listNhanVienHDView.size() > 100) {
+            double so = listNhanVienHDView.size() / 100;
+            soTrang = (int) Math.ceil(so);
+        } else {
+            soTrang = 1;
+        }
+    }
+//    public Map<Integer, List<NhanVienHoaDonViewModel>> phanTrang() {
+//        int truSoBanGhi = soTrang*100;
+//        int demSoBanGhi = 1;
+//        int demMap = 1;
+//        Map<Integer, List<NhanVienHoaDonViewModel>> map = new HashMap<>();
+//        //lấy số trang
+//        if (listNhanVienHDView.size() > 100) {
+//            double so = listNhanVienHDView.size() / 100;
+//            soTrang = (int) Math.ceil(so);
+//        } else {
+//            soTrang = 1;
+//        }
+//        //thêm vào list theo page
+//        List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
+//        if(soTrang>1){
+//        for (int i = 0; i < soTrang; i++) {
+//           if (truSoBanGhi % 100 == 0) {
+//                for (int j = demSoBanGhi; j <= demSoBanGhi + 99; j++) {
+//                    listTrang.add(listNhanVienHDView.get(j));
+//                }
+//                map.put(demMap, listTrang);
+//                if (demMap <= soTrang) {
+//                    demMap++;
+//                }
+//
+//                truSoBanGhi -= 100;
+//                demSoBanGhi += 100;
+//            }
+//            
+//            map.put(i, listTrang);
+//        }
+//        
+//        }else{
+//            map.put(1, listNhanVienHDView);
+//        }
+//
+//        return map;
+//    }
 
     public void init() {
         setIconImage(XImages.getIconApp());
@@ -63,10 +117,6 @@ public class TraSua_NV extends javax.swing.JFrame {
                 a.getGhiChu()
             });
         }
-
-    }
-
-    public void timKiem() {
 
     }
 
@@ -2116,18 +2166,63 @@ public class TraSua_NV extends javax.swing.JFrame {
     }//GEN-LAST:event_lblHinhAnh1MouseEntered
 
     private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code her
         try {
+            if (Uhelper.checkNullText(txtNhanVienNhapMaHD, "bạn chưa nhập mã hóa đơn")) {
+                return;
+            } else {
+                try {
+                    int maHD = Integer.parseInt(txtNhanVienNhapMaHD.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "mã hóa đơn phải là số, hãy đảm bảo mã hóa đơn không có khoảng trắng");
+                    txtNhanVienNhapMaHD.requestFocus();;
+                    return;
+                }
+            }
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+                String ngay1 = df.format(jdcTu.getDate());
+
+                java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "chưa nhập ngày bắt đầu");
+                jdcTu.requestFocus();
+                return;
+            }
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+                String ngay2 = df.format(jdcDen.getDate());
+
+                java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "chưa nhập ngày kết thúc");
+                jdcDen.requestFocus();
+                return;
+            }
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
             String ngay1 = df.format(jdcTu.getDate());
             String ngay2 = df.format(jdcDen.getDate());
+
             java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
             java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
             int maHoaDon = Integer.parseInt(txtNhanVienNhapMaHD.getText());
             int trangThai = (cboNhanVienHDTrangThai.getSelectedItem() + "").equalsIgnoreCase("Đã thanh toán") ? 1 : 0;
-            List<NhanVienHoaDonViewModel> lst = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD);
+            List<NhanVienHoaDonViewModel> lst = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
             List<NhanVienHoaDonViewModel> lstTim = NVHoaDonSv.timHD(ngayTu, ngayDen, maHoaDon, trangThai, lst);
-            fillTableNVHD(lstTim);
+            if (lstTim.size() > 0) {
+                fillTableNVHD(lstTim);
+                JOptionPane.showMessageDialog(null, "danh sách đã hiển thị");
+                return;
+            } else {
+                JOptionPane.showMessageDialog(null, "không tìm thấy danh sách phù hợp");
+                return;
+            }
+
         } catch (Exception e) {
         }
 
