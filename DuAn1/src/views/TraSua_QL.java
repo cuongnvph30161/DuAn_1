@@ -203,20 +203,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         return blob;
     }
 
-//    public void loadComBoBoxVaiTroTaiKhoan() {
-//        ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
-//        ArrayList<Role> existingVaiTro = new ArrayList<>();
-//        
-//        for (TaiKhoanViewModel taiKhoanViewModel : list) {
-//            Role vaiTro = taiKhoanViewModel.getRole();
-//            if (!existingVaiTro.contains(vaiTro)) {
-//                cbbTrangThaiVaiTroThem.addItem(vaiTro.toString());
-//                existingVaiTro.add(vaiTro);
-//            }
-//        }
-//    }
-// 
-//    public void loadComBoBoxMaNhanVien
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -3198,8 +3185,6 @@ public class TraSua_QL extends javax.swing.JFrame {
             @Override
             public void run() {
                 String maTaiKhoan = ""; // Lấy mã tài khoản từ giao diện đăng nhập
-//                System.out.println("mTK" + " " + maTaiKhoan);
-
                 TraSua_QL traSua_QL = new TraSua_QL(maTaiKhoan);
                 traSua_QL.setMaTaiKhoan(maTaiKhoan);
                 traSua_QL.setVisible(true);
