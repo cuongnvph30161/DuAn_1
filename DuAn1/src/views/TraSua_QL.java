@@ -28,7 +28,8 @@ import services.TaiKhoanServicess;
 import utilities.XImages;
 import viewmodel.NhanVienViewModel;
 import viewmodel.TaiKhoanViewModel;
-
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.SQLException;
 public class TraSua_QL extends javax.swing.JFrame {
 
     public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
@@ -91,42 +92,62 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 //
 
-//    public NhanVienViewModel getDataNhanVien() {
-//        NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
-//        String maNhanVien = txtMaNhanVienThem.getText();
-//        String hoVaTen = txtHoVaTenThem.getText();
-//        String ngaySinh = txtNgaySinhThem.getText();
-//        String diaChi = txtDiaChiThem.getText();
-//        String cccd = txtCCCDThem.getText();
-//        String email = txtEmailThem.getText();
-//        String soDienThoai = txtSDTThem.getText();
-//        String ghiChu = txtGhiChuThem.getText();
-//        String trangThai = cbbTrangThaiNhanVienThem.getSelectedItem().toString();
-//        String chucVu = cbbChucVuNhanVienThem.getSelectedItem().toString();
-//        Icon icon = lblAnhNhanVien.getIcon(); // Giả sử JLabel chứa hình ảnh trong biến icon
-//        byte[] imageData = getImageDataFromIcon(icon);
-//
-//       
-//
-//    }
-
-    private byte[] getImageDataFromIcon(Icon icon) {
-        // Chuyển Icon thành BufferedImage để lấy dữ liệu hình ảnh
-        BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
-        icon.paintIcon(null, bufferedImage.getGraphics(), 0, 0);
-
-        // Chuyển BufferedImage thành mảng byte (byte[])
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(bufferedImage, "png", baos);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        byte[] imageData = baos.toByteArray();
-        return imageData;
+    public NhanVienViewModel getDataNhanVien() {
+        NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
+        String maNhanVien = txtMaNhanVienThem.getText();
+        String hoVaTen = txtHoVaTenThem.getText();
+        String ngaySinh = txtNgaySinhThem.getText();
+        String diaChi = txtDiaChiThem.getText();
+        String cccd = txtCCCDThem.getText();
+        String email = txtEmailThem.getText();
+        String soDienThoai = txtSDTThem.getText();
+        String ghiChu = txtGhiChuThem.getText();
+        String trangThai = cbbTrangThaiNhanVienThem.getSelectedItem().toString();
+        String chucVu = cbbChucVuNhanVienThem.getSelectedItem().toString();
+        Icon icon = lblAnhNhanVien.getIcon(); // Giả sử JLabel chứa hình ảnh trong biến icon
+        byte[] imageData = getImageDataFromIcon(icon);
+          
+        // Tạo đối tượng Blob từ dữ liệu hình ảnh
+        Blob anh = createBlobFromImageData(imageData);
+        nhanVienViewModel.setAnh(anh);
+        int maNhanVienInt = Integer.parseInt(maNhanVien);
+        nhanVienViewModel.setMaNhanVien(maNhanVienInt);
+        nhanVienViewModel.setDiaChi(diaChi);
+        nhanVienViewModel.setGhiChu(ghiChu);
+        nhanVienViewModel.setHoVaTen(hoVaTen);
+        // định dạng ngày sinh
+       
+        
+        return nhanVienViewModel;
     }
 
+    private byte[] getImageDataFromIcon(Icon icon) {
+        if (icon != null && icon instanceof ImageIcon) {
+            // Chuyển đổi Icon thành mảng byte
+            ImageIcon imageIcon = (ImageIcon) icon;
+            BufferedImage bufferedImage = (BufferedImage) imageIcon.getImage();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            try {
+                ImageIO.write(bufferedImage, "png", baos);
+                return baos.toByteArray();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 
+    private Blob createBlobFromImageData(byte[] data) {
+        Blob blob = null;
+        try {
+            blob = new SerialBlob(data);
+            } catch (SQLException e) {
+            e.printStackTrace();
+            // Hoặc xử lý theo cách phù hợp với ứng dụng của bạn, ví dụ:
+            // throw new RuntimeException("Không thể tạo đối tượng Blob từ dữ liệu hình ảnh.", e);
+        }
+        return blob;
+    }
 
     public void loadComBoBoxVaiTroTaiKhoan() {
         ArrayList<TaiKhoanViewModel> list = iTaiKhoanServicess.getAll();
@@ -3099,6 +3120,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             lblAnhNhanVien.setIcon(scaledIcon);
     }//GEN-LAST:event_btnAnhNhanVienActionPerformed
     }
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
