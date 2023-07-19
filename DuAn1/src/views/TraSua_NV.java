@@ -50,53 +50,53 @@ public class TraSua_NV extends javax.swing.JFrame {
         jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
 
-        //fillTableNVHD(listNhanVienHDView);
+        fillTableNVHD(listNhanVienHDView);
     }
 
-    public Map<Integer, List<NhanVienHoaDonViewModel>> phanTrang() {
-        int truSoBanGhi = soTrang*100;
-        int demSoBanGhi = 1;
-        int demMap = 1;
-        Map<Integer, List<NhanVienHoaDonViewModel>> map = new HashMap<>();
-        //lấy số trang
-        if (listNhanVienHDView.size() > 100) {
-            double so = listNhanVienHDView.size() / 100;
-            soTrang = (int) Math.ceil(so);
-        } else {
-            soTrang = 1;
-        }
-        //thêm vào list theo page
-        List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
-        if(soTrang>1){
-        for (int i = 0; i < soTrang; i++) {
-           if (truSoBanGhi % 100 == 0) {
-                for (int j = demSoBanGhi; j <= demSoBanGhi + 99; j++) {
-                    listTrang.add(listNhanVienHDView.get(j));
-                }
-                map.put(demMap, listTrang);
-                if (demMap <= soTrang) {
-                    demMap++;
-                }
-
-                truSoBanGhi -= 100;
-                demSoBanGhi += 100;
-            }
-            
-            map.put(i, listTrang);
-        }
-        
-        }else{
-            map.put(1, listNhanVienHDView);
-        }
-
-        return map;
-    }
+//    public Map<Integer, List<NhanVienHoaDonViewModel>> phanTrang() {
+//        int truSoBanGhi = soTrang*100;
+//        int demSoBanGhi = 1;
+//        int demMap = 1;
+//        Map<Integer, List<NhanVienHoaDonViewModel>> map = new HashMap<>();
+//        //lấy số trang
+//        if (listNhanVienHDView.size() > 100) {
+//            double so = listNhanVienHDView.size() / 100;
+//            soTrang = (int) Math.ceil(so);
+//        } else {
+//            soTrang = 1;
+//        }
+//        //thêm vào list theo page
+//        List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
+//        if(soTrang>1){
+//        for (int i = 0; i < soTrang; i++) {
+//           if (truSoBanGhi % 100 == 0) {
+//                for (int j = demSoBanGhi; j <= demSoBanGhi + 99; j++) {
+//                    listTrang.add(listNhanVienHDView.get(j));
+//                }
+//                map.put(demMap, listTrang);
+//                if (demMap <= soTrang) {
+//                    demMap++;
+//                }
+//
+//                truSoBanGhi -= 100;
+//                demSoBanGhi += 100;
+//            }
+//            
+//            map.put(i, listTrang);
+//        }
+//        
+//        }else{
+//            map.put(1, listNhanVienHDView);
+//        }
+//
+//        return map;
+//    }
 
     public void init() {
         setIconImage(XImages.getIconApp());
     }
 
-    public void fillTableNVHD(Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang, int soTrang) {
+    public void fillTableNVHD(List<NhanVienHoaDonViewModel> list) {
         modelNVhoaDon.setRowCount(0);
         String trangThai = "";
         for (NhanVienHoaDonViewModel a : list) {
