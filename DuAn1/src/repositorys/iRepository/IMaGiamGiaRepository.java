@@ -12,6 +12,6 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public interface IMaGiamGiaRepository extends DAO<String,MaGiamGiaDomainModel>{
+public interface IMaGiamGiaRepository {
     List<MaGiamGiaDomainModel> getList();
 }

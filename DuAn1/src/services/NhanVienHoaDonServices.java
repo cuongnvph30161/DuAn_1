@@ -9,6 +9,7 @@ import domainmodel.BanHoaDonDomainModel;
 import domainmodel.ChiTietHoaDonDomainModel;
 import domainmodel.ChiTietSanPhamDomainModel;
 import domainmodel.HoaDonDoMainModel;
+import domainmodel.MaGiamGiaDomainModel;
 
 import domainmodel.NhanVienDomainModel;
 import domainmodel.SanPhamDomainModel;
@@ -40,6 +41,7 @@ import viewmodel.NhanVienHoaDonViewModel;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import repositorys.iRepository.IMaGiamGiaRepository;
 
 /**
  *
@@ -55,9 +57,11 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
     ISanPhamRepository SPRepository = new SanPhamRepository();
     IBanHoaDonRepository banHoaDonRepository = new BanHoaDonRepository();
 
+
     @Override
     public List<NhanVienHoaDonViewModel> getList(List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP,
-            Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan, List<ChiTietHoaDonDomainModel> lstCTHD) {
+            Map<Integer, String> mapTenNV, Map<Integer, String> mapTenBan, 
+            List<ChiTietHoaDonDomainModel> lstCTHD,Map<Integer, Object> mapMaGiamGia) {
 
         List<NhanVienHoaDonViewModel> listNVHD = new ArrayList<>();
         List<HoaDonDoMainModel> listHD = hoaDonRepository.getList();
@@ -172,5 +176,16 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
         }
         return null;
     }
+
+    @Override
+    public Map<Integer, Object> mapMaGiamGia() {
+        Map<Integer, Object> maGiamGia = new HashMap<>();
+        List<MaGiamGiaDomainModel> lst = nhanVienRepository.getAll();
+        for (MaGiamGiaDomainModel a : lst) {
+            maGiamGia.put(a.getMaNhanVien(), a.getHoVaTen());
+        }
+        return maGiamGia;
+                
+                }
 
 }
