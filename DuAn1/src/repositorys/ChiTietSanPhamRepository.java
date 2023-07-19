@@ -8,9 +8,9 @@ import java.sql.*;
 import domainmodel.BanDomainModel;
 import domainmodel.ChiTietHoaDonDomainModel;
 import domainmodel.ChiTietSanPhamDomainModel;
-import repository.iRepository.IBanRepository;
-import repository.iRepository.IChiTietHoaDonRepository;
-import repository.iRepository.IChiTietSanPhamRepository;
+import repositorys.iRepository.IBanRepository;
+import repositorys.iRepository.IChiTietHoaDonRepository;
+import repositorys.iRepository.IChiTietSanPhamRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -2,16 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package repository.iRepository;
+package repositorys.iRepository;
 
-//import interfacerepositorys.*;
-import domainmodel.MaGiamGiaDomainModel;
+import domainmodel.ChiTietHoaDonDomainModel;
 import java.util.List;
 
 /**
  *
  * @author ADMIN
  */
-public interface IMaGiamGiaRepository extends DAO<String,MaGiamGiaDomainModel>{
-    List<MaGiamGiaDomainModel> getList();
+public interface IChiTietHoaDonRepository extends DAO<String,ChiTietHoaDonDomainModel>{
+        List<ChiTietHoaDonDomainModel> getList();
 }

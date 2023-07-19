@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import domainmodel.NhanVienDomainModel;
-import repository.iRepository.INhanVienRepository;
+import repositorys.iRepository.INhanVienRepository;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
