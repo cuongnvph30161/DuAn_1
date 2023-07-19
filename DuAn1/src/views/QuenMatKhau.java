@@ -9,7 +9,7 @@ import interfaceservices.ITaiKhoanServicess;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
-import services.EmailSender;
+import utilities.EmailSender;
 import services.NhanVienService;
 import services.TaiKhoanServicess;
 import utilities.XImages;

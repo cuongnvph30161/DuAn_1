@@ -7,7 +7,7 @@ package views;
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
 import javax.swing.JOptionPane;
-import services.EmailSender;
+import utilities.EmailSender;
 import services.NhanVienService;
 import services.TaiKhoanServicess;
 import utilities.XImages;

@@ -9,10 +9,10 @@ import domainmodel.BanDomainModel;
 import domainmodel.ChiTietHoaDonDomainModel;
 import domainmodel.ChiTietSanPhamDomainModel;
 import domainmodel.SanPhamDomainModel;
-import repository.iRepository.IBanRepository;
-import repository.iRepository.IChiTietHoaDonRepository;
-import repository.iRepository.IChiTietSanPhamRepository;
-import repository.iRepository.ISanPhamRepository;
+import repositorys.iRepository.IBanRepository;
+import repositorys.iRepository.IChiTietHoaDonRepository;
+import repositorys.iRepository.IChiTietSanPhamRepository;
+import repositorys.iRepository.ISanPhamRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

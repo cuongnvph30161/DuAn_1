@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import repositorys.TaiKhoanRepositorys;
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
-import repository.iRepository.ITaiKhoanRepositorys;
+import repositorys.iRepository.ITaiKhoanRepositorys;
 
 import javax.swing.JOptionPane;
 import viewmodel.TaiKhoanViewModel;

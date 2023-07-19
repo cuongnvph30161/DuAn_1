@@ -6,7 +6,7 @@ package repositorys;
 
 import java.sql.*;
 import domainmodel.BanDomainModel;
-import repository.iRepository.IBanRepository;
+import repositorys.iRepository.IBanRepository;
 
 import java.util.ArrayList;
 import java.util.List;

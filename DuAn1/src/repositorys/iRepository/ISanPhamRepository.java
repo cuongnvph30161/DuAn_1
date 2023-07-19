@@ -2,17 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package repository.iRepository;
+package repositorys.iRepository;
 
-import domainmodel.BanDomainModel;
+
+import domainmodel.SanPhamDomainModel;
 import java.util.List;
 
 /**
  *
  * @author ADMIN
  */
-public interface IBanRepository extends DAO<String,BanDomainModel>{
-    List<BanDomainModel> getList();
-   
-    
+public interface ISanPhamRepository extends DAO<String,SanPhamDomainModel>{
+        List<SanPhamDomainModel> getList();
 }

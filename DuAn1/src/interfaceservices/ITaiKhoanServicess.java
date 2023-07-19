@@ -5,7 +5,7 @@
 package interfaceservices;
 
 import domainmodel.TaiKhoanDomail;
-import repository.iRepository.ITaiKhoanRepositorys;
+import repositorys.iRepository.ITaiKhoanRepositorys;
 import repositorys.TaiKhoanRepositorys;
 
 import java.util.ArrayList;

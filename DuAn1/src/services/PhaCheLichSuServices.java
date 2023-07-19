@@ -11,12 +11,12 @@ import domainmodel.ChiTietSanPhamDomainModel;
 import domainmodel.HoaDonDoMainModel;
 import domainmodel.SanPhamDomainModel;
 import interfaceservices.IPhaCheLichSuServices;
-import repository.iRepository.IBanHoaDonRepository;
-import repository.iRepository.IBanRepository;
-import repository.iRepository.IChiTietHoaDonRepository;
-import repository.iRepository.IChiTietSanPhamRepository;
-import repository.iRepository.IHoaDonRepository;
-import repository.iRepository.ISanPhamRepository;
+import repositorys.iRepository.IBanHoaDonRepository;
+import repositorys.iRepository.IBanRepository;
+import repositorys.iRepository.IChiTietHoaDonRepository;
+import repositorys.iRepository.IChiTietSanPhamRepository;
+import repositorys.iRepository.IHoaDonRepository;
+import repositorys.iRepository.ISanPhamRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;

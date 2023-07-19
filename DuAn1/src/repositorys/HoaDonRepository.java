@@ -7,8 +7,8 @@ package repositorys;
 import java.sql.*;
 import domainmodel.BanDomainModel;
 import domainmodel.HoaDonDoMainModel;
-import repository.iRepository.IBanRepository;
-import repository.iRepository.IHoaDonRepository;
+import repositorys.iRepository.IBanRepository;
+import repositorys.iRepository.IHoaDonRepository;
 
 import java.util.ArrayList;
 import java.util.List;

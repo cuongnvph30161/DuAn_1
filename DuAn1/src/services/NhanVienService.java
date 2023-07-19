@@ -7,7 +7,7 @@ package services;
 import domainmodel.NhanVienDomainModel;
 import interfaceservices.INhanVienService;
 import java.util.ArrayList;
-import repository.iRepository.INhanVienRepository;
+import repositorys.iRepository.INhanVienRepository;
 import repositorys.NhanVienRepository;
 import viewmodel.NhanVienViewModel;
 

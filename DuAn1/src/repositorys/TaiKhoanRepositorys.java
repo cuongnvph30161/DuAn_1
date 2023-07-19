@@ -6,7 +6,7 @@ package repositorys;
 
 import domainmodel.Role;
 import domainmodel.TaiKhoanDomail;
-import repository.iRepository.ITaiKhoanRepositorys;
+import repositorys.iRepository.ITaiKhoanRepositorys;
 
 import java.sql.Statement;
 import java.sql.PreparedStatement;
