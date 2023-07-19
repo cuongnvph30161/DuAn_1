@@ -24,15 +24,14 @@ public class MaGiamGiaRepository implements IMaGiamGiaRepository {
         try {
             List<MaGiamGiaDomainModel> lst = new ArrayList<>();
             con = DBConnect.getConnect();
-            String lenh = "SELECT MaVoucher,PhanTramGiam,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai FROM MaGiamGia";
+            String lenh = "SELECT MaVoucher,PhanTramGiam,HoaDonToiThieu,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai FROM MaGiamGia";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
-                lst.add(new MaGiamGiaDomainModel(rs.getInt(1),
-                        rs.getInt(2), rs.getInt(3),
-                        rs.getBigDecimal(4), rs.getDate(5),
-                        rs.getInt(6), rs.getInt(7)));
-
+             lst.add(new MaGiamGiaDomainModel(rs.getInt(1),
+                     rs.getInt(2), rs.getInt(3),
+                     rs.getBigDecimal(4), rs.getDate(5),
+                     rs.getInt(6), rs.getInt(7)));
             }
             return lst;
         } catch (Exception e) {

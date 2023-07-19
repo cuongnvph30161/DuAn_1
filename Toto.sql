@@ -207,7 +207,7 @@ go
 --UPDATE SanPham SET =? WHERE =?
 
 --4.MaGiamGia
---SELECT MaVoucher,PhanTramGiam,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai FROM MaGiamGia 
+--SELECT MaVoucher,PhanTramGiam,HoaDonToiThieu,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai FROM MaGiamGia 
 --INSERT INTO MaGiamGia(PhanTramGiam,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai)
 --VALUES(?,?,?,?,?)
 --DELETE FROM MaGiamGia WHERE =?

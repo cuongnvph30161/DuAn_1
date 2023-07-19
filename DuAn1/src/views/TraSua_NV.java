@@ -29,9 +29,10 @@ public class TraSua_NV extends javax.swing.JFrame {
     List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
     Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
     Map<Integer, String> mapTenBan = NVHoaDonSv.mapTenBan();
+    Map<Integer, Object> maGiamGia = NVHoaDonSv.mapMaGiamGia();
     List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
     DefaultTableModel modelNVhoaDon = new DefaultTableModel();
-    List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD);
+    List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
     private String maTaiKhoan;
     int soTrang = 1;
 
@@ -53,6 +54,16 @@ public class TraSua_NV extends javax.swing.JFrame {
         fillTableNVHD(listNhanVienHDView);
     }
 
+    public void phanTrang() {
+        Map<Integer, List<NhanVienHoaDonViewModel>> mapTrang = new HashMap<>();
+        //lấy số trang
+          if (listNhanVienHDView.size() > 100) {
+            double so = listNhanVienHDView.size() / 100;
+            soTrang = (int) Math.ceil(so);
+        } else {
+            soTrang = 1;
+        }
+    }
 //    public Map<Integer, List<NhanVienHoaDonViewModel>> phanTrang() {
 //        int truSoBanGhi = soTrang*100;
 //        int demSoBanGhi = 1;
@@ -2201,7 +2212,7 @@ public class TraSua_NV extends javax.swing.JFrame {
             java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
             int maHoaDon = Integer.parseInt(txtNhanVienNhapMaHD.getText());
             int trangThai = (cboNhanVienHDTrangThai.getSelectedItem() + "").equalsIgnoreCase("Đã thanh toán") ? 1 : 0;
-            List<NhanVienHoaDonViewModel> lst = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD);
+            List<NhanVienHoaDonViewModel> lst = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
             List<NhanVienHoaDonViewModel> lstTim = NVHoaDonSv.timHD(ngayTu, ngayDen, maHoaDon, trangThai, lst);
             if (lstTim.size() > 0) {
                 fillTableNVHD(lstTim);
