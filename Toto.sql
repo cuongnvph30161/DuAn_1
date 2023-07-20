@@ -33,8 +33,6 @@ TrangThai INT NOT NULL,
 FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien)
 );
 
-
-
 GO
 
 CREATE TABLE SanPham (
@@ -81,7 +79,6 @@ GhiChu NVARCHAR(MAX),
 FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
 FOREIGN KEY (MaVoucher) REFERENCES MaGiamGia(MaVoucher)
 );
-
 GO
 
 CREATE TABLE Ban_HoaDon(
@@ -122,9 +119,9 @@ go
 -- nạp dữ liệu bảng nhân viên
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
 VALUES 
-(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T),N'quản lý'),
-(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T),N'nhân viên'),
-(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\SUMMER-2023\1.png', single_blob) as T),N'nhân viên')
+(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Quản lý'),
+(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Nhân viên'),
+(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Nhân viên')
 go
 
 --nạp dữ liệu bảng tài khoản
@@ -134,6 +131,7 @@ VALUES
 ('TK02',1001,'admin123',N'PhaChe',1),
 ('TK03',1002,'admin123',N'NhanVien',1)
 go
+
 --nạp dữ liệu bảng sản phẩm
 INSERT INTO SanPham(TenSanPham,TrangThai,MoTa,Anh)
 VALUES

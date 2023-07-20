@@ -72,4 +72,16 @@ public class NhanVienService implements INhanVienService {
 
     }
 
+    @Override
+    public NhanVienViewModel loadMouseclicked(int maNhanVien) {
+        NhanVienDomainModel nhanVienDomainModel = iNhanVienRepository.loadMouseClick(maNhanVien);
+        NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
+        nhanVienViewModel.setAnh(nhanVienDomainModel.getAnh());
+        nhanVienViewModel.setNgaySinh(nhanVienDomainModel.getNgaySinh());
+        nhanVienViewModel.setDiaChi(nhanVienDomainModel.getDiaChi());
+        nhanVienViewModel.setTrangThai(nhanVienDomainModel.getTrangThai());
+        nhanVienViewModel.setGhiChu(nhanVienDomainModel.getGhiChu());
+        return nhanVienViewModel; 
+    }
+
 }

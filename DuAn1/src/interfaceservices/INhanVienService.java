@@ -18,4 +18,5 @@ public interface INhanVienService {
     public String checkEmail(String email); 
     public ArrayList<NhanVienViewModel> getAll();
     public String insertNhanVien(NhanVienViewModel nhanVienViewModel);
+    public NhanVienViewModel loadMouseclicked(int maNhanVien);
 }

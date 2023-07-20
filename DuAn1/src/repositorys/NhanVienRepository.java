@@ -168,12 +168,43 @@ public class NhanVienRepository implements INhanVienRepository {
             ps.setString(8, nhanVienDomainModel.getGhiChu());
             ps.setBlob(9, nhanVienDomainModel.getAnh());
             ps.setString(10, nhanVienDomainModel.getChucVu());
-            System.out.println("sdt"+" "+nhanVienDomainModel.getSoDienThoai());
+            System.out.println("sdt" + " " + nhanVienDomainModel.getSoDienThoai());
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public NhanVienDomainModel loadMouseClick(int maNhanVien) {
+        NhanVienDomainModel nhanVienDomainModel = null; // Khởi tạo đối tượng ngoài vòng lặp
+
+        try {
+            String query = "select Anh,NgaySinh,DiaChi,TrangThai,GhiChu from NhanVien where MaNhanVien =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, maNhanVien);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Blob anh = rs.getBlob("Anh");
+                Date ngaySinh = rs.getDate("NgaySinh");
+                String diaChi = rs.getString("DiaChi");
+                int trangThai = rs.getInt("TrangThai");
+                String ghiChu =rs.getString("GhiChu");
+                nhanVienDomainModel = new NhanVienDomainModel();
+                nhanVienDomainModel.setAnh(anh);
+                nhanVienDomainModel.setNgaySinh(ngaySinh);
+                nhanVienDomainModel.setDiaChi(diaChi);
+                nhanVienDomainModel.setTrangThai(trangThai);
+                nhanVienDomainModel.setGhiChu(ghiChu);
+                System.out.println("loadMouseclick" + " " + nhanVienDomainModel);
+            }
+
+            return nhanVienDomainModel;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
