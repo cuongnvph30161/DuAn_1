@@ -6,6 +6,8 @@ package services;
 
 import domainmodel.ChiTietHoaDonDomainModel;
 import domainmodel.HoaDonDoMainModel;
+import domainmodel.NhanVien.ChiTietHoaDon;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import repositorys.ChiTietHoaDonRepository;
@@ -16,29 +18,25 @@ import viewmodel.NhanVienBanViewModel;
  * @author Admin
  */
 public class NhanVienBanService {
-    
+
     private ChiTietHoaDonRepository cthdRepo = new ChiTietHoaDonRepository();
-     
-    
+    double tongTien = 0;
+
     public List<NhanVienBanViewModel> getAllNhanVienBan() {
         List<NhanVienBanViewModel> listNV = new ArrayList<>();
-        List<ChiTietHoaDonDomainModel> list = cthdRepo.getAllNhanVienBan();
-        
-        for (ChiTietHoaDonDomainModel cthd : list) {
+        List<ChiTietHoaDon> list = cthdRepo.getDuLieuBan();
+        for (ChiTietHoaDon cthd : list) {
             NhanVienBanViewModel nvbVM = new NhanVienBanViewModel();
-            HoaDonDoMainModel hd = new HoaDonDoMainModel();
-            if (cthd.getMaHoaDon() == hd.getMaHoaDon()) {
-                nvbVM.setMaHoaDon(cthd.getMaHoaDon());
-                nvbVM.setThoiGian(hd.getThoiGian());
-                nvbVM.setSoLuong(cthd.getSoLuong());
-                nvbVM.setGia(cthd.getGia());
-                nvbVM.setTrangThaiOrder(hd.getTrangThaiOrder());
-//                nvbVM.setChiTiet("");
-                listNV.add(nvbVM);
-            }
+            nvbVM.setMaHoaDon(cthd.getMaHoaDon());
+            nvbVM.setThoiGian(cthd.getMaHoaDon().getThoiGian());
+
+            tongTien = (cthd.getSoLuong() * cthd.getGia().doubleValue());
+
+            nvbVM.setTrangThaiOrder(cthd.getMaHoaDon().getTrangThaiOrder());
+            nvbVM.setTongThanhToan(BigDecimal.valueOf(tongTien));
+            listNV.add(nvbVM);
         }
         return listNV;
-        
     }
-    
+
 }

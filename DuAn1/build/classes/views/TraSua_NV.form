@@ -290,7 +290,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jpnQuanLyBan" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -299,17 +299,13 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jpnQuanLyBan" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="1576" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jpnQuanLyBan" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -335,47 +331,52 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnTang1" min="-2" pref="85" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="btnTang2" min="-2" pref="85" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="btnTang3" min="-2" pref="85" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="btnTang4" min="-2" pref="85" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="btnTang5" min="-2" pref="85" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jScrollPane7" alignment="0" min="-2" pref="673" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtVoucher" min="-2" pref="500" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                      <Component id="btnApDungBan" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel38" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel36" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblTang" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lblNhanVienQLBan" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="btnTang1" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Component id="btnTang2" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Component id="btnTang3" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Component id="btnTang4" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Component id="btnTang5" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblTongTien" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
-                                          <Component id="lblGiaSauKhiGiam" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jScrollPane7" alignment="0" min="-2" pref="673" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="txtVoucher" min="-2" pref="500" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                                              <Component id="btnApDungBan" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel38" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel36" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lblTongTien" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
+                                                  <Component id="lblGiaSauKhiGiam" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="btnThanhToanBan" min="-2" pref="179" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+                                          <Component id="btnThemHoaDonBan" min="-2" pref="174" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnThanhToanBan" min="-2" pref="179" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-                                  <Component id="btnThemHoaDonBan" min="-2" pref="174" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="1648" max="32767" attributes="0"/>
@@ -386,7 +387,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblNhanVienQLBan" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnTang1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
@@ -395,7 +396,9 @@
                               <Component id="btnTang4" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="btnTang5" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="lblTang" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jScrollPane7" min="-2" pref="275" max="-2" attributes="0"/>
@@ -430,12 +433,12 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel28">
+                <Component class="javax.swing.JLabel" name="lblNhanVienQLBan">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="3"/>
+                      <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; B&#xc0;N"/>
+                    <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; b&#xe0;n"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnTang1">
@@ -627,955 +630,75 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton13" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton14" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton8" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton11" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jButton7" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="jButton9" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jButton4" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                          <Component id="jButton6" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace pref="41" max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jButton5" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton10" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton12" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton15" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
+                                  <EmptySpace min="0" pref="427" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                      <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton4" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton5" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton6" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton7" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton9" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton10" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton8" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton11" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton12" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton13" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton14" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton15" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="193" max="32767" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="0" pref="640" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
-                          <SubComponents>
-                            <Component class="javax.swing.JLabel" name="jLabel29">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="18" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="T&#x1ea7;ng 1"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton4">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="1"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton5">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="3"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton6">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="2"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton7">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="4"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton8">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="7"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton9">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="5"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton10">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="6"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton11">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="8"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton12">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="9"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton13">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="10"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton14">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="11"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton15">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="12"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="jpnTang2">
 
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton27" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton16" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton21" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton24" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jButton20" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="jButton22" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jButton26" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                          <Component id="jButton19" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace pref="41" max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jButton18" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton23" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton25" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton17" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
+                                  <EmptySpace min="0" pref="427" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                      <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton26" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton18" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton19" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton20" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton22" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton23" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton21" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton24" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton25" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton27" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton16" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton17" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="193" max="32767" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="0" pref="640" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
-                          <SubComponents>
-                            <Component class="javax.swing.JButton" name="jButton16">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="11"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton17">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="12"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton18">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="3"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton19">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="2"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton20">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="4"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton21">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="7"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton22">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="5"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton23">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="6"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton24">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="8"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel30">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="18" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="T&#x1ea7;ng 2"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton25">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="9"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton26">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="1"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton27">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="10"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="jpnTang3">
 
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton39" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton28" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton33" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton36" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jButton32" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="jButton34" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jButton38" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                          <Component id="jButton31" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace pref="41" max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jButton30" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton35" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton37" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton29" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
+                                  <EmptySpace min="0" pref="427" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                      <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton38" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton30" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton31" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton32" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton34" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton35" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton33" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton36" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton37" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton39" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton28" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton29" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="193" max="32767" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="0" pref="640" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
-                          <SubComponents>
-                            <Component class="javax.swing.JButton" name="jButton28">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="11"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton29">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="12"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton30">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="3"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton31">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="2"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton32">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="4"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton33">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="7"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton34">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="5"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton35">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="6"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton36">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="8"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel31">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="18" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="T&#x1ea7;ng 3"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton37">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="9"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton38">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="1"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton39">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="10"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="jpnTang4">
 
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton51" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton40" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton45" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton48" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jButton44" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="jButton46" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jButton50" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                          <Component id="jButton43" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace pref="41" max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jButton42" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton47" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton49" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton41" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
+                                  <EmptySpace min="0" pref="427" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                      <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton50" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton42" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton43" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton44" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton46" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton47" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton45" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton48" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton49" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton51" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton40" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton41" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="193" max="32767" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="0" pref="640" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
-                          <SubComponents>
-                            <Component class="javax.swing.JButton" name="jButton40">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="11"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton41">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="12"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton42">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="3"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton43">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="2"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton44">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="4"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton45">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="7"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton46">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="5"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton47">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="6"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton48">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="8"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel32">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="18" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="T&#x1ea7;ng 4"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton49">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="9"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton50">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="1"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton51">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="10"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="jpnTang5">
 
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton63" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton52" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jButton57" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="jButton60" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jButton56" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="jButton58" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jButton62" min="-2" pref="91" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                                          <Component id="jButton55" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace pref="41" max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jButton54" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton59" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton61" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jButton53" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
+                                  <EmptySpace min="0" pref="427" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                      <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton62" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton54" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton55" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton56" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton58" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton59" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton57" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton60" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton61" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton63" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton52" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jButton53" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="193" max="32767" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="0" pref="640" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
-                          <SubComponents>
-                            <Component class="javax.swing.JButton" name="jButton52">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="11"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton53">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="12"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton54">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="3"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton55">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="2"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton56">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="4"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton57">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="7"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton58">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="5"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton59">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="6"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton60">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="8"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel34">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Segoe UI" size="18" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="T&#x1ea7;ng 5"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton61">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="9"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton62">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="1"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="jButton63">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Times New Roman" size="48" style="3"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="10"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -1605,6 +728,9 @@
                           </Table>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblNhanVienBanMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1627,18 +753,21 @@
                       <Color blue="fc" green="84" red="2d" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="3"/>
+                      <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="&#xc1;p d&#x1ee5;ng"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnApDungBanActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel36">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="3"/>
+                      <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="T&#x1ed5;ng ti&#x1ec1;n: "/>
                   </Properties>
@@ -1646,7 +775,7 @@
                 <Component class="javax.swing.JLabel" name="lblTongTien">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="3"/>
+                      <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="0 VN&#x110;"/>
                   </Properties>
@@ -1654,7 +783,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel38">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="3"/>
+                      <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Gi&#xe1; sau khi gi&#x1ea3;m: "/>
                   </Properties>
@@ -1662,7 +791,7 @@
                 <Component class="javax.swing.JLabel" name="lblGiaSauKhiGiam">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="3"/>
+                      <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="0 VN&#x110;"/>
                   </Properties>
@@ -1673,7 +802,7 @@
                       <Color blue="fc" green="84" red="2d" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="3"/>
+                      <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1687,12 +816,17 @@
                       <Color blue="fc" green="84" red="2d" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="3"/>
+                      <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Th&#xea;m h&#xf3;a &#x111;&#x1a1;n"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblTang">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="jLabel23"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1717,7 +851,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="2809" max="32767" attributes="0"/>
+                      <EmptySpace pref="2853" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1757,7 +891,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="2726" max="32767" attributes="0"/>
+                      <EmptySpace pref="2770" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -3004,7 +2138,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="2865" max="32767" attributes="0"/>
+                      <EmptySpace pref="2909" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -3041,7 +2175,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="3040" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="3084" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
