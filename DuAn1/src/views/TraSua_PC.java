@@ -24,7 +24,7 @@ import viewmodel.PhaCheLichSuViewModel;
 import viewmodel.PhaCheSanPhamViewModel;
 
 public class TraSua_PC extends javax.swing.JFrame {
-
+    
     DefaultTableModel modelLichSuHoaDon = new DefaultTableModel();
     DefaultTableModel modelLichSuDanhSachSp = new DefaultTableModel();
     DefaultTableModel modelHoaDon_HoaDon = new DefaultTableModel();
@@ -37,16 +37,16 @@ public class TraSua_PC extends javax.swing.JFrame {
     List<PhaCheLichSuViewModel> lst = new ArrayList<>();
     List<PhaCheLichSuViewModel> lstCNhoadon = new ArrayList<>();
     ISanPhamService SanPhamPCService = new SanPhamService();
-
+    
     private String maTaiKhoan;
-
+    
     public void setMaTaiKhoan(String maTaiKhoan) {
         this.maTaiKhoan = maTaiKhoan;
-
+        
     }
-
+    
     public TraSua_PC(String maTaiKhoan) {
-
+        
         initComponents();
         jpnHienThiSP.setSize(1050, 2570);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -65,20 +65,20 @@ public class TraSua_PC extends javax.swing.JFrame {
         txtGhiChuHoaDon.setText(lstCNhoadon.get(0).getGhiChu());
         tongHopHoaDon();
     }
-
+    
     public void init() {
         setIconImage(XImages.getIconApp());
     }
-
+    
     public void LoadSanPham() {
-
+        
         List<PhaCheSanPhamViewModel> lstPCSPViewModel = SanPhamPCService.getList();
         List<PhaCheSanPhamJPanel> LstPCSPJPanel = new ArrayList<>();
-
+        
         for (PhaCheSanPhamViewModel PCSPView : lstPCSPViewModel) {
             LstPCSPJPanel.add(new PhaCheSanPhamJPanel(PCSPView));
         }
-
+        
         GridLayout layout = new GridLayout((int) Math.ceil(lst.size() / 5), 5);
         layout.setHgap(10);
         layout.setVgap(10);
@@ -87,7 +87,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             jpnHienThiSP.add(PCSPJPanel);
         }
     }
-
+    
     public void fillTableLichSuHoaDon() {
         lst = LichSuServices.getList(mapBan, mapHoaDon, lstSP);
         modelLichSuHoaDon.setRowCount(0);
@@ -96,7 +96,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             modelLichSuHoaDon.addRow(new Object[]{a.getMaHoaDon(), a.getTenBan(),
                 a.getTang(), a.getThoiGian(), a.getGhiChu()});
         }
-
+        
     }
 
     //fill bảng hóa đơn trong chức năng hóa đơn
@@ -110,35 +110,42 @@ public class TraSua_PC extends javax.swing.JFrame {
                 a.getTang(), a.getThoiGian(), a.getGhiChu()});
             stt++;
         }
-
+        
     }
 
     //tổng hợp hóa đơn
     public void tongHopHoaDon() {
         List<PhaCheLichSuDanhSachSanPhamViewmodel> lstTongHop = new ArrayList<>();
-
+        
         for (PhaCheLichSuViewModel a : lstCNhoadon) {
             for (PhaCheLichSuDanhSachSanPhamViewmodel b : a.getDanhSachSP()) {
                 lstTongHop.add(b);
             }
         }
         List<PhaCheLichSuDanhSachSanPhamViewmodel> lstHienThi = new ArrayList<>();
- 
+        for (int i = 1; i < lstTongHop.size(); i++) {
+            if (lstTongHop.get(0).getMaSanPham() == lstTongHop.get(i).getMaSanPham()
+                    && lstTongHop.get(0).getSize().equalsIgnoreCase(lstTongHop.get(i).getSize())) {
+               
+            }
+        }
+        System.out.println(lstHienThi.size());
+        
     }
-
+    
     public void fillTableDSSP(int maHoaDon) {
         try {
-
+            
             modelLichSuDanhSachSp.setRowCount(0);
             List<PhaCheLichSuDanhSachSanPhamViewmodel> lstFill = new ArrayList<>();
-
+            
             for (PhaCheLichSuViewModel a : lst) {
                 if (a.getMaHoaDon() == maHoaDon) {
                     lstFill = a.getDanhSachSP();
                 }
             }
             if (lstFill.size() >= 0) {
-
+                
                 for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstFill) {
                     int stt = 1;
                     modelLichSuDanhSachSp.addRow(new Object[]{
@@ -155,7 +162,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "danh sách sản phẩm hóa đơn trống");
             return;
         }
-
+        
     }
 
     //hiển thị bảng dssp chức năng hóa đơn
@@ -164,14 +171,14 @@ public class TraSua_PC extends javax.swing.JFrame {
             lstCNhoadon = HoaDonServices.getList(mapBan, mapHoaDon, lstSP);
             modelHoaDon_DSSP.setRowCount(0);
             List<PhaCheLichSuDanhSachSanPhamViewmodel> lstFill = new ArrayList<>();
-
+            
             for (PhaCheLichSuViewModel a : lstCNhoadon) {
                 if (a.getMaHoaDon() == maHoaDon) {
                     lstFill = a.getDanhSachSP();
                 }
             }
             if (lstFill.size() >= 0) {
-
+                
                 for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstFill) {
                     int stt = 1;
                     modelHoaDon_DSSP.addRow(new Object[]{
@@ -184,14 +191,14 @@ public class TraSua_PC extends javax.swing.JFrame {
                     "null", "null", "null", "null", "null"
                 });
             }
-
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "danh sách sản phẩm hóa đơn trống");
             return;
         }
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -690,14 +697,14 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked
         lblDoiMatKhau.setOpaque(true);
         lblDoiMatKhau.setBackground(Color.gray);
-
+        
         lblSanPham.setOpaque(false);
         lblSanPham.setBackground(Color.red);
         lblHoaDon.setOpaque(false);
         lblHoaDon.setBackground(Color.yellow);
         lblLichSuDonHang.setOpaque(false);
         lblLichSuDonHang.setBackground(Color.yellow);
-
+        
         new DoiMatKhau(maTaiKhoan).setVisible(true);
     }//GEN-LAST:event_lblDoiMatKhauMouseClicked
 
@@ -712,15 +719,15 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void lblLichSuDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLichSuDonHangMouseClicked
         lblLichSuDonHang.setOpaque(true);
         lblLichSuDonHang.setBackground(Color.gray);
-
+        
         lblSanPham.setOpaque(false);
         lblSanPham.setBackground(Color.red);
         lblHoaDon.setOpaque(false);
         lblHoaDon.setBackground(Color.red);
-
+        
         lblDoiMatKhau.setOpaque(false);
         lblDoiMatKhau.setBackground(Color.red);
-
+        
         jpnLichSu.setVisible(true);
         jpnSanPham.setVisible(false);
         jpnHoaDon.setVisible(false);
@@ -734,15 +741,15 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHoaDonMouseClicked
         lblHoaDon.setOpaque(true);
         lblHoaDon.setBackground(Color.gray);
-
+        
         lblSanPham.setOpaque(false);
         lblSanPham.setBackground(Color.red);
-
+        
         lblLichSuDonHang.setOpaque(false);
         lblLichSuDonHang.setBackground(Color.red);
         lblDoiMatKhau.setOpaque(false);
         lblDoiMatKhau.setBackground(Color.red);
-
+        
         jpnHoaDon.setVisible(true);
         jpnSanPham.setVisible(false);
         jpnLichSu.setVisible(false);
@@ -758,7 +765,7 @@ public class TraSua_PC extends javax.swing.JFrame {
         lblLichSuDonHang.setBackground(Color.red);
         lblDoiMatKhau.setOpaque(false);
         lblDoiMatKhau.setBackground(Color.red);
-
+        
         jpnSanPham.setVisible(true);
         jpnHoaDon.setVisible(false);
         jpnLichSu.setVisible(false);
@@ -791,23 +798,23 @@ public class TraSua_PC extends javax.swing.JFrame {
         int maHoaDon = lstCNhoadon.get(index).getMaHoaDon();
         fillTableDSSPHoaDon(maHoaDon);
         txtGhiChuHoaDon.setText(lstCNhoadon.get(index).getGhiChu());
-
+        
 
     }//GEN-LAST:event_tblHoaDon_HoaDonMouseClicked
-
+    
     public void showGhiChu(int index) {
         txtlichsuGhiChu.setText(lst.get(index).getGhiChu());
     }
-
+    
     public static void main(String args[]) {
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 String maTaiKhoan = ""; // Lấy mã tài khoản từ giao diện đăng nhập
                 TraSua_PC traSua_PC = new TraSua_PC(maTaiKhoan);
                 System.out.println("mTK giao dien PC" + " " + maTaiKhoan);
-
+                
                 traSua_PC.setMaTaiKhoan(maTaiKhoan);
                 traSua_PC.setVisible(true);
             }
