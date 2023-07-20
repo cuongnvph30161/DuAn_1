@@ -65,7 +65,7 @@ public class SanPhamService {
 				svChiTietHoaDon.deleteById(maHoaDon);
 		
 			svHoaDon.delete(maHoaDon);
-			svBanHoaDon.dele
+			//svBanHoaDon.dele
 			}
 		
 			

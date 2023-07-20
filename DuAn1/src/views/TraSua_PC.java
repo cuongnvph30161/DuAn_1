@@ -63,6 +63,7 @@ public class TraSua_PC extends javax.swing.JFrame {
         fillTableHoaDon_HoaDon();
         fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
         txtGhiChuHoaDon.setText(lstCNhoadon.get(0).getGhiChu());
+        tongHopHoaDon();
     }
 
     public void init() {
@@ -110,6 +111,19 @@ public class TraSua_PC extends javax.swing.JFrame {
             stt++;
         }
 
+    }
+
+    //tổng hợp hóa đơn
+    public void tongHopHoaDon() {
+        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstTongHop = new ArrayList<>();
+
+        for (PhaCheLichSuViewModel a : lstCNhoadon) {
+            for (PhaCheLichSuDanhSachSanPhamViewmodel b : a.getDanhSachSP()) {
+                lstTongHop.add(b);
+            }
+        }
+        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstHienThi = new ArrayList<>();
+ 
     }
 
     public void fillTableDSSP(int maHoaDon) {
@@ -774,7 +788,11 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void tblHoaDon_HoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDon_HoaDonMouseClicked
         // TODO add your handling code here:
         int index = tblHoaDon_HoaDon.getSelectedRow();
+        int maHoaDon = lstCNhoadon.get(index).getMaHoaDon();
+        fillTableDSSPHoaDon(maHoaDon);
         txtGhiChuHoaDon.setText(lstCNhoadon.get(index).getGhiChu());
+
+
     }//GEN-LAST:event_tblHoaDon_HoaDonMouseClicked
 
     public void showGhiChu(int index) {
