@@ -71,7 +71,7 @@ TrangThai INT NOT NULL
 GO
 
 CREATE TABLE HoaDon (
-MaHoaDon INT IDENTITY(1000, 1) PRIMARY KEY,
+MaHoaDon INT  PRIMARY KEY,
 MaNhanVien INT NOT NULL,
 ThoiGian DATETIME NOT NULL,
 TrangThaiThanhToan INT NOT NULL,
@@ -156,7 +156,7 @@ VALUES (24,1,40.4,'2022-06-06',1001,1),
 (20,1,30.4,'2022-06-06',1001,1),
 (10,1,20.4,'2022-06-06',1001,1)
 go
-select * from sanPham
+
 --nạp dữ liệu bảng bàn
 INSERT INTO Ban(TenBan,Tang,TrangThai)
 VALUES (N'bàn 01',1,0),
@@ -166,9 +166,9 @@ go
 
 --nạp dữ liệu hóa đơn
 INSERT INTO HoaDon
-VALUES(1001,GETDATE(),1,1,1000,N'ít đường',33.3),
-(1001,GETDATE(),1,1,1000,N'nhiều đường',33.3),
-(1001,GETDATE(),1,1,1000,N'nhiều đá',33.3)
+VALUES(1000,1001,GETDATE(),1,1,1000,N'ít đường',33.3),
+(1001,1001,GETDATE(),1,1,1000,N'nhiều đường',33.3),
+(1002,1001,GETDATE(),1,1,1000,N'nhiều đá',33.3)
 
 go
 --nạp dữ liệu bàn-hóa đơn
