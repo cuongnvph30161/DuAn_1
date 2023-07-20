@@ -116,4 +116,11 @@ public class PhaCheLichSuServices implements IPhaCheLichSuServices {
         }
         return listdssp;
     }
+
+    @Override
+    public Integer capNhatTrangThai(int maHD, int trangThai) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+  
 }

@@ -24,11 +24,12 @@ import viewmodel.PhaCheLichSuViewModel;
 import viewmodel.PhaCheSanPhamViewModel;
 
 public class TraSua_PC extends javax.swing.JFrame {
-    
+
     DefaultTableModel modelLichSuHoaDon = new DefaultTableModel();
     DefaultTableModel modelLichSuDanhSachSp = new DefaultTableModel();
     DefaultTableModel modelHoaDon_HoaDon = new DefaultTableModel();
     DefaultTableModel modelHoaDon_DSSP = new DefaultTableModel();
+    DefaultTableModel modelTongHopDonHANG = new DefaultTableModel();
     IPhaCheLichSuServices LichSuServices = new PhaCheLichSuServices();
     IPhaCheLichSuServices HoaDonServices = new PhaCheHoaDonServices();
     Map<String, Object> mapBan = LichSuServices.getBan();
@@ -37,22 +38,23 @@ public class TraSua_PC extends javax.swing.JFrame {
     List<PhaCheLichSuViewModel> lst = new ArrayList<>();
     List<PhaCheLichSuViewModel> lstCNhoadon = new ArrayList<>();
     ISanPhamService SanPhamPCService = new SanPhamService();
-    
+
     private String maTaiKhoan;
-    
+
     public void setMaTaiKhoan(String maTaiKhoan) {
         this.maTaiKhoan = maTaiKhoan;
-        
+
     }
-    
+
     public TraSua_PC(String maTaiKhoan) {
-        
+
         initComponents();
         jpnHienThiSP.setSize(1050, 2570);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         init();
         modelLichSuHoaDon = (DefaultTableModel) tbllichsudonhang.getModel();
         modelHoaDon_HoaDon = (DefaultTableModel) tblHoaDon_HoaDon.getModel();
+        modelTongHopDonHANG = (DefaultTableModel) tblPhaCheTongDonHang.getModel();
         modelHoaDon_DSSP = (DefaultTableModel) tblHoaDon_DSSP.getModel();
         modelLichSuDanhSachSp = (DefaultTableModel) tbllichsudanhsachsphoadon.getModel();
         fillTableLichSuHoaDon();
@@ -64,21 +66,56 @@ public class TraSua_PC extends javax.swing.JFrame {
         fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
         txtGhiChuHoaDon.setText(lstCNhoadon.get(0).getGhiChu());
         tongHopHoaDon();
+        loadHd();
     }
-    
+
+    public void loadHd() {
+        new Thread() {
+            @Override
+            public void run() {
+                
+                while (true) {
+                    fillTableHoaDon_HoaDon();
+                    fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+                    tongHopHoaDon();
+                      try {
+                        sleep(60000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+        }.start();
+    }
+
+    public void capNhatTrangThaiHD() {
+        int thongBao = HoaDonServices.capNhatTrangThai(Integer.parseInt(lblHoaDon_dssp.getText()),
+                1);
+        if (thongBao == 1) {
+            fillTableHoaDon_HoaDon();
+            fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+            tongHopHoaDon();
+            JOptionPane.showMessageDialog(this, "hoàn thành đơn");
+            return;
+        }
+
+    }
+
     public void init() {
         setIconImage(XImages.getIconApp());
     }
-    
+
     public void LoadSanPham() {
-        
+
         List<PhaCheSanPhamViewModel> lstPCSPViewModel = SanPhamPCService.getList();
         List<PhaCheSanPhamJPanel> LstPCSPJPanel = new ArrayList<>();
-        
+
         for (PhaCheSanPhamViewModel PCSPView : lstPCSPViewModel) {
             LstPCSPJPanel.add(new PhaCheSanPhamJPanel(PCSPView));
         }
-        
+
         GridLayout layout = new GridLayout((int) Math.ceil(lst.size() / 5), 5);
         layout.setHgap(10);
         layout.setVgap(10);
@@ -87,7 +124,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             jpnHienThiSP.add(PCSPJPanel);
         }
     }
-    
+
     public void fillTableLichSuHoaDon() {
         lst = LichSuServices.getList(mapBan, mapHoaDon, lstSP);
         modelLichSuHoaDon.setRowCount(0);
@@ -96,12 +133,15 @@ public class TraSua_PC extends javax.swing.JFrame {
             modelLichSuHoaDon.addRow(new Object[]{a.getMaHoaDon(), a.getTenBan(),
                 a.getTang(), a.getThoiGian(), a.getGhiChu()});
         }
-        
+
     }
 
     //fill bảng hóa đơn trong chức năng hóa đơn
     public void fillTableHoaDon_HoaDon() {
-        lstCNhoadon = HoaDonServices.getList(mapBan, mapHoaDon, lstSP);
+        Map<String, Object> mapBan1 = LichSuServices.getBan();
+        Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
+        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
+        lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
         modelHoaDon_HoaDon.setRowCount(0);
         lblHoaDon_HoaDon.setText("Hóa đơn " + lstCNhoadon.get(0).getMaHoaDon());
         int stt = 1;
@@ -110,42 +150,44 @@ public class TraSua_PC extends javax.swing.JFrame {
                 a.getTang(), a.getThoiGian(), a.getGhiChu()});
             stt++;
         }
-        
+
     }
 
     //tổng hợp hóa đơn
     public void tongHopHoaDon() {
+        Map<String, Object> mapBan1 = LichSuServices.getBan();
+        Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
+        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
+        lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
+
         List<PhaCheLichSuDanhSachSanPhamViewmodel> lstTongHop = new ArrayList<>();
-        
+
         for (PhaCheLichSuViewModel a : lstCNhoadon) {
             for (PhaCheLichSuDanhSachSanPhamViewmodel b : a.getDanhSachSP()) {
                 lstTongHop.add(b);
             }
         }
-        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstHienThi = new ArrayList<>();
-        for (int i = 1; i < lstTongHop.size(); i++) {
-            if (lstTongHop.get(0).getMaSanPham() == lstTongHop.get(i).getMaSanPham()
-                    && lstTongHop.get(0).getSize().equalsIgnoreCase(lstTongHop.get(i).getSize())) {
-               
-            }
+        modelTongHopDonHANG.setRowCount(0);
+        for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstTongHop) {
+            modelTongHopDonHANG.addRow(new Object[]{a.getMaSanPham(), a.getTenSanPham(),
+                a.getSize(), a.getSoLuong()});
         }
-        System.out.println(lstHienThi.size());
-        
+
     }
-    
+
     public void fillTableDSSP(int maHoaDon) {
         try {
-            
+
             modelLichSuDanhSachSp.setRowCount(0);
             List<PhaCheLichSuDanhSachSanPhamViewmodel> lstFill = new ArrayList<>();
-            
+
             for (PhaCheLichSuViewModel a : lst) {
                 if (a.getMaHoaDon() == maHoaDon) {
                     lstFill = a.getDanhSachSP();
                 }
             }
             if (lstFill.size() >= 0) {
-                
+
                 for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstFill) {
                     int stt = 1;
                     modelLichSuDanhSachSp.addRow(new Object[]{
@@ -162,23 +204,27 @@ public class TraSua_PC extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "danh sách sản phẩm hóa đơn trống");
             return;
         }
-        
+
     }
 
     //hiển thị bảng dssp chức năng hóa đơn
     public void fillTableDSSPHoaDon(int maHoaDon) {
         try {
-            lstCNhoadon = HoaDonServices.getList(mapBan, mapHoaDon, lstSP);
+            Map<String, Object> mapBan1 = LichSuServices.getBan();
+            Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
+
+            lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
             modelHoaDon_DSSP.setRowCount(0);
             List<PhaCheLichSuDanhSachSanPhamViewmodel> lstFill = new ArrayList<>();
-            
+
             for (PhaCheLichSuViewModel a : lstCNhoadon) {
                 if (a.getMaHoaDon() == maHoaDon) {
                     lstFill = a.getDanhSachSP();
                 }
             }
             if (lstFill.size() >= 0) {
-                
+
                 for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstFill) {
                     int stt = 1;
                     modelHoaDon_DSSP.addRow(new Object[]{
@@ -191,14 +237,14 @@ public class TraSua_PC extends javax.swing.JFrame {
                     "null", "null", "null", "null", "null"
                 });
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "danh sách sản phẩm hóa đơn trống");
             return;
         }
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -229,13 +275,13 @@ public class TraSua_PC extends javax.swing.JFrame {
         lblHoaDon_HoaDon = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblHoaDon_DSSP = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
+        lblHoaDon_dssp = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtGhiChuHoaDon = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tblPhaCheTongDonHang = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jpnLichSu = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -445,9 +491,9 @@ public class TraSua_PC extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tblHoaDon_DSSP);
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 102, 255));
-        jLabel7.setText("Hóa đơn HD001");
+        lblHoaDon_dssp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHoaDon_dssp.setForeground(new java.awt.Color(0, 102, 255));
+        lblHoaDon_dssp.setText("Hóa đơn HD001");
 
         txtGhiChuHoaDon.setColumns(20);
         txtGhiChuHoaDon.setRows(5);
@@ -461,8 +507,13 @@ public class TraSua_PC extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Hoàn thành đơn hàng");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tblPhaCheTongDonHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -481,12 +532,17 @@ public class TraSua_PC extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTable4);
+        jScrollPane5.setViewportView(tblPhaCheTongDonHang);
 
         jButton2.setBackground(new java.awt.Color(45, 132, 252));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Tổng hợp đơn hàng");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnHoaDonLayout = new javax.swing.GroupLayout(jpnHoaDon);
         jpnHoaDon.setLayout(jpnHoaDonLayout);
@@ -501,7 +557,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3)
-                    .addComponent(jLabel7)
+                    .addComponent(lblHoaDon_dssp)
                     .addComponent(jScrollPane4)
                     .addComponent(jLabel8)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -519,7 +575,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoaDon_HoaDon)
-                    .addComponent(jLabel7))
+                    .addComponent(lblHoaDon_dssp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1)
@@ -697,14 +753,14 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked
         lblDoiMatKhau.setOpaque(true);
         lblDoiMatKhau.setBackground(Color.gray);
-        
+
         lblSanPham.setOpaque(false);
         lblSanPham.setBackground(Color.red);
         lblHoaDon.setOpaque(false);
         lblHoaDon.setBackground(Color.yellow);
         lblLichSuDonHang.setOpaque(false);
         lblLichSuDonHang.setBackground(Color.yellow);
-        
+
         new DoiMatKhau(maTaiKhoan).setVisible(true);
     }//GEN-LAST:event_lblDoiMatKhauMouseClicked
 
@@ -719,15 +775,15 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void lblLichSuDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLichSuDonHangMouseClicked
         lblLichSuDonHang.setOpaque(true);
         lblLichSuDonHang.setBackground(Color.gray);
-        
+
         lblSanPham.setOpaque(false);
         lblSanPham.setBackground(Color.red);
         lblHoaDon.setOpaque(false);
         lblHoaDon.setBackground(Color.red);
-        
+
         lblDoiMatKhau.setOpaque(false);
         lblDoiMatKhau.setBackground(Color.red);
-        
+
         jpnLichSu.setVisible(true);
         jpnSanPham.setVisible(false);
         jpnHoaDon.setVisible(false);
@@ -741,15 +797,15 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHoaDonMouseClicked
         lblHoaDon.setOpaque(true);
         lblHoaDon.setBackground(Color.gray);
-        
+
         lblSanPham.setOpaque(false);
         lblSanPham.setBackground(Color.red);
-        
+
         lblLichSuDonHang.setOpaque(false);
         lblLichSuDonHang.setBackground(Color.red);
         lblDoiMatKhau.setOpaque(false);
         lblDoiMatKhau.setBackground(Color.red);
-        
+
         jpnHoaDon.setVisible(true);
         jpnSanPham.setVisible(false);
         jpnLichSu.setVisible(false);
@@ -765,7 +821,7 @@ public class TraSua_PC extends javax.swing.JFrame {
         lblLichSuDonHang.setBackground(Color.red);
         lblDoiMatKhau.setOpaque(false);
         lblDoiMatKhau.setBackground(Color.red);
-        
+
         jpnSanPham.setVisible(true);
         jpnHoaDon.setVisible(false);
         jpnLichSu.setVisible(false);
@@ -798,23 +854,36 @@ public class TraSua_PC extends javax.swing.JFrame {
         int maHoaDon = lstCNhoadon.get(index).getMaHoaDon();
         fillTableDSSPHoaDon(maHoaDon);
         txtGhiChuHoaDon.setText(lstCNhoadon.get(index).getGhiChu());
-        
+        lblHoaDon_HoaDon.setText("Hóa đơn " + lstCNhoadon.get(index).getMaHoaDon());
+        lblHoaDon_dssp.setText(lstCNhoadon.get(index).getMaHoaDon() + "");
+
 
     }//GEN-LAST:event_tblHoaDon_HoaDonMouseClicked
-    
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        tongHopHoaDon();
+        JOptionPane.showMessageDialog(null, "tổng hợp đơn hàng đã được hiển thị");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        capNhatTrangThaiHD();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void showGhiChu(int index) {
         txtlichsuGhiChu.setText(lst.get(index).getGhiChu());
     }
-    
+
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 String maTaiKhoan = ""; // Lấy mã tài khoản từ giao diện đăng nhập
                 TraSua_PC traSua_PC = new TraSua_PC(maTaiKhoan);
                 System.out.println("mTK giao dien PC" + " " + maTaiKhoan);
-                
+
                 traSua_PC.setMaTaiKhoan(maTaiKhoan);
                 traSua_PC.setVisible(true);
             }
@@ -833,7 +902,6 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -845,7 +913,6 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel jpnHienThiSP;
     private javax.swing.JPanel jpnHoaDon;
@@ -857,6 +924,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JLabel lblDoiMatKhau;
     private javax.swing.JLabel lblHoaDon;
     private javax.swing.JLabel lblHoaDon_HoaDon;
+    private javax.swing.JLabel lblHoaDon_dssp;
     private javax.swing.JLabel lblLichSuDonHang;
     private javax.swing.JLabel lblSanPham;
     private javax.swing.JLabel lblTraSua;
@@ -865,6 +933,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JLabel lblthietlap;
     private javax.swing.JTable tblHoaDon_DSSP;
     private javax.swing.JTable tblHoaDon_HoaDon;
+    private javax.swing.JTable tblPhaCheTongDonHang;
     private javax.swing.JTable tbllichsudanhsachsphoadon;
     private javax.swing.JTable tbllichsudonhang;
     private javax.swing.JTextArea txtGhiChuHoaDon;

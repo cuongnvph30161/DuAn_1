@@ -20,13 +20,13 @@ import utilities.DBConnect;
  */
 public class HoaDonRepository implements IHoaDonRepository {
 
-    static Connection con = null;
+    static Connection con = DBConnect.getConnect();
 
     @Override
     public List<HoaDonDoMainModel> getList() {
         try {
             List<HoaDonDoMainModel> lst = new ArrayList<>();
-            con = DBConnect.getConnect();
+
             String lenh = "SELECT MaHoaDon,MaNhanVien,ThoiGian,"
                     + "TrangThaiThanhToan,TrangThaiOrder,MaVoucher,GhiChu FROM HoaDon";
             Statement st = con.createStatement();
@@ -44,45 +44,59 @@ public class HoaDonRepository implements IHoaDonRepository {
         return null;
     }
 
-	@Override
-	public List<HoaDonDoMainModel> getAll(int... page) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<HoaDonDoMainModel> getAll(int... page) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public HoaDonDoMainModel getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HoaDonDoMainModel getById(Integer id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean insert(HoaDonDoMainModel object) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean insert(HoaDonDoMainModel object) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean update(HoaDonDoMainModel object) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean update(HoaDonDoMainModel object) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean deleteById(Integer id) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public List<HoaDonDoMainModel> getBySql(String sql, Object... args) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<HoaDonDoMainModel> getBySql(String sql, Object... args) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public int getLastId() {
-		// TODO Auto-generated method stub
-		return 1000;
-	}
+    public int getLastId() {
+        // TODO Auto-generated method stub
+        return 1000;
+    }
+
+    @Override
+    public Integer capNhatTrangThai(int maHD, int trangThai) {
+        try {
+            String lenh = "UPDATE HoaDon SET TrangThaiOrder=? WHERE MaHoaDon=?";
+            PreparedStatement st = con.prepareStatement(lenh);
+            st.setInt(1, trangThai);
+
+            st.setInt(2, maHD);
+            return st.executeUpdate();
+        } catch (Exception e) {
+        }
+        return -1;
+    }
 
 }

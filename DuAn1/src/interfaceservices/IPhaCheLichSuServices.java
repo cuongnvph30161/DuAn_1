@@ -14,9 +14,16 @@ import viewmodel.PhaCheLichSuViewModel;
  * @author ADMIN
  */
 public interface IPhaCheLichSuServices {
+
     List<PhaCheLichSuViewModel> getList(Map<String, Object> Ban,
-            Map<String, Object> hoaDon,List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP);
+            Map<String, Object> hoaDon, List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP);
+
     Map<String, Object> getBan();
+
     Map<String, Object> getHoaDon();
+
     List<PhaCheLichSuDanhSachSanPhamViewmodel> getDSSP();
+
+    Integer capNhatTrangThai(int maHD, int trangThai);
+
 }
