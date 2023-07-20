@@ -47,7 +47,7 @@ public class BanHoaDonRepository implements IBanHoaDonRepository {
 	}
 
 	@Override
-	public BanHoaDonDomainModel getById(String id) {
+	public BanHoaDonDomainModel getById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -65,7 +65,7 @@ public class BanHoaDonRepository implements IBanHoaDonRepository {
 	}
 
 	@Override
-	public boolean deleteById(String id) {
+	public boolean deleteById(Integer id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
