@@ -17,7 +17,7 @@ public class DBConnect {
     private static Connection con = null;
     private static PreparedStatement st = null;
     public static final String url = "jdbc:sqlserver://localhost:1433;"
-            + "DatabaseName=ToTo;encrypt=true;trustServerCertificate=true";
+            + "DatabaseName=ToTo2;encrypt=true;trustServerCertificate=true";
 
     public static Connection getConnect() {
         Connection connect = null;
@@ -30,6 +30,8 @@ public class DBConnect {
         try {
 
             connect = DriverManager.getConnection(url, "sa", "sa");
+
+
 
             return connect;
         } catch (Exception e) {
