@@ -51,7 +51,7 @@ public class HoaDonRepository implements IHoaDonRepository {
 	}
 
 	@Override
-	public HoaDonDoMainModel getById(String id) {
+	public HoaDonDoMainModel getById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -69,7 +69,7 @@ public class HoaDonRepository implements IHoaDonRepository {
 	}
 
 	@Override
-	public boolean deleteById(String id) {
+	public boolean deleteById(Integer id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -78,6 +78,11 @@ public class HoaDonRepository implements IHoaDonRepository {
 	public List<HoaDonDoMainModel> getBySql(String sql, Object... args) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int getLastId() {
+		// TODO Auto-generated method stub
+		return 1000;
 	}
 
 }
