@@ -355,9 +355,9 @@
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jScrollPane7" alignment="0" min="-2" pref="673" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTextField3" min="-2" pref="500" max="-2" attributes="0"/>
+                                      <Component id="txtVoucher" min="-2" pref="500" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                      <Component id="jButton64" max="32767" attributes="0"/>
+                                      <Component id="btnApDungBan" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
@@ -367,15 +367,15 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel37" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
-                                          <Component id="jLabel39" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
+                                          <Component id="lblTongTien" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
+                                          <Component id="lblGiaSauKhiGiam" alignment="0" min="-2" pref="371" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jButton65" min="-2" pref="179" max="-2" attributes="0"/>
+                                  <Component id="btnThanhToanBan" min="-2" pref="179" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-                                  <Component id="jButton66" min="-2" pref="174" max="-2" attributes="0"/>
+                                  <Component id="btnThemHoaDonBan" min="-2" pref="174" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="1648" max="32767" attributes="0"/>
@@ -403,23 +403,23 @@
                                   <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jTextField3" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
-                                      <Component id="jButton64" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
+                                      <Component id="txtVoucher" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
+                                      <Component id="btnApDungBan" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel37" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="lblTongTien" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel39" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="lblGiaSauKhiGiam" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton65" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                                      <Component id="jButton66" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                                      <Component id="btnThanhToanBan" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                                      <Component id="btnThemHoaDonBan" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jScrollPane6" alignment="0" min="-2" pref="584" max="-2" attributes="0"/>
@@ -1588,13 +1588,11 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable3">
+                    <Component class="javax.swing.JTable" name="tblNhanVienBan">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Thanh to&#xe1;n h&#xf3;a &#x111;&#x1a1;n">
-                              <Font PropertyName="font" name="Segoe UI" size="12" style="3"/>
-                            </TitledBorder>
+                          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                            <EtchetBorder/>
                           </Border>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
@@ -1610,9 +1608,9 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JTextField" name="jTextField3">
+                <Component class="javax.swing.JTextField" name="txtVoucher">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtVoucherActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel35">
@@ -1623,7 +1621,7 @@
                     <Property name="text" type="java.lang.String" value="Voucher"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton64">
+                <Component class="javax.swing.JButton" name="btnApDungBan">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="fc" green="84" red="2d" type="rgb"/>
@@ -1645,7 +1643,7 @@
                     <Property name="text" type="java.lang.String" value="T&#x1ed5;ng ti&#x1ec1;n: "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel37">
+                <Component class="javax.swing.JLabel" name="lblTongTien">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="3"/>
@@ -1661,7 +1659,7 @@
                     <Property name="text" type="java.lang.String" value="Gi&#xe1; sau khi gi&#x1ea3;m: "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel39">
+                <Component class="javax.swing.JLabel" name="lblGiaSauKhiGiam">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="3"/>
@@ -1669,7 +1667,7 @@
                     <Property name="text" type="java.lang.String" value="0 VN&#x110;"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton65">
+                <Component class="javax.swing.JButton" name="btnThanhToanBan">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="fc" green="84" red="2d" type="rgb"/>
@@ -1683,7 +1681,7 @@
                     <Property name="text" type="java.lang.String" value="Thanh to&#xe1;n"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton66">
+                <Component class="javax.swing.JButton" name="btnThemHoaDonBan">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="fc" green="84" red="2d" type="rgb"/>

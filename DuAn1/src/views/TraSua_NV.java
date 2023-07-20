@@ -16,9 +16,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import services.NhanVienBanService;
 import services.NhanVienHoaDonServices;
 import utilities.Uhelper;
 import utilities.XImages;
+import viewmodel.NhanVienBanViewModel;
 import viewmodel.NhanVienHoaDonViewModel;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
 import viewmodel.TaiKhoanViewModel;
@@ -43,10 +45,14 @@ public class TraSua_NV extends javax.swing.JFrame {
         this.maTaiKhoan = maTaiKhoan;
 
     }
+    ////////////////////////////////////////////////////////////////
+    NhanVienBanService nvBanSe = new NhanVienBanService();
+    DefaultTableModel tableModelBan = new DefaultTableModel();
 
     public TraSua_NV(String maTaiKhoan) {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        FillTableBan();
         modelNVhoaDon = (DefaultTableModel) tblNhanVienHoaDon.getModel();
         btnThem.setVisible(false);
         btnthem2.setVisible(false);
@@ -58,6 +64,21 @@ public class TraSua_NV extends javax.swing.JFrame {
         truyenTrang(1);
         fillTableNVHD(lstTruyenTrang);
 
+    }
+
+    private void FillTableBan() {
+        int stt = 1;
+        tableModelBan = (DefaultTableModel) tblNhanVienBan.getModel();
+        List<NhanVienBanViewModel> listNVban = nvBanSe.getAllNhanVienBan();
+        tableModelBan.setRowCount(0);
+        for (NhanVienBanViewModel nv : listNVban) {
+            tableModelBan.addRow(new Object[]{
+                stt++,
+                nv.getMaHoaDon(),
+                nv.getThoiGian(),
+                nv.getTrangThaiOrder(),});
+
+        }
     }
 
     public void truyenTrang(int index) {
@@ -218,16 +239,16 @@ public class TraSua_NV extends javax.swing.JFrame {
         jButton62 = new javax.swing.JButton();
         jButton63 = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jTextField3 = new javax.swing.JTextField();
+        tblNhanVienBan = new javax.swing.JTable();
+        txtVoucher = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
-        jButton64 = new javax.swing.JButton();
+        btnApDungBan = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
+        lblTongTien = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jButton65 = new javax.swing.JButton();
-        jButton66 = new javax.swing.JButton();
+        lblGiaSauKhiGiam = new javax.swing.JLabel();
+        btnThanhToanBan = new javax.swing.JButton();
+        btnThemHoaDonBan = new javax.swing.JButton();
         jpnQLBan = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jpnBanHang = new javax.swing.JPanel();
@@ -1084,8 +1105,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(jpnBan);
 
-        jTable3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thanh toán hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblNhanVienBan.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tblNhanVienBan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1101,43 +1122,43 @@ public class TraSua_NV extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane7.setViewportView(jTable3);
+        jScrollPane7.setViewportView(tblNhanVienBan);
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtVoucher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtVoucherActionPerformed(evt);
             }
         });
 
         jLabel35.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel35.setText("Voucher");
 
-        jButton64.setBackground(new java.awt.Color(45, 132, 252));
-        jButton64.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        jButton64.setForeground(new java.awt.Color(255, 255, 255));
-        jButton64.setText("Áp dụng");
+        btnApDungBan.setBackground(new java.awt.Color(45, 132, 252));
+        btnApDungBan.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        btnApDungBan.setForeground(new java.awt.Color(255, 255, 255));
+        btnApDungBan.setText("Áp dụng");
 
         jLabel36.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel36.setText("Tổng tiền: ");
 
-        jLabel37.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        jLabel37.setText("0 VNĐ");
+        lblTongTien.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        lblTongTien.setText("0 VNĐ");
 
         jLabel38.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel38.setText("Giá sau khi giảm: ");
 
-        jLabel39.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        jLabel39.setText("0 VNĐ");
+        lblGiaSauKhiGiam.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        lblGiaSauKhiGiam.setText("0 VNĐ");
 
-        jButton65.setBackground(new java.awt.Color(45, 132, 252));
-        jButton65.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        jButton65.setForeground(new java.awt.Color(255, 255, 255));
-        jButton65.setText("Thanh toán");
+        btnThanhToanBan.setBackground(new java.awt.Color(45, 132, 252));
+        btnThanhToanBan.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        btnThanhToanBan.setForeground(new java.awt.Color(255, 255, 255));
+        btnThanhToanBan.setText("Thanh toán");
 
-        jButton66.setBackground(new java.awt.Color(45, 132, 252));
-        jButton66.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        jButton66.setForeground(new java.awt.Color(255, 255, 255));
-        jButton66.setText("Thêm hóa đơn");
+        btnThemHoaDonBan.setBackground(new java.awt.Color(45, 132, 252));
+        btnThemHoaDonBan.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        btnThemHoaDonBan.setForeground(new java.awt.Color(255, 255, 255));
+        btnThemHoaDonBan.setText("Thêm hóa đơn");
 
         javax.swing.GroupLayout jpnQuanLyBanLayout = new javax.swing.GroupLayout(jpnQuanLyBan);
         jpnQuanLyBan.setLayout(jpnQuanLyBanLayout);
@@ -1163,9 +1184,9 @@ public class TraSua_NV extends javax.swing.JFrame {
                     .addGroup(jpnQuanLyBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jpnQuanLyBanLayout.createSequentialGroup()
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(66, 66, 66)
-                            .addComponent(jButton64, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnApDungBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(jLabel35)
                         .addGroup(jpnQuanLyBanLayout.createSequentialGroup()
                             .addGroup(jpnQuanLyBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1173,12 +1194,12 @@ public class TraSua_NV extends javax.swing.JFrame {
                                 .addComponent(jLabel36))
                             .addGap(27, 27, 27)
                             .addGroup(jpnQuanLyBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblGiaSauKhiGiam, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jpnQuanLyBanLayout.createSequentialGroup()
-                        .addComponent(jButton65, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnThanhToanBan, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(130, 130, 130)
-                        .addComponent(jButton66, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnThemHoaDonBan, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(1648, Short.MAX_VALUE))
         );
         jpnQuanLyBanLayout.setVerticalGroup(
@@ -1201,20 +1222,20 @@ public class TraSua_NV extends javax.swing.JFrame {
                         .addComponent(jLabel35)
                         .addGap(0, 0, 0)
                         .addGroup(jpnQuanLyBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton64, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnApDungBan, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(51, 51, 51)
                         .addGroup(jpnQuanLyBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel36)
-                            .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(jpnQuanLyBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel38)
-                            .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblGiaSauKhiGiam, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44)
                         .addGroup(jpnQuanLyBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton65, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton66, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnThanhToanBan, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnThemHoaDonBan, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(881, Short.MAX_VALUE))
         );
@@ -2290,9 +2311,9 @@ public class TraSua_NV extends javax.swing.JFrame {
         btnthem2.setVisible(true);
     }//GEN-LAST:event_jLabel24MouseEntered
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtVoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVoucherActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtVoucherActionPerformed
 
     private void lblNVTrangDauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNVTrangDauMouseClicked
         // TODO add your handling code here:
@@ -2349,6 +2370,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApDungBan;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnKhieuNaiHoTro;
     private javax.swing.JButton btnTang1;
@@ -2356,7 +2378,9 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JButton btnTang3;
     private javax.swing.JButton btnTang4;
     private javax.swing.JButton btnTang5;
+    private javax.swing.JButton btnThanhToanBan;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThemHoaDonBan;
     private javax.swing.JButton btnthem2;
     private javax.swing.JComboBox<String> cboNhanVienHDTrangThai;
     private javax.swing.JButton jButton1;
@@ -2419,9 +2443,6 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JButton jButton61;
     private javax.swing.JButton jButton62;
     private javax.swing.JButton jButton63;
-    private javax.swing.JButton jButton64;
-    private javax.swing.JButton jButton65;
-    private javax.swing.JButton jButton66;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -2453,9 +2474,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -2512,11 +2531,9 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
     private com.toedter.calendar.JDateChooser jdcDen;
     private com.toedter.calendar.JDateChooser jdcTu;
     private javax.swing.JPanel jpnBan;
@@ -2539,6 +2556,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JPanel jpnTrangThai;
     private javax.swing.JLabel lblBanHang;
     private javax.swing.JLabel lblDoiMatKhau;
+    private javax.swing.JLabel lblGiaSauKhiGiam;
     private javax.swing.JLabel lblHinhAnh1;
     private javax.swing.JLabel lblHinhAnh4;
     private javax.swing.JLabel lblHoaDon;
@@ -2550,8 +2568,12 @@ public class TraSua_NV extends javax.swing.JFrame {
     private javax.swing.JLabel lblSanPham;
     private javax.swing.JLabel lblThietLap;
     private javax.swing.JLabel lblTimKiem;
+    private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lblTraSua;
+    private javax.swing.JTable tblNhanVienBan;
     private javax.swing.JTable tblNhanVienHoaDon;
     private javax.swing.JTextField txtNhanVienNhapMaHD;
+    private javax.swing.JTextField txtVoucher;
     // End of variables declaration//GEN-END:variables
+
 }
