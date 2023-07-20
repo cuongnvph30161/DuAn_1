@@ -60,9 +60,9 @@ public class TraSua_PC extends javax.swing.JFrame {
         fillTableDSSP(lst.get(0).getMaHoaDon());
         LoadSanPham();
         ///fill hóa đơn trong chức năng hóa đơn
-        //fillTableHoaDon_HoaDon();
-       // fillTableDSSPHoaDon(1002);
-
+        fillTableHoaDon_HoaDon();
+        fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+        txtGhiChuHoaDon.setText(lstCNhoadon.get(0).getGhiChu());
     }
 
     public void init() {
@@ -98,7 +98,7 @@ public class TraSua_PC extends javax.swing.JFrame {
 
     }
 
-     //fill bảng hóa đơn trong chức năng hóa đơn
+    //fill bảng hóa đơn trong chức năng hóa đơn
     public void fillTableHoaDon_HoaDon() {
         lstCNhoadon = HoaDonServices.getList(mapBan, mapHoaDon, lstSP);
         modelHoaDon_HoaDon.setRowCount(0);
@@ -170,6 +170,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                     "null", "null", "null", "null", "null"
                 });
             }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "danh sách sản phẩm hóa đơn trống");
             return;
@@ -209,7 +210,7 @@ public class TraSua_PC extends javax.swing.JFrame {
         tblHoaDon_DSSP = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtGhiChuHoaDon = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -391,6 +392,11 @@ public class TraSua_PC extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblHoaDon_HoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHoaDon_HoaDonMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblHoaDon_HoaDon);
 
         lblHoaDon_HoaDon.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -422,9 +428,9 @@ public class TraSua_PC extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 102, 255));
         jLabel7.setText("Hóa đơn HD001");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane4.setViewportView(jTextArea1);
+        txtGhiChuHoaDon.setColumns(20);
+        txtGhiChuHoaDon.setRows(5);
+        jScrollPane4.setViewportView(txtGhiChuHoaDon);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 102, 255));
@@ -765,6 +771,12 @@ public class TraSua_PC extends javax.swing.JFrame {
         lbllichsumahoadon.setText("Hóa đơn " + maHoaDon);
     }//GEN-LAST:event_tbllichsudonhangMouseClicked
 
+    private void tblHoaDon_HoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDon_HoaDonMouseClicked
+        // TODO add your handling code here:
+        int index = tblHoaDon_HoaDon.getSelectedRow();
+        txtGhiChuHoaDon.setText(lstCNhoadon.get(index).getGhiChu());
+    }//GEN-LAST:event_tblHoaDon_HoaDonMouseClicked
+
     public void showGhiChu(int index) {
         txtlichsuGhiChu.setText(lst.get(index).getGhiChu());
     }
@@ -809,7 +821,6 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel jpnHienThiSP;
     private javax.swing.JPanel jpnHoaDon;
@@ -831,6 +842,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JTable tblHoaDon_HoaDon;
     private javax.swing.JTable tbllichsudanhsachsphoadon;
     private javax.swing.JTable tbllichsudonhang;
+    private javax.swing.JTextArea txtGhiChuHoaDon;
     private javax.swing.JTextArea txtlichsuGhiChu;
     // End of variables declaration//GEN-END:variables
 }
