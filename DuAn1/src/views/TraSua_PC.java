@@ -57,7 +57,7 @@ public class TraSua_PC extends javax.swing.JFrame {
         modelLichSuDanhSachSp = (DefaultTableModel) tbllichsudanhsachsphoadon.getModel();
         fillTableLichSuHoaDon();
         showGhiChu(0);
-        fillTableDSSP(1000);
+        fillTableDSSP(lst.get(0).getMaHoaDon());
         LoadSanPham();
         ///fill hóa đơn trong chức năng hóa đơn
         //fillTableHoaDon_HoaDon();
