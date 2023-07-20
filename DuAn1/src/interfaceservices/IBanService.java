@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package interfaceservices;
+
+import viewmodel.defaultViewModel.BanViewModel;
 
 /**
  *
- * @author Admin
+ * @author Doanh
  */
 public interface IBanService {
-    
+    boolean insert(BanViewModel vmBan);
 }

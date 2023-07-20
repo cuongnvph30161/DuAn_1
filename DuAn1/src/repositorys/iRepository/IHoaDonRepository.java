@@ -11,6 +11,6 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public interface IHoaDonRepository extends DAO<String,HoaDonDoMainModel>{
+public interface IHoaDonRepository extends DAO<Integer,HoaDonDoMainModel>{
         List<HoaDonDoMainModel> getList();
 }

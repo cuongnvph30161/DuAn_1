@@ -71,9 +71,10 @@ GO
 CREATE TABLE HoaDon (
 MaHoaDon INT  PRIMARY KEY,
 MaNhanVien INT NOT NULL,
-ThoiGian DATETIME NOT NULL,
-TrangThaiThanhToan INT NOT NULL,
-TrangThaiOrder INT NOT NULL,
+ThoiGian DATETIME DEFAULT GETDATE(),
+TrangThaiThanhToan INT DEFAULT 0,
+TrangThaiOrder INT DEFAULT 0,
+DichVuPhatSinh money DEFAULT 0,
 MaVoucher INT,
 GhiChu NVARCHAR(MAX),
 FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
@@ -111,9 +112,6 @@ FOREIGN KEY (MaChiTietSanPham) REFERENCES ChiTietSanPham(MaChiTietSanPham)
 );
 
 go
--- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
-alter table HoaDon
-ADD DichVuPhatSinh money Default 0
 
 go
 -- nạp dữ liệu bảng nhân viên
