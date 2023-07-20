@@ -4,6 +4,7 @@
  */
 package viewmodel;
 
+import domainmodel.NhanVien.HoaDon;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -13,30 +14,32 @@ import java.sql.Timestamp;
  */
 public class NhanVienBanViewModel {
 
-    private int maHoaDon;
+    private HoaDon maHoaDon;
     private Timestamp thoiGian;
     private int trangThaiOrder;
     private String chiTiet;
     private int soLuong;
     private BigDecimal gia;
+    private BigDecimal tongThanhToan;
 
     public NhanVienBanViewModel() {
     }
 
-    public NhanVienBanViewModel(int maHoaDon, Timestamp thoiGian, int trangThaiOrder, String chiTiet, int soLuong, BigDecimal gia) {
+    public NhanVienBanViewModel(HoaDon maHoaDon, Timestamp thoiGian, int trangThaiOrder, String chiTiet, int soLuong, BigDecimal gia, BigDecimal tongThanhToan) {
         this.maHoaDon = maHoaDon;
         this.thoiGian = thoiGian;
         this.trangThaiOrder = trangThaiOrder;
         this.chiTiet = chiTiet;
         this.soLuong = soLuong;
         this.gia = gia;
+        this.tongThanhToan = tongThanhToan;
     }
 
-    public int getMaHoaDon() {
+    public HoaDon getMaHoaDon() {
         return maHoaDon;
     }
 
-    public void setMaHoaDon(int maHoaDon) {
+    public void setMaHoaDon(HoaDon maHoaDon) {
         this.maHoaDon = maHoaDon;
     }
 
@@ -79,6 +82,16 @@ public class NhanVienBanViewModel {
     public void setGia(BigDecimal gia) {
         this.gia = gia;
     }
+
+    public BigDecimal getTongThanhToan() {
+        return tongThanhToan;
+    }
+
+    public void setTongThanhToan(BigDecimal tongThanhToan) {
+        this.tongThanhToan = tongThanhToan;
+    }
+
+   
 
    
 

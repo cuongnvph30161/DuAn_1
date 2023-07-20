@@ -6,6 +6,7 @@ package repositorys;
 
 import java.sql.*;
 import domainmodel.BanDomainModel;
+import domainmodel.NhanVien.Ban;
 import repositorys.iRepository.IBanRepository;
 
 import java.util.ArrayList;
@@ -31,6 +32,23 @@ public class BanRepository implements IBanRepository {
             while (rs.next()) {
                 lst.add(new BanDomainModel(rs.getInt(1), rs.getString(2),
                         rs.getInt(3), rs.getInt(4)));
+            }
+            return lst;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+     public List<Ban> getTang1() {
+        try {
+            List<Ban> lst = new ArrayList<>();
+            con = DBConnect.getConnect();
+            String lenh = "select TenBan from Ban where Tang=1";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                Ban b = new Ban();
+                b.setTenBan(rs.getString(1));
+                lst.add(b);
             }
             return lst;
         } catch (Exception e) {

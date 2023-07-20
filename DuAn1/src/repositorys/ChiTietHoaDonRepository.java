@@ -8,6 +8,8 @@ import java.sql.*;
 import domainmodel.BanDomainModel;
 import domainmodel.ChiTietHoaDonDomainModel;
 import domainmodel.HoaDonDoMainModel;
+import domainmodel.NhanVien.ChiTietHoaDon;
+import domainmodel.NhanVien.HoaDon;
 import repositorys.iRepository.IBanRepository;
 import repositorys.iRepository.IChiTietHoaDonRepository;
 
@@ -43,28 +45,25 @@ public class ChiTietHoaDonRepository implements IChiTietHoaDonRepository {
         return null;
 
     }
-
-    public List<ChiTietHoaDonDomainModel> getAllNhanVienBan() {
+    
+     public List<ChiTietHoaDon> getDuLieuBan() {
         try {
-            List<ChiTietHoaDonDomainModel> lst = new ArrayList<>();
+            List<ChiTietHoaDon> lst = new ArrayList<>();
             con = DBConnect.getConnect();
-            String lenh = "select ChiTietHoaDon.MaHoaDon,HoaDon.ThoiGian,ChiTietHoaDon.SoLuong,ChiTietHoaDon.Gia,HoaDon.TrangThaiOrder from ChiTietHoaDon \n"
-                    + "inner join HoaDon on ChiTietHoaDon.MaHoaDon=HoaDon.MaHoaDon";
+            String lenh = "select HoaDon.MaHoaDon,HoaDon.ThoiGian,ChiTietHoaDon.SoLuong,ChiTietHoaDon.Gia,HoaDon.TrangThaiOrder from HoaDon \n"
+                    + "inner join ChiTietHoaDon on HoaDon.MaHoaDon=ChiTietHoaDon.MaHoaDon";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
-
-                ChiTietHoaDonDomainModel cthd = new ChiTietHoaDonDomainModel();
-                cthd.setMaHoaDon(rs.getInt(1));
-                HoaDonDoMainModel hd = new HoaDonDoMainModel();
-
+                ChiTietHoaDon cthd = new ChiTietHoaDon();
+                HoaDon hd = new HoaDon();
+                hd.setMaHoaDon(rs.getInt(1));
                 hd.setThoiGian(rs.getTimestamp(2));
-                cthd.setMaHoaDon(hd.getMaHoaDon());
+                hd.setTrangThaiOrder(rs.getInt(5));
+                cthd.setMaHoaDon(hd);
                 cthd.setSoLuong(rs.getInt(3));
                 cthd.setGia(rs.getBigDecimal(4));
-                hd.setTrangThaiOrder(rs.getInt(5));
                 lst.add(cthd);
-                System.out.println("du lieu" + lst);
 
             }
             return lst;
@@ -73,6 +72,8 @@ public class ChiTietHoaDonRepository implements IChiTietHoaDonRepository {
         return null;
 
     }
+
+   
 
     @Override
     public List<ChiTietHoaDonDomainModel> getAll(int... page) {
