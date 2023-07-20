@@ -35,7 +35,7 @@ import viewmodel.PhaCheLichSuViewModel;
  *
  * @author ADMIN
  */
-public class PhaCheLichSuServices implements IPhaCheLichSuServices {
+public class PhaCheHoaDonServices implements IPhaCheLichSuServices {
 
     IHoaDonRepository hoaDonRepository = new HoaDonRepository();
     IBanRepository banRepository = new BanRepository();
@@ -54,7 +54,7 @@ public class PhaCheLichSuServices implements IPhaCheLichSuServices {
         for (BanHoaDonDomainModel a : listBanHoaDon) {
             ban = (BanDomainModel) mapBan.get(a.getMaBan() + "");
             hoaDon = (HoaDonDoMainModel) mapHoaDon.get(a.getMaHoaDon() + "");
-            if (hoaDon.getTrangThaiThanhToan() == 1) {
+            if (hoaDon.getTrangThaiThanhToan() == 0) {
                 for (PhaCheLichSuDanhSachSanPhamViewmodel b : DSSP) {
                     if (b.getMaHoaDon() == a.getMaHoaDon()) {
                         listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),

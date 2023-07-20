@@ -51,28 +51,24 @@ public class PhaCheLichSuServices implements IPhaCheLichSuServices {
             Map<String, Object> mapHoaDon, List<PhaCheLichSuDanhSachSanPhamViewmodel> DSSP) {
         List<PhaCheLichSuViewModel> listLichSu = new ArrayList();
         List<BanHoaDonDomainModel> listBanHoaDon = banHoaDonRepository.getList();
+
         for (BanHoaDonDomainModel a : listBanHoaDon) {
             ban = (BanDomainModel) mapBan.get(a.getMaBan() + "");
             hoaDon = (HoaDonDoMainModel) mapHoaDon.get(a.getMaHoaDon() + "");
-            if (hoaDon.getTrangThaiThanhToan() == 1) {
-                for (PhaCheLichSuDanhSachSanPhamViewmodel b : DSSP) {
-                    if (b.getMaHoaDon() == a.getMaHoaDon()) {
-                        listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
-                                ban.getTenBan(), ban.getTang(),
-                                hoaDon.getThoiGian(), hoaDon.getGhiChu(),
-                                DSSP));
-
-                    } else {
-                        listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
-                                ban.getTenBan(), ban.getTang(),
-                                hoaDon.getThoiGian(), hoaDon.getGhiChu(),
-                                null));
-                    }
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> listDSSP = new ArrayList<>();
+            for (PhaCheLichSuDanhSachSanPhamViewmodel b : DSSP) {
+                if (a.getMaHoaDon() == b.getMaHoaDon()) {
+                    listDSSP.add(b);
                 }
+            }
+            if (hoaDon.getTrangThaiThanhToan() == 1) {
+                listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
+                        ban.getTenBan(), ban.getTang(),
+                        hoaDon.getThoiGian(), hoaDon.getGhiChu(),
+                        listDSSP));
             }
 
         }
-
         return listLichSu;
     }
 
@@ -120,5 +116,4 @@ public class PhaCheLichSuServices implements IPhaCheLichSuServices {
         }
         return listdssp;
     }
-
 }
