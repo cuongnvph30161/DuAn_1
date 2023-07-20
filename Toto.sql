@@ -73,9 +73,9 @@ GO
 CREATE TABLE HoaDon (
 MaHoaDon INT  PRIMARY KEY,
 MaNhanVien INT NOT NULL,
-ThoiGian DATETIME NOT NULL,
-TrangThaiThanhToan INT NOT NULL,
-TrangThaiOrder INT NOT NULL,
+ThoiGian DATETIME DEFAULT GETDATE(),
+TrangThaiThanhToan INT DEFAULT 0,
+TrangThaiOrder INT DEFAULT 0,
 MaVoucher INT,
 GhiChu NVARCHAR(MAX),
 FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
