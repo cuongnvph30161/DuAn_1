@@ -81,7 +81,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 //
 
-
     public NhanVienViewModel getDataNhanVien() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
         String hoVaTen = txtHoVaTenThem.getText();
@@ -121,24 +120,27 @@ public class TraSua_QL extends javax.swing.JFrame {
             return null;
         }
         nhanVienViewModel.setSoDienThoai(soDienThoai);
-        
+
         String chucVu = cbbChucVuNhanVienThem.getSelectedItem().toString();
 
         nhanVienViewModel.setChucVu(chucVu);
 
-        Icon icon = lblAnhNhanVien.getIcon(); // Giả sử JLabel chứa hình ảnh trong biến icon
-        byte[] imageData = getImageDataFromIcon(icon);
-
         // check rỗng 
-        if (hoVaTen.trim().equals("") || ngaySinh.trim().equals("") || cccd.trim().equals("") || email.trim().equals("") || soDienThoai.trim().equals("")||diaChi.trim().equals("")) {
+        if (hoVaTen.trim().equals("") || ngaySinh.trim().equals("") || cccd.trim().equals("") || email.trim().equals("") || soDienThoai.trim().equals("") || diaChi.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
         }
 
-        // Tạo đối tượng Blob từ dữ liệu hình ảnh
-        Blob anh = createBlobFromImageData(imageData);
-
-        nhanVienViewModel.setAnh(anh);
+        // Lấy ảnh từ lblAnhNhanVien
+        Icon icon = lblAnhNhanVien.getIcon();
+        if (icon != null) {
+            byte[] imageData = getImageDataFromIcon(icon);
+            Blob anh = createBlobFromImageData(imageData);
+            nhanVienViewModel.setAnh(anh);
+        } else {
+            // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
+            nhanVienViewModel.setAnh(null);
+        }
 
         nhanVienViewModel.setDiaChi(diaChi);
 
@@ -202,7 +204,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         return blob;
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -849,6 +850,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel91.setText("Ghi chú");
 
         txtMaNhanVienThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtMaNhanVienThem.setEnabled(false);
 
         cbbTrangThaiNhanVienThem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm việc", "Đã nghỉ việc" }));
 
