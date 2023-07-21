@@ -102,7 +102,15 @@ public class NhanVienService implements INhanVienService {
         nhanVienDomainModel.setGhiChu(nhanVienViewModel.getGhiChu());
         nhanVienDomainModel.setAnh(nhanVienViewModel.getAnh());
         nhanVienDomainModel.setChucVu(nhanVienViewModel.getChucVu());
-       
+
+        // Kiểm tra xem có sự thay đổi về email hay không trước khi kiểm tra trùng lặp
+        if (!nhanVienDomainModel.getEmail().equals(nhanVienViewModel.getEmail())) {
+            // Nếu có sự thay đổi, kiểm tra trùng email
+            if (iNhanVienRepository.checkTrungEmail(nhanVienDomainModel.getEmail())) {
+                return "Email không được trùng";
+            }
+        }
+        
         if (iNhanVienRepository.update(maNhanVien, nhanVienDomainModel)) {
             return "Cập nhật nhân viên thành công";
         } else {

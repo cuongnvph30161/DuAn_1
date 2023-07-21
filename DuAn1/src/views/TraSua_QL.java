@@ -287,6 +287,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         nhanVienViewModel.setHoVaTen(hoVaTen);
         nhanVienViewModel.setDiaChi(diaChi);
         nhanVienViewModel.setGhiChu(ghiChu);
+        System.out.println("nhanvien cap nhat"+" "+nhanVienViewModel);
         return nhanVienViewModel;
     }
 
@@ -3347,9 +3348,9 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtGhiChuXem.setText(ghiChu);
         int trangThai = nhanVienViewModel.getTrangThai();
         if (trangThai == 0) {
-            cbbTrangThaiNhanVienXem.setSelectedItem("Đang làm việc");
-        } else {
             cbbTrangThaiNhanVienXem.setSelectedItem("Đã nghỉ việc");
+        } else {
+            cbbTrangThaiNhanVienXem.setSelectedItem("Đang làm việc");
         }
 
         Blob anh = nhanVienViewModel.getAnh();
