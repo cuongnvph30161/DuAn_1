@@ -67,7 +67,7 @@ public class NhanVienService implements INhanVienService {
         nhanVienDomainModel.setChucVu(nhanVienViewModel.getChucVu());
 
         if (iNhanVienRepository.checkTrungEmail(nhanVienDomainModel.getEmail())) {
-           return "Email không được trùng";
+            return "Email không được trùng";
         }
         if (iNhanVienRepository.insertNhanVien(nhanVienDomainModel)) {
             return "Thêm nhân viên thành công";
@@ -102,6 +102,7 @@ public class NhanVienService implements INhanVienService {
         nhanVienDomainModel.setGhiChu(nhanVienViewModel.getGhiChu());
         nhanVienDomainModel.setAnh(nhanVienViewModel.getAnh());
         nhanVienDomainModel.setChucVu(nhanVienViewModel.getChucVu());
+       
         if (iNhanVienRepository.update(maNhanVien, nhanVienDomainModel)) {
             return "Cập nhật nhân viên thành công";
         } else {

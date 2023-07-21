@@ -92,6 +92,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         String email = txtEmailThem.getText();
         String soDienThoai = txtSDTThem.getText();
         String ghiChu = txtGhiChuThem.getText();
+
         // lấy int từ  tên comBoBox
         String trangThai = cbbTrangThaiNhanVienThem.getSelectedItem().toString();
         if (trangThai.equals("Đã nghỉ việc")) {
@@ -205,6 +206,83 @@ public class TraSua_QL extends javax.swing.JFrame {
             // throw new RuntimeException("Không thể tạo đối tượng Blob từ dữ liệu hình ảnh.", e);
         }
         return blob;
+    }
+
+    public NhanVienViewModel getDataNhanVienCapNhat() {
+        NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
+
+        // Lấy thông tin từ các trường nhập liệu ở phần "Xem và cập nhật nhân viên"
+        String hoVaTen = txtHoVaTenXem.getText();
+        String ngaySinh = txtNgaySinhXem.getText();
+        String diaChi = txtDiaChiXem.getText();
+        String cccd = txtCCCDXem.getText();
+        String email = txtEmailXem.getText();
+        String soDienThoai = txtSDTXem.getText();
+        String ghiChu = txtGhiChuXem.getText();
+        String chucVu = cbbChucVuNhanVienXem.getSelectedItem().toString();
+
+        // Lấy trạng thái từ ComboBox
+        String trangThai = cbbTrangThaiNhanVienXem.getSelectedItem().toString();
+        if (trangThai.equals("Đã nghỉ việc")) {
+            nhanVienViewModel.setTrangThai(0);
+        } else {
+            nhanVienViewModel.setTrangThai(1);
+        }
+
+        if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
+            return null;
+        }
+
+// Kiểm tra xem chuỗi cccd có phải là dạng số hay không
+        if (!cccd.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
+            return null; // Hoặc xử lý theo cách phù hợp với ứng dụng của bạn
+        }
+
+        if (soDienThoai.isEmpty() || !soDienThoai.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.");
+            return null;
+        }
+
+// Kiểm tra độ dài của số điện thoại là 10 hoặc 11 số
+        if (soDienThoai.length() != 10 && soDienThoai.length() != 11) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 hoặc 11 số.");
+            return null;
+        }
+
+        // check rỗng 
+        if (hoVaTen.trim().equals("") || ngaySinh.trim().equals("") || cccd.trim().equals("") || email.trim().equals("") || soDienThoai.trim().equals("") || diaChi.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được rỗng");
+            return null;
+        }
+        try {
+            LocalDate localDate = LocalDate.parse(ngaySinh);
+            nhanVienViewModel.setNgaySinh(java.sql.Date.valueOf(localDate));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày sinh");
+            return null;
+        }
+        
+         // Lấy ảnh từ lblAnhNhanVien
+        Icon icon = lblAnhNhanVienSua.getIcon();
+        if (icon != null) {
+            byte[] imageData = getImageDataFromIcon(icon);
+            Blob anh = createBlobFromImageData(imageData);
+            nhanVienViewModel.setAnh(anh);
+        } else {
+            // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
+            nhanVienViewModel.setAnh(null);
+        }
+        
+        nhanVienViewModel.setEmail(email);
+        nhanVienViewModel.setCCCD(cccd);
+        nhanVienViewModel.setChucVu(chucVu);
+        nhanVienViewModel.setSoDienThoai(soDienThoai);
+        nhanVienViewModel.setHoVaTen(hoVaTen);
+        nhanVienViewModel.setDiaChi(diaChi);
+        nhanVienViewModel.setGhiChu(ghiChu);
+        return nhanVienViewModel;
     }
 
     @SuppressWarnings("unchecked")
@@ -3252,7 +3330,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         //
         NhanVienViewModel nhanVienViewModel = iNhanVienService.loadMouseclicked(maNhanVienInt);
         Date ngaySinh = nhanVienViewModel.getNgaySinh();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày/tháng/năm theo mẫu "dd/MM/yyyy" hoặc mẫu tùy chọn khác.
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String ngaySinhString = sdf.format(ngaySinh);
         txtNgaySinhXem.setText(ngaySinhString);
         String diaChi = nhanVienViewModel.getDiaChi();
@@ -3290,7 +3368,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_tblNhanVienFormMouseClicked
 
     private void btnCapNhatNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatNhanVienActionPerformed
-        NhanVienViewModel nhanVienViewModel = getDataNhanVien();
+        NhanVienViewModel nhanVienViewModel = getDataNhanVienCapNhat();
         int row = tblNhanVienForm.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng muốn update");
@@ -3318,8 +3396,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             ImageIcon imageIcon = new ImageIcon(filePath);
 
             // Lấy kích thước của JLabel
-            int labelWidth = lblAnhNhanVien.getWidth();
-            int labelHeight = lblAnhNhanVien.getHeight();
+            int labelWidth = lblAnhNhanVienSua.getWidth();
+            int labelHeight = lblAnhNhanVienSua.getHeight();
 
             // Lấy Image từ ImageIcon
             Image image = imageIcon.getImage();
@@ -3331,12 +3409,12 @@ public class TraSua_QL extends javax.swing.JFrame {
             ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
             // Thiết lập ImageIcon mới cho JLabel
-            lblAnhNhanVien.setIcon(scaledIcon);
+            lblAnhNhanVienSua.setIcon(scaledIcon);
         }
     }//GEN-LAST:event_btnAnhNhanVienSuaActionPerformed
 
     private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
-       clean();
+        clean();
     }//GEN-LAST:event_btnCleanActionPerformed
 
     public static void main(String args[]) {

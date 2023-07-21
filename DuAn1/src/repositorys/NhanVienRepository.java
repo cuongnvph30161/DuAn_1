@@ -168,7 +168,6 @@ public class NhanVienRepository implements INhanVienRepository {
             ps.setString(8, nhanVienDomainModel.getGhiChu());
             ps.setBlob(9, nhanVienDomainModel.getAnh());
             ps.setString(10, nhanVienDomainModel.getChucVu());
-            System.out.println("sdt" + " " + nhanVienDomainModel.getSoDienThoai());
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -198,7 +197,6 @@ public class NhanVienRepository implements INhanVienRepository {
                 nhanVienDomainModel.setDiaChi(diaChi);
                 nhanVienDomainModel.setTrangThai(trangThai);
                 nhanVienDomainModel.setGhiChu(ghiChu);
-                System.out.println("loadMouseclick" + " " + nhanVienDomainModel);
             }
 
             return nhanVienDomainModel;
@@ -211,7 +209,7 @@ public class NhanVienRepository implements INhanVienRepository {
     @Override
     public boolean update(int maNhanVien, NhanVienDomainModel nhanVienDomainModel) {
         try {
-            String query = "update NhanVien set HoVaTen = ?,NgaySinh = ?,DiaChi= ?,CCCD= ?,TrangThai= ?,Email,SoDienThoai= ?,GhiChu= ?,Anh= ?,ChucVu= ?";
+            String query = "update NhanVien set HoVaTen = ?,NgaySinh = ?,DiaChi= ?,CCCD= ?,TrangThai= ?,Email=?,SoDienThoai= ?,GhiChu= ?,Anh= ?,ChucVu= ? where MaNhanVien =?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, nhanVienDomainModel.getHoVaTen());
             ps.setDate(2, new Date(nhanVienDomainModel.getNgaySinh().getTime()));
@@ -223,6 +221,7 @@ public class NhanVienRepository implements INhanVienRepository {
             ps.setString(8, nhanVienDomainModel.getGhiChu());
             ps.setBlob(9, nhanVienDomainModel.getAnh());
             ps.setString(10, nhanVienDomainModel.getChucVu());
+            ps.setInt(11, maNhanVien);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
