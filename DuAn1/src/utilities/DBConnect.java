@@ -28,11 +28,7 @@ public class DBConnect {
 
         }
         try {
-
             connect = DriverManager.getConnection(url, "sa", "sa");
-
-
-
             return connect;
         } catch (Exception e) {
             System.out.println("sai ten database hoac pass");

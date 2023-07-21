@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface IBanHoaDonRepository extends DAO<Integer,BanHoaDonDomainModel>{
         List<BanHoaDonDomainModel> getList();
+;
 }

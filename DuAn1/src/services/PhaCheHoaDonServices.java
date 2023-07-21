@@ -61,7 +61,7 @@ public class PhaCheHoaDonServices implements IPhaCheLichSuServices {
                     listDSSP.add(b);
                 }
             }
-            if (hoaDon.getTrangThaiThanhToan() == 0) {
+            if (hoaDon.getTrangThaiOrder()== 0) {
                 listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
                         ban.getTenBan(), ban.getTang(),
                         hoaDon.getThoiGian(), hoaDon.getGhiChu(),
@@ -115,5 +115,11 @@ public class PhaCheHoaDonServices implements IPhaCheLichSuServices {
             }
         }
         return listdssp;
+    }
+
+    @Override
+    public Integer capNhatTrangThai(int maHD, int trangThai) {
+       return hoaDonRepository.capNhatTrangThai(maHD, trangThai);
+    
     }
 }
