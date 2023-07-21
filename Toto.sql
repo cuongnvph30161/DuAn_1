@@ -73,9 +73,9 @@ MaNhanVien INT NOT NULL,
 ThoiGian DATETIME DEFAULT GETDATE(),
 TrangThaiThanhToan INT DEFAULT 0,
 TrangThaiOrder INT DEFAULT 0,
-DichVuPhatSinh money DEFAULT 0,
 MaVoucher INT,
 GhiChu NVARCHAR(MAX),
+DichVuPhatSinh money DEFAULT 0
 FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
 FOREIGN KEY (MaVoucher) REFERENCES MaGiamGia(MaVoucher)
 );
@@ -112,7 +112,7 @@ FOREIGN KEY (MaChiTietSanPham) REFERENCES ChiTietSanPham(MaChiTietSanPham)
 
 go
 
-go
+
 -- nạp dữ liệu bảng nhân viên
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
 VALUES 
@@ -161,15 +161,10 @@ go
 
 --nạp dữ liệu hóa đơn
 INSERT INTO HoaDon
-<<<<<<< HEAD
-VALUES(1000,1001,GETDATE(),1,1,33.3,1000,N'ít đường'),
-(1001,1001,GETDATE(),1,1,33.3,1000,N'nhiều đường'),
-(1002,1001,GETDATE(),1,1,33.3,1000,N'nhiều đá')
-=======
 VALUES(1000,1001,GETDATE(),0,1,1000,N'ít đường',33.3),
 (1001,1001,GETDATE(),1,0,1000,N'nhiều đường',33.3),
 (1002,1001,GETDATE(),1,0,1000,N'nhiều đá',33.3)
->>>>>>> d3372c681adf09014c06e4fa5d0e2114146fbda8
+
 
 go
 --nạp dữ liệu bàn-hóa đơn
