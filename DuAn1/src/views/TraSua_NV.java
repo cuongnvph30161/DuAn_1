@@ -63,13 +63,13 @@ public class TraSua_NV extends javax.swing.JFrame {
         loadBanTang1();
         hienBanTang1();
         loadBanTang2();
-        hienBanTang2();
+        //hienBanTang2();
         loadBanTang3();
-        hienBanTang3();
+       // hienBanTang3();
         loadBanTang4();
-        hienBanTang4();
-        loadBanTang5();
-        hienBanTang5();
+        //hienBanTang4();
+        //loadBanTang5();
+        //hienBanTang5();
 
         lblTang.setText("Tầng 1");
 
@@ -82,7 +82,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 
         phanTrang();
         truyenTrang(1);
-        fillTableNVHD(lstTruyenTrang);
+        fillTableNVHD(listNhanVienHDView);
         FillTableBan();
 
     }

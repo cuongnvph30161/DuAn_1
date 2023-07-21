@@ -899,8 +899,6 @@ public class TraSua_PC extends javax.swing.JFrame {
             public void run() {
                 String maTaiKhoan = ""; // Lấy mã tài khoản từ giao diện đăng nhập
                 TraSua_PC traSua_PC = new TraSua_PC(maTaiKhoan);
-                System.out.println("mTK giao dien PC" + " " + maTaiKhoan);
-
                 traSua_PC.setMaTaiKhoan(maTaiKhoan);
                 traSua_PC.setVisible(true);
             }

@@ -560,6 +560,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         cbbTrangThaiVaiTroThem = new javax.swing.JComboBox<>();
         cbbTrangThaiTaiKhoanThem = new javax.swing.JComboBox<>();
         btnThem = new javax.swing.JButton();
+        btnThem1 = new javax.swing.JButton();
         jTextField11 = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
         tblTaiKhoanForm = new javax.swing.JTable();
@@ -2582,6 +2583,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setText("Thêm");
 
+        btnThem1.setBackground(new java.awt.Color(45, 132, 252));
+        btnThem1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem1.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem1.setText("Clean");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -2590,7 +2596,8 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnThem1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -2633,7 +2640,9 @@ public class TraSua_QL extends javax.swing.JFrame {
                     .addComponent(jLabel74)
                     .addComponent(cbbTrangThaiTaiKhoanThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
-                .addComponent(btnThem)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnThem)
+                    .addComponent(btnThem1))
                 .addGap(23, 23, 23))
         );
 
@@ -3300,7 +3309,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
     private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
         NhanVienViewModel nhanVienViewModel = getDataNhanVien();
-        System.out.println("them nv" + " " + nhanVienViewModel);
         if (nhanVienViewModel == null) {
             return;
         }
@@ -3438,6 +3446,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnKhieuNaiHoTro;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThem1;
     private javax.swing.JButton btnThemNhanVien;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienXem;
