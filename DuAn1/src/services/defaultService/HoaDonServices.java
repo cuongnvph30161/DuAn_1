@@ -20,6 +20,7 @@ public class HoaDonServices {
 			dmHoaDon.setMaNhanVien(vmHoaDon.getMaNhanVien());
 			dmHoaDon.setDichVuPhatSinh(vmHoaDon.getDichVuPhatSinh());
 			dmHoaDon.setMaHoaDon(vmHoaDon.getMaHoaDon());
+			dmHoaDon.setGhiChu(vmHoaDon.getGhiChu());
 			//Tạo hóa đơn		
 			return rpHoaDon.insert(dmHoaDon);
 		
@@ -29,7 +30,7 @@ public class HoaDonServices {
 	public int getLastId() {
 		return rpHoaDon.getLastId();
 	}
-	public boolean delete(int maHoaDon) {
+	public boolean deleteById(int maHoaDon) {
 		return rpHoaDon.deleteById(maHoaDon);
 	}
 	
