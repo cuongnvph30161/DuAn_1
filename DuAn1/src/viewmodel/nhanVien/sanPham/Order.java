@@ -2,9 +2,12 @@ package viewmodel.nhanVien.sanPham;
 
 import java.util.List;
 
+import viewmodel.defaultViewModel.ChiTietHoaDonViewModel;
+
 public class Order {
 	private int maNhanVien ,dichVuPhatSinh,maVoucher;
-	private List<Integer> lstMaBan,lstMaChiTietSanPham;
+	private List<Integer> lstMaBan;
+	private List<ChiTietHoaDonViewModel> lstChiTietHoaDonViewModels;
 	private String ghiChu;
 	public int getMaNhanVien() {
 		return maNhanVien;
@@ -24,12 +27,7 @@ public class Order {
 	public void setLstMaBan(List<Integer> lstMaBan) {
 		this.lstMaBan = lstMaBan;
 	}
-	public List<Integer> getLstMaChiTietSanPham() {
-		return lstMaChiTietSanPham;
-	}
-	public void setLstMaChiTietSanPham(List<Integer> maChiTietSanPham) {
-		this.lstMaChiTietSanPham = maChiTietSanPham;
-	}
+
 	public String getGhiChu() {
 		return ghiChu;
 	}
@@ -42,5 +40,25 @@ public class Order {
 	public void setMaVoucher(int maVoucher) {
 		this.maVoucher = maVoucher;
 	}
+	public Order(int maNhanVien, int dichVuPhatSinh, int maVoucher, List<Integer> lstMaBan,
+			List<ChiTietHoaDonViewModel> lstChiTietHoaDonViewModels, String ghiChu) {
+		super();
+		this.maNhanVien = maNhanVien;
+		this.dichVuPhatSinh = dichVuPhatSinh;
+		this.maVoucher = maVoucher;
+		this.lstMaBan = lstMaBan;
+		this.lstChiTietHoaDonViewModels = lstChiTietHoaDonViewModels;
+		this.ghiChu = ghiChu;
+	}
+	public Order() {
+		// TODO Auto-generated constructor stub
+	}
+	public List<ChiTietHoaDonViewModel> getLstChiTietHoaDonViewModels() {
+		return lstChiTietHoaDonViewModels;
+	}
+	public void setLstChiTietHoaDonViewModels(List<ChiTietHoaDonViewModel> lstChiTietHoaDonViewModels) {
+		this.lstChiTietHoaDonViewModels = lstChiTietHoaDonViewModels;
+	}
+	
 	
 }

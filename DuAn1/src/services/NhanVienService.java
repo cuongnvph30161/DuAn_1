@@ -53,6 +53,7 @@ public class NhanVienService implements INhanVienService {
 
     @Override
     public String insertNhanVien(NhanVienViewModel nhanVienViewModel) {
+
         NhanVienDomainModel nhanVienDomainModel = new NhanVienDomainModel();
         nhanVienDomainModel.setHoVaTen(nhanVienViewModel.getHoVaTen());
         nhanVienDomainModel.setNgaySinh(nhanVienViewModel.getNgaySinh());
@@ -64,6 +65,10 @@ public class NhanVienService implements INhanVienService {
         nhanVienDomainModel.setGhiChu(nhanVienViewModel.getGhiChu());
         nhanVienDomainModel.setAnh(nhanVienViewModel.getAnh());
         nhanVienDomainModel.setChucVu(nhanVienViewModel.getChucVu());
+
+        if (iNhanVienRepository.checkTrungEmail(nhanVienDomainModel.getEmail())) {
+           return "Email không được trùng";
+        }
         if (iNhanVienRepository.insertNhanVien(nhanVienDomainModel)) {
             return "Thêm nhân viên thành công";
         } else {
@@ -81,7 +86,27 @@ public class NhanVienService implements INhanVienService {
         nhanVienViewModel.setDiaChi(nhanVienDomainModel.getDiaChi());
         nhanVienViewModel.setTrangThai(nhanVienDomainModel.getTrangThai());
         nhanVienViewModel.setGhiChu(nhanVienDomainModel.getGhiChu());
-        return nhanVienViewModel; 
+        return nhanVienViewModel;
+    }
+
+    @Override
+    public String update(int maNhanVien, NhanVienViewModel nhanVienViewModel) {
+        NhanVienDomainModel nhanVienDomainModel = new NhanVienDomainModel();
+        nhanVienDomainModel.setHoVaTen(nhanVienViewModel.getHoVaTen());
+        nhanVienDomainModel.setNgaySinh(nhanVienViewModel.getNgaySinh());
+        nhanVienDomainModel.setDiaChi(nhanVienViewModel.getDiaChi());
+        nhanVienDomainModel.setCCCD(nhanVienViewModel.getCCCD());
+        nhanVienDomainModel.setTrangThai(nhanVienViewModel.getTrangThai());
+        nhanVienDomainModel.setEmail(nhanVienViewModel.getEmail());
+        nhanVienDomainModel.setSoDienThoai(nhanVienViewModel.getSoDienThoai());
+        nhanVienDomainModel.setGhiChu(nhanVienViewModel.getGhiChu());
+        nhanVienDomainModel.setAnh(nhanVienViewModel.getAnh());
+        nhanVienDomainModel.setChucVu(nhanVienViewModel.getChucVu());
+        if (iNhanVienRepository.update(maNhanVien, nhanVienDomainModel)) {
+            return "Cập nhật nhân viên thành công";
+        } else {
+            return "Cập nhật nhân viên thất bại";
+        }
     }
 
 }

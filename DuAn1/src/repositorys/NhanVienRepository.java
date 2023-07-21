@@ -191,7 +191,7 @@ public class NhanVienRepository implements INhanVienRepository {
                 Date ngaySinh = rs.getDate("NgaySinh");
                 String diaChi = rs.getString("DiaChi");
                 int trangThai = rs.getInt("TrangThai");
-                String ghiChu =rs.getString("GhiChu");
+                String ghiChu = rs.getString("GhiChu");
                 nhanVienDomainModel = new NhanVienDomainModel();
                 nhanVienDomainModel.setAnh(anh);
                 nhanVienDomainModel.setNgaySinh(ngaySinh);
@@ -207,4 +207,47 @@ public class NhanVienRepository implements INhanVienRepository {
             return null;
         }
     }
+
+    @Override
+    public boolean update(int maNhanVien, NhanVienDomainModel nhanVienDomainModel) {
+        try {
+            String query = "update NhanVien set HoVaTen = ?,NgaySinh = ?,DiaChi= ?,CCCD= ?,TrangThai= ?,Email,SoDienThoai= ?,GhiChu= ?,Anh= ?,ChucVu= ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, nhanVienDomainModel.getHoVaTen());
+            ps.setDate(2, new Date(nhanVienDomainModel.getNgaySinh().getTime()));
+            ps.setString(3, nhanVienDomainModel.getDiaChi());
+            ps.setString(4, nhanVienDomainModel.getCCCD());
+            ps.setInt(5, nhanVienDomainModel.getTrangThai());
+            ps.setString(6, nhanVienDomainModel.getEmail());
+            ps.setString(7, nhanVienDomainModel.getSoDienThoai());
+            ps.setString(8, nhanVienDomainModel.getGhiChu());
+            ps.setBlob(9, nhanVienDomainModel.getAnh());
+            ps.setString(10, nhanVienDomainModel.getChucVu());
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean checkTrungEmail(String email) {
+        try {
+            String query = "select Email from NhanVien where Email =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

@@ -13,6 +13,7 @@ import repositorys.iRepository.IHoaDonRepository;
 import java.util.ArrayList;
 import java.util.List;
 import utilities.DBConnect;
+import utilities.JdbcHelper;
 
 /**
  *
@@ -20,22 +21,20 @@ import utilities.DBConnect;
  */
 public class HoaDonRepository implements IHoaDonRepository {
 
-    static Connection con = DBConnect.getConnect();
+    static Connection con = null;
 
     @Override
     public List<HoaDonDoMainModel> getList() {
         try {
             List<HoaDonDoMainModel> lst = new ArrayList<>();
-
+            con = DBConnect.getConnect();
             String lenh = "SELECT MaHoaDon,MaNhanVien,ThoiGian,"
                     + "TrangThaiThanhToan,TrangThaiOrder,MaVoucher,GhiChu FROM HoaDon";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
-                lst.add(new HoaDonDoMainModel(rs.getInt(1),
-                        rs.getInt(1), rs.getTimestamp(3),
-                        rs.getInt(4), rs.getInt(5),
-                        rs.getInt(6), rs.getString(7)));
+                lst.add(new HoaDonDoMainModel(rs.getInt(1), rs.getInt(1), rs.getTimestamp(3), rs.getInt(4),
+                        rs.getInt(5), rs.getInt(6), rs.getString(7)));
 
             }
             return lst;
@@ -58,8 +57,11 @@ public class HoaDonRepository implements IHoaDonRepository {
 
     @Override
     public boolean insert(HoaDonDoMainModel object) {
-        // TODO Auto-generated method stub
-        return false;
+        String querry = "INSERT INTO [dbo].[HoaDon]  ([MaHoaDon],[MaNhanVien] ,[MaVoucher] ,[GhiChu] ,[DichVuPhatSinh])"
+                + "VALUES (?,?,?,?,?)";
+
+        return JdbcHelper.update(querry, object.getMaHoaDon(), object.getMaNhanVien(),
+                 object.getMaVoucher() == 0 ? null : object.getMaVoucher(), object.getGhiChu(), object.getDichVuPhatSinh()) == 1;
     }
 
     @Override
@@ -81,8 +83,7 @@ public class HoaDonRepository implements IHoaDonRepository {
     }
 
     public int getLastId() {
-        // TODO Auto-generated method stub
-        return 1000;
+        return (int) JdbcHelper.value("Select top 1 MaHoaDon from HoaDon order by MaHoaDon desc");
     }
 
     @Override
@@ -98,5 +99,4 @@ public class HoaDonRepository implements IHoaDonRepository {
         }
         return -1;
     }
-
 }
