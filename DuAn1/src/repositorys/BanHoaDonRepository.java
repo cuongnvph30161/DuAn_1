@@ -13,6 +13,7 @@ import repositorys.iRepository.IBanRepository;
 import java.util.ArrayList;
 import java.util.List;
 import utilities.DBConnect;
+import utilities.JdbcHelper;
 
 /**
  *
@@ -54,8 +55,9 @@ public class BanHoaDonRepository implements IBanHoaDonRepository {
 
 	@Override
 	public boolean insert(BanHoaDonDomainModel object) {
-		// TODO Auto-generated method stub
-		return false;
+		return JdbcHelper.update("INSERT"
+				+ " INTO Ban_HoaDon(MaHoaDon, MaBan)"
+				+ "VALUES    (?,?)",object.getMaHoaDon(),object.getMaBan())==1;
 	}
 
 	@Override
@@ -66,7 +68,11 @@ public class BanHoaDonRepository implements IBanHoaDonRepository {
 
 	@Override
 	public boolean deleteById(Integer id) {
-		// TODO Auto-generated method stub
+		try {
+			return JdbcHelper.update("DELETE ChiTietHoaDon where MaHoaDon=?", id)>=0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

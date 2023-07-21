@@ -16,6 +16,7 @@ import repositorys.iRepository.IChiTietHoaDonRepository;
 import java.util.ArrayList;
 import java.util.List;
 import utilities.DBConnect;
+import utilities.JdbcHelper;
 
 /**
  *
@@ -89,8 +90,8 @@ public class ChiTietHoaDonRepository implements IChiTietHoaDonRepository {
 
     @Override
     public boolean insert(ChiTietHoaDonDomainModel object) {
-        // TODO Auto-generated method stub
-        return false;
+        String querry="INSERT  INTO  ChiTietHoaDon(MaHoaDon, MaChiTietSanPham, SoLuong, Gia) VALUES    (?,?,?,?)";
+        return JdbcHelper.update(querry,object.getMaHoaDon(),object.getMaChiTietSanPham(),object.getSoLuong(),object.getGia())==1;
     }
 
     @Override
