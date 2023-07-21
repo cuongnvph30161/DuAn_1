@@ -14,7 +14,7 @@ NgaySinh DATE NOT NULL,
 DiaChi NVARCHAR(100) NOT NULL,
 CCCD VARCHAR(12) NOT NULL,
 TrangThai INT NOT NULL,
-Email VARCHAR(50) NOT NULL,
+Email VARCHAR(50) UNIQUE NOT NULL,
 SoDienThoai VARCHAR(15) NOT NULL,
 GhiChu NVARCHAR(1000),
 Anh VARBINARY(MAX),
@@ -117,9 +117,9 @@ go
 -- nạp dữ liệu bảng nhân viên
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
 VALUES 
-(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Quản lý'),
-(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Nhân viên'),
-(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','333333333333',0,'tungdtph30319@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Nhân viên')
+(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tung@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Quản lý'),
+(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','333333333333',0,'nam@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Nhân viên'),
+(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','333333333333',0,'duy@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Nhân viên')
 go
 
 --nạp dữ liệu bảng tài khoản
@@ -162,9 +162,9 @@ go
 
 --nạp dữ liệu hóa đơn
 INSERT INTO HoaDon
-VALUES(1000,1001,GETDATE(),1,1,1000,N'ít đường',33.3),
-(1001,1001,GETDATE(),1,1,1000,N'nhiều đường',33.3),
-(1002,1001,GETDATE(),1,1,1000,N'nhiều đá',33.3)
+VALUES(1000,1001,GETDATE(),1,1,33.3,1000,N'ít đường'),
+(1001,1001,GETDATE(),1,1,33.3,1000,N'nhiều đường'),
+(1002,1001,GETDATE(),1,1,33.3,1000,N'nhiều đá')
 
 go
 --nạp dữ liệu bàn-hóa đơn

@@ -600,6 +600,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n &#x1ea3;nh"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnhNhanVienSuaActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel76">
                       <Properties>
@@ -679,6 +682,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t nh&#xe2;n vi&#xea;n"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCapNhatNhanVienActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtMaNhanVienXem">
                       <Properties>
@@ -806,43 +812,45 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="btnThemNhanVien" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel97" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <Component id="jLabel89" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <Component id="jLabel93" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <Component id="jLabel95" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel97" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                  <Component id="jLabel89" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                  <Component id="jLabel93" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                  <Component id="jLabel95" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lblAnhNhanVien" min="-2" pref="117" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="btnAnhNhanVien" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="btnClean" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="btnThemNhanVien" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lblAnhNhanVien" min="-2" pref="117" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="btnAnhNhanVien" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="jLabel91" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel88" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel87" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel94" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel90" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel92" alignment="0" max="32767" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txtMaNhanVienThem" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="txtHoVaTenThem" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="txtNgaySinhThem" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="txtDiaChiThem" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="txtCCCDThem" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="txtEmailThem" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="txtSDTThem" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="cbbChucVuNhanVienThem" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="cbbTrangThaiNhanVienThem" alignment="0" max="32767" attributes="0"/>
-                                              </Group>
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="jLabel91" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel88" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel87" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel94" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel90" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel92" alignment="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="jScrollPane11" alignment="0" min="-2" pref="256" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtMaNhanVienThem" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtHoVaTenThem" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtNgaySinhThem" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtDiaChiThem" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtCCCDThem" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtEmailThem" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtSDTThem" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cbbChucVuNhanVienThem" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cbbTrangThaiNhanVienThem" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
+                                      <Component id="jScrollPane11" alignment="0" min="-2" pref="256" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace pref="21" max="32767" attributes="0"/>
@@ -912,7 +920,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="35" max="32767" attributes="0"/>
-                              <Component id="btnThemNhanVien" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnThemNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnClean" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1135,6 +1146,23 @@
                           </Border>
                         </Property>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnClean">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="fc" green="84" red="2d" type="rgb"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Segoe UI" size="12" style="1"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Clean"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCleanActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

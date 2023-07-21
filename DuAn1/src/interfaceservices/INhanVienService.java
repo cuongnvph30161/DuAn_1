@@ -19,4 +19,6 @@ public interface INhanVienService {
     public ArrayList<NhanVienViewModel> getAll();
     public String insertNhanVien(NhanVienViewModel nhanVienViewModel);
     public NhanVienViewModel loadMouseclicked(int maNhanVien);
+    public String update(int maNhanVien , NhanVienViewModel nhanVienViewModel);
+   
 }
