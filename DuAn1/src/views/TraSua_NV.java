@@ -9,7 +9,6 @@ import interfaceservices.INhanVienHoaDonServices;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -2013,22 +2012,40 @@ public class TraSua_NV extends javax.swing.JFrame {
     }//GEN-LAST:event_tblNhanVienBanMouseClicked
 
     private void btnApDungBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApDungBanActionPerformed
-
+        if (tblNhanVienBan.getRowCount() <= 0) {
+            JOptionPane.showMessageDialog(this, "Không còn dữ liệu để add voucher");
+            return;
+        }
         String voucher = txtVoucher.getText();
         if (voucher.trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập voucher");
             return;
         }
         try {
-            BigDecimal voucher2 = new BigDecimal(voucher);
+            double voucher2 = Double.parseDouble(voucher);
+            if (voucher2 <= 100) {
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Voucher phải <=100");
+                return;
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu");
             return;
 
         }
+        int click = tblNhanVienBan.getSelectedRow();
+        if (click == -1) {
+            JOptionPane.showMessageDialog(this, "Bạn vui lòng chọn hóa đơn");
+            return;
 
-        String giaSauKhiGiam = listNVban.get(viTri).getTongThanhToan() + voucher + " VNĐ";
-        lblGiaSauKhiGiam.setText(giaSauKhiGiam);
+        } else {
+//            BigDecimal voucher3=new BigDecimal(txtVoucher.getText());
+//BigDecimal tongThanhToan=listNVban.get(viTri).getTongThanhToan();
+//BigDecimal giaSauKhiGiam=BigDecimal.valueOf(tongThanhToan-(tongThanhToan+voucher3));
+            String giaSauKhiGiam = listNVban.get(viTri).getTongThanhToan() + voucher + " VNĐ";
+            lblGiaSauKhiGiam.setText(giaSauKhiGiam);
+        }
 
     }//GEN-LAST:event_btnApDungBanActionPerformed
 

@@ -3184,6 +3184,16 @@ public class TraSua_QL extends javax.swing.JFrame {
             lblAnhNhanVien.setIcon(scaledIcon);
     }//GEN-LAST:event_btnAnhNhanVienActionPerformed
     }
+
+    public void clean() {
+        txtHoVaTenThem.setText("");
+        txtNgaySinhThem.setText("");
+        txtDiaChiThem.setText("");
+        txtCCCDThem.setText("");
+        txtEmailThem.setText("");
+        txtSDTThem.setText("");
+        txtGhiChuThem.setText("");
+    }
     private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
         NhanVienViewModel nhanVienViewModel = getDataNhanVien();
         System.out.println("them nv" + " " + nhanVienViewModel);
@@ -3192,6 +3202,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, iNhanVienService.insertNhanVien(nhanVienViewModel));
         loadTableNhanVien(iNhanVienService.getAll());
+        clean();
     }//GEN-LAST:event_btnThemNhanVienActionPerformed
 
     private void cbbChucVuNhanVienThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbChucVuNhanVienThemActionPerformed

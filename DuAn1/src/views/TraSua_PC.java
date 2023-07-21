@@ -9,6 +9,7 @@ import interfaceservices.ISanPhamService;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -32,9 +33,9 @@ public class TraSua_PC extends javax.swing.JFrame {
     DefaultTableModel modelTongHopDonHANG = new DefaultTableModel();
     IPhaCheLichSuServices LichSuServices = new PhaCheLichSuServices();
     IPhaCheLichSuServices HoaDonServices = new PhaCheHoaDonServices();
-    Map<String, Object> mapBan = LichSuServices.getBan();
-    Map<String, Object> mapHoaDon = LichSuServices.getHoaDon();
-    List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP = LichSuServices.getDSSP();
+    Map<String, Object> mapBan = new HashMap<>();
+    Map<String, Object> mapHoaDon = new HashMap<>();
+    List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP = new ArrayList<>();
     List<PhaCheLichSuViewModel> lst = new ArrayList<>();
     List<PhaCheLichSuViewModel> lstCNhoadon = new ArrayList<>();
     ISanPhamService SanPhamPCService = new SanPhamService();
@@ -58,27 +59,35 @@ public class TraSua_PC extends javax.swing.JFrame {
         modelHoaDon_DSSP = (DefaultTableModel) tblHoaDon_DSSP.getModel();
         modelLichSuDanhSachSp = (DefaultTableModel) tbllichsudanhsachsphoadon.getModel();
         fillTableLichSuHoaDon();
+
         showGhiChu(0);
         fillTableDSSP(lst.get(0).getMaHoaDon());
         LoadSanPham();
         ///fill hóa đơn trong chức năng hóa đơn
         fillTableHoaDon_HoaDon();
         fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
-        txtGhiChuHoaDon.setText(lstCNhoadon.get(0).getGhiChu());
+
         tongHopHoaDon();
         loadHd();
+        loadLB();
+    }
+
+    public void loadLB() {
+        lblHoaDon_HoaDon.setText("Hóa đơn " + lstCNhoadon.get(0).getMaHoaDon());
+        lblHoaDon_dssp.setText(lstCNhoadon.get(0).getMaHoaDon() + "");
+        txtGhiChuHoaDon.setText(lstCNhoadon.get(0).getGhiChu());
     }
 
     public void loadHd() {
         new Thread() {
             @Override
             public void run() {
-                
+
                 while (true) {
                     fillTableHoaDon_HoaDon();
                     fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
                     tongHopHoaDon();
-                      try {
+                    try {
                         sleep(60000);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -126,6 +135,9 @@ public class TraSua_PC extends javax.swing.JFrame {
     }
 
     public void fillTableLichSuHoaDon() {
+        Map<String, Object> mapBan = LichSuServices.getBan();
+        Map<String, Object> mapHoaDon = LichSuServices.getHoaDon();
+        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP = LichSuServices.getDSSP();
         lst = LichSuServices.getList(mapBan, mapHoaDon, lstSP);
         modelLichSuHoaDon.setRowCount(0);
         lbllichsumahoadon.setText("Hóa đơn " + lst.get(0).getMaHoaDon());
@@ -177,7 +189,10 @@ public class TraSua_PC extends javax.swing.JFrame {
 
     public void fillTableDSSP(int maHoaDon) {
         try {
-
+            Map<String, Object> mapBan = LichSuServices.getBan();
+            Map<String, Object> mapHoaDon = LichSuServices.getHoaDon();
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP = LichSuServices.getDSSP();
+            lst = LichSuServices.getList(mapBan, mapHoaDon, lstSP);
             modelLichSuDanhSachSp.setRowCount(0);
             List<PhaCheLichSuDanhSachSanPhamViewmodel> lstFill = new ArrayList<>();
 
@@ -773,6 +788,8 @@ public class TraSua_PC extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void lblLichSuDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLichSuDonHangMouseClicked
+        fillTableLichSuHoaDon();
+        fillTableDSSP(lst.get(0).getMaHoaDon());
         lblLichSuDonHang.setOpaque(true);
         lblLichSuDonHang.setBackground(Color.gray);
 

@@ -7,6 +7,7 @@ package services;
 import domainmodel.ChiTietHoaDonDomainModel;
 import domainmodel.HoaDonDoMainModel;
 import domainmodel.NhanVien.ChiTietHoaDon;
+import interfaceservices.INhanVienBanService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,12 @@ import viewmodel.NhanVienBanViewModel;
  *
  * @author Admin
  */
-public class NhanVienBanService {
+public class NhanVienBanService implements INhanVienBanService{
 
     private ChiTietHoaDonRepository cthdRepo = new ChiTietHoaDonRepository();
     double tongTien = 0;
 
+    @Override
     public List<NhanVienBanViewModel> getAllNhanVienBan() {
         List<NhanVienBanViewModel> listNV = new ArrayList<>();
         List<ChiTietHoaDon> list = cthdRepo.getDuLieuBan();
