@@ -4476,7 +4476,7 @@
                               <Component id="jTabbedPane6" min="-2" pref="532" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="1292" max="32767" attributes="0"/>
+                      <EmptySpace pref="1293" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4486,8 +4486,8 @@
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="jTabbedPane6" min="-2" pref="491" max="-2" attributes="0"/>
-                      <EmptySpace pref="490" max="32767" attributes="0"/>
+                      <Component id="jTabbedPane6" min="-2" pref="477" max="-2" attributes="0"/>
+                      <EmptySpace pref="504" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4502,6 +4502,9 @@
               </Properties>
             </Component>
             <Container class="javax.swing.JTabbedPane" name="jTabbedPane6">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabbedPane6MouseClicked"/>
+              </Events>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
@@ -4550,7 +4553,7 @@
                               <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="jButton22" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="34" max="32767" attributes="0"/>
+                              <EmptySpace pref="20" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -4613,27 +4616,37 @@
                       <SubComponents>
                         <Component class="javax.swing.JCheckBox" name="jCheckBox13">
                           <Properties>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="S&#x1ea3;n ph&#x1ea9;m"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="jCheckBox14">
                           <Properties>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="H&#xf3;a &#x111;&#x1a1;n"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="jCheckBox15">
                           <Properties>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="M&#xe3; gi&#x1ea3;m gi&#xe1;"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="jCheckBox16">
                           <Properties>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="T&#xe0;i kho&#x1ea3;n"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="jCheckBox17">
                           <Properties>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox17ActionPerformed"/>
@@ -4641,7 +4654,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="jCheckBox18">
                           <Properties>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="B&#xe0;n"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -4664,6 +4679,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="T&#x1ea1;o b&#x1ea3;n sao l&#x1b0;u"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton22MouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -4688,16 +4706,12 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel105" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jPanel17" min="-2" pref="469" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton21" min="-2" pref="125" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
-                              <EmptySpace pref="33" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -4710,9 +4724,7 @@
                               <Component id="jLabel105" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="jButton21" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="34" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -4738,93 +4750,72 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jCheckBox12" min="-2" pref="91" max="-2" attributes="0"/>
-                                      <Component id="jCheckBox11" min="-2" pref="91" max="-2" attributes="0"/>
-                                      <Component id="jCheckBox10" min="-2" pref="91" max="-2" attributes="0"/>
-                                      <Component id="jCheckBox8" min="-2" pref="85" max="-2" attributes="0"/>
-                                      <Component id="jCheckBox7" min="-2" pref="85" max="-2" attributes="0"/>
-                                      <Component id="jCheckBox9" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jButton21" min="-2" pref="125" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane13" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="355" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="jCheckBox7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Component id="jCheckBox8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jCheckBox9" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="jCheckBox10" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jCheckBox11" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="29" max="32767" attributes="0"/>
-                                  <Component id="jCheckBox12" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jScrollPane13" min="-2" pref="323" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton21" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBox7">
+                        <Container class="javax.swing.JScrollPane" name="jScrollPane13">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JTable" name="tblBackUp">
+                              <Properties>
+                                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                                  <Table columnCount="4" rowCount="4">
+                                    <Column editable="true" title="Title 1" type="java.lang.Object"/>
+                                    <Column editable="true" title="Title 2" type="java.lang.Object"/>
+                                    <Column editable="true" title="Title 3" type="java.lang.Object"/>
+                                    <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                                  </Table>
+                                </Property>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Component class="javax.swing.JButton" name="jButton21">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="S&#x1ea3;n ph&#x1ea9;m"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBox8">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="H&#xf3;a &#x111;&#x1a1;n"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBox9">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="M&#xe3; gi&#x1ea3;m gi&#xe1;"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBox10">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="T&#xe0;i kho&#x1ea3;n"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBox11">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n"/>
+                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="fc" green="84" red="2d" type="rgb"/>
+                            </Property>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Segoe UI" size="12" style="1"/>
+                            </Property>
+                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Kh&#xf4;i ph&#x1ee5;c"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox11ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton21ActionPerformed"/>
                           </Events>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBox12">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="B&#xe0;n"/>
-                          </Properties>
                         </Component>
                       </SubComponents>
                     </Container>
                     <Component class="javax.swing.JLabel" name="jLabel105">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="C&#xe1;c th&#xf4;ng tin backup"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButton21">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="fc" green="84" red="2d" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="12" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="T&#x1ea1;o b&#x1ea3;n sao l&#x1b0;u"/>
                       </Properties>
                     </Component>
                   </SubComponents>
