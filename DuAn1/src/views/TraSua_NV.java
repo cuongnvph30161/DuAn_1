@@ -132,10 +132,10 @@ public class TraSua_NV extends javax.swing.JFrame {
             listBanJpanel.add(new NhanVienBanJpanel(tb));
 
         }
-        GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 100);
+        GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
         layout.setHgap(20);
         layout.setVgap(20);
-        layout.setRows(3);
+        layout.setRows(0);
         jpnTang3.setLayout(layout);
 
         for (NhanVienBanJpanel banPanel : listBanJpanel) {
