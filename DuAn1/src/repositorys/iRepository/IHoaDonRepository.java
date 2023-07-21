@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface IHoaDonRepository extends DAO<Integer,HoaDonDoMainModel>{
         List<HoaDonDoMainModel> getList();
+        Integer capNhatTrangThai(int maHD,int trangThai);
 }

@@ -19,4 +19,5 @@ public interface IPhaCheLichSuServices {
     Map<String, Object> getBan();
     Map<String, Object> getHoaDon();
     List<PhaCheLichSuDanhSachSanPhamViewmodel> getDSSP();
+    Integer capNhatTrangThai(int maHD, int trangThai);
 }

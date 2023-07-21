@@ -35,7 +35,7 @@ import viewmodel.PhaCheLichSuViewModel;
  *
  * @author ADMIN
  */
-public class PhaCheLichSuServices implements IPhaCheLichSuServices {
+public class PhaCheHoaDonServices implements IPhaCheLichSuServices {
 
     IHoaDonRepository hoaDonRepository = new HoaDonRepository();
     IBanRepository banRepository = new BanRepository();
@@ -61,7 +61,7 @@ public class PhaCheLichSuServices implements IPhaCheLichSuServices {
                     listDSSP.add(b);
                 }
             }
-            if (hoaDon.getTrangThaiThanhToan() == 1) {
+            if (hoaDon.getTrangThaiOrder()== 0) {
                 listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
                         ban.getTenBan(), ban.getTang(),
                         hoaDon.getThoiGian(), hoaDon.getGhiChu(),
@@ -119,8 +119,7 @@ public class PhaCheLichSuServices implements IPhaCheLichSuServices {
 
     @Override
     public Integer capNhatTrangThai(int maHD, int trangThai) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       return hoaDonRepository.capNhatTrangThai(maHD, trangThai);
+    
     }
-
-  
 }
