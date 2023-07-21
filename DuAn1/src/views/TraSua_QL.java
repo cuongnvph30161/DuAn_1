@@ -33,8 +33,13 @@ import javax.sql.rowset.serial.SerialBlob;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import javax.swing.JOptionPane;
+import utilities.DBackUpAndRestore;
 
 public class TraSua_QL extends javax.swing.JFrame {
 
@@ -263,8 +268,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày sinh");
             return null;
         }
-        
-         // Lấy ảnh từ lblAnhNhanVien
+
+        // Lấy ảnh từ lblAnhNhanVien
         Icon icon = lblAnhNhanVienSua.getIcon();
         if (icon != null) {
             byte[] imageData = getImageDataFromIcon(icon);
@@ -274,7 +279,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
             nhanVienViewModel.setAnh(null);
         }
-        
+
         nhanVienViewModel.setEmail(email);
         nhanVienViewModel.setCCCD(cccd);
         nhanVienViewModel.setChucVu(chucVu);
@@ -581,14 +586,10 @@ public class TraSua_QL extends javax.swing.JFrame {
         jPanel15 = new javax.swing.JPanel();
         jLabel104 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
-        jCheckBox11 = new javax.swing.JCheckBox();
-        jCheckBox12 = new javax.swing.JCheckBox();
-        jLabel105 = new javax.swing.JLabel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        tblBackUp = new javax.swing.JTable();
         jButton21 = new javax.swing.JButton();
+        jLabel105 = new javax.swing.JLabel();
         jpnKhieuNaiHoTro = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
 
@@ -2707,27 +2708,45 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Backup hệ thống");
 
+        jTabbedPane6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane6MouseClicked(evt);
+            }
+        });
+
         jLabel106.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel106.setText("Backup hệ thống");
 
         jPanel18.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jCheckBox13.setSelected(true);
         jCheckBox13.setText("Sản phẩm");
+        jCheckBox13.setEnabled(false);
 
+        jCheckBox14.setSelected(true);
         jCheckBox14.setText("Hóa đơn");
+        jCheckBox14.setEnabled(false);
 
+        jCheckBox15.setSelected(true);
         jCheckBox15.setText("Mã giảm giá");
+        jCheckBox15.setEnabled(false);
 
+        jCheckBox16.setSelected(true);
         jCheckBox16.setText("Tài khoản");
+        jCheckBox16.setEnabled(false);
 
+        jCheckBox17.setSelected(true);
         jCheckBox17.setText("Nhân viên");
+        jCheckBox17.setEnabled(false);
         jCheckBox17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox17ActionPerformed(evt);
             }
         });
 
+        jCheckBox18.setSelected(true);
         jCheckBox18.setText("Bàn");
+        jCheckBox18.setEnabled(false);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -2768,6 +2787,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         jButton22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton22.setForeground(new java.awt.Color(255, 255, 255));
         jButton22.setText("Tạo bản sao lưu");
+        jButton22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton22MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -2799,7 +2823,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jButton22)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jTabbedPane6.addTab("Restore", jPanel16);
@@ -2809,62 +2833,51 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jPanel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jCheckBox7.setText("Sản phẩm");
+        tblBackUp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane13.setViewportView(tblBackUp);
 
-        jCheckBox8.setText("Hóa đơn");
-
-        jCheckBox9.setText("Mã giảm giá");
-
-        jCheckBox10.setText("Tài khoản");
-
-        jCheckBox11.setText("Nhân viên");
-        jCheckBox11.addActionListener(new java.awt.event.ActionListener() {
+        jButton21.setBackground(new java.awt.Color(45, 132, 252));
+        jButton21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton21.setForeground(new java.awt.Color(255, 255, 255));
+        jButton21.setText("Khôi phục");
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox11ActionPerformed(evt);
+                jButton21ActionPerformed(evt);
             }
         });
-
-        jCheckBox12.setText("Bàn");
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox12, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox11, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox10, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox9))
-                .addContainerGap(355, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(137, 137, 137))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jCheckBox7)
-                .addGap(27, 27, 27)
-                .addComponent(jCheckBox8)
-                .addGap(30, 30, 30)
-                .addComponent(jCheckBox9)
-                .addGap(26, 26, 26)
-                .addComponent(jCheckBox10)
-                .addGap(28, 28, 28)
-                .addComponent(jCheckBox11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jCheckBox12)
-                .addGap(15, 15, 15))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton21)
+                .addGap(12, 12, 12))
         );
 
         jLabel105.setText("Các thông tin backup");
-
-        jButton21.setBackground(new java.awt.Color(45, 132, 252));
-        jButton21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton21.setForeground(new java.awt.Color(255, 255, 255));
-        jButton21.setText("Tạo bản sao lưu");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -2878,12 +2891,9 @@ public class TraSua_QL extends javax.swing.JFrame {
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel105)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                            .addComponent(jLabel105)
+                            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2894,9 +2904,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addComponent(jLabel105)
                 .addGap(9, 9, 9)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jButton21)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane6.addTab("Backup", jPanel15);
@@ -2913,7 +2921,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                     .addGroup(jpnBackupHeThongLayout.createSequentialGroup()
                         .addGap(148, 148, 148)
                         .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1292, Short.MAX_VALUE))
+                .addContainerGap(1293, Short.MAX_VALUE))
         );
         jpnBackupHeThongLayout.setVerticalGroup(
             jpnBackupHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2921,8 +2929,8 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jLabel7)
                 .addGap(42, 42, 42)
-                .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(490, Short.MAX_VALUE))
+                .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(504, Short.MAX_VALUE))
         );
 
         jpnTong.add(jpnBackupHeThong, "card8");
@@ -3219,14 +3227,6 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
-    private void jCheckBox11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox11ActionPerformed
-
-    }//GEN-LAST:event_jCheckBox11ActionPerformed
-
-    private void jCheckBox17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox17ActionPerformed
-
-    }//GEN-LAST:event_jCheckBox17ActionPerformed
-
     private void lblTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTaiKhoanMouseClicked
         lblSanPham.setOpaque(false);
         lblSanPham.setBackground(Color.red);
@@ -3425,6 +3425,26 @@ public class TraSua_QL extends javax.swing.JFrame {
         clean();
     }//GEN-LAST:event_btnCleanActionPerformed
 
+    private void jCheckBox17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox17ActionPerformed
+
+    }//GEN-LAST:event_jCheckBox17ActionPerformed
+
+    private void jTabbedPane6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane6MouseClicked
+        // TODO add your handling code here:
+        loadToTableBackUp();
+    }//GEN-LAST:event_jTabbedPane6MouseClicked
+
+    private void jButton22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton22MouseClicked
+        // TODO add your handling code here:
+        DBackUpAndRestore.createBackup();
+    }//GEN-LAST:event_jButton22MouseClicked
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        // TODO add your handling code here:
+        DBackUpAndRestore.restoreDatabase(tblBackUp.getValueAt(tblBackUp.getSelectedRow(), 0).toString());
+        this.dispose();
+    }//GEN-LAST:event_jButton21ActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -3473,9 +3493,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox11;
-    private javax.swing.JCheckBox jCheckBox12;
     private javax.swing.JCheckBox jCheckBox13;
     private javax.swing.JCheckBox jCheckBox14;
     private javax.swing.JCheckBox jCheckBox15;
@@ -3487,9 +3504,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox13;
     private javax.swing.JComboBox<String> jComboBox16;
@@ -3630,6 +3644,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -3721,6 +3736,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel lblTraSua;
     private javax.swing.JLabel lblVoucher;
     private javax.swing.JLabel lblquanly;
+    private javax.swing.JTable tblBackUp;
     private javax.swing.JTable tblNhanVienForm;
     private javax.swing.JTable tblTaiKhoanForm;
     private javax.swing.JTextField txtCCCDThem;
@@ -3742,4 +3758,32 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField txtSDTThem;
     private javax.swing.JTextField txtSDTXem;
     // End of variables declaration//GEN-END:variables
+
+    private void loadToTableBackUp() {
+        DefaultTableModel model = (DefaultTableModel) tblBackUp.getModel();
+        model.setRowCount(0);
+        model.setColumnCount(0);
+        model.addColumn("File Name");
+        model.addColumn("Time");
+        SimpleDateFormat spd = new SimpleDateFormat("yyyy_M_d____hh_mm_ss");
+        SimpleDateFormat spd2 = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        List<String> lstRow = new ArrayList<>();
+        lstRow = DBackUpAndRestore.getListFileBackUp();
+        Collections.sort(lstRow, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return -o1.compareTo(o2);
+            }
+
+        });
+        for (String file : lstRow) {
+            try {
+                String time = file.substring(0, file.indexOf("."));
+                model.addRow(new Object[]{file, spd2.format(spd.parse(time))});
+
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
