@@ -6,7 +6,7 @@ CREATE DATABASE ToTo
 GO
 USE ToTo
 GO
--- tuan anh abc
+
 CREATE TABLE NhanVien (
 MaNhanVien INT IDENTITY(1000,1) PRIMARY KEY,
 HoVaTen NVARCHAR(40) NOT NULL,
@@ -20,8 +20,7 @@ GhiChu NVARCHAR(1000),
 Anh VARBINARY(MAX),
 ChucVu NVARCHAR(100) NOT NULL
 );
--- duy 123
--- duy an cut
+
 GO
 
 CREATE TABLE TaiKhoan (
@@ -162,15 +161,22 @@ go
 
 --nạp dữ liệu hóa đơn
 INSERT INTO HoaDon
+<<<<<<< HEAD
 VALUES(1000,1001,GETDATE(),1,1,33.3,1000,N'ít đường'),
 (1001,1001,GETDATE(),1,1,33.3,1000,N'nhiều đường'),
 (1002,1001,GETDATE(),1,1,33.3,1000,N'nhiều đá')
+=======
+VALUES(1000,1001,GETDATE(),0,1,1000,N'ít đường',33.3),
+(1001,1001,GETDATE(),1,0,1000,N'nhiều đường',33.3),
+(1002,1001,GETDATE(),1,0,1000,N'nhiều đá',33.3)
+>>>>>>> d3372c681adf09014c06e4fa5d0e2114146fbda8
 
 go
 --nạp dữ liệu bàn-hóa đơn
 INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
 VALUES(1000,1000),
-(1001,1001)
+(1001,1001),
+(1002,1000)
 go
 --nạp dữ liệu chi tiết sản phẩm
 INSERT INTO ChiTietSanPham(MaSanPham,Size,Gia)
@@ -179,9 +185,12 @@ VALUES(1000,'M',45.4),
 go
 --nạp dữ liệu chi tiết hóa đơn
 INSERT INTO ChiTietHoaDon(MaHoaDon,MaChiTietSanPham,SoLuong,Gia)
-VALUES(1000,1000,4,44.5)
+VALUES(1000,1000,4,44.5),
+(1000,1001,2,22.25),
+(1001,1000,4,44.5),
+(1002,1000,5,44.5),
+(1002,1001,3,44.5)
 
-go
 -- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
 --1 .NhanVien
 -- SELECT MaNhanVien,HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu FROM NhanVien
