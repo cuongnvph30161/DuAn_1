@@ -7,6 +7,8 @@ package views;
 import domainmodel.ChiTietHoaDonDomainModel;
 import interfaceservices.INhanVienHoaDonServices;
 import java.awt.Color;
+import java.awt.GridLayout;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,8 +68,147 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     }
 
+
     private void FillTableBan() {
         int stt = 1;
+    }
+    public void loadBanTang1() {
+        List<TenBanViewModel> listTenBanVM = banSe.getTang1();
+        List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
+        for (TenBanViewModel tb : listTenBanVM) {
+            listBanJpanel.add(new NhanVienBanJpanel(tb));
+
+        }
+        GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
+        layout.setHgap(20);
+        layout.setVgap(20);
+        layout.setRows(0);
+        jpnTang1.setLayout(layout);
+
+        for (NhanVienBanJpanel banPanel : listBanJpanel) {
+            jpnTang1.add(banPanel);
+
+        }
+    }
+
+    private void loadBanTang2() {
+        List<TenBanViewModel> listTenBanVM = banSe.getTang2();
+        List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
+        for (TenBanViewModel tb : listTenBanVM) {
+            listBanJpanel.add(new NhanVienBanJpanel(tb));
+
+        }
+        GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
+        layout.setHgap(20);
+        layout.setVgap(20);
+        layout.setRows(0);
+        jpnTang2.setLayout(layout);
+
+        for (NhanVienBanJpanel banPanel : listBanJpanel) {
+            jpnTang2.add(banPanel);
+
+        }
+    }
+
+    private void loadBanTang3() {
+        List<TenBanViewModel> listTenBanVM = banSe.getTang3();
+        List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
+        for (TenBanViewModel tb : listTenBanVM) {
+            listBanJpanel.add(new NhanVienBanJpanel(tb));
+
+        }
+        GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 100);
+        layout.setHgap(20);
+        layout.setVgap(20);
+        layout.setRows(3);
+        jpnTang3.setLayout(layout);
+
+        for (NhanVienBanJpanel banPanel : listBanJpanel) {
+            jpnTang3.add(banPanel);
+
+        }
+
+    }
+
+    private void loadBanTang4() {
+        List<TenBanViewModel> listTenBanVM = banSe.getTang4();
+        List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
+        for (TenBanViewModel tb : listTenBanVM) {
+            listBanJpanel.add(new NhanVienBanJpanel(tb));
+
+        }
+        GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
+        layout.setHgap(20);
+        layout.setVgap(20);
+        layout.setRows(0);
+        jpnTang4.setLayout(layout);
+
+        for (NhanVienBanJpanel banPanel : listBanJpanel) {
+            jpnTang4.add(banPanel);
+
+        }
+
+    }
+
+    private void loadBanTang5() {
+        List<TenBanViewModel> listTenBanVM = banSe.getTang5();
+        List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
+        for (TenBanViewModel tb : listTenBanVM) {
+            listBanJpanel.add(new NhanVienBanJpanel(tb));
+
+        }
+        GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
+        layout.setHgap(20);
+        layout.setVgap(20);
+        layout.setColumns(0);
+        jpnTang5.setLayout(layout);
+
+        for (NhanVienBanJpanel banPanel : listBanJpanel) {
+            jpnTang5.add(banPanel);
+
+        }
+
+    }
+
+    private void hienBanTang2() {
+
+        jpnTang2.setVisible(true);
+        jpnTang1.setVisible(false);
+        jpnTang3.setVisible(false);
+        jpnTang4.setVisible(false);
+        jpnTang5.setVisible(false);
+    }
+
+    private void hienBanTang3() {
+
+        jpnTang3.setVisible(true);
+        jpnTang1.setVisible(false);
+        jpnTang2.setVisible(false);
+        jpnTang4.setVisible(false);
+        jpnTang5.setVisible(false);
+    }
+
+    private void hienBanTang4() {
+
+        jpnTang4.setVisible(true);
+        jpnTang1.setVisible(false);
+        jpnTang2.setVisible(false);
+        jpnTang3.setVisible(false);
+        jpnTang5.setVisible(false);
+    }
+
+    private void hienBanTang5() {
+
+        jpnTang5.setVisible(true);
+        jpnTang1.setVisible(false);
+        jpnTang2.setVisible(false);
+        jpnTang3.setVisible(false);
+        jpnTang4.setVisible(false);
+    }
+    List<NhanVienBanViewModel> listNVban = nvBanSe.getAllNhanVienBan();
+
+    private void FillTableBan() {
+        String chiTiet = " Xem ";
         tableModelBan = (DefaultTableModel) tblNhanVienBan.getModel();
         List<NhanVienBanViewModel> listNVban = nvBanSe.getAllNhanVienBan();
         tableModelBan.setRowCount(0);
@@ -76,7 +217,13 @@ public class TraSua_NV extends javax.swing.JFrame {
                 stt++,
                 nv.getMaHoaDon(),
                 nv.getThoiGian(),
+
                 nv.getTrangThaiOrder(),});
+
+                nv.getTongThanhToan(),
+                nv.getTrangThaiOrder() == 1 ? "Đã làm" : "Đang làm ",
+                chiTiet
+            });
 
         }
     }
@@ -1154,6 +1301,11 @@ public class TraSua_NV extends javax.swing.JFrame {
         btnThanhToanBan.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         btnThanhToanBan.setForeground(new java.awt.Color(255, 255, 255));
         btnThanhToanBan.setText("Thanh toán");
+        btnThanhToanBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhToanBanActionPerformed(evt);
+            }
+        });
 
         btnThemHoaDonBan.setBackground(new java.awt.Color(45, 132, 252));
         btnThemHoaDonBan.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
@@ -2355,6 +2507,57 @@ public class TraSua_NV extends javax.swing.JFrame {
             demTrang++;
         }
     }//GEN-LAST:event_lblNVTienMouseClicked
+<<<<<<< HEAD
+=======
+    int viTri;
+    private void tblNhanVienBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienBanMouseClicked
+        viTri = tblNhanVienBan.getSelectedRow();
+        lblTongTien.setText(listNVban.get(viTri).getTongThanhToan() + " VNĐ");
+        lblGiaSauKhiGiam.setText("");
+    }//GEN-LAST:event_tblNhanVienBanMouseClicked
+
+    private void btnApDungBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApDungBanActionPerformed
+        if (tblNhanVienBan.getRowCount() <= 0) {
+            JOptionPane.showMessageDialog(this, "Không còn dữ liệu để add voucher");
+            return;
+        }
+        String voucher = txtVoucher.getText();
+        if (voucher.trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập voucher");
+            return;
+        }
+        try {
+            double voucher2 = Double.parseDouble(voucher);
+            if (voucher2 <= 100) {
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Voucher phải <=100");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu");
+            return;
+
+        }
+        int click = tblNhanVienBan.getSelectedRow();
+        if (click == -1) {
+            JOptionPane.showMessageDialog(this, "Bạn vui lòng chọn hóa đơn");
+            return;
+
+        } else {
+//            BigDecimal voucher3=new BigDecimal(txtVoucher.getText());
+//BigDecimal tongThanhToan=listNVban.get(viTri).getTongThanhToan();
+//BigDecimal giaSauKhiGiam=BigDecimal.valueOf(tongThanhToan-(tongThanhToan+voucher3));
+            String giaSauKhiGiam = listNVban.get(viTri).getTongThanhToan() + voucher + " VNĐ";
+            lblGiaSauKhiGiam.setText(giaSauKhiGiam);
+        }
+
+    }//GEN-LAST:event_btnApDungBanActionPerformed
+>>>>>>> 4fee93a69844ed31d235d02cb241070e03693c67
+
+    private void btnThanhToanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanBanActionPerformed
+        JOptionPane.showMessageDialog(this, "Đã thanh toán");
+    }//GEN-LAST:event_btnThanhToanBanActionPerformed
 
     public static void main(String args[]) {
 

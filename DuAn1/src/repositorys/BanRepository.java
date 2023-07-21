@@ -18,9 +18,9 @@ import utilities.DBConnect;
  * @author ADMIN
  */
 public class BanRepository implements IBanRepository {
-    
+
     static Connection con = null;
-    
+
     @Override
     public List<BanDomainModel> getList() {
         try {
@@ -38,7 +38,9 @@ public class BanRepository implements IBanRepository {
         }
         return null;
     }
-     public List<Ban> getTang1() {
+
+    @Override
+    public List<Ban> getTang1() {
         try {
             List<Ban> lst = new ArrayList<>();
             con = DBConnect.getConnect();
@@ -56,39 +58,111 @@ public class BanRepository implements IBanRepository {
         return null;
     }
 
-	@Override
-	public List<BanDomainModel> getAll(int... page) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public List<Ban> getTang2() {
+        try {
+            List<Ban> lst = new ArrayList<>();
+            con = DBConnect.getConnect();
+            String lenh = "select TenBan from Ban where Tang=2";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                Ban b = new Ban();
+                b.setTenBan(rs.getString(1));
+                lst.add(b);
+            }
+            return lst;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
-	@Override
-	public BanDomainModel getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public List<Ban> getTang3() {
+        try {
+            List<Ban> lst = new ArrayList<>();
+            con = DBConnect.getConnect();
+            String lenh = "select TenBan from Ban where Tang=3";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                Ban b = new Ban();
+                b.setTenBan(rs.getString(1));
+                lst.add(b);
+            }
+            return lst;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
-	@Override
-	public boolean insert(BanDomainModel object) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public List<Ban> getTang4() {
+        try {
+            List<Ban> lst = new ArrayList<>();
+            con = DBConnect.getConnect();
+            String lenh = "select TenBan from Ban where Tang=4";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                Ban b = new Ban();
+                b.setTenBan(rs.getString(1));
+                lst.add(b);
+            }
+            return lst;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
-	@Override
-	public boolean update(BanDomainModel object) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public List<Ban> getTang5() {
+        try {
+            List<Ban> lst = new ArrayList<>();
+            con = DBConnect.getConnect();
+            String lenh = "select TenBan from Ban where Tang=5";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                Ban b = new Ban();
+                b.setTenBan(rs.getString(1));
+                lst.add(b);
+            }
+            return lst;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
-	@Override
-	public boolean deleteById(String id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public List<BanDomainModel> getAll(int... page) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public List<BanDomainModel> getBySql(String sql, Object... args) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public BanDomainModel getById(String id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean insert(BanDomainModel object) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean update(BanDomainModel object) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public List<BanDomainModel> getBySql(String sql, Object... args) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

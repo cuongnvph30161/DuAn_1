@@ -5,6 +5,7 @@
 package repositorys.iRepository;
 
 import domainmodel.BanDomainModel;
+import domainmodel.NhanVien.Ban;
 import java.util.List;
 
 /**
@@ -13,6 +14,8 @@ import java.util.List;
  */
 public interface IBanRepository extends DAO<String,BanDomainModel>{
     List<BanDomainModel> getList();
+    
+     List<Ban> getTang1();
    
     
 }

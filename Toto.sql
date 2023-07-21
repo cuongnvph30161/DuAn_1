@@ -154,9 +154,12 @@ go
 
 --nạp dữ liệu bảng bàn
 INSERT INTO Ban(TenBan,Tang,TrangThai)
-VALUES (N'bàn 01',1,0),
-(N'bàn 02',1,0),
-(N'bàn 03',1,0)
+VALUES (N'1',5,0),
+	   (N'2',5,1),
+	   (N'3',5,0),
+
+
+
 go
 
 --nạp dữ liệu hóa đơn
@@ -248,3 +251,6 @@ VALUES(1000,1000,4,44.5),
 --VALUES(?,?,?,?)
 --DELETE FROM ChiTietHoaDon WHERE MaHoaDon=?
 --UPDATE ChiTietHoaDon SET MaChiTietSanPham=? WHERE MaHoaDon=?
+select * from HoaDon
+update HoaDon set TrangThaiOrder=0 where MaHoaDon=1002
+select * from Ban
