@@ -30,7 +30,7 @@ public class DBConnect {
         try {
 
 
-            connect = DriverManager.getConnection(url, "sa", "18101999");
+            connect = DriverManager.getConnection(url, "sa", "123456");
 
 
 

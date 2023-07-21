@@ -3221,15 +3221,15 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtNgaySinhXem.setText(ngaySinhString);
         String diaChi = nhanVienViewModel.getDiaChi();
         txtDiaChiXem.setText(diaChi);
-        String ghiChu =  nhanVienViewModel.getGhiChu();
+        String ghiChu = nhanVienViewModel.getGhiChu();
         txtGhiChuXem.setText(ghiChu);
         int trangThai = nhanVienViewModel.getTrangThai();
-        if(trangThai==0){
-           cbbTrangThaiNhanVienXem.setSelectedItem("Đang làm việc");
-        }else{
-              cbbTrangThaiNhanVienXem.setSelectedItem("Đã nghỉ việc");
+        if (trangThai == 0) {
+            cbbTrangThaiNhanVienXem.setSelectedItem("Đang làm việc");
+        } else {
+            cbbTrangThaiNhanVienXem.setSelectedItem("Đã nghỉ việc");
         }
-        
+
         Blob anh = nhanVienViewModel.getAnh();
         if (anh != null) {
             try {
