@@ -59,7 +59,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     public TraSua_NV(String maTaiKhoan) {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+//load taang
         loadBanTang1();
         hienBanTang1();
         loadBanTang2();

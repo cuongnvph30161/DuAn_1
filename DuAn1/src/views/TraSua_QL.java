@@ -287,7 +287,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         nhanVienViewModel.setHoVaTen(hoVaTen);
         nhanVienViewModel.setDiaChi(diaChi);
         nhanVienViewModel.setGhiChu(ghiChu);
-        System.out.println("nhanvien cap nhat"+" "+nhanVienViewModel);
+        System.out.println("nhanvien cap nhat" + " " + nhanVienViewModel);
         return nhanVienViewModel;
     }
 
@@ -3381,6 +3381,9 @@ public class TraSua_QL extends javax.swing.JFrame {
         int row = tblNhanVienForm.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng muốn update");
+            return;
+        }
+        if (nhanVienViewModel == null) {
             return;
         }
         String maNhanVien = tblNhanVienForm.getValueAt(row, 0).toString();

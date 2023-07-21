@@ -68,47 +68,43 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
         List<HoaDonDoMainModel> listHD = hoaDonRepository.getList();
         String tenBan = "";
         String tenNguoiTao = "";
-        double tongThanhToan = 0;
-        double tienChuaGiam = 0;
 
         for (HoaDonDoMainModel a : listHD) {
             tenBan = mapTenBan.get(a.getMaHoaDon());
             tenNguoiTao = mapTenNV.get(a.getMaNhanVien());
-
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> listDSSP = new ArrayList<>();
             for (PhaCheLichSuDanhSachSanPhamViewmodel b : DSSP) {
                 if (a.getMaHoaDon() == b.getMaHoaDon()) {
-                    for (ChiTietHoaDonDomainModel c : lstCTHD) {
-                        if (a.getMaHoaDon() == c.getMaHoaDon()) {
-                            MaGiamGiaDomainModel maGiamGia = (MaGiamGiaDomainModel) mapMaGiamGia.get(a.getMaVoucher());
-
-                            if (a.getMaVoucher() == maGiamGia.getMaVoucher()) {
-                                tienChuaGiam += (c.getSoLuong() * c.getGia().doubleValue());
-                                double tienGiam = 0;
-                                if (tienChuaGiam / 100 * maGiamGia.getPhanTramGiam() < maGiamGia.getGiamToiDa().doubleValue()) {
-                                    tongThanhToan = tienChuaGiam - tienGiam;
-                                } else {
-                                    tongThanhToan = tienChuaGiam - maGiamGia.getGiamToiDa().doubleValue();
-                                }
-                            } else {
-                                tongThanhToan = (c.getSoLuong() * c.getGia().doubleValue());
-                            }
-                        }
-                    }
-                    listNVHD.add(new NhanVienHoaDonViewModel(a.getMaHoaDon(),
-                            a.getMaVoucher(),
-                            a.getMaNhanVien() + "", tenBan, tenNguoiTao, a.getThoiGian(),
-                            BigDecimal.valueOf(tongThanhToan), a.getDichVuPhatSinh(),
-                            a.getTrangThaiThanhToan(), a.getGhiChu(), DSSP));
-
-                } else {
-                    listNVHD.add(new NhanVienHoaDonViewModel(a.getMaHoaDon(),
-                            a.getMaVoucher(),
-                            a.getMaNhanVien() + "", tenBan, tenNguoiTao, a.getThoiGian(),
-                            BigDecimal.valueOf(0), a.getDichVuPhatSinh(),
-                            a.getTrangThaiThanhToan(), a.getGhiChu(), null));
-
+                    listDSSP.add(b);
                 }
             }
+            MaGiamGiaDomainModel maGiamGia = (MaGiamGiaDomainModel) mapMaGiamGia.get(a.getMaVoucher());
+            double tongThanhToan = 0;
+            double tienGiamTheoMa = 0;
+            double tienChuaGiam = 0;
+            for (ChiTietHoaDonDomainModel c : lstCTHD) {
+                if (a.getMaHoaDon() == c.getMaHoaDon()) {
+                    tienChuaGiam += (c.getSoLuong() * c.getGia().doubleValue());
+                }
+            }
+            double giamToiDa = maGiamGia.getGiamToiDa().doubleValue();
+            int phanTramGiam = maGiamGia.getPhanTramGiam();
+            
+            
+            tienGiamTheoMa = tienChuaGiam / 100 * phanTramGiam;
+         
+            if (tienGiamTheoMa <= giamToiDa) {
+                tongThanhToan =tienChuaGiam - tienGiamTheoMa;
+            } else {
+                tongThanhToan = tienChuaGiam-giamToiDa;
+            }
+
+            listNVHD.add(new NhanVienHoaDonViewModel(a.getMaHoaDon(),
+                    a.getMaVoucher(),
+                    a.getMaNhanVien() + "", tenBan, tenNguoiTao, a.getThoiGian(),
+                    BigDecimal.valueOf(tongThanhToan), a.getDichVuPhatSinh(),
+                    a.getTrangThaiThanhToan(), a.getGhiChu(), DSSP));
+
         }
 
         return listNVHD;

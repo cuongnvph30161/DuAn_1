@@ -33,7 +33,7 @@ public class HoaDonRepository implements IHoaDonRepository {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
-                lst.add(new HoaDonDoMainModel(rs.getInt(1), rs.getInt(1), rs.getTimestamp(3), rs.getInt(4),
+                lst.add(new HoaDonDoMainModel(rs.getInt(1), rs.getInt(2), rs.getTimestamp(3), rs.getInt(4),
                         rs.getInt(5), rs.getInt(6), rs.getString(7)));
 
             }
