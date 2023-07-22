@@ -22,6 +22,7 @@ import services.BanService;
 import services.NhanVienBanService;
 import services.NhanVienHoaDonServices;
 import utilities.NhanVienBanJpanel;
+import utilities.NhanVienHoaDon_ChiTiet;
 import utilities.Uhelper;
 import utilities.XImages;
 import viewmodel.NhanVienBanViewModel;
@@ -65,7 +66,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         loadBanTang2();
         //hienBanTang2();
         loadBanTang3();
-       // hienBanTang3();
+        // hienBanTang3();
         loadBanTang4();
         //hienBanTang4();
         //loadBanTang5();
@@ -292,7 +293,7 @@ public class TraSua_NV extends javax.swing.JFrame {
             trangThai = a.getTrangThai() == 1 ? "đã thanh toán" : "chưa thanh toán";
             modelNVhoaDon.addRow(new Object[]{
                 a.getMaHoaDon(), a.getMaNguoiTao(), a.getThoiGian(), a.getTongThanhToan(), trangThai,
-                a.getGhiChu()
+                a.getGhiChu(),"Chi tiết"
             });
         }
 
@@ -1644,6 +1645,11 @@ public class TraSua_NV extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblNhanVienHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNhanVienHoaDonMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(tblNhanVienHoaDon);
 
         jpnHoaDon1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 890, 530));
@@ -1929,7 +1935,11 @@ public class TraSua_NV extends javax.swing.JFrame {
     }
     private void btnTang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTang1ActionPerformed
         hienBanTang1();
-
+        btnTang1.setBackground(Color.gray);
+        btnTang2.setBackground(new Color(45, 132, 252));
+        btnTang3.setBackground(new Color(45, 132, 252));
+        btnTang4.setBackground(new Color(45, 132, 252));
+        btnTang5.setBackground(new Color(45, 132, 252));
         lblTang.setText("Tầng 1");
 
     }//GEN-LAST:event_btnTang1ActionPerformed
@@ -2052,6 +2062,11 @@ public class TraSua_NV extends javax.swing.JFrame {
     private void btnThanhToanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanBanActionPerformed
         JOptionPane.showMessageDialog(this, "Đã thanh toán");
     }//GEN-LAST:event_btnThanhToanBanActionPerformed
+
+    private void tblNhanVienHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienHoaDonMouseClicked
+        // TODO add your handling code here:
+        new NhanVienHoaDon_ChiTiet().setVisible(true);
+    }//GEN-LAST:event_tblNhanVienHoaDonMouseClicked
 
     public static void main(String args[]) {
 

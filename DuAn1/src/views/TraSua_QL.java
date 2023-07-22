@@ -388,7 +388,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtNgaySinhThem = new javax.swing.JTextField();
         btnClean = new javax.swing.JButton();
         jLabel75 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txtTimKiemTen = new javax.swing.JTextField();
         jScrollPane10 = new javax.swing.JScrollPane();
         tblNhanVienForm = new javax.swing.JTable();
         jLabel86 = new javax.swing.JLabel();
@@ -1140,7 +1140,21 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jLabel75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3_1.png"))); // NOI18N
         jpnNhanVien.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 50, -1, 20));
-        jpnNhanVien.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 43, 965, 35));
+
+        txtTimKiemTen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemTenActionPerformed(evt);
+            }
+        });
+        txtTimKiemTen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimKiemTenKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemTenKeyReleased(evt);
+            }
+        });
+        jpnNhanVien.add(txtTimKiemTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 43, 965, 35));
 
         tblNhanVienForm.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1170,7 +1184,17 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel86.setText("Trạng thái");
         jpnNhanVien.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(1026, 15, 69, -1));
 
-        cbbTimKiemTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm việc", "Đã nghỉ việc" }));
+        cbbTimKiemTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm việc", "Đã nghỉ việc", "Hiển thị tất cả" }));
+        cbbTimKiemTrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbTimKiemTrangThaiActionPerformed(evt);
+            }
+        });
+        cbbTimKiemTrangThai.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbbTimKiemTrangThaiKeyPressed(evt);
+            }
+        });
         jpnNhanVien.add(cbbTimKiemTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1128, 12, 170, -1));
 
         jpnTong.add(jpnNhanVien, "card2");
@@ -3447,6 +3471,43 @@ public class TraSua_QL extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton21ActionPerformed
 
+    private void txtTimKiemTenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemTenKeyPressed
+        String searchTen = txtTimKiemTen.getText();
+        if (searchTen.isEmpty()) {
+            loadTableNhanVien(iNhanVienService.getAll());
+        } else {
+            ArrayList<NhanVienViewModel> listNhanVien = iNhanVienService.getNhanVienByTen(searchTen);
+            loadTableNhanVien(listNhanVien);
+        }
+    }//GEN-LAST:event_txtTimKiemTenKeyPressed
+
+    private void txtTimKiemTenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemTenKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemTenKeyReleased
+
+    private void cbbTimKiemTrangThaiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbbTimKiemTrangThaiKeyPressed
+
+
+    }//GEN-LAST:event_cbbTimKiemTrangThaiKeyPressed
+
+    private void cbbTimKiemTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTimKiemTrangThaiActionPerformed
+        String trangThai = cbbTimKiemTrangThai.getSelectedItem().toString();
+        if (trangThai.equals("Đang làm việc")) {
+            ArrayList<NhanVienViewModel> listNhanVien = iNhanVienService.getNhanVienByTrangThai(1);
+            loadTableNhanVien(listNhanVien);
+        } else if (trangThai.equals("Đã nghỉ việc")) {
+            ArrayList<NhanVienViewModel> listNhanVien = iNhanVienService.getNhanVienByTrangThai(0);
+            loadTableNhanVien(listNhanVien);
+        } else {
+            loadTableNhanVien(iNhanVienService.getAll());
+        }
+    }//GEN-LAST:event_cbbTimKiemTrangThaiActionPerformed
+
+    private void txtTimKiemTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemTenActionPerformed
+
+
+    }//GEN-LAST:event_txtTimKiemTenActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -3675,7 +3736,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
@@ -3760,6 +3820,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField txtNgaySinhXem;
     private javax.swing.JTextField txtSDTThem;
     private javax.swing.JTextField txtSDTXem;
+    private javax.swing.JTextField txtTimKiemTen;
     // End of variables declaration//GEN-END:variables
 
     private void loadToTableBackUp() {

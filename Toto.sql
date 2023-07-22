@@ -116,9 +116,9 @@ go
 -- nạp dữ liệu bảng nhân viên
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
 VALUES 
-(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tung@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Quản lý'),
-(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','333333333333',0,'nam@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Nhân viên'),
-(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','333333333333',0,'duy@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\1.png', single_blob) as T),N'Nhân viên')
+(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tung@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Quản lý'),
+(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','333333333333',0,'nam@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên'),
+(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','333333333333',0,'duy@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên')
 go
 
 --nạp dữ liệu bảng tài khoản
@@ -140,11 +140,11 @@ VALUES
 (N'Trà đào bưởi hồng',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\Tra dao buoi hong.jpg', single_blob) as T)),
 (N'Trà dứa nhiệt đới',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra dua nhiet doi.png', single_blob) as T)),
 (N'Trà sữa chân châu',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua chan chau.jpg', single_blob) as T)),
-(N'Trà sữa Matcha',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua matcha.jpg', single_blob) as T)),
+(N'Trà sữa Matcha',2,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua matcha.jpg', single_blob) as T)),
 (N'Trà sữa ô long',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua o long.jpg', single_blob) as T)),
-(N'Trà sữa panda',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
+(N'Trà sữa panda',0,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
 go
-
+select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'Tra%'
 --nạp dữ liệu bảng mã giảm giá
 INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai)
 VALUES (24,1,40.4,'2022-06-06',1001,1),
@@ -156,7 +156,7 @@ go
 INSERT INTO Ban(TenBan,Tang,TrangThai)
 VALUES (N'1',5,0),
 	   (N'2',5,1),
-	   (N'3',5,0),
+	   (N'3',5,0)
 
 
 

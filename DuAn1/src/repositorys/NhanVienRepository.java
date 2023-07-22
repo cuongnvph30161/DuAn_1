@@ -249,23 +249,6 @@ public class NhanVienRepository implements INhanVienRepository {
         }
     }
 
-//    @Override
-//    public boolean checkLapEmail(int maNhanVien, String email) {
-//         try {
-//            String query = "SELECT COUNT(*) AS count FROM NhanVien WHERE MaNhanVien <> ? AND Email = ?";
-//            PreparedStatement ps = connection.prepareStatement(query);
-//            ps.setInt(1, maNhanVien);
-//            ps.setString(2, email);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                int count = rs.getInt("count");
-//                return count > 0;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
     @Override
     public NhanVienDomainModel getNhanVienById(int maNhanVien) {
 
@@ -296,5 +279,67 @@ public class NhanVienRepository implements INhanVienRepository {
         }
 
         return nhanVienDomainModel;
+    }
+
+    @Override
+    public ArrayList<NhanVienDomainModel> getNhanVienByTen(String ten) {
+        ArrayList<NhanVienDomainModel> getList = new ArrayList<>();
+        try {
+            String query = "select MaNhanVien ,HoVaTen,CCCD,SoDienThoai,Email,ChucVu from NhanVien where HoVaTen =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, ten);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int maNhanVien = rs.getInt("MaNhanVien");
+                String hoVaTen = rs.getString("HoVaTen");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SoDienThoai");
+                String email = rs.getString("Email");
+                String chucVu = rs.getString("ChucVu");
+                NhanVienDomainModel nhanVienDomainModel = new NhanVienDomainModel();
+                nhanVienDomainModel.setMaNhanVien(maNhanVien);
+                nhanVienDomainModel.setHoVaTen(hoVaTen);
+                nhanVienDomainModel.setCCCD(cccd);
+                nhanVienDomainModel.setEmail(email);
+                nhanVienDomainModel.setSoDienThoai(sdt);
+                nhanVienDomainModel.setChucVu(chucVu);
+                getList.add(nhanVienDomainModel);
+            }
+            return getList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<NhanVienDomainModel> getNhanVienByTrangThai(int trangThai) {
+        ArrayList<NhanVienDomainModel> getList = new ArrayList<>();
+        try {
+            String query = "select MaNhanVien ,HoVaTen,CCCD,SoDienThoai,Email,ChucVu from NhanVien where TrangThai =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, trangThai);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int maNhanVien = rs.getInt("MaNhanVien");
+                String hoVaTen = rs.getString("HoVaTen");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SoDienThoai");
+                String email = rs.getString("Email");
+                String chucVu = rs.getString("ChucVu");
+                NhanVienDomainModel nhanVienDomainModel = new NhanVienDomainModel();
+                nhanVienDomainModel.setMaNhanVien(maNhanVien);
+                nhanVienDomainModel.setHoVaTen(hoVaTen);
+                nhanVienDomainModel.setCCCD(cccd);
+                nhanVienDomainModel.setEmail(email);
+                nhanVienDomainModel.setSoDienThoai(sdt);
+                nhanVienDomainModel.setChucVu(chucVu);
+                getList.add(nhanVienDomainModel);
+            }
+            return getList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

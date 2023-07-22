@@ -14,6 +14,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import viewmodel.PhaCheSanPhamViewModel;
 
+
 /**
  *
  * @author ttuan
@@ -22,7 +23,7 @@ public class PhaCheSanPhamJPanel extends javax.swing.JPanel {
     
     private static Icon resizeIcon(ImageIcon icon, int width, int height) {
         Image img = icon.getImage();
-        Image resizedImage = img.getScaledInstance(200, 224, Image.SCALE_SMOOTH);
+        Image resizedImage = img.getScaledInstance(182, 144, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
     }
     
@@ -41,17 +42,14 @@ public class PhaCheSanPhamJPanel extends javax.swing.JPanel {
             lblAnhSP.setIcon(resizeIcon(anh, lblAnhSP.getWidth(), lblAnhSP.getHeight()));
         } catch (Exception e) {
         }
-        lblTenSP.setText(sp.getTen());
+        lblTenSP.setText(sp.getTen().length()>=20 ? sp.getTen().substring(0, 20)+"..." : sp.getTen());
         
         
         if(sp.getTrangThaiSP().equals("Hết hàng")){
             lblTrangThaiSP.setForeground(Color.RED);
             lblTrangThaiSP.setText(sp.getTrangThaiSP());
         }
-        if(sp.getTrangThaiSP().equals("Ngừng kinh doanh")){
-            lblTrangThaiSP.setForeground(Color.RED);
-            lblTrangThaiSP.setText(sp.getTrangThaiSP());
-        }
+        
     }
 
     /**

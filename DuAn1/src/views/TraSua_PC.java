@@ -7,7 +7,10 @@ package views;
 import interfaceservices.IPhaCheLichSuServices;
 import interfaceservices.ISanPhamService;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,7 +120,12 @@ public class TraSua_PC extends javax.swing.JFrame {
     }
 
     public void LoadSanPham() {
+        jpnHienThiSP.removeAll();
+        GridBagLayout layout = new GridBagLayout();
 
+        jpnHienThiSP.setLayout(layout);
+
+        GridBagConstraints gcb = new GridBagConstraints();
         List<PhaCheSanPhamViewModel> lstPCSPViewModel = SanPhamPCService.getList();
         List<PhaCheSanPhamJPanel> LstPCSPJPanel = new ArrayList<>();
 
@@ -125,12 +133,27 @@ public class TraSua_PC extends javax.swing.JFrame {
             LstPCSPJPanel.add(new PhaCheSanPhamJPanel(PCSPView));
         }
 
-        GridLayout layout = new GridLayout((int) Math.ceil(lst.size() / 5), 5);
-        layout.setHgap(10);
-        layout.setVgap(10);
-        jpnHienThiSP.setLayout(layout);
+        int x = 0;
+        int y = (int) Math.ceil(LstPCSPJPanel.size() / 5);
+
         for (PhaCheSanPhamJPanel PCSPJPanel : LstPCSPJPanel) {
-            jpnHienThiSP.add(PCSPJPanel);
+            gcb.anchor = GridBagConstraints.FIRST_LINE_START;
+            gcb.gridx = x;
+            gcb.gridy = y;
+            gcb.weightx = 0;
+            gcb.weighty = 1;
+            //gcb.fill=GridBagConstraints.NONE;
+            gcb.gridheight = 1;
+            gcb.gridwidth = 1;
+            gcb.insets = new Insets(10, 10, 10, 10);
+
+            jpnHienThiSP.add(PCSPJPanel, gcb);
+            jpnHienThiSP.updateUI();
+            x++;
+            if (x == 5) {
+                x = 0;
+                y++;
+            }
         }
     }
 
@@ -280,7 +303,7 @@ public class TraSua_PC extends javax.swing.JFrame {
         jpnSanPham = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTimKiemSPPhaChe = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
         jpnHienThiSP = new javax.swing.JPanel();
         jpnHoaDon = new javax.swing.JPanel();
@@ -440,7 +463,13 @@ public class TraSua_PC extends javax.swing.JFrame {
 
         jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png"))); // NOI18N
         jpnSanPham.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 50, 30, -1));
-        jpnSanPham.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 1210, 40));
+
+        txtTimKiemSPPhaChe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemSPPhaCheKeyReleased(evt);
+            }
+        });
+        jpnSanPham.add(txtTimKiemSPPhaChe, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 1210, 40));
 
         jpnHienThiSP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpnHienThiSP.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -888,6 +917,54 @@ public class TraSua_PC extends javax.swing.JFrame {
         capNhatTrangThaiHD();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void txtTimKiemSPPhaCheKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemSPPhaCheKeyReleased
+        // TODO add your handling code here:
+        jpnHienThiSP.removeAll();
+        
+        List<PhaCheSanPhamViewModel> lstPCSPViewModel = SanPhamPCService.getSanPhamTheoTen(txtTimKiemSPPhaChe.getText());
+
+        List<PhaCheSanPhamJPanel> LstPCSPJPanel = new ArrayList<>();
+
+        for (PhaCheSanPhamViewModel PCSPView : lstPCSPViewModel) {
+
+            LstPCSPJPanel.add(new PhaCheSanPhamJPanel(PCSPView));
+
+        }
+
+        GridBagLayout layout = new GridBagLayout();
+
+        jpnHienThiSP.setLayout(layout);
+
+        GridBagConstraints gcb = new GridBagConstraints();
+
+        int x = 0;
+        int y = (int) Math.ceil(LstPCSPJPanel.size() / 5);
+
+        for (PhaCheSanPhamJPanel PCSPJPanel : LstPCSPJPanel) {
+            gcb.anchor = GridBagConstraints.FIRST_LINE_START;
+            gcb.gridx = x;
+            gcb.gridy = y;
+            gcb.weightx = 0;
+            gcb.weighty = 1;
+            //gcb.fill=GridBagConstraints.NONE;
+            gcb.gridheight = 1;
+            gcb.gridwidth = 1;
+            gcb.insets = new Insets(10, 10, 10, 10);
+
+            jpnHienThiSP.add(PCSPJPanel, gcb);
+            jpnHienThiSP.updateUI();
+            x++;
+            if (x == 5) {
+                x = 0;
+                y++;
+            }
+        }
+        if(LstPCSPJPanel.isEmpty()){
+            LoadSanPham();
+        }
+
+    }//GEN-LAST:event_txtTimKiemSPPhaCheKeyReleased
+
     public void showGhiChu(int index) {
         txtlichsuGhiChu.setText(lst.get(index).getGhiChu());
     }
@@ -928,7 +1005,6 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel jpnHienThiSP;
     private javax.swing.JPanel jpnHoaDon;
     private javax.swing.JPanel jpnKhieuNaiHoTro;
@@ -952,6 +1028,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JTable tbllichsudanhsachsphoadon;
     private javax.swing.JTable tbllichsudonhang;
     private javax.swing.JTextArea txtGhiChuHoaDon;
+    private javax.swing.JTextField txtTimKiemSPPhaChe;
     private javax.swing.JTextArea txtlichsuGhiChu;
     // End of variables declaration//GEN-END:variables
 }
