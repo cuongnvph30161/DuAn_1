@@ -22,6 +22,8 @@ public class NhanVienHoaDonViewModel {
     private Timestamp thoiGian;
     private BigDecimal tongThanhToan;
     private BigDecimal dichVuPhatSinh;
+    private int PhanTramGiam;
+    private double giamToiDa;
     private int trangThai;
     private String ghiChu;
     List<PhaCheLichSuDanhSachSanPhamViewmodel> listSP;
@@ -29,7 +31,7 @@ public class NhanVienHoaDonViewModel {
     public NhanVienHoaDonViewModel() {
     }
 
-    public NhanVienHoaDonViewModel(int maHoaDon, int maGiamGia, String maNguoiTao, String tenBan, String tenNguoiTao, Timestamp thoiGian, BigDecimal tongThanhToan, BigDecimal dichVuPhatSinh, int trangThai, String ghiChu, List<PhaCheLichSuDanhSachSanPhamViewmodel> listSP) {
+    public NhanVienHoaDonViewModel(int maHoaDon, int maGiamGia, String maNguoiTao, String tenBan, String tenNguoiTao, Timestamp thoiGian, BigDecimal tongThanhToan, BigDecimal dichVuPhatSinh, int PhanTramGiam, double giamToiDa, int trangThai, String ghiChu, List<PhaCheLichSuDanhSachSanPhamViewmodel> listSP) {
         this.maHoaDon = maHoaDon;
         this.maGiamGia = maGiamGia;
         this.maNguoiTao = maNguoiTao;
@@ -38,11 +40,16 @@ public class NhanVienHoaDonViewModel {
         this.thoiGian = thoiGian;
         this.tongThanhToan = tongThanhToan;
         this.dichVuPhatSinh = dichVuPhatSinh;
+        this.PhanTramGiam = PhanTramGiam;
+        this.giamToiDa = giamToiDa;
         this.trangThai = trangThai;
         this.ghiChu = ghiChu;
         this.listSP = listSP;
     }
 
+   
+
+   
     public int getMaHoaDon() {
         return maHoaDon;
     }
@@ -130,5 +137,23 @@ public class NhanVienHoaDonViewModel {
     public void setListSP(List<PhaCheLichSuDanhSachSanPhamViewmodel> listSP) {
         this.listSP = listSP;
     }
+
+    public int getPhanTramGiam() {
+        return PhanTramGiam;
+    }
+
+    public void setPhanTramGiam(int PhanTramGiam) {
+        this.PhanTramGiam = PhanTramGiam;
+    }
+
+    public double getGiamToiDa() {
+        return giamToiDa;
+    }
+
+    public void setGiamToiDa(double giamToiDa) {
+        this.giamToiDa = giamToiDa;
+    }
+
+
 
 }
