@@ -7,11 +7,17 @@ package repositorys.iRepository;
 //import interfacerepositorys.*;
 import domainmodel.MaGiamGiaDomainModel;
 import java.util.List;
+import javax.swing.JTextField;
 
 /**
  *
  * @author ADMIN
  */
 public interface IMaGiamGiaRepository {
+
     List<MaGiamGiaDomainModel> getList();
+
+    boolean checkMaGiamGia(JTextField a);
+
+    Integer phanTramGiamGia(Integer b);
 }

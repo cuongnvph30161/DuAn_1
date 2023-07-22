@@ -5,9 +5,13 @@
 package views;
 
 import domainmodel.ChiTietHoaDonDomainModel;
+import interfaceservices.IMaGiamGiaService;
 import interfaceservices.INhanVienHoaDonServices;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,8 +21,10 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import services.BanService;
+import services.MaGiamGiaService;
 import services.NhanVienBanService;
 import services.NhanVienHoaDonServices;
 import utilities.NhanVienBanJpanel;
@@ -53,7 +59,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     }
     ////////////////////////////////////////////////////////////////
     BanService banSe = new BanService();
-
+    IMaGiamGiaService iMGGSe = new MaGiamGiaService();
     NhanVienBanService nvBanSe = new NhanVienBanService();
     DefaultTableModel tableModelBan = new DefaultTableModel();
 
@@ -85,6 +91,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         truyenTrang(1);
         fillTableNVHD(listNhanVienHDView);
         FillTableBan();
+        clickChiTiet();
 
     }
 
@@ -293,7 +300,7 @@ public class TraSua_NV extends javax.swing.JFrame {
             trangThai = a.getTrangThai() == 1 ? "đã thanh toán" : "chưa thanh toán";
             modelNVhoaDon.addRow(new Object[]{
                 a.getMaHoaDon(), a.getMaNguoiTao(), a.getThoiGian(), a.getTongThanhToan(), trangThai,
-                a.getGhiChu(),"Chi tiết"
+                a.getGhiChu(), "Chi tiết"
             });
         }
 
@@ -1946,22 +1953,42 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     private void btnTang2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTang2ActionPerformed
         hienBanTang2();
+        btnTang2.setBackground(Color.gray);
+        btnTang1.setBackground(new Color(45, 132, 252));
+        btnTang3.setBackground(new Color(45, 132, 252));
+        btnTang4.setBackground(new Color(45, 132, 252));
+        btnTang5.setBackground(new Color(45, 132, 252));
         lblTang.setText("Tầng 2");
     }//GEN-LAST:event_btnTang2ActionPerformed
 
     private void btnTang3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTang3ActionPerformed
 
         hienBanTang3();
+        btnTang3.setBackground(Color.gray);
+        btnTang1.setBackground(new Color(45, 132, 252));
+        btnTang2.setBackground(new Color(45, 132, 252));
+        btnTang4.setBackground(new Color(45, 132, 252));
+        btnTang5.setBackground(new Color(45, 132, 252));
         lblTang.setText("Tầng 3");
     }//GEN-LAST:event_btnTang3ActionPerformed
 
     private void btnTang4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTang4ActionPerformed
         hienBanTang4();
+        btnTang4.setBackground(Color.gray);
+        btnTang1.setBackground(new Color(45, 132, 252));
+        btnTang2.setBackground(new Color(45, 132, 252));
+        btnTang3.setBackground(new Color(45, 132, 252));
+        btnTang5.setBackground(new Color(45, 132, 252));
         lblTang.setText("Tầng 4");
     }//GEN-LAST:event_btnTang4ActionPerformed
 
     private void btnTang5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTang5ActionPerformed
         hienBanTang5();
+        btnTang5.setBackground(Color.gray);
+        btnTang1.setBackground(new Color(45, 132, 252));
+        btnTang2.setBackground(new Color(45, 132, 252));
+        btnTang3.setBackground(new Color(45, 132, 252));
+        btnTang4.setBackground(new Color(45, 132, 252));
         lblTang.setText("Tầng 5");
     }//GEN-LAST:event_btnTang5ActionPerformed
 
@@ -2027,18 +2054,13 @@ public class TraSua_NV extends javax.swing.JFrame {
             return;
         }
         String voucher = txtVoucher.getText();
-        if (voucher.trim().length() == 0) {
+        if (voucher.length() == 0) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập voucher");
             return;
         }
         try {
             double voucher2 = Double.parseDouble(voucher);
-            if (voucher2 <= 100) {
 
-            } else {
-                JOptionPane.showMessageDialog(this, "Voucher phải <=100");
-                return;
-            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu");
             return;
@@ -2050,13 +2072,21 @@ public class TraSua_NV extends javax.swing.JFrame {
             return;
 
         } else {
-//            BigDecimal voucher3=new BigDecimal(txtVoucher.getText());
-//BigDecimal tongThanhToan=listNVban.get(viTri).getTongThanhToan();
-//BigDecimal giaSauKhiGiam=BigDecimal.valueOf(tongThanhToan-(tongThanhToan+voucher3));
-            String giaSauKhiGiam = listNVban.get(viTri).getTongThanhToan() + voucher + " VNĐ";
-            lblGiaSauKhiGiam.setText(giaSauKhiGiam);
-        }
 
+            if (iMGGSe.checkMaGiamGia(txtVoucher) == false) {
+                JOptionPane.showMessageDialog(this, "Mã voucher sai");
+                return;
+            }
+            if (iMGGSe.checkMaGiamGia(txtVoucher) == true) {
+                int phanTramGiam = iMGGSe.phanTramGiamGia(Integer.parseInt(txtVoucher.getText()));
+                BigDecimal phanTramGiamGia = new BigDecimal(phanTramGiam);
+                BigDecimal phanTram = new BigDecimal(100);
+                BigDecimal giaSauKhiGiam = listNVban.get(viTri).getTongThanhToan().subtract((listNVban.get(viTri).getTongThanhToan().multiply(phanTramGiamGia)).divide(phanTram));
+                lblGiaSauKhiGiam.setText(giaSauKhiGiam + " VNĐ");
+                System.out.println(phanTramGiamGia);
+            }
+
+        }
     }//GEN-LAST:event_btnApDungBanActionPerformed
 
     private void btnThanhToanBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanBanActionPerformed
@@ -2065,12 +2095,47 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     private void tblNhanVienHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienHoaDonMouseClicked
         // TODO add your handling code here:
-        int index=tblNhanVienHoaDon.getSelectedRow();
-        NhanVienHoaDonViewModel hoaDon =listNhanVienHDView.get(index);
-        NhanVienHoaDon_ChiTiet nv= new NhanVienHoaDon_ChiTiet(hoaDon);
+        int index = tblNhanVienHoaDon.getSelectedRow();
+        NhanVienHoaDonViewModel hoaDon = listNhanVienHDView.get(index);
+        NhanVienHoaDon_ChiTiet nv = new NhanVienHoaDon_ChiTiet(hoaDon);
         nv.setVisible(true);
-        
+
     }//GEN-LAST:event_tblNhanVienHoaDonMouseClicked
+    MouseListener mouseListener = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            int columnIndex = tblNhanVienBan.getColumnCount();
+//                    int rowIndex=tbNhanVienBan. 
+//            System.out.println("cot" + selectColumn);
+//            int columnIndex = tblNhanVienBan.get
+            int rowIndex = tblNhanVienBan.getRowCount();
+            if (columnIndex == 4) {
+                JFrame newJFame = new JFrame();
+                newJFame.setSize(800, 600);
+                newJFame.setLocationRelativeTo(null);
+                JTable jtable = new JTable(10, 5);
+                jtable.setBackground(Color.orange);
+                jtable.setVisible(true);
+                jtable.setSize(500, 600);
+                newJFame.add(jtable);
+                newJFame.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn cột 4");
+            }
+        }
+    };
+
+    private void clickChiTiet() {
+        //        int viTri = tblNhanVienBan.getRowCount();
+//        System.out.println(viTri);
+//        int viTri2 = tblNhanVienBan.getColumnCount();
+//        System.out.println("Cột" + viTri2);
+
+//     tblNhanVienBan.getColumnModel().getColumn(0);
+//        tblNhanVienBan.getColumnModel().getColumn(1).addMouseListener(new ColumnMouseListener(1));
+//        tblNhanVienBan.getColumnModel().getColumn(2).addMouseListener(new ColumnMouseListener(2));
+        tblNhanVienBan.addMouseListener(mouseListener);
+    }
 
     public static void main(String args[]) {
 

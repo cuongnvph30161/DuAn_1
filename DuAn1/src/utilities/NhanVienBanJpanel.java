@@ -37,8 +37,15 @@ public class NhanVienBanJpanel extends javax.swing.JPanel {
         btnBan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnBan.setForeground(new java.awt.Color(255, 255, 255));
         btnBan.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBanMouseClicked(evt);
+            }
+        });
+        btnBan.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBanActionPerformed(evt);
             }
         });
 
@@ -61,6 +68,10 @@ public class NhanVienBanJpanel extends javax.swing.JPanel {
     private void btnBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBanMouseClicked
        btnBan.setBackground(Color.gray);
     }//GEN-LAST:event_btnBanMouseClicked
+
+    private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
