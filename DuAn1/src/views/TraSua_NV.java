@@ -2065,7 +2065,11 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     private void tblNhanVienHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienHoaDonMouseClicked
         // TODO add your handling code here:
-        new NhanVienHoaDon_ChiTiet().setVisible(true);
+        int index=tblNhanVienHoaDon.getSelectedRow();
+        NhanVienHoaDonViewModel hoaDon =listNhanVienHDView.get(index);
+        NhanVienHoaDon_ChiTiet nv= new NhanVienHoaDon_ChiTiet(hoaDon);
+        nv.setVisible(true);
+        
     }//GEN-LAST:event_tblNhanVienHoaDonMouseClicked
 
     public static void main(String args[]) {

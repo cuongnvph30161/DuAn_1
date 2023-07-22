@@ -98,14 +98,12 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
             } else {
                 tongThanhToan = tienChuaGiam-giamToiDa +a.getDichVuPhatSinh().doubleValue();
             }
-            listNVHD.add(new NhanVienHoaDonViewModel(a.getMaHoaDon(),
-                    a.getMaVoucher(), a.getMaNhanVien()+"",
-                    tenBan, tenNguoiTao, a.getThoiGian(),
-                    BigDecimal.valueOf(tongThanhToan), 
-                    a.getDichVuPhatSinh(), phanTramGiam,
-                    giamToiDa, a.getTrangThaiThanhToan(), a.getGhiChu(), listDSSP));
-
-        }
+         listNVHD.add(new NhanVienHoaDonViewModel(a.getMaHoaDon(),
+                 a.getMaVoucher(), a.getMaNhanVien()+"", tenBan, 
+                 tenNguoiTao, a.getThoiGian(), BigDecimal.valueOf(tongThanhToan),
+                 a.getDichVuPhatSinh(), phanTramGiam, giamToiDa,
+                 tienChuaGiam, a.getTrangThaiThanhToan(), a.getGhiChu(), listDSSP));
+              }
 
         return listNVHD;
     }

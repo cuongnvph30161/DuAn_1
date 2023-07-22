@@ -24,6 +24,7 @@ public class NhanVienHoaDonViewModel {
     private BigDecimal dichVuPhatSinh;
     private int PhanTramGiam;
     private double giamToiDa;
+    private double tienChuaGiam;
     private int trangThai;
     private String ghiChu;
     List<PhaCheLichSuDanhSachSanPhamViewmodel> listSP;
@@ -31,7 +32,7 @@ public class NhanVienHoaDonViewModel {
     public NhanVienHoaDonViewModel() {
     }
 
-    public NhanVienHoaDonViewModel(int maHoaDon, int maGiamGia, String maNguoiTao, String tenBan, String tenNguoiTao, Timestamp thoiGian, BigDecimal tongThanhToan, BigDecimal dichVuPhatSinh, int PhanTramGiam, double giamToiDa, int trangThai, String ghiChu, List<PhaCheLichSuDanhSachSanPhamViewmodel> listSP) {
+    public NhanVienHoaDonViewModel(int maHoaDon, int maGiamGia, String maNguoiTao, String tenBan, String tenNguoiTao, Timestamp thoiGian, BigDecimal tongThanhToan, BigDecimal dichVuPhatSinh, int PhanTramGiam, double giamToiDa, double tienChuaGiam, int trangThai, String ghiChu, List<PhaCheLichSuDanhSachSanPhamViewmodel> listSP) {
         this.maHoaDon = maHoaDon;
         this.maGiamGia = maGiamGia;
         this.maNguoiTao = maNguoiTao;
@@ -42,10 +43,13 @@ public class NhanVienHoaDonViewModel {
         this.dichVuPhatSinh = dichVuPhatSinh;
         this.PhanTramGiam = PhanTramGiam;
         this.giamToiDa = giamToiDa;
+        this.tienChuaGiam = tienChuaGiam;
         this.trangThai = trangThai;
         this.ghiChu = ghiChu;
         this.listSP = listSP;
     }
+
+   
 
    
 
@@ -152,6 +156,14 @@ public class NhanVienHoaDonViewModel {
 
     public void setGiamToiDa(double giamToiDa) {
         this.giamToiDa = giamToiDa;
+    }
+
+    public double getTienChuaGiam() {
+        return tienChuaGiam;
+    }
+
+    public void setTienChuaGiam(double tienChuaGiam) {
+        this.tienChuaGiam = tienChuaGiam;
     }
 
 
