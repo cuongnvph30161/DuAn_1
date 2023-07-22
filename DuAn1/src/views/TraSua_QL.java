@@ -387,6 +387,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel97 = new javax.swing.JLabel();
         txtNgaySinhThem = new javax.swing.JTextField();
         btnClean = new javax.swing.JButton();
+        jLabel75 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
         jScrollPane10 = new javax.swing.JScrollPane();
         tblNhanVienForm = new javax.swing.JTable();
@@ -776,9 +777,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnTong.setLayout(new java.awt.CardLayout());
 
         jpnNhanVien.setBackground(new java.awt.Color(255, 255, 255));
+        jpnNhanVien.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Quản lý nhân viên");
+        jpnNhanVien.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 12, -1, -1));
 
         jTabbedPane4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -1131,6 +1134,12 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("Thêm mới nhân viên", jPanel12);
 
+        jpnNhanVien.add(jTabbedPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 43, -1, -1));
+
+        jLabel75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3_1.png"))); // NOI18N
+        jpnNhanVien.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 50, -1, 20));
+        jpnNhanVien.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 43, 965, 35));
+
         tblNhanVienForm.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1154,49 +1163,13 @@ public class TraSua_QL extends javax.swing.JFrame {
         });
         jScrollPane10.setViewportView(tblNhanVienForm);
 
+        jpnNhanVien.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 90, 965, 671));
+
         jLabel86.setText("Trạng thái");
+        jpnNhanVien.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(1026, 15, 69, -1));
 
-        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jpnNhanVienLayout = new javax.swing.GroupLayout(jpnNhanVien);
-        jpnNhanVien.setLayout(jpnNhanVienLayout);
-        jpnNhanVienLayout.setHorizontalGroup(
-            jpnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnNhanVienLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jpnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jpnNhanVienLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(857, 857, 857)
-                        .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jComboBox13, 0, 170, Short.MAX_VALUE))
-                    .addGroup(jpnNhanVienLayout.createSequentialGroup()
-                        .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jpnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField12)
-                            .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE))))
-                .addContainerGap(676, Short.MAX_VALUE))
-        );
-        jpnNhanVienLayout.setVerticalGroup(
-            jpnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnNhanVienLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jpnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jpnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel86)
-                        .addComponent(jComboBox13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpnNhanVienLayout.createSequentialGroup()
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(313, Short.MAX_VALUE))
-        );
+        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm việc", "Đã nghỉ việc" }));
+        jpnNhanVien.add(jComboBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(1128, 12, 170, -1));
 
         jpnTong.add(jpnNhanVien, "card2");
 
@@ -2992,8 +2965,10 @@ public class TraSua_QL extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jpnTong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jpnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 887, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -3622,6 +3597,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
