@@ -4,6 +4,7 @@
  */
 package views;
 
+import domainmodel.NhanVienDomainModel;
 import java.sql.Blob; // Thêm dòng này vào đầu tệp Java
 import domainmodel.Role;
 import interfaceservices.INhanVienService;
@@ -37,8 +38,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
+import repositorys.NhanVienRepository;
+import repositorys.iRepository.INhanVienRepository;
 import utilities.DBackUpAndRestore;
 
 public class TraSua_QL extends javax.swing.JFrame {
@@ -169,10 +174,15 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 
     private boolean isValidEmail(String email) {
-        // Sử dụng biểu thức chính quy để kiểm tra định dạng email
-        // Biểu thức chính quy dưới đây kiểm tra các trường hợp cơ bản của email
-        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        return email.matches(regex);
+        // Kiểm tra email không được viết hoa
+        if (email.matches(".*[A-Z].*")) {
+            return false;
+        }
+
+        String lowercaseEmail = email.toLowerCase();
+        String regex = "^[a-z0-9._%+-]+(\\.[a-z0-9._%+-]+)*@[a-z0-9.-]+\\.[a-z]{2,}$";
+        boolean hasConsecutiveDots = lowercaseEmail.contains("..");
+        return lowercaseEmail.matches(regex) && !hasConsecutiveDots;
     }
 
     private byte[] getImageDataFromIcon(Icon icon) {
@@ -215,7 +225,9 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     public NhanVienViewModel getDataNhanVienCapNhat() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
-
+        String maNhanVien = txtMaNhanVienXem.getText();
+        int maNhanVienInt = Integer.parseInt(maNhanVien);
+        nhanVienViewModel.setMaNhanVien(maNhanVienInt);
         // Lấy thông tin từ các trường nhập liệu ở phần "Xem và cập nhật nhân viên"
         String hoVaTen = txtHoVaTenXem.getText();
         String ngaySinh = txtNgaySinhXem.getText();
@@ -233,12 +245,22 @@ public class TraSua_QL extends javax.swing.JFrame {
         } else {
             nhanVienViewModel.setTrangThai(1);
         }
-
+        Set<String> existingEmails = new HashSet<>();
+        List<NhanVienViewModel> existingNhanViens = iNhanVienService.getAll();
+        for (NhanVienViewModel nv : existingNhanViens) {
+            existingEmails.add(nv.getEmail());
+        }
+        NhanVienViewModel nhanVienCu = iNhanVienService.getNhanVienById(maNhanVienInt);
+        if (!email.equals(nhanVienCu.getEmail()) && existingEmails.contains(email)) {
+            JOptionPane.showMessageDialog(this, "Email không được trùng.");
+            return null;
+        }
         if (!isValidEmail(email)) {
             JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
             return null;
         }
 
+        nhanVienViewModel.setEmail(email);
 // Kiểm tra xem chuỗi cccd có phải là dạng số hay không
         if (!cccd.matches("\\d+")) {
             JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
@@ -280,7 +302,6 @@ public class TraSua_QL extends javax.swing.JFrame {
             nhanVienViewModel.setAnh(null);
         }
 
-        nhanVienViewModel.setEmail(email);
         nhanVienViewModel.setCCCD(cccd);
         nhanVienViewModel.setChucVu(chucVu);
         nhanVienViewModel.setSoDienThoai(soDienThoai);

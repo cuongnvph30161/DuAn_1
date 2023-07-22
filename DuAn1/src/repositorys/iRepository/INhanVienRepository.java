@@ -22,4 +22,7 @@ public interface INhanVienRepository extends DAO<String, NhanVienDomainModel> {
     public NhanVienDomainModel loadMouseClick(int maNhanVien);
     public boolean update(int maNhanVien , NhanVienDomainModel nhanVienDomainModel);
     public boolean checkTrungEmail(String  email);
+//    public boolean checkLapEmail(int maNhanVien, String email);
+    public NhanVienDomainModel getNhanVienById(int maNhanVien);
+    
 }

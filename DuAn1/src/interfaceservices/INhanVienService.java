@@ -15,10 +15,16 @@ public interface INhanVienService {
 
     public int getMaNhanVienByEmail(String email);
 
-    public String checkEmail(String email); 
+    public String checkEmail(String email);
+
     public ArrayList<NhanVienViewModel> getAll();
+
     public String insertNhanVien(NhanVienViewModel nhanVienViewModel);
+
     public NhanVienViewModel loadMouseclicked(int maNhanVien);
-    public String update(int maNhanVien , NhanVienViewModel nhanVienViewModel);
-   
+
+    public String update(int maNhanVien, NhanVienViewModel nhanVienViewModel);
+
+    public NhanVienViewModel getNhanVienById(int maNhanVien);
+
 }

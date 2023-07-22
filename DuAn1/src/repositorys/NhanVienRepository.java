@@ -249,4 +249,52 @@ public class NhanVienRepository implements INhanVienRepository {
         }
     }
 
+//    @Override
+//    public boolean checkLapEmail(int maNhanVien, String email) {
+//         try {
+//            String query = "SELECT COUNT(*) AS count FROM NhanVien WHERE MaNhanVien <> ? AND Email = ?";
+//            PreparedStatement ps = connection.prepareStatement(query);
+//            ps.setInt(1, maNhanVien);
+//            ps.setString(2, email);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                int count = rs.getInt("count");
+//                return count > 0;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+    @Override
+    public NhanVienDomainModel getNhanVienById(int maNhanVien) {
+
+        NhanVienDomainModel nhanVienDomainModel = null; // Khởi tạo đối tượng rỗng
+
+        try {
+            String query = "SELECT * FROM NhanVien WHERE MaNhanVien = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, maNhanVien);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                nhanVienDomainModel = new NhanVienDomainModel(); // Khởi tạo đối tượng NhanVienDomainModel mới
+                nhanVienDomainModel.setMaNhanVien(rs.getInt("MaNhanVien"));
+                nhanVienDomainModel.setHoVaTen(rs.getString("HoVaTen"));
+                nhanVienDomainModel.setNgaySinh(rs.getDate("NgaySinh"));
+                nhanVienDomainModel.setDiaChi(rs.getString("DiaChi"));
+                nhanVienDomainModel.setCCCD(rs.getString("CCCD"));
+                nhanVienDomainModel.setTrangThai(rs.getInt("TrangThai"));
+                nhanVienDomainModel.setEmail(rs.getString("Email"));
+                nhanVienDomainModel.setSoDienThoai(rs.getString("SoDienThoai"));
+                nhanVienDomainModel.setGhiChu(rs.getString("GhiChu"));
+                nhanVienDomainModel.setAnh(rs.getBlob("Anh"));
+                nhanVienDomainModel.setChucVu(rs.getString("ChucVu"));
+            }
+        } catch (Exception e) {
+            return null;
+        }
+
+        return nhanVienDomainModel;
+    }
 }

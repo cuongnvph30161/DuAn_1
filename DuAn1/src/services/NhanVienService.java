@@ -7,6 +7,9 @@ package services;
 import domainmodel.NhanVienDomainModel;
 import interfaceservices.INhanVienService;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import repositorys.iRepository.INhanVienRepository;
 import repositorys.NhanVienRepository;
 import viewmodel.NhanVienViewModel;
@@ -103,14 +106,6 @@ public class NhanVienService implements INhanVienService {
         nhanVienDomainModel.setAnh(nhanVienViewModel.getAnh());
         nhanVienDomainModel.setChucVu(nhanVienViewModel.getChucVu());
 
-        // Kiểm tra xem có sự thay đổi về email hay không trước khi kiểm tra trùng lặp
-        if (!nhanVienDomainModel.getEmail().equals(nhanVienViewModel.getEmail())) {
-            // Nếu có sự thay đổi, kiểm tra trùng email
-            if (iNhanVienRepository.checkTrungEmail(nhanVienDomainModel.getEmail())) {
-                return "Email không được trùng";
-            }
-        }
-        
         if (iNhanVienRepository.update(maNhanVien, nhanVienDomainModel)) {
             return "Cập nhật nhân viên thành công";
         } else {
@@ -118,4 +113,21 @@ public class NhanVienService implements INhanVienService {
         }
     }
 
+    @Override
+    public NhanVienViewModel getNhanVienById(int maNhanVien) {
+        NhanVienDomainModel nhanVienDomainModel = iNhanVienRepository.getNhanVienById(maNhanVien);
+        NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
+        nhanVienViewModel.setMaNhanVien(nhanVienDomainModel.getMaNhanVien());
+        nhanVienViewModel.setHoVaTen(nhanVienDomainModel.getHoVaTen());
+        nhanVienViewModel.setNgaySinh(nhanVienDomainModel.getNgaySinh());
+        nhanVienViewModel.setDiaChi(nhanVienDomainModel.getDiaChi());
+        nhanVienViewModel.setCCCD(nhanVienDomainModel.getCCCD());
+        nhanVienViewModel.setTrangThai(nhanVienDomainModel.getTrangThai());
+        nhanVienViewModel.setEmail(nhanVienDomainModel.getEmail());
+        nhanVienViewModel.setSoDienThoai(nhanVienDomainModel.getSoDienThoai());
+        nhanVienViewModel.setGhiChu(nhanVienDomainModel.getGhiChu());
+        nhanVienViewModel.setAnh(nhanVienDomainModel.getAnh());
+        nhanVienViewModel.setChucVu(nhanVienDomainModel.getChucVu());
+        return nhanVienViewModel;
+    }
 }
