@@ -23,4 +23,5 @@ public interface ITaiKhoanRepositorys extends DAO<String,TaiKhoanDomail>{
 
     public boolean doiMatKhau(String matKhau, String maTaiKhoan);
     public String checkMatKhau(String maTaiKhoan);
+    public boolean insertTaiKhoan(TaiKhoanDomail taiKhoanDomail);
 }

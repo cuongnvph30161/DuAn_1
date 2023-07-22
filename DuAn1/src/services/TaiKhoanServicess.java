@@ -73,4 +73,19 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
         return iTaiKhoanRepository.checkMatKhau(maTaiKhoan);
     }
 
+    @Override
+    public String insertTaiKhoan(TaiKhoanViewModel taiKhoanViewModel) {
+        TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
+        taiKhoanDomail.setMaTaiKhoan(taiKhoanViewModel.getMaTaiKhoan());
+        taiKhoanDomail.setMaNhanVien(taiKhoanViewModel.getMaNhanVien());
+        taiKhoanDomail.setMatKhau(taiKhoanViewModel.getMatKhau());
+        taiKhoanDomail.setRole(taiKhoanViewModel.getRole());
+        taiKhoanDomail.setTrangThai(taiKhoanViewModel.getTrangThai());
+        if (iTaiKhoanRepository.insertTaiKhoan(taiKhoanDomail)) {
+            return "Thêm tài khoản thành công";
+        } else {
+            return "Thêm tài khoản thất bại";
+        }
+    }
+
 }

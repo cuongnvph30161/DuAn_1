@@ -22,18 +22,18 @@ import utilities.DBConnect;
  * @author Admin
  */
 public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
-    
+
     private static Connection connection = null;
-    
+
     static {
         try {
             connection = DBConnect.getConnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
-    
+
     @Override
     public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau) {
         try {
@@ -51,11 +51,11 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
         return null;
     }
-    
+
     @Override
     public ArrayList<TaiKhoanDomail> getListTaiKhoan() {
         ArrayList<TaiKhoanDomail> getList = new ArrayList<>();
@@ -83,7 +83,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             return null;
         }
     }
-    
+
     @Override
     public boolean updateMatKhauByMaNhanVien(String newPassWord, int maNhanVien) {
         try {
@@ -97,12 +97,12 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             e.printStackTrace();
             return false;
         }
-        
+
     }
-    
+
     @Override
     public String checkTaiKhoan(String maTaiKhoan) {
-        
+
         try {
             String query = "select MaTaiKhoan from TaiKhoan where maTaiKhoan =?";
             PreparedStatement ps = connection.prepareStatement(query);
@@ -118,12 +118,11 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             return null;
         }
     }
-    
+
     @Override
-    public boolean doiMatKhau( String matKhau, String maTaiKhoan) {
+    public boolean doiMatKhau(String matKhau, String maTaiKhoan) {
         try {
-            System.out.println("matkhau repository"+" "+matKhau);
-            System.out.println("mataikhoan repository"+" "+maTaiKhoan);
+        
             String query = "update TaiKhoan set MatKhau = ? where MaTaiKhoan = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, matKhau);
@@ -135,7 +134,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             return false;
         }
     }
-    
+
     @Override
     public String checkMatKhau(String maTaiKhoan) {
         try {
@@ -154,39 +153,58 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
         }
     }
 
-	@Override
-	public List<TaiKhoanDomail> getAll(int... page) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<TaiKhoanDomail> getAll(int... page) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public TaiKhoanDomail getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public TaiKhoanDomail getById(String id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean insert(TaiKhoanDomail object) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean insert(TaiKhoanDomail object) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean update(TaiKhoanDomail object) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean update(TaiKhoanDomail object) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean deleteById(String id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean deleteById(String id) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public List<TaiKhoanDomail> getBySql(String sql, Object... args) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<TaiKhoanDomail> getBySql(String sql, Object... args) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean insertTaiKhoan(TaiKhoanDomail taiKhoanDomail) {
+        try {
+            String query = "insert into TaiKhoan values(?,?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, taiKhoanDomail.getMaTaiKhoan());
+            ps.setInt(2, taiKhoanDomail.getMaNhanVien());
+            ps.setString(3, taiKhoanDomail.getMatKhau());
+            ps.setString(4, taiKhoanDomail.getRole().toString());
+            ps.setInt(5, taiKhoanDomail.getTrangThai());
+            ps.executeUpdate();
+            System.out.println("repo"+" "+taiKhoanDomail);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

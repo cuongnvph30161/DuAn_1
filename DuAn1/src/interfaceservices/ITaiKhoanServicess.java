@@ -27,4 +27,5 @@ public interface ITaiKhoanServicess {
 
     public String doiMatKhau(String matKhau, String maTaiKhoan);
     public String checkMatKhau(String maTaiKhoan);
+    public String insertTaiKhoan(TaiKhoanViewModel taiKhoanViewModel);
 }

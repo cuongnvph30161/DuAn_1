@@ -5,8 +5,8 @@
 package views;
 
 import domainmodel.NhanVienDomainModel;
-import java.sql.Blob; // Thêm dòng này vào đầu tệp Java
 import domainmodel.Role;
+import java.sql.Blob; // Thêm dòng này vào đầu tệp Java
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
 import java.awt.Color;
@@ -63,9 +63,46 @@ public class TraSua_QL extends javax.swing.JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         init();
         lblMaSanPham2.setEnabled(false);
+        comBoBoxTaiKhoanMaNhanVien();
         loadTableTaiKhoan(iTaiKhoanServicess.getAll());
         loadTableNhanVien(iNhanVienService.getAll());
 
+    }
+
+    public TaiKhoanViewModel getDataTaiKhoanThem() {
+        TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
+        String maTaiKhoan = txtMaTaiKhoanThem.getText();
+        String maNhanVien = cbbMaNhanVienTaiKhoanThem.getSelectedItem().toString();
+        int maNhanVienInt = Integer.parseInt(maNhanVien);
+        String matKhau = txtMatKhauThem.getText();
+        String selectedRole = cbbTrangThaiVaiTroThem.getSelectedItem().toString();
+        Role role = Role.valueOf(selectedRole);
+
+        String trangThai = cbbTrangThaiTaiKhoanThem.getSelectedItem().toString();
+        if (maTaiKhoan.trim().equals("") || matKhau.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được rỗng");
+            return null;
+        }
+
+        if (matKhau.contains(" ")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
+            return null;
+        } else if (maTaiKhoan.contains(" ")) {
+            JOptionPane.showMessageDialog(this, "Mã tài khoản không được có dấu cách");
+            return null;
+        }
+
+        if (trangThai.equals("Đã Khoá")) {
+            taiKhoanViewModel.setTrangThai(0);
+        } else {
+            taiKhoanViewModel.setTrangThai(1);
+        }
+
+        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan);
+        taiKhoanViewModel.setMatKhau(matKhau);
+        taiKhoanViewModel.setMaNhanVien(maNhanVienInt);
+        taiKhoanViewModel.setRole(role);
+        return taiKhoanViewModel;
     }
 
     public void loadTableNhanVien(ArrayList<NhanVienViewModel> list) {
@@ -87,11 +124,21 @@ public class TraSua_QL extends javax.swing.JFrame {
         defaultTableModel.setRowCount(0);
         for (TaiKhoanViewModel taiKhoanViewModel : list) {
             defaultTableModel.addRow(new Object[]{
-                taiKhoanViewModel.getMaTaiKhoan(), taiKhoanViewModel.getMaNhanVien(), taiKhoanViewModel.getMatKhau(), taiKhoanViewModel.getRole(), taiKhoanViewModel.getTrangThai() == 0 ? "Khoá" : "Không Khoá"
+                taiKhoanViewModel.getMaTaiKhoan(), taiKhoanViewModel.getMaNhanVien(), taiKhoanViewModel.getMatKhau(), taiKhoanViewModel.getRole(), taiKhoanViewModel.getTrangThai() == 0 ? "Đã Khoá" : "Không Khoá"
             });
         }
     }
 //
+
+    public void comBoBoxTaiKhoanMaNhanVien() {
+        ArrayList<NhanVienViewModel> listNhanVienViewModels = iNhanVienService.getAll();
+        for (NhanVienViewModel nhanVienViewModel : listNhanVienViewModels) {
+            int maNhanVien = nhanVienViewModel.getMaNhanVien();
+            String maNhanVienString = String.valueOf(maNhanVien); // Chuyển đổi từ int sang String
+            cbbMaNhanVienTaiKhoanThem.addItem(maNhanVienString);
+        }
+
+    }
 
     public NhanVienViewModel getDataNhanVien() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
@@ -570,12 +617,12 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel67 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
-        jButton11 = new javax.swing.JButton();
-        lblMaSanPham12 = new javax.swing.JTextField();
-        lblMaSanPham13 = new javax.swing.JTextField();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
-        jComboBox7 = new javax.swing.JComboBox<>();
+        btnCapNhatTaiKhoan = new javax.swing.JButton();
+        txtMaTaiKhoanSua = new javax.swing.JTextField();
+        txtMatKhauTaiKhoanSua = new javax.swing.JTextField();
+        cbbMaNhanVienTaiKhoanSua = new javax.swing.JComboBox<>();
+        cbbVaiTroTaiKhoanSua = new javax.swing.JComboBox<>();
+        cbbTrangThaiTaiKhoanSua = new javax.swing.JComboBox<>();
         jPanel10 = new javax.swing.JPanel();
         jLabel70 = new javax.swing.JLabel();
         jLabel71 = new javax.swing.JLabel();
@@ -583,12 +630,12 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel73 = new javax.swing.JLabel();
         jLabel74 = new javax.swing.JLabel();
         txtMaTaiKhoanThem = new javax.swing.JTextField();
-        cbbMaNhanVienThem = new javax.swing.JComboBox<>();
+        cbbMaNhanVienTaiKhoanThem = new javax.swing.JComboBox<>();
         txtMatKhauThem = new javax.swing.JTextField();
         cbbTrangThaiVaiTroThem = new javax.swing.JComboBox<>();
         cbbTrangThaiTaiKhoanThem = new javax.swing.JComboBox<>();
-        btnThem = new javax.swing.JButton();
-        btnThem1 = new javax.swing.JButton();
+        btnThemTaiKhoan = new javax.swing.JButton();
+        btnCleanTaiKhoan = new javax.swing.JButton();
         jTextField11 = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
         tblTaiKhoanForm = new javax.swing.JTable();
@@ -2512,14 +2559,14 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jLabel69.setText("Trạng thái");
 
-        jButton11.setBackground(new java.awt.Color(45, 132, 252));
-        jButton11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setText("Cập nhật");
+        btnCapNhatTaiKhoan.setBackground(new java.awt.Color(45, 132, 252));
+        btnCapNhatTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCapNhatTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
+        btnCapNhatTaiKhoan.setText("Cập nhật");
 
-        lblMaSanPham12.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtMaTaiKhoanSua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        lblMaSanPham13.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtMatKhauTaiKhoanSua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -2530,7 +2577,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton11))
+                        .addComponent(btnCapNhatTaiKhoan))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel69, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2541,11 +2588,11 @@ public class TraSua_QL extends javax.swing.JFrame {
                         .addGap(57, 57, 57)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblMaSanPham13, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                .addComponent(lblMaSanPham12)
-                                .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jComboBox6, 0, 175, Short.MAX_VALUE)
-                            .addComponent(jComboBox7, 0, 175, Short.MAX_VALUE))))
+                                .addComponent(txtMatKhauTaiKhoanSua, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(txtMaTaiKhoanSua)
+                                .addComponent(cbbMaNhanVienTaiKhoanSua, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbbVaiTroTaiKhoanSua, 0, 175, Short.MAX_VALUE)
+                            .addComponent(cbbTrangThaiTaiKhoanSua, 0, 175, Short.MAX_VALUE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -2554,25 +2601,25 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel65)
-                    .addComponent(lblMaSanPham12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaTaiKhoanSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel66)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbMaNhanVienTaiKhoanSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel67)
-                    .addComponent(lblMaSanPham13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMatKhauTaiKhoanSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel68)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbVaiTroTaiKhoanSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel69)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbTrangThaiTaiKhoanSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
-                .addComponent(jButton11)
+                .addComponent(btnCapNhatTaiKhoan)
                 .addGap(23, 23, 23))
         );
 
@@ -2592,23 +2639,32 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtMaTaiKhoanThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        cbbMaNhanVienThem.addActionListener(new java.awt.event.ActionListener() {
+        cbbMaNhanVienTaiKhoanThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbMaNhanVienThemActionPerformed(evt);
+                cbbMaNhanVienTaiKhoanThemActionPerformed(evt);
             }
         });
 
         txtMatKhauThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        btnThem.setBackground(new java.awt.Color(45, 132, 252));
-        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThem.setForeground(new java.awt.Color(255, 255, 255));
-        btnThem.setText("Thêm");
+        cbbTrangThaiVaiTroThem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "QuanLy", "PhaChe", "NhanVien" }));
 
-        btnThem1.setBackground(new java.awt.Color(45, 132, 252));
-        btnThem1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThem1.setForeground(new java.awt.Color(255, 255, 255));
-        btnThem1.setText("Clean");
+        cbbTrangThaiTaiKhoanThem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Không Khoá", "Đã Khoá" }));
+
+        btnThemTaiKhoan.setBackground(new java.awt.Color(45, 132, 252));
+        btnThemTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThemTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
+        btnThemTaiKhoan.setText("Thêm");
+        btnThemTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemTaiKhoanActionPerformed(evt);
+            }
+        });
+
+        btnCleanTaiKhoan.setBackground(new java.awt.Color(45, 132, 252));
+        btnCleanTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCleanTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
+        btnCleanTaiKhoan.setText("Clean");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -2618,9 +2674,9 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(btnThem1)
+                        .addComponent(btnCleanTaiKhoan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnThem))
+                        .addComponent(btnThemTaiKhoan))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel74, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2633,7 +2689,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtMatKhauThem, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                                 .addComponent(txtMaTaiKhoanThem)
-                                .addComponent(cbbMaNhanVienThem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(cbbMaNhanVienTaiKhoanThem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(cbbTrangThaiVaiTroThem, 0, 175, Short.MAX_VALUE)
                             .addComponent(cbbTrangThaiTaiKhoanThem, 0, 175, Short.MAX_VALUE))))
                 .addContainerGap(16, Short.MAX_VALUE))
@@ -2648,7 +2704,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel71)
-                    .addComponent(cbbMaNhanVienThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbMaNhanVienTaiKhoanThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel72)
@@ -2663,8 +2719,8 @@ public class TraSua_QL extends javax.swing.JFrame {
                     .addComponent(cbbTrangThaiTaiKhoanThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem)
-                    .addComponent(btnThem1))
+                    .addComponent(btnThemTaiKhoan)
+                    .addComponent(btnCleanTaiKhoan))
                 .addGap(23, 23, 23))
         );
 
@@ -2698,14 +2754,11 @@ public class TraSua_QL extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addGroup(jpnTaiKhoanLayout.createSequentialGroup()
                         .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jpnTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpnTaiKhoanLayout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpnTaiKhoanLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(698, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jpnTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(711, Short.MAX_VALUE))
         );
         jpnTaiKhoanLayout.setVerticalGroup(
             jpnTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2719,7 +2772,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                         .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane8)))
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addContainerGap(336, Short.MAX_VALUE))
         );
 
         jpnTong.add(jpnTaiKhoan, "card7");
@@ -3283,9 +3336,9 @@ public class TraSua_QL extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblTaiKhoan2MouseClicked
 
-    private void cbbMaNhanVienThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbMaNhanVienThemActionPerformed
+    private void cbbMaNhanVienTaiKhoanThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbMaNhanVienTaiKhoanThemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbbMaNhanVienThemActionPerformed
+    }//GEN-LAST:event_cbbMaNhanVienTaiKhoanThemActionPerformed
 
     private void btnAnhNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnhNhanVienActionPerformed
         JFileChooser fileChooser = new JFileChooser();
@@ -3508,6 +3561,15 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtTimKiemTenActionPerformed
 
+    private void btnThemTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemTaiKhoanActionPerformed
+        TaiKhoanViewModel taiKhoanViewModel = getDataTaiKhoanThem();
+        if (taiKhoanViewModel == null) {
+            return;
+        }
+        JOptionPane.showMessageDialog(this, iTaiKhoanServicess.insertTaiKhoan(taiKhoanViewModel));
+        loadTableTaiKhoan(iTaiKhoanServicess.getAll());
+    }//GEN-LAST:event_btnThemTaiKhoanActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -3525,23 +3587,26 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnAnhNhanVien;
     private javax.swing.JButton btnAnhNhanVienSua;
     private javax.swing.JButton btnCapNhatNhanVien;
+    private javax.swing.JButton btnCapNhatTaiKhoan;
     private javax.swing.JButton btnClean;
+    private javax.swing.JButton btnCleanTaiKhoan;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnKhieuNaiHoTro;
-    private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnThem1;
     private javax.swing.JButton btnThemNhanVien;
+    private javax.swing.JButton btnThemTaiKhoan;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienXem;
-    private javax.swing.JComboBox<String> cbbMaNhanVienThem;
+    private javax.swing.JComboBox<String> cbbMaNhanVienTaiKhoanSua;
+    private javax.swing.JComboBox<String> cbbMaNhanVienTaiKhoanThem;
     private javax.swing.JComboBox<String> cbbTimKiemTrangThai;
     private javax.swing.JComboBox<String> cbbTrangThaiNhanVienThem;
     private javax.swing.JComboBox<String> cbbTrangThaiNhanVienXem;
+    private javax.swing.JComboBox<String> cbbTrangThaiTaiKhoanSua;
     private javax.swing.JComboBox<String> cbbTrangThaiTaiKhoanThem;
     private javax.swing.JComboBox<String> cbbTrangThaiVaiTroThem;
+    private javax.swing.JComboBox<String> cbbVaiTroTaiKhoanSua;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
@@ -3577,9 +3642,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox20;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -3765,8 +3827,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel lblHoaDon;
     private javax.swing.JTextField lblMaSanPham10;
     private javax.swing.JTextField lblMaSanPham11;
-    private javax.swing.JTextField lblMaSanPham12;
-    private javax.swing.JTextField lblMaSanPham13;
     private javax.swing.JTextField lblMaSanPham2;
     private javax.swing.JTextField lblMaSanPham3;
     private javax.swing.JTextField lblMaSanPham30;
@@ -3814,7 +3874,9 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField txtHoVaTenXem;
     private javax.swing.JTextField txtMaNhanVienThem;
     private javax.swing.JTextField txtMaNhanVienXem;
+    private javax.swing.JTextField txtMaTaiKhoanSua;
     private javax.swing.JTextField txtMaTaiKhoanThem;
+    private javax.swing.JTextField txtMatKhauTaiKhoanSua;
     private javax.swing.JTextField txtMatKhauThem;
     private javax.swing.JTextField txtNgaySinhThem;
     private javax.swing.JTextField txtNgaySinhXem;
