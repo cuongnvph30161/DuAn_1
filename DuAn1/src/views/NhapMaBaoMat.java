@@ -19,6 +19,7 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
     public static String email;
 
     public NhapMaBaoMat(String email) {
+        setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
         init();
