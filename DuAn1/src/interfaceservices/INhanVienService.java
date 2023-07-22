@@ -27,4 +27,8 @@ public interface INhanVienService {
 
     public NhanVienViewModel getNhanVienById(int maNhanVien);
 
+    public ArrayList<NhanVienViewModel> getNhanVienByTen(String ten);
+
+    public ArrayList<NhanVienViewModel> getNhanVienByTrangThai(int trangThai);
+
 }

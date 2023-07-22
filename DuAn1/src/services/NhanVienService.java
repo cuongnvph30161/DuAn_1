@@ -130,4 +130,38 @@ public class NhanVienService implements INhanVienService {
         nhanVienViewModel.setChucVu(nhanVienDomainModel.getChucVu());
         return nhanVienViewModel;
     }
+
+    @Override
+    public ArrayList<NhanVienViewModel> getNhanVienByTen(String ten) {
+        ArrayList<NhanVienDomainModel> getNhanVienDomainModels = iNhanVienRepository.getNhanVienByTen(ten);
+        ArrayList<NhanVienViewModel> getNhanVienViewModels = new ArrayList<>();
+        for (NhanVienDomainModel nhanVienDomainModel : getNhanVienDomainModels) {
+            NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
+            nhanVienViewModel.setMaNhanVien(nhanVienDomainModel.getMaNhanVien());
+            nhanVienViewModel.setHoVaTen(nhanVienDomainModel.getHoVaTen());
+            nhanVienViewModel.setCCCD(nhanVienDomainModel.getCCCD());
+            nhanVienViewModel.setSoDienThoai(nhanVienDomainModel.getSoDienThoai());
+            nhanVienViewModel.setEmail(nhanVienDomainModel.getEmail());
+            nhanVienViewModel.setChucVu(nhanVienDomainModel.getChucVu());
+            getNhanVienViewModels.add(nhanVienViewModel);
+        }
+        return getNhanVienViewModels;
+    }
+
+    @Override
+    public ArrayList<NhanVienViewModel> getNhanVienByTrangThai(int trangThai) {
+        ArrayList<NhanVienDomainModel> getNhanVienDomainModels = iNhanVienRepository.getNhanVienByTrangThai(trangThai);
+        ArrayList<NhanVienViewModel> getNhanVienViewModels = new ArrayList<>();
+        for (NhanVienDomainModel nhanVienDomainModel : getNhanVienDomainModels) {
+            NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
+            nhanVienViewModel.setMaNhanVien(nhanVienDomainModel.getMaNhanVien());
+            nhanVienViewModel.setHoVaTen(nhanVienDomainModel.getHoVaTen());
+            nhanVienViewModel.setCCCD(nhanVienDomainModel.getCCCD());
+            nhanVienViewModel.setSoDienThoai(nhanVienDomainModel.getSoDienThoai());
+            nhanVienViewModel.setEmail(nhanVienDomainModel.getEmail());
+            nhanVienViewModel.setChucVu(nhanVienDomainModel.getChucVu());
+            getNhanVienViewModels.add(nhanVienViewModel);
+        }
+        return getNhanVienViewModels;
+    }
 }
