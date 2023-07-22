@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/repositorys/SanPhamRepository.java</file>
             <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/views/TraSua_NV.java</file>
             <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/utilities/PhaCheSanPhamJPanel.java</file>
@@ -13,6 +14,9 @@
             <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/views/TraSua_PC.java</file>
             <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/domainmodel/SanPhamDomainModel.java</file>
             <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/services/SanPhamService.java</file>
+=======
+            <file>file:/C:/Users/ADMIN/Desktop/github-duan1/DuAn_1/DuAn1/src/views/TraSua_PC.java</file>
+>>>>>>> a9bd8306421de9d2c2be972e022a49601b7f838d
         </group>
     </open-files>
 </project-private>

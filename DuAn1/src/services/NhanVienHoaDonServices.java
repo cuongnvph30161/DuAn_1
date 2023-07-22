@@ -94,16 +94,16 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
             tienGiamTheoMa = tienChuaGiam / 100 * phanTramGiam;
          
             if (tienGiamTheoMa <= giamToiDa) {
-                tongThanhToan =tienChuaGiam - tienGiamTheoMa;
+                tongThanhToan =tienChuaGiam - tienGiamTheoMa +a.getDichVuPhatSinh().doubleValue();
             } else {
-                tongThanhToan = tienChuaGiam-giamToiDa;
+                tongThanhToan = tienChuaGiam-giamToiDa +a.getDichVuPhatSinh().doubleValue();
             }
-
             listNVHD.add(new NhanVienHoaDonViewModel(a.getMaHoaDon(),
-                    a.getMaVoucher(),
-                    a.getMaNhanVien() + "", tenBan, tenNguoiTao, a.getThoiGian(),
-                    BigDecimal.valueOf(tongThanhToan), a.getDichVuPhatSinh(),
-                    a.getTrangThaiThanhToan(), a.getGhiChu(), DSSP));
+                    a.getMaVoucher(), a.getMaNhanVien()+"",
+                    tenBan, tenNguoiTao, a.getThoiGian(),
+                    BigDecimal.valueOf(tongThanhToan), 
+                    a.getDichVuPhatSinh(), phanTramGiam,
+                    giamToiDa, a.getTrangThaiThanhToan(), a.getGhiChu(), listDSSP));
 
         }
 

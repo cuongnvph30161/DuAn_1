@@ -7,6 +7,7 @@ package repositorys;
 import java.sql.*;
 import domainmodel.BanDomainModel;
 import domainmodel.HoaDonDoMainModel;
+import java.math.BigDecimal;
 import repositorys.iRepository.IBanRepository;
 import repositorys.iRepository.IHoaDonRepository;
 
@@ -29,13 +30,13 @@ public class HoaDonRepository implements IHoaDonRepository {
             List<HoaDonDoMainModel> lst = new ArrayList<>();
             con = DBConnect.getConnect();
             String lenh = "SELECT MaHoaDon,MaNhanVien,ThoiGian,"
-                    + "TrangThaiThanhToan,TrangThaiOrder,MaVoucher,GhiChu FROM HoaDon";
+                    + "TrangThaiThanhToan,TrangThaiOrder,MaVoucher,GhiChu,DichVuPhatSinh FROM HoaDon";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
-                lst.add(new HoaDonDoMainModel(rs.getInt(1), rs.getInt(2), rs.getTimestamp(3), rs.getInt(4),
-                        rs.getInt(5), rs.getInt(6), rs.getString(7)));
-
+                lst.add(new HoaDonDoMainModel(rs.getInt(1), rs.getInt(2), 
+                        rs.getTimestamp(3), rs.getInt(4), 
+                        rs.getInt(5), rs.getInt(6), rs.getBigDecimal(8), rs.getString(7)));
             }
             return lst;
         } catch (Exception e) {
