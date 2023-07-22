@@ -392,7 +392,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jScrollPane10 = new javax.swing.JScrollPane();
         tblNhanVienForm = new javax.swing.JTable();
         jLabel86 = new javax.swing.JLabel();
-        jComboBox13 = new javax.swing.JComboBox<>();
+        cbbTimKiemTrangThai = new javax.swing.JComboBox<>();
         jpnSanPham = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -732,7 +732,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 btnKhieuNaiHoTroMouseEntered(evt);
             }
         });
-        jpnMenu.add(btnKhieuNaiHoTro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 680, -1, 40));
+        jpnMenu.add(btnKhieuNaiHoTro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 650, -1, 40));
 
         btnDangXuat.setBackground(new java.awt.Color(45, 132, 252));
         btnDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -748,7 +748,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 btnDangXuatActionPerformed(evt);
             }
         });
-        jpnMenu.add(btnDangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 750, 170, -1));
+        jpnMenu.add(btnDangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 710, 170, -1));
         jpnMenu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 220, 10));
         jpnMenu.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 220, 10));
 
@@ -786,6 +786,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jTabbedPane4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblAnhNhanVienSua.setText("Hình ảnh");
         lblAnhNhanVienSua.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -891,7 +892,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                                     .addComponent(cbbTrangThaiNhanVienXem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -943,7 +944,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addComponent(jLabel85)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(btnCapNhatNhanVien)
                 .addContainerGap())
         );
@@ -951,6 +952,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jTabbedPane4.addTab("Thông tin nhân viên", jPanel11);
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel87.setText("Địa chỉ");
 
@@ -1073,7 +1075,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                                 .addComponent(cbbChucVuNhanVienThem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cbbTrangThaiNhanVienThem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1125,7 +1127,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addComponent(jLabel91)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThemNhanVien)
                     .addComponent(btnClean))
@@ -1163,13 +1165,13 @@ public class TraSua_QL extends javax.swing.JFrame {
         });
         jScrollPane10.setViewportView(tblNhanVienForm);
 
-        jpnNhanVien.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 90, 965, 671));
+        jpnNhanVien.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 90, 965, 680));
 
         jLabel86.setText("Trạng thái");
         jpnNhanVien.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(1026, 15, 69, -1));
 
-        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm việc", "Đã nghỉ việc" }));
-        jpnNhanVien.add(jComboBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(1128, 12, 170, -1));
+        cbbTimKiemTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang làm việc", "Đã nghỉ việc" }));
+        jpnNhanVien.add(cbbTimKiemTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1128, 12, 170, -1));
 
         jpnTong.add(jpnNhanVien, "card2");
 
@@ -2967,7 +2969,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpnTong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jpnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 887, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -3471,6 +3473,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienXem;
     private javax.swing.JComboBox<String> cbbMaNhanVienThem;
+    private javax.swing.JComboBox<String> cbbTimKiemTrangThai;
     private javax.swing.JComboBox<String> cbbTrangThaiNhanVienThem;
     private javax.swing.JComboBox<String> cbbTrangThaiNhanVienXem;
     private javax.swing.JComboBox<String> cbbTrangThaiTaiKhoanThem;
@@ -3505,7 +3508,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox13;
     private javax.swing.JComboBox<String> jComboBox16;
     private javax.swing.JComboBox<String> jComboBox17;
     private javax.swing.JComboBox<String> jComboBox18;
