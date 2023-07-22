@@ -11,6 +11,7 @@ import utilities.XImages;
 public class DangXuat extends javax.swing.JFrame {
 
     public DangXuat() {
+        setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
         init();

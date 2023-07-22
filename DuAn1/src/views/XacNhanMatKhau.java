@@ -18,6 +18,7 @@ public class XacNhanMatKhau extends javax.swing.JFrame {
     private static String email;
 
     public XacNhanMatKhau(String email) {
+        setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
         lblMatMo1.setVisible(false);
@@ -49,6 +50,8 @@ public class XacNhanMatKhau extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hệ thống quản lý trà sữa ToTo");
+        setMinimumSize(new java.awt.Dimension(411, 399));
+        setPreferredSize(null);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Nhập mật khẩu mới");

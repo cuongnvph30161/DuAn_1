@@ -4,10 +4,15 @@
  */
 package interfaceservices;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author Admin
  */
 public interface IMaGiamGiaService {
-    
+
+    boolean checkMaGiamGia(JTextField a);
+
+    Integer phanTramGiamGia(Integer b);
 }

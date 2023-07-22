@@ -29,7 +29,7 @@ public class DoiMatKhau extends javax.swing.JFrame {
 
     public DoiMatKhau(String maTaiKhoan) {
         this.maTaiKhoan = maTaiKhoan;
-
+        setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
         lblMatMo1.setVisible(false);

@@ -5,11 +5,26 @@
 package services;
 
 import interfaceservices.IMaGiamGiaService;
+import javax.swing.JTextField;
+import repositorys.MaGiamGiaRepository;
+import repositorys.iRepository.IMaGiamGiaRepository;
 
 /**
  *
  * @author Admin
  */
-public class MaGiamGiaService implements IMaGiamGiaService{
-    
+public class MaGiamGiaService implements IMaGiamGiaService {
+
+    private IMaGiamGiaRepository mggRepo = new MaGiamGiaRepository();
+
+    @Override
+    public boolean checkMaGiamGia(JTextField a) {
+        return mggRepo.checkMaGiamGia(a);
+    }
+
+    @Override
+    public Integer phanTramGiamGia(Integer b) {
+        return mggRepo.phanTramGiamGia(b);
+    }
+
 }
