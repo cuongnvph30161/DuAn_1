@@ -120,17 +120,18 @@ public class TraSua_PC extends javax.swing.JFrame {
     }
 
     public void LoadSanPham() {
+        jpnHienThiSP.removeAll();
+        GridBagLayout layout = new GridBagLayout();
+
+        jpnHienThiSP.setLayout(layout);
+
+        GridBagConstraints gcb = new GridBagConstraints();
         List<PhaCheSanPhamViewModel> lstPCSPViewModel = SanPhamPCService.getList();
         List<PhaCheSanPhamJPanel> LstPCSPJPanel = new ArrayList<>();
 
         for (PhaCheSanPhamViewModel PCSPView : lstPCSPViewModel) {
             LstPCSPJPanel.add(new PhaCheSanPhamJPanel(PCSPView));
         }
-        GridBagLayout layout = new GridBagLayout();
-
-        jpnHienThiSP.setLayout(layout);
-
-        GridBagConstraints gcb = new GridBagConstraints();
 
         int x = 0;
         int y = (int) Math.ceil(LstPCSPJPanel.size() / 5);
@@ -147,6 +148,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             gcb.insets = new Insets(10, 10, 10, 10);
 
             jpnHienThiSP.add(PCSPJPanel, gcb);
+            jpnHienThiSP.updateUI();
             x++;
             if (x == 5) {
                 x = 0;
@@ -918,16 +920,17 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void txtTimKiemSPPhaCheKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemSPPhaCheKeyReleased
         // TODO add your handling code here:
         jpnHienThiSP.removeAll();
+        
+        List<PhaCheSanPhamViewModel> lstPCSPViewModel = SanPhamPCService.getSanPhamTheoTen(txtTimKiemSPPhaChe.getText());
 
-        List<PhaCheSanPhamViewModel> lstPCSPViewModel = SanPhamPCService.getList();
         List<PhaCheSanPhamJPanel> LstPCSPJPanel = new ArrayList<>();
 
         for (PhaCheSanPhamViewModel PCSPView : lstPCSPViewModel) {
-            if(txtTimKiemSPPhaChe.getText().equalsIgnoreCase(PCSPView.getTen())){
-                LstPCSPJPanel.add(new PhaCheSanPhamJPanel(PCSPView));
-            }
-            
+
+            LstPCSPJPanel.add(new PhaCheSanPhamJPanel(PCSPView));
+
         }
+
         GridBagLayout layout = new GridBagLayout();
 
         jpnHienThiSP.setLayout(layout);
@@ -956,10 +959,10 @@ public class TraSua_PC extends javax.swing.JFrame {
                 y++;
             }
         }
-        if (LstPCSPJPanel.isEmpty()) {
+        if(LstPCSPJPanel.isEmpty()){
             LoadSanPham();
-            jpnHienThiSP.updateUI();
         }
+
     }//GEN-LAST:event_txtTimKiemSPPhaCheKeyReleased
 
     public void showGhiChu(int index) {

@@ -83,4 +83,24 @@ public class SanPhamRepository implements ISanPhamRepository {
 		return null;
 	}
 
+    @Override
+    public List<SanPhamDomainModel> getSanPhamTheoTen(String ten) {
+        try {
+            List<SanPhamDomainModel> lst = new ArrayList<>();
+            con = DBConnect.getConnect();
+            String lenh = "select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'"+ten+"%'";
+            Statement sta = con.createStatement();
+            
+            ResultSet rs = sta.executeQuery(lenh);
+            while (rs.next()) {
+                lst.add(new SanPhamDomainModel(rs.getInt("MaSanPham"),
+                        rs.getString("TenSanPham"), rs.getInt("TrangThai"),
+                        rs.getString("MoTa"), rs.getBlob("Anh")));
+            }
+            return lst;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
 }

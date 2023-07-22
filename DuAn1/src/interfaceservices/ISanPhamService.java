@@ -13,4 +13,5 @@ import viewmodel.PhaCheSanPhamViewModel;
  */
 public interface ISanPhamService {
     public List<PhaCheSanPhamViewModel> getList();
+    public List<PhaCheSanPhamViewModel> getSanPhamTheoTen(String ten);
 }

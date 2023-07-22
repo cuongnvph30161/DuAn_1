@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface ISanPhamRepository extends DAO<String,SanPhamDomainModel>{
         List<SanPhamDomainModel> getList();
+        public List<SanPhamDomainModel> getSanPhamTheoTen(String ten);
 }

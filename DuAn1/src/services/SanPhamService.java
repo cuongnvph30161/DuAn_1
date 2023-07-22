@@ -35,5 +35,23 @@ public class SanPhamService implements ISanPhamService{
         
         return LstPhaCheSP;
     }
+
+    @Override
+    public List<PhaCheSanPhamViewModel> getSanPhamTheoTen(String ten) {
+        List<SanPhamDomainModel> LstSanPhamDomain=SanPhamRepo.getSanPhamTheoTen(ten);
+              
+        List<PhaCheSanPhamViewModel> LstPhaCheSP= new ArrayList<>();
+        
+        for (SanPhamDomainModel SPDomain : LstSanPhamDomain) {
+            PhaCheSanPhamViewModel PhaCheSanPham= new PhaCheSanPhamViewModel();
+            PhaCheSanPham.setAnh(SPDomain.getAnh());
+            PhaCheSanPham.setTen(SPDomain.getTenSanPham());
+            PhaCheSanPham.setTrangThai(SPDomain.getTrangThai());
+                
+            LstPhaCheSP.add(PhaCheSanPham);
+        }
+        
+        return LstPhaCheSP;
+    }
     
 }

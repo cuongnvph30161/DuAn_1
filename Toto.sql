@@ -144,7 +144,7 @@ VALUES
 (N'Trà sữa ô long',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua o long.jpg', single_blob) as T)),
 (N'Trà sữa panda',0,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
 go
-
+select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'Tra%'
 --nạp dữ liệu bảng mã giảm giá
 INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai)
 VALUES (24,1,40.4,'2022-06-06',1001,1),
