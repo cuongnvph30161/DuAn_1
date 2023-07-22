@@ -125,7 +125,7 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
                         listdssp.add(new PhaCheLichSuDanhSachSanPhamViewmodel(
                                 a.getMaHoaDon(), c.getMaSanPham(),
                                 c.getTenSanPham(), b.getSize(),
-                                a.getSoLuong()));
+                                a.getSoLuong(), a.getGia()));
                     }
                 }
             }
