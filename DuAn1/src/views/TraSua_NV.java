@@ -65,7 +65,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         loadBanTang2();
         //hienBanTang2();
         loadBanTang3();
-       // hienBanTang3();
+        // hienBanTang3();
         loadBanTang4();
         //hienBanTang4();
         //loadBanTang5();
@@ -1929,7 +1929,11 @@ public class TraSua_NV extends javax.swing.JFrame {
     }
     private void btnTang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTang1ActionPerformed
         hienBanTang1();
-
+        btnTang1.setBackground(Color.gray);
+        btnTang2.setBackground(new Color(45, 132, 252));
+        btnTang3.setBackground(new Color(45, 132, 252));
+        btnTang4.setBackground(new Color(45, 132, 252));
+        btnTang5.setBackground(new Color(45, 132, 252));
         lblTang.setText("Tầng 1");
 
     }//GEN-LAST:event_btnTang1ActionPerformed
