@@ -342,4 +342,22 @@ public class NhanVienRepository implements INhanVienRepository {
             return null;
         }
     }
+
+    @Override
+    public boolean getNhanVienByCCCD(String cccd) {
+        try {
+            String query = "select CCCD from NhanVien where CCCD =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, cccd);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                
+                return true ;
+            }else{
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

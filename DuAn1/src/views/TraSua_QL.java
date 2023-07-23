@@ -10,6 +10,7 @@ import java.sql.Blob; // Thêm dòng này vào đầu tệp Java
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -142,6 +143,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     public NhanVienViewModel getDataNhanVien() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
+
         String hoVaTen = txtHoVaTenThem.getText();
         String ngaySinh = txtNgaySinhThem.getText();
         String diaChi = txtDiaChiThem.getText();
@@ -149,6 +151,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         String email = txtEmailThem.getText();
         String soDienThoai = txtSDTThem.getText();
         String ghiChu = txtGhiChuThem.getText();
+        String nhanVienCu = iNhanVienService.getNhanVienByCCCD(cccd);
 
         // lấy int từ  tên comBoBox
         String trangThai = cbbTrangThaiNhanVienThem.getSelectedItem().toString();
@@ -161,24 +164,17 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
             return null;
         }
-
-// Kiểm tra xem chuỗi cccd có phải là dạng số hay không
-        if (!cccd.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
-            return null; // Hoặc xử lý theo cách phù hợp với ứng dụng của bạn
+// kiem tra sdt
+        if (isSoDienThoaiExists(soDienThoai)) {
+            return null;
         }
-
+        // kiểm tra CCCD tồn tại
+        if (isCCCDExists(cccd, false, nhanVienCu)) {
+            JOptionPane.showMessageDialog(this, "CCCD đã tồn tại. Vui lòng kiểm tra lại.");
+            return null;
+        }
         nhanVienViewModel.setCCCD(cccd);
-        if (soDienThoai.isEmpty() || !soDienThoai.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.");
-            return null;
-        }
 
-// Kiểm tra độ dài của số điện thoại là 10 hoặc 11 số
-        if (soDienThoai.length() != 10 && soDienThoai.length() != 11) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 hoặc 11 số.");
-            return null;
-        }
         nhanVienViewModel.setSoDienThoai(soDienThoai);
 
         String chucVu = cbbChucVuNhanVienThem.getSelectedItem().toString();
@@ -190,7 +186,14 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
         }
-
+        // định dạng ngày sinh
+        try {
+            LocalDate localDate = LocalDate.parse(ngaySinh);
+            nhanVienViewModel.setNgaySinh(java.sql.Date.valueOf(localDate));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày sinh");
+            return null;
+        }
         // Lấy ảnh từ lblAnhNhanVien
         Icon icon = lblAnhNhanVien.getIcon();
         if (icon != null) {
@@ -201,23 +204,26 @@ public class TraSua_QL extends javax.swing.JFrame {
             // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
             nhanVienViewModel.setAnh(null);
         }
-
         nhanVienViewModel.setDiaChi(diaChi);
-
         nhanVienViewModel.setGhiChu(ghiChu);
         nhanVienViewModel.setEmail(email);
         nhanVienViewModel.setHoVaTen(hoVaTen);
         // định dạng ngày sinh
+        return nhanVienViewModel;
+    }
 
-        try {
-            LocalDate localDate = LocalDate.parse(ngaySinh);
-            nhanVienViewModel.setNgaySinh(java.sql.Date.valueOf(localDate));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày sinh");
-            return null;
+    public boolean isSoDienThoaiExists(String soDienThoai) {
+        if (soDienThoai.isEmpty() || !soDienThoai.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.");
+            return true;
         }
 
-        return nhanVienViewModel;
+// Kiểm tra độ dài của số điện thoại là 10 hoặc 11 số
+        if (soDienThoai.length() != 10 && soDienThoai.length() != 11) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 hoặc 11 số.");
+            return true;
+        }
+        return false;
     }
 
     private boolean isValidEmail(String email) {
@@ -270,6 +276,33 @@ public class TraSua_QL extends javax.swing.JFrame {
         return blob;
     }
 
+    public boolean isCCCDExists(String cccd, boolean isUpdating, String cccdCu) {
+        // ...
+        // Kiểm tra xem CCCD mới có khác với CCCD cũ hay không
+        if (isUpdating && cccd.equals(cccdCu)) {
+            // Nếu CCCD mới không khác CCCD cũ, không cần kiểm tra và không báo lỗi
+            return false;
+        }
+
+        // Lấy danh sách CCCD hiện có từ cơ sở dữ liệu
+        Set<String> existingCCCDs = new HashSet<>();
+        List<NhanVienViewModel> existingNhanViens = iNhanVienService.getAll();
+        for (NhanVienViewModel nv : existingNhanViens) {
+            existingCCCDs.add(nv.getCCCD());
+        }
+
+        // Kiểm tra xem CCCD mới có trong danh sách đã lấy được hay không
+        if (existingCCCDs.contains(cccd)) {
+            // Kiểm tra nếu đang thực hiện cập nhật (update) thì hiển thị thông báo
+            if (isUpdating) {
+                JOptionPane.showMessageDialog(this, "CCCD đã tồn tại. Vui lòng kiểm tra lại.");
+            }
+            return true;
+        }
+
+        return false;
+    }
+
     public NhanVienViewModel getDataNhanVienCapNhat() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
         String maNhanVien = txtMaNhanVienXem.getText();
@@ -292,6 +325,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         } else {
             nhanVienViewModel.setTrangThai(1);
         }
+
         Set<String> existingEmails = new HashSet<>();
         List<NhanVienViewModel> existingNhanViens = iNhanVienService.getAll();
         for (NhanVienViewModel nv : existingNhanViens) {
@@ -302,28 +336,17 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Email không được trùng.");
             return null;
         }
+        String cccdCu = nhanVienCu.getCCCD();
+
         if (!isValidEmail(email)) {
             JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
             return null;
         }
+        if (isCCCDExists(cccd, true, cccdCu)) {
+            return null;
+        }
 
         nhanVienViewModel.setEmail(email);
-// Kiểm tra xem chuỗi cccd có phải là dạng số hay không
-        if (!cccd.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
-            return null; // Hoặc xử lý theo cách phù hợp với ứng dụng của bạn
-        }
-
-        if (soDienThoai.isEmpty() || !soDienThoai.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.");
-            return null;
-        }
-
-// Kiểm tra độ dài của số điện thoại là 10 hoặc 11 số
-        if (soDienThoai.length() != 10 && soDienThoai.length() != 11) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 hoặc 11 số.");
-            return null;
-        }
 
         // check rỗng 
         if (hoVaTen.trim().equals("") || ngaySinh.trim().equals("") || cccd.trim().equals("") || email.trim().equals("") || soDienThoai.trim().equals("") || diaChi.trim().equals("")) {
@@ -348,7 +371,9 @@ public class TraSua_QL extends javax.swing.JFrame {
             // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
             nhanVienViewModel.setAnh(null);
         }
-
+        if (isSoDienThoaiExists(soDienThoai)) {
+            return null;
+        }
         nhanVienViewModel.setCCCD(cccd);
         nhanVienViewModel.setChucVu(chucVu);
         nhanVienViewModel.setSoDienThoai(soDienThoai);
@@ -2618,7 +2643,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel69)
                     .addComponent(cbbTrangThaiTaiKhoanSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
                 .addComponent(btnCapNhatTaiKhoan)
                 .addGap(23, 23, 23))
         );
@@ -2717,11 +2742,11 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel74)
                     .addComponent(cbbTrangThaiTaiKhoanThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThemTaiKhoan)
                     .addComponent(btnCleanTaiKhoan))
-                .addGap(23, 23, 23))
+                .addGap(21, 21, 21))
         );
 
         jTabbedPane3.addTab("Thêm mới tài khoản", jPanel10);
@@ -2767,12 +2792,12 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(38, 38, 38)
                 .addGroup(jpnTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpnTaiKhoanLayout.createSequentialGroup()
                         .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane8)))
-                .addContainerGap(336, Short.MAX_VALUE))
+                        .addComponent(jScrollPane8))
+                    .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
 
         jpnTong.add(jpnTaiKhoan, "card7");

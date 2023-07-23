@@ -164,4 +164,13 @@ public class NhanVienService implements INhanVienService {
         }
         return getNhanVienViewModels;
     }
+
+    @Override
+    public String getNhanVienByCCCD(String cccd) {
+        if(iNhanVienRepository.getNhanVienByCCCD(cccd)){
+            return "CCCD đã tồn tại";
+        }else{
+            return null;
+        }
+    }
 }

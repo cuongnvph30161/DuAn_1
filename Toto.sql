@@ -12,7 +12,7 @@ MaNhanVien INT IDENTITY(1000,1) PRIMARY KEY,
 HoVaTen NVARCHAR(40) NOT NULL,
 NgaySinh DATE NOT NULL,
 DiaChi NVARCHAR(100) NOT NULL,
-CCCD VARCHAR(12) NOT NULL,
+CCCD VARCHAR(12) UNIQUE NOT NULL,
 TrangThai INT NOT NULL,
 Email VARCHAR(50) UNIQUE NOT NULL,
 SoDienThoai VARCHAR(15) NOT NULL,
@@ -117,8 +117,8 @@ go
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
 VALUES 
 (N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tung@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Quản lý'),
-(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','333333333333',0,'nam@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên'),
-(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','333333333333',0,'duy@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên')
+(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','3333533333',0,'nam@gmail.com','03393061033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên'),
+(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','33333333',0,'duy@gmail.com','03393026033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên')
 go
 
 --nạp dữ liệu bảng tài khoản

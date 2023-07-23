@@ -18,13 +18,20 @@ public interface INhanVienRepository extends DAO<String, NhanVienDomainModel> {
     public String checkEmail(String email);
 
     public ArrayList<NhanVienDomainModel> getAll();
+
     public boolean insertNhanVien(NhanVienDomainModel nhanVienDomainModel);
+
     public NhanVienDomainModel loadMouseClick(int maNhanVien);
-    public boolean update(int maNhanVien , NhanVienDomainModel nhanVienDomainModel);
-    public boolean checkTrungEmail(String  email);
+
+    public boolean update(int maNhanVien, NhanVienDomainModel nhanVienDomainModel);
+
+    public boolean checkTrungEmail(String email);
+
     public NhanVienDomainModel getNhanVienById(int maNhanVien);
+
     public ArrayList<NhanVienDomainModel> getNhanVienByTen(String ten);
-    
+
     public ArrayList<NhanVienDomainModel> getNhanVienByTrangThai(int trangThai);
 
+    public boolean getNhanVienByCCCD(String cccd);
 }
