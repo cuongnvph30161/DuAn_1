@@ -203,11 +203,28 @@ public class TraSua_PC extends javax.swing.JFrame {
             }
         }
         modelTongHopDonHANG.setRowCount(0);
+        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstCongDon = new ArrayList<>();
+        lstCongDon.add(new PhaCheLichSuDanhSachSanPhamViewmodel(lstTongHop.get(0).getMaSanPham(),
+                lstTongHop.get(0).getTenSanPham(), lstTongHop.get(0).getSize(), 0));
         for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstTongHop) {
-            modelTongHopDonHANG.addRow(new Object[]{a.getMaSanPham(), a.getTenSanPham(),
-                a.getSize(), a.getSoLuong()});
-        }
+            int check = 1;
+            for (PhaCheLichSuDanhSachSanPhamViewmodel b : lstCongDon) {
+                if (a.getMaSanPham() == b.getMaSanPham() && a.getSize().equalsIgnoreCase(b.getSize())) {
+                    b.setSoLuong(a.getSoLuong() + b.getSoLuong());
+                    check = -1;
+                }
+            }
+            if (check == 1) {
+                lstCongDon.add(a);
+            }
 
+        }
+        for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstCongDon) {
+        modelTongHopDonHANG.addRow(new Object[]{
+        a.getMaSanPham(),a.getTenSanPham(),a.getSize(),a.getSoLuong()
+        });
+        
+        }
     }
 
     public void fillTableDSSP(int maHoaDon) {
@@ -920,7 +937,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void txtTimKiemSPPhaCheKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemSPPhaCheKeyReleased
         // TODO add your handling code here:
         jpnHienThiSP.removeAll();
-        
+
         List<PhaCheSanPhamViewModel> lstPCSPViewModel = SanPhamPCService.getSanPhamTheoTen(txtTimKiemSPPhaChe.getText());
 
         List<PhaCheSanPhamJPanel> LstPCSPJPanel = new ArrayList<>();
@@ -959,7 +976,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                 y++;
             }
         }
-        if(LstPCSPJPanel.isEmpty()){
+        if (LstPCSPJPanel.isEmpty()) {
             LoadSanPham();
         }
 

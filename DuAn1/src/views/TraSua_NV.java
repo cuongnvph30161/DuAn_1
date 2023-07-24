@@ -1627,12 +1627,19 @@ public class TraSua_NV extends javax.swing.JFrame {
         jpnHoaDon1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png"))); // NOI18N
+        lblTimKiem.setOpaque(true);
         lblTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblTimKiemMouseClicked(evt);
             }
         });
         jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 70, -1, 30));
+
+        txtNhanVienNhapMaHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNhanVienNhapMaHDActionPerformed(evt);
+            }
+        });
         jpnHoaDon1.add(txtNhanVienNhapMaHD, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 890, 30));
 
         tblNhanVienHoaDon.setModel(new javax.swing.table.DefaultTableModel(
@@ -2101,6 +2108,10 @@ public class TraSua_NV extends javax.swing.JFrame {
         nv.setVisible(true);
 
     }//GEN-LAST:event_tblNhanVienHoaDonMouseClicked
+
+    private void txtNhanVienNhapMaHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNhanVienNhapMaHDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNhanVienNhapMaHDActionPerformed
     MouseListener mouseListener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {

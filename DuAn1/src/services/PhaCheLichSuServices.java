@@ -61,7 +61,7 @@ public class PhaCheLichSuServices implements IPhaCheLichSuServices {
                     listDSSP.add(b);
                 }
             }
-            if (hoaDon.getTrangThaiThanhToan() == 1) {
+            if (hoaDon.getTrangThaiOrder()== 1) {
                 listLichSu.add(new PhaCheLichSuViewModel(a.getMaHoaDon(),
                         ban.getTenBan(), ban.getTang(),
                         hoaDon.getThoiGian(), hoaDon.getGhiChu(),
