@@ -26,11 +26,16 @@ public interface ITaiKhoanServicess {
     public String checkTaiKhoan(String maTaiKhoan);
 
     public String doiMatKhau(String matKhau, String maTaiKhoan);
+
     public String checkMatKhau(String maTaiKhoan);
+
     public String insertTaiKhoan(TaiKhoanViewModel taiKhoanViewModel);
-    public String updateTaiKhoan(String maTaiKhoan , TaiKhoanViewModel taiKhoanViewModel);
+
+    public String updateTaiKhoan(String maTaiKhoan, TaiKhoanViewModel taiKhoanViewModel);
 //    public String getMaTaiKhoanByMaTaiKhoan(String maTaiKhoan);
 //    public int  getMaNhanVienByMaNhanVien(int maNhanVien);
-        public TaiKhoanViewModel getTaiKhoanByMa(String maTK);
 
+    public TaiKhoanViewModel getTaiKhoanByMa(String maTK);
+
+    public boolean isMaTaiKhoanTrung(String maTk, String maTaiKhoanHienTai);
 }

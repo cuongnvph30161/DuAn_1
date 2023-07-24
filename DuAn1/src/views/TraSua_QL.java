@@ -148,72 +148,6 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         return true;
     }
-public boolean checkMaTaiKhoanCapNhat(boolean isUpdating, String maTaiKhoan, int maNhanVien) {
-    List<TaiKhoanViewModel> existingTaiKhoans = iTaiKhoanServicess.getAll();
-    for (TaiKhoanViewModel tk : existingTaiKhoans) {
-        if (!isUpdating || (isUpdating && tk.getMaNhanVien() != maNhanVien && tk.getMaTaiKhoan().equals(maTaiKhoan))) {
-            JOptionPane.showMessageDialog(null, "Mã tài khoản hoặc Mã nhân viên đang tồn tại. Vui lòng kiểm tra lại.");
-            return false;
-        }
-    }
-    return true;
-}
-
-public boolean checkMaNhanVienCapNhat(boolean isUpdating, int maNhanVien) {
-    List<TaiKhoanViewModel> existingNhanViens = iTaiKhoanServicess.getAll();
-    for (TaiKhoanViewModel nv : existingNhanViens) {
-        if (!isUpdating || (isUpdating && nv.getMaNhanVien() != maNhanVien)) {
-            JOptionPane.showMessageDialog(null, "Mã nhân viên đã tồn tại. Vui lòng kiểm tra lại.");
-            return false;
-        }
-    }
-    return true;
-}
-
-    public TaiKhoanViewModel getDataCapNhatTaiKhoan() {
-        TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
-        String maTaiKhoan1 = txtMaTaiKhoanSua.getText();
-        String maNhanVien = cbbMaNhanVienTaiKhoanSua.getSelectedItem().toString();
-        int maNhanVienInt = Integer.parseInt(maNhanVien);
-        String matKhau = txtMatKhauTaiKhoanSua.getText();
-        String vaiTro = cbbVaiTroTaiKhoanSua.getSelectedItem().toString();
-        Role role = Role.valueOf(vaiTro); // Chuyển đổi chuỗi thành kiểu Role
-
-        // Lấy thông tin tài khoản cũ từ dữ liệu hiện tại
-        TaiKhoanViewModel taiKhoanCu = iTaiKhoanServicess.getTaiKhoanByMa(maTaiKhoan1);
-
-        String trangThai = cbbTrangThaiTaiKhoanSua.getSelectedItem().toString();
-        if (trangThai.equals("Không Khoá")) {
-            taiKhoanViewModel.setTrangThai(1);
-        } else {
-            taiKhoanViewModel.setTrangThai(0);
-        }
-
-        if (maTaiKhoan1.trim().equals("") || matKhau.trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Không được rỗng");
-            return null;
-        }
-
-        // Kiểm tra xem có đang thực hiện cập nhật hay không
-        boolean isUpdating = !maTaiKhoan1.equals(taiKhoanCu.getMaTaiKhoan()) || maNhanVienInt != taiKhoanCu.getMaNhanVien();
-
-        // Nếu đang thực hiện cập nhật, truyền thông tin tài khoản cũ và mã nhân viên cũ vào phương thức kiểm tra
-        if (isUpdating && !checkMaTaiKhoanCapNhat(isUpdating, maTaiKhoan1, maNhanVienInt)) {
-            return null;
-        }
-
-        // Nếu đang thực hiện cập nhật, truyền thông tin mã nhân viên cũ vào phương thức kiểm tra
-        if (isUpdating && !checkMaNhanVienCapNhat(isUpdating, maNhanVienInt)) {
-            return null;
-        }
-
-        taiKhoanViewModel.setRole(role);
-        taiKhoanViewModel.setMaNhanVien(maNhanVienInt);
-        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
-        taiKhoanViewModel.setMatKhau(matKhau);
-        System.out.println("cap nhat tk" + " " + taiKhoanViewModel);
-        return taiKhoanViewModel;
-    }
 
     public void loadTableNhanVien(ArrayList<NhanVienViewModel> list) {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tblNhanVienForm.getModel();
@@ -484,12 +418,12 @@ public boolean checkMaNhanVienCapNhat(boolean isUpdating, int maNhanVien) {
             existingEmails.add(nv.getEmail());
         }
         NhanVienViewModel nhanVienCu = iNhanVienService.getNhanVienById(maNhanVienInt);
+        String cccdCu = nhanVienCu.getCCCD();
 
         if (!email.equals(nhanVienCu.getEmail()) && existingEmails.contains(email)) {
             JOptionPane.showMessageDialog(this, "Email không được trùng.");
             return null;
         }
-        String cccdCu = nhanVienCu.getCCCD();
 
         if (!isValidEmail(email)) {
             JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
@@ -2741,6 +2675,7 @@ public boolean checkMaNhanVienCapNhat(boolean isUpdating, int maNhanVien) {
         });
 
         txtMaTaiKhoanSua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtMaTaiKhoanSua.setEnabled(false);
 
         txtMatKhauTaiKhoanSua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
@@ -3782,6 +3717,60 @@ public boolean checkMaNhanVienCapNhat(boolean isUpdating, int maNhanVien) {
         cbbTrangThaiTaiKhoanSua.setSelectedItem(trangThai);
 
     }//GEN-LAST:event_tblTaiKhoanFormMouseClicked
+    public boolean isMNVExists(int maNhanVien, boolean isUpdating, int maNhanVienCu) {
+        if (isUpdating && maNhanVien == (maNhanVienCu)) {
+            return false;
+        }
+        // Lấy danh sách CCCD hiện có từ cơ sở dữ liệu
+        Set<Integer> existingMANVs = new HashSet<>();
+        List<TaiKhoanViewModel> existingTaiKhoans = iTaiKhoanServicess.getAll();
+        for (TaiKhoanViewModel tk : existingTaiKhoans) {
+            existingMANVs.add(tk.getMaNhanVien());
+        }
+
+        // Kiểm tra xem CCCD mới có trong danh sách đã lấy được hay không
+        if (existingMANVs.contains(maNhanVien)) {
+            // Kiểm tra nếu đang thực hiện cập nhật (update) thì hiển thị thông báo
+            if (isUpdating) {
+                JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại.");
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    public TaiKhoanViewModel getDataTaiKhoanCapNhat() {
+        TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
+        String maNhanVienString = cbbMaNhanVienTaiKhoanSua.getSelectedItem().toString();
+        String matKhau = txtMatKhauTaiKhoanSua.getText();
+        String vaiTro = cbbVaiTroTaiKhoanSua.getSelectedItem().toString();
+        Role role = Role.valueOf(vaiTro); // Chuyển đổi chuỗi thành kiểu Role
+        int maNhanVien = Integer.parseInt(maNhanVienString);
+        String maTaiKhoan1 = txtMaTaiKhoanSua.getText();
+
+        TaiKhoanViewModel taiKhoanCu = iTaiKhoanServicess.getTaiKhoanByMa(maTaiKhoan1);
+        int maNhanVienCu = taiKhoanCu.getMaNhanVien();
+        if (isMNVExists(maNhanVien, true, maNhanVienCu)) {
+            return null;
+        }
+        if (matKhau.contains(" ")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
+            return null;
+        }
+            taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
+
+            taiKhoanViewModel.setMaNhanVien(maNhanVien);
+            taiKhoanViewModel.setMatKhau(matKhau);
+            String trangThai = cbbTrangThaiTaiKhoanSua.getSelectedItem().toString();
+            taiKhoanViewModel.setTrangThai(trangThai.equals("Không Khoá") ? 1 : 0);
+
+            taiKhoanViewModel.setRole(role);
+
+            System.out.println("cap nhat tk" + " " + taiKhoanViewModel);
+            return taiKhoanViewModel;
+        }
+
 
     private void btnCapNhatTaiKhoanNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatTaiKhoanNhanVienActionPerformed
         int row = tblTaiKhoanForm.getSelectedRow();
@@ -3790,7 +3779,7 @@ public boolean checkMaNhanVienCapNhat(boolean isUpdating, int maNhanVien) {
             return;
         }
 
-        TaiKhoanViewModel taiKhoanViewModel = getDataCapNhatTaiKhoan();
+        TaiKhoanViewModel taiKhoanViewModel = getDataTaiKhoanCapNhat();
 
         if (taiKhoanViewModel == null) {
             return;

@@ -92,7 +92,6 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
     @Override
     public String updateTaiKhoan(String maTaiKhoan, TaiKhoanViewModel taiKhoanViewModel) {
         TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
-        taiKhoanDomail.setMaTaiKhoan(taiKhoanViewModel.getMaTaiKhoan());
         taiKhoanDomail.setMaNhanVien(taiKhoanViewModel.getMaNhanVien());
         taiKhoanDomail.setMatKhau(taiKhoanViewModel.getMatKhau());
         taiKhoanDomail.setRole(taiKhoanViewModel.getRole());
@@ -115,14 +114,24 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
 //    }
     @Override
     public TaiKhoanViewModel getTaiKhoanByMa(String maTK) {
+
         TaiKhoanDomail taiKhoanDomail = iTaiKhoanRepository.getTaiKhoanByMa(maTK);
         TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
+        if (taiKhoanDomail == null) {
+            // Trả về null nếu không tìm thấy mã tài khoản
+            return null;
+        }
         taiKhoanViewModel.setMaTaiKhoan(taiKhoanDomail.getMaTaiKhoan());
         taiKhoanViewModel.setMaNhanVien(taiKhoanDomail.getMaNhanVien());
         taiKhoanViewModel.setMatKhau(taiKhoanDomail.getMatKhau());
         taiKhoanViewModel.setRole(taiKhoanDomail.getRole());
         taiKhoanViewModel.setTrangThai(taiKhoanDomail.getTrangThai());
         return taiKhoanViewModel;
+    }
+
+    @Override
+    public boolean isMaTaiKhoanTrung(String maTk, String maTaiKhoanHienTai) {
+        return iTaiKhoanRepository.isMaTaiKhoanTrung(maTk, maTaiKhoanHienTai);
     }
 
 }

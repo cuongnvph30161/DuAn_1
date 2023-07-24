@@ -211,14 +211,13 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
     @Override
     public boolean updateTaiKhoan(String maTaiKhoan, TaiKhoanDomail taiKhoanDomail) {
         try {
-            String query = "update TaiKhoan set MaTaiKhoan =?,MaNhanVien =?,MatKhau =?,VaiTro =?,TrangThai =? where MaTaiKhoan =? ";
+            String query = "update TaiKhoan set MaNhanVien =?,MatKhau =?,VaiTro =?,TrangThai =? where MaTaiKhoan =? ";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, taiKhoanDomail.getMaTaiKhoan());
-            ps.setInt(2, taiKhoanDomail.getMaNhanVien());
-            ps.setString(3, taiKhoanDomail.getMatKhau());
-            ps.setString(4, taiKhoanDomail.getRole().toString());
-            ps.setInt(5, taiKhoanDomail.getTrangThai());
-            ps.setString(6, maTaiKhoan);
+            ps.setInt(1, taiKhoanDomail.getMaNhanVien());
+            ps.setString(2, taiKhoanDomail.getMatKhau());
+            ps.setString(3, taiKhoanDomail.getRole().toString());
+            ps.setInt(4, taiKhoanDomail.getTrangThai());
+            ps.setString(5, maTaiKhoan);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -260,13 +259,13 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
 //    }
     @Override
     public TaiKhoanDomail getTaiKhoanByMa(String maTK) {
-        TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
         try {
             String query = "SELECT * FROM TaiKhoan WHERE MaTaiKhoan = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, maTK);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
                 String maTaiKhoan = rs.getString("MaTaiKhoan");
                 int maNhanVien = rs.getInt("MaNhanVien");
                 String matKhau = rs.getString("MatKhau");
@@ -277,12 +276,35 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
                 taiKhoanDomail.setMatKhau(matKhau);
                 taiKhoanDomail.setRole(role);
                 taiKhoanDomail.setTrangThai(trangThai);
+                System.out.println("repo matk"+" "+taiKhoanDomail);
+                return taiKhoanDomail;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-
-        return taiKhoanDomail;
-
+        return null;
     }
+
+    @Override
+    public boolean isMaTaiKhoanTrung(String maTk, String maTaiKhoanHienTai) {
+        try {
+            String query = "SELECT COUNT(*) FROM TaiKhoan WHERE maTaiKhoan = ? AND maTaiKhoan <> ?";
+            try ( PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, maTk);
+                statement.setString(2, maTaiKhoanHienTai);
+                try ( ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        long count = resultSet.getLong(1);
+                        return count > 0;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // Xử lý exception nếu cần thiết
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

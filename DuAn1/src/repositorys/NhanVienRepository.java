@@ -273,6 +273,7 @@ public class NhanVienRepository implements INhanVienRepository {
                 nhanVienDomainModel.setGhiChu(rs.getString("GhiChu"));
                 nhanVienDomainModel.setAnh(rs.getBlob("Anh"));
                 nhanVienDomainModel.setChucVu(rs.getString("ChucVu"));
+                System.out.println("repo nhan vien"+" "+nhanVienDomainModel);
             }
         } catch (Exception e) {
             return null;
