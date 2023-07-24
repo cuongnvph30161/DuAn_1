@@ -10,6 +10,7 @@ import interfaceservices.IBanService;
 import java.util.ArrayList;
 import java.util.List;
 import repositorys.BanRepository;
+import viewmodel.QuanLyBanViewmodel;
 import viewmodel.TenBanViewModel;
 import viewmodel.defaultViewModel.BanViewModel;
 
@@ -85,5 +86,18 @@ public class BanService implements IBanService {
             listTenBanVM.add(tb);
         }
         return listTenBanVM;
+    }
+
+    @Override
+    public List<QuanLyBanViewmodel> getListBan() {
+
+        List<QuanLyBanViewmodel> lst = new ArrayList<>();
+        List<BanDomainModel> lst1 = banRepo.getList();
+        for (BanDomainModel a : lst1) {
+            lst.add(new QuanLyBanViewmodel(a.getMaBan(),
+                    a.getTenBan(), a.getTang()));
+        }
+        return lst;
+
     }
 }

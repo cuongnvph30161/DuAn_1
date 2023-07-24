@@ -6,6 +6,7 @@ package views;
 
 import domainmodel.NhanVienDomainModel;
 import domainmodel.Role;
+import interfaceservices.IBanService;
 import java.sql.Blob; // Thêm dòng này vào đầu tệp Java
 import interfaceservices.INhanVienService;
 import interfaceservices.ITaiKhoanServicess;
@@ -46,10 +47,14 @@ import javax.swing.JOptionPane;
 import javax.swing.text.html.HTML;
 import repositorys.NhanVienRepository;
 import repositorys.iRepository.INhanVienRepository;
+import services.BanService;
 import utilities.DBackUpAndRestore;
+import viewmodel.QuanLyBanViewmodel;
 
 public class TraSua_QL extends javax.swing.JFrame {
 
+    DefaultTableModel BanBanModel = new DefaultTableModel();
+    public IBanService ibanServices = new BanService();
     public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
     public INhanVienService iNhanVienService = new NhanVienService();
     private String maTaiKhoan;
@@ -68,6 +73,18 @@ public class TraSua_QL extends javax.swing.JFrame {
         comBoBoxTaiKhoanMaNhanVien();
         loadTableTaiKhoan(iTaiKhoanServicess.getAll());
         loadTableNhanVien(iNhanVienService.getAll());
+        BanBanModel = (DefaultTableModel) tblBanBan.getModel();
+        fillBanTableBan();
+    }
+
+    public void fillBanTableBan() {
+        BanBanModel.setRowCount(0);
+        List<QuanLyBanViewmodel> listBanviewmodel = ibanServices.getListBan();
+        for (QuanLyBanViewmodel a : listBanviewmodel) {
+            BanBanModel.addRow(new Object[]{
+                a.getMaBan(), a.getTenBan(), a.getTang()
+            });
+        }
 
     }
 
@@ -615,7 +632,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jButton19 = new javax.swing.JButton();
         jButton20 = new javax.swing.JButton();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        tblBanBan = new javax.swing.JTable();
         jLabel103 = new javax.swing.JLabel();
         jComboBox20 = new javax.swing.JComboBox<>();
         jpnHoaDon = new javax.swing.JPanel();
@@ -1846,7 +1863,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jTabbedPane5.addTab("Thêm mới bàn", jPanel14);
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        tblBanBan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -1865,7 +1882,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane12.setViewportView(jTable7);
+        jScrollPane12.setViewportView(tblBanBan);
 
         jLabel103.setText("Tầng ");
 
@@ -3758,18 +3775,18 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
             return null;
         }
-            taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
+        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
 
-            taiKhoanViewModel.setMaNhanVien(maNhanVien);
-            taiKhoanViewModel.setMatKhau(matKhau);
-            String trangThai = cbbTrangThaiTaiKhoanSua.getSelectedItem().toString();
-            taiKhoanViewModel.setTrangThai(trangThai.equals("Không Khoá") ? 1 : 0);
+        taiKhoanViewModel.setMaNhanVien(maNhanVien);
+        taiKhoanViewModel.setMatKhau(matKhau);
+        String trangThai = cbbTrangThaiTaiKhoanSua.getSelectedItem().toString();
+        taiKhoanViewModel.setTrangThai(trangThai.equals("Không Khoá") ? 1 : 0);
 
-            taiKhoanViewModel.setRole(role);
+        taiKhoanViewModel.setRole(role);
 
-            System.out.println("cap nhat tk" + " " + taiKhoanViewModel);
-            return taiKhoanViewModel;
-        }
+        System.out.println("cap nhat tk" + " " + taiKhoanViewModel);
+        return taiKhoanViewModel;
+    }
 
 
     private void btnCapNhatTaiKhoanNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatTaiKhoanNhanVienActionPerformed
@@ -4011,7 +4028,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable7;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
@@ -4080,6 +4096,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel lblVoucher;
     private javax.swing.JLabel lblquanly;
     private javax.swing.JTable tblBackUp;
+    private javax.swing.JTable tblBanBan;
     private javax.swing.JTable tblNhanVienForm;
     private javax.swing.JTable tblTaiKhoanForm;
     private javax.swing.JTextField txtCCCDThem;

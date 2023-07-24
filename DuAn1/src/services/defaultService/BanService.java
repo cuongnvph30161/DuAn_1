@@ -4,6 +4,7 @@ package services.defaultService;
 import interfaceservices.IBanService;
 import java.util.List;
 import repositorys.BanRepository;
+import viewmodel.QuanLyBanViewmodel;
 import viewmodel.TenBanViewModel;
 import viewmodel.defaultViewModel.BanViewModel;
 
@@ -41,6 +42,11 @@ public class BanService implements IBanService{
 
     @Override
     public List<TenBanViewModel> getTang5() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<QuanLyBanViewmodel> getListBan() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
