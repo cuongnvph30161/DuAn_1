@@ -17,7 +17,9 @@ import viewmodel.QuanLyBanViewmodel;
  * @author ADMIN
  */
 public class QuanLyBanServices implements IQuanLyBanServices {
-    IBanRepository banRepo=new BanRepository();
+
+    IBanRepository banRepo = new BanRepository();
+
     @Override
     public List<QuanLyBanViewmodel> getListBan() {
         List<QuanLyBanViewmodel> lst = new ArrayList<>();
@@ -32,7 +34,10 @@ public class QuanLyBanServices implements IQuanLyBanServices {
 
     @Override
     public Integer themBan(QuanLyBanViewmodel ban) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        BanDomainModel bandomain = new BanDomainModel(ban.getTenBan(),
+                ban.getTang(), 0);
+
+        return banRepo.ThemBan(bandomain);
     }
 
     @Override

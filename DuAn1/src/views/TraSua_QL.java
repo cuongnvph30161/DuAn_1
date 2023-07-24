@@ -628,7 +628,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel101 = new javax.swing.JLabel();
         jLabel102 = new javax.swing.JLabel();
         txtBanThemTenBan = new javax.swing.JTextField();
-        jComboBox19 = new javax.swing.JComboBox<>();
+        cboBanThemTang = new javax.swing.JComboBox<>();
         btnBanThemClear = new javax.swing.JButton();
         btnBanThem = new javax.swing.JButton();
         jScrollPane12 = new javax.swing.JScrollPane();
@@ -1806,7 +1806,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtBanThemTenBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        jComboBox19.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cboBanThemTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
         btnBanThemClear.setBackground(new java.awt.Color(45, 132, 252));
         btnBanThemClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -1846,7 +1846,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                             .addComponent(jLabel102, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(55, 55, 55)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox19, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboBanThemTang, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtBanThemTenBan, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -1860,7 +1860,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel102)
-                    .addComponent(jComboBox19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboBanThemTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBanThemClear)
@@ -1868,7 +1868,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        jPanel14Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox19, jLabel101, jLabel102, txtBanThemTenBan});
+        jPanel14Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboBanThemTang, jLabel101, jLabel102, txtBanThemTenBan});
 
         jTabbedPane5.addTab("Thêm mới bàn", jPanel14);
 
@@ -3823,12 +3823,25 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private void btnBanThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanThemActionPerformed
         // TODO add your handling code here:
-       
+        try {
+            QuanLyBanViewmodel ban = new QuanLyBanViewmodel(11, txtBanThemTenBan.getText(),
+                    Integer.parseInt(cboBanThemTang.getSelectedItem() + ""));
+            int thongBao = ibanServices.themBan(ban);
+            if (thongBao == 1) {
+                JOptionPane.showMessageDialog(this, "thêm thành công");
+                fillBanTableBan();
+                return;
+            } else {
+                JOptionPane.showMessageDialog(this, "thêm thất bại");
+                return;
+            }
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnBanThemActionPerformed
 
     private void btnBanThemClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanThemClearActionPerformed
         // TODO add your handling code here:
-         txtBanThemTenBan.setText("");
+        txtBanThemTenBan.setText("");
     }//GEN-LAST:event_btnBanThemClearActionPerformed
 
     public static void main(String args[]) {
@@ -3870,6 +3883,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbbTrangThaiTaiKhoanThem;
     private javax.swing.JComboBox<String> cbbTrangThaiVaiTroThem;
     private javax.swing.JComboBox<String> cbbVaiTroTaiKhoanSua;
+    private javax.swing.JComboBox<String> cboBanThemTang;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
@@ -3898,7 +3912,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox16;
     private javax.swing.JComboBox<String> jComboBox17;
     private javax.swing.JComboBox<String> jComboBox18;
-    private javax.swing.JComboBox<String> jComboBox19;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox20;
     private javax.swing.JComboBox<String> jComboBox3;

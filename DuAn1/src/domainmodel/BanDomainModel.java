@@ -9,6 +9,7 @@ package domainmodel;
  * @author ADMIN
  */
 public class BanDomainModel {
+
     private int maBan;
     private String tenBan;
     private int tang;
@@ -19,6 +20,13 @@ public class BanDomainModel {
 
     public BanDomainModel(int maBan, String tenBan, int tang, int trangThai) {
         this.maBan = maBan;
+        this.tenBan = tenBan;
+        this.tang = tang;
+        this.trangThai = trangThai;
+    }
+
+    public BanDomainModel(String tenBan, int tang, int trangThai) {
+
         this.tenBan = tenBan;
         this.tang = tang;
         this.trangThai = trangThai;
@@ -55,5 +63,5 @@ public class BanDomainModel {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
-    
+
 }
