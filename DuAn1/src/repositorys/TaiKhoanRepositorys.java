@@ -47,6 +47,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
                 taiKhoan.setMaTaiKhoan(rs.getString("MaTaiKhoan"));
                 taiKhoan.setMatKhau(rs.getString("MatKhau"));
                 taiKhoan.setRole(Role.valueOf(rs.getString("VaiTro")));
+                taiKhoan.setTrangThai(rs.getInt("TrangThai"));
                 return taiKhoan;
             }
         } catch (Exception e) {

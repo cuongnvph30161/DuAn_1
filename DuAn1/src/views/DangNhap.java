@@ -28,7 +28,6 @@ public class DangNhap extends javax.swing.JFrame {
         this.setResizable(false);
         init();
 
-
     }
 
     public void init() {
@@ -189,36 +188,46 @@ public class DangNhap extends javax.swing.JFrame {
         if (taiKhoan == null) {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
             return;
-        } else {
-            // Kiểm tra tài khoản và mật khẩu (phân biệt chữ hoa/chữ thường)
-            if (taiKhoan.getMaTaiKhoan().equals(maTaiKhoan) && taiKhoan.getMatKhau().equals(matKhau)) {
-                switch (taiKhoan.getRole()) {
-                    case QuanLy:
-                        TraSua_QL traSuaQL = new TraSua_QL(maTaiKhoan);
-                        traSuaQL.setMaTaiKhoan(maTaiKhoan);
-                        traSuaQL.setVisible(true);
-                        this.dispose();
-                        break;
-                    case PhaChe:
-                        TraSua_PC traSua_PC = new TraSua_PC(maTaiKhoan);
-                        traSua_PC.setMaTaiKhoan(maTaiKhoan);
-                        traSua_PC.setVisible(true);
-                        this.dispose();
-                        break;
-                    case NhanVien:
-                        TraSua_NV traSua_NV = new TraSua_NV(maTaiKhoan);
-                        traSua_NV.setMaTaiKhoan(maTaiKhoan);
-                        traSua_NV.setVisible(true);
-                        this.dispose();
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(this, "Role không hợp lệ");
-                        break;
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
-            }
         }
+
+        try {
+            int trangThai = taiKhoan.getTrangThai();
+            if (trangThai == 0) {
+                JOptionPane.showMessageDialog(this, "Tài khoản của bạn đã bị khoá");
+                return;
+            }
+        } catch (NullPointerException e) {
+            return;
+        }
+        // Kiểm tra tài khoản và mật khẩu (phân biệt chữ hoa/chữ thường)
+        if (taiKhoan.getMaTaiKhoan().equals(maTaiKhoan) && taiKhoan.getMatKhau().equals(matKhau)) {
+            switch (taiKhoan.getRole()) {
+                case QuanLy:
+                    TraSua_QL traSuaQL = new TraSua_QL(maTaiKhoan);
+                    traSuaQL.setMaTaiKhoan(maTaiKhoan);
+                    traSuaQL.setVisible(true);
+                    this.dispose();
+                    break;
+                case PhaChe:
+                    TraSua_PC traSua_PC = new TraSua_PC(maTaiKhoan);
+                    traSua_PC.setMaTaiKhoan(maTaiKhoan);
+                    traSua_PC.setVisible(true);
+                    this.dispose();
+                    break;
+                case NhanVien:
+                    TraSua_NV traSua_NV = new TraSua_NV(maTaiKhoan);
+                    traSua_NV.setMaTaiKhoan(maTaiKhoan);
+                    traSua_NV.setVisible(true);
+                    this.dispose();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Role không hợp lệ");
+                    break;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
+        }
+
 
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
