@@ -1627,7 +1627,6 @@ public class TraSua_NV extends javax.swing.JFrame {
         jpnHoaDon1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png"))); // NOI18N
-        lblTimKiem.setOpaque(true);
         lblTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblTimKiemMouseClicked(evt);
