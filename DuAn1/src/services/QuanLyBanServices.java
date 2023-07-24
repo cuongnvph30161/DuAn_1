@@ -42,7 +42,11 @@ public class QuanLyBanServices implements IQuanLyBanServices {
 
     @Override
     public Integer CapNhatBan(QuanLyBanViewmodel ban) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        BanDomainModel bandomain = new BanDomainModel(ban.getMaBan(), ban.getTenBan(),
+                 ban.getTang(), 0);
+
+        return banRepo.CapNhatBan(bandomain);
+
     }
 
 }

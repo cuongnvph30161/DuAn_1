@@ -223,7 +223,6 @@ VALUES(1000,1000,4,44.5),
 --INSERT INTO BAN(TenBan,Tang,TrangThai) VALUES(?,?,?)
 --DELETE FROM BAN WHERE=?
 --UPDATE BAN SET =? WHERE =?
-
 --6.HoaDon
 --SELECT MaHoaDon,MaNhanVien,ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher FROM HoaDon
 --INSERT INTO HoaDon(ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher)

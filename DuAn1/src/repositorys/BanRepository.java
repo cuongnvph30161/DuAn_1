@@ -176,6 +176,16 @@ public class BanRepository implements IBanRepository {
 
     @Override
     public Integer CapNhatBan(BanDomainModel ban) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      try {
+            String lenh = "UPDATE BAN SET TenBan=?,Tang=? WHERE MaBan=?";
+            PreparedStatement rs = con.prepareStatement(lenh);
+            rs.setString(1, ban.getTenBan());
+            rs.setInt(2, ban.getTang());
+            rs.setInt(3,ban.getMaBan());
+            return rs.executeUpdate();
+        } catch (Exception e) {
+        }
+        return -1;   
+    
     }
 }
