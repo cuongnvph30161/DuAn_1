@@ -19,13 +19,12 @@ import utilities.DBConnect;
  */
 public class BanRepository implements IBanRepository {
 
-    static Connection con = null;
+    static Connection con = DBConnect.getConnect();
 
     @Override
     public List<BanDomainModel> getList() {
         try {
             List<BanDomainModel> lst = new ArrayList<>();
-            con = DBConnect.getConnect();
             String lenh = "SELECT MaBan,TenBan,Tang,TrangThai FROM Ban";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
@@ -43,7 +42,6 @@ public class BanRepository implements IBanRepository {
     public List<Ban> getTang1() {
         try {
             List<Ban> lst = new ArrayList<>();
-            con = DBConnect.getConnect();
             String lenh = "select TenBan from Ban where Tang=1";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
@@ -61,7 +59,6 @@ public class BanRepository implements IBanRepository {
     public List<Ban> getTang2() {
         try {
             List<Ban> lst = new ArrayList<>();
-            con = DBConnect.getConnect();
             String lenh = "select TenBan from Ban where Tang=2";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
@@ -79,7 +76,6 @@ public class BanRepository implements IBanRepository {
     public List<Ban> getTang3() {
         try {
             List<Ban> lst = new ArrayList<>();
-            con = DBConnect.getConnect();
             String lenh = "select TenBan from Ban where Tang=3";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
@@ -97,7 +93,6 @@ public class BanRepository implements IBanRepository {
     public List<Ban> getTang4() {
         try {
             List<Ban> lst = new ArrayList<>();
-            con = DBConnect.getConnect();
             String lenh = "select TenBan from Ban where Tang=4";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
@@ -115,7 +110,6 @@ public class BanRepository implements IBanRepository {
     public List<Ban> getTang5() {
         try {
             List<Ban> lst = new ArrayList<>();
-            con = DBConnect.getConnect();
             String lenh = "select TenBan from Ban where Tang=5";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
@@ -164,5 +158,24 @@ public class BanRepository implements IBanRepository {
     public List<BanDomainModel> getBySql(String sql, Object... args) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public Integer ThemBan(BanDomainModel ban) {
+        try {
+            String lenh = "INSERT INTO BAN(TenBan,Tang,TrangThai) VALUES(?,?,?)";
+            PreparedStatement rs = con.prepareStatement(lenh);
+            rs.setString(1, ban.getTenBan());
+            rs.setInt(2, ban.getTang());
+            rs.setInt(3, 0);
+            return rs.executeUpdate();
+        } catch (Exception e) {
+        }
+        return -1;
+    }
+
+    @Override
+    public Integer CapNhatBan(BanDomainModel ban) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

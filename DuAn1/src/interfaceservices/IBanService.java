@@ -10,9 +10,6 @@ import viewmodel.defaultViewModel.BanViewModel;
  * @author Doanh
  */
 public interface IBanService {
-
-    List<QuanLyBanViewmodel> getListBan();
-
     boolean insert(BanViewModel vmBan);
 
     List<TenBanViewModel> getTang1();

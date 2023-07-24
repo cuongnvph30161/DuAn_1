@@ -87,17 +87,4 @@ public class BanService implements IBanService {
         }
         return listTenBanVM;
     }
-
-    @Override
-    public List<QuanLyBanViewmodel> getListBan() {
-
-        List<QuanLyBanViewmodel> lst = new ArrayList<>();
-        List<BanDomainModel> lst1 = banRepo.getList();
-        for (BanDomainModel a : lst1) {
-            lst.add(new QuanLyBanViewmodel(a.getMaBan(),
-                    a.getTenBan(), a.getTang()));
-        }
-        return lst;
-
-    }
 }
