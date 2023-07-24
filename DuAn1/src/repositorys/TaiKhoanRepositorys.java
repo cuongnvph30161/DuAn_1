@@ -122,7 +122,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
     @Override
     public boolean doiMatKhau(String matKhau, String maTaiKhoan) {
         try {
-        
+
             String query = "update TaiKhoan set MatKhau = ? where MaTaiKhoan = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, matKhau);
@@ -200,11 +200,89 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             ps.setString(4, taiKhoanDomail.getRole().toString());
             ps.setInt(5, taiKhoanDomail.getTrangThai());
             ps.executeUpdate();
-            System.out.println("repo"+" "+taiKhoanDomail);
+            System.out.println("repo" + " " + taiKhoanDomail);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean updateTaiKhoan(String maTaiKhoan, TaiKhoanDomail taiKhoanDomail) {
+        try {
+            String query = "update TaiKhoan set MaTaiKhoan =?,MaNhanVien =?,MatKhau =?,VaiTro =?,TrangThai =? where MaTaiKhoan =? ";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, taiKhoanDomail.getMaTaiKhoan());
+            ps.setInt(2, taiKhoanDomail.getMaNhanVien());
+            ps.setString(3, taiKhoanDomail.getMatKhau());
+            ps.setString(4, taiKhoanDomail.getRole().toString());
+            ps.setInt(5, taiKhoanDomail.getTrangThai());
+            ps.setString(6, maTaiKhoan);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+//    @Override
+//    public String getMaTaiKhoanByMaTaiKhoan(String maTaiKhoan) {
+//        try {
+//            String query = "SELECT MaTaiKhoan FROM TaiKhoan WHERE MaTaiKhoan = ?";
+//            PreparedStatement ps = connection.prepareStatement(query);
+//            ps.setString(1, maTaiKhoan);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return rs.getString("MaTaiKhoan");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+//
+//    @Override
+//    public int getMaNhanVienByMaNhanVien(int maNhanVien) {
+//        try {
+//            String query = "SELECT MaNhanVien FROM TaiKhoan WHERE MaNhanVien = ?";
+//            PreparedStatement ps = connection.prepareStatement(query);
+//            ps.setInt(1, maNhanVien);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return rs.getInt("MaNhanVien");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return 0;
+//    }
+    @Override
+    public TaiKhoanDomail getTaiKhoanByMa(String maTK) {
+        TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
+        try {
+            String query = "SELECT * FROM TaiKhoan WHERE MaTaiKhoan = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, maTK);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String maTaiKhoan = rs.getString("MaTaiKhoan");
+                int maNhanVien = rs.getInt("MaNhanVien");
+                String matKhau = rs.getString("MatKhau");
+                Role role = Role.valueOf(rs.getString("VaiTro"));
+                int trangThai = rs.getInt("TrangThai");
+                taiKhoanDomail.setMaTaiKhoan(maTaiKhoan);
+                taiKhoanDomail.setMaNhanVien(maNhanVien);
+                taiKhoanDomail.setMatKhau(matKhau);
+                taiKhoanDomail.setRole(role);
+                taiKhoanDomail.setTrangThai(trangThai);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+
+        return taiKhoanDomail;
+
     }
 }

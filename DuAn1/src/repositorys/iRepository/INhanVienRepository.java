@@ -34,4 +34,5 @@ public interface INhanVienRepository extends DAO<String, NhanVienDomainModel> {
     public ArrayList<NhanVienDomainModel> getNhanVienByTrangThai(int trangThai);
 
     public boolean getNhanVienByCCCD(String cccd);
+    
 }

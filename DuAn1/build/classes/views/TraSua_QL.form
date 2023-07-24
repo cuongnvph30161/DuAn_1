@@ -4065,7 +4065,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="btnCapNhatTaiKhoan" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnCapNhatTaiKhoanNhanVien" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -4120,7 +4120,7 @@
                                   <Component id="cbbTrangThaiTaiKhoanSua" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="324" max="32767" attributes="0"/>
-                              <Component id="btnCapNhatTaiKhoan" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCapNhatTaiKhoanNhanVien" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -4152,7 +4152,7 @@
                         <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng th&#xe1;i"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnCapNhatTaiKhoan">
+                    <Component class="javax.swing.JButton" name="btnCapNhatTaiKhoanNhanVien">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="fc" green="84" red="2d" type="rgb"/>
@@ -4165,6 +4165,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCapNhatTaiKhoanNhanVienActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtMaTaiKhoanSua">
                       <Properties>
@@ -4201,7 +4204,11 @@
                     <Component class="javax.swing.JComboBox" name="cbbVaiTroTaiKhoanSua">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
+                          <StringArray count="3">
+                            <StringItem index="0" value="QuanLy"/>
+                            <StringItem index="1" value="PhaChe"/>
+                            <StringItem index="2" value="NhanVien"/>
+                          </StringArray>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -4211,7 +4218,10 @@
                     <Component class="javax.swing.JComboBox" name="cbbTrangThaiTaiKhoanSua">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
+                          <StringArray count="2">
+                            <StringItem index="0" value="Kh&#xf4;ng Kho&#xe1;"/>
+                            <StringItem index="1" value="&#x110;&#xe3; Kho&#xe1;"/>
+                          </StringArray>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -4425,6 +4435,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Clean"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCleanTaiKhoanActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -4483,6 +4496,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblTaiKhoanFormMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

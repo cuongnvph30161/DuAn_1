@@ -4,6 +4,7 @@
  */
 package services;
 
+import domainmodel.Role;
 import domainmodel.TaiKhoanDomail;
 import java.util.ArrayList;
 import repositorys.TaiKhoanRepositorys;
@@ -86,6 +87,42 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
         } else {
             return "Thêm tài khoản thất bại";
         }
+    }
+
+    @Override
+    public String updateTaiKhoan(String maTaiKhoan, TaiKhoanViewModel taiKhoanViewModel) {
+        TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
+        taiKhoanDomail.setMaTaiKhoan(taiKhoanViewModel.getMaTaiKhoan());
+        taiKhoanDomail.setMaNhanVien(taiKhoanViewModel.getMaNhanVien());
+        taiKhoanDomail.setMatKhau(taiKhoanViewModel.getMatKhau());
+        taiKhoanDomail.setRole(taiKhoanViewModel.getRole());
+        taiKhoanDomail.setTrangThai(taiKhoanViewModel.getTrangThai());
+        if (iTaiKhoanRepository.updateTaiKhoan(maTaiKhoan, taiKhoanDomail)) {
+            return "Cập nhật tài khoản thành công";
+        } else {
+            return "Cập nhật tài khoản thất bại";
+        }
+    }
+
+//    @Override
+//    public String getMaTaiKhoanByMaTaiKhoan(String maTaiKhoan) {
+//      return iTaiKhoanRepository.getMaTaiKhoanByMaTaiKhoan(maTaiKhoan);
+//    }
+//
+//    @Override
+//    public int getMaNhanVienByMaNhanVien(int maNhanVien) {
+//       return iTaiKhoanRepository.getMaNhanVienByMaNhanVien(maNhanVien);
+//    }
+    @Override
+    public TaiKhoanViewModel getTaiKhoanByMa(String maTK) {
+        TaiKhoanDomail taiKhoanDomail = iTaiKhoanRepository.getTaiKhoanByMa(maTK);
+        TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
+        taiKhoanViewModel.setMaTaiKhoan(taiKhoanDomail.getMaTaiKhoan());
+        taiKhoanViewModel.setMaNhanVien(taiKhoanDomail.getMaNhanVien());
+        taiKhoanViewModel.setMatKhau(taiKhoanDomail.getMatKhau());
+        taiKhoanViewModel.setRole(taiKhoanDomail.getRole());
+        taiKhoanViewModel.setTrangThai(taiKhoanDomail.getTrangThai());
+        return taiKhoanViewModel;
     }
 
 }

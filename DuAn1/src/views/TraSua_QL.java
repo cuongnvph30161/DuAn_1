@@ -43,6 +43,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
+import javax.swing.text.html.HTML;
 import repositorys.NhanVienRepository;
 import repositorys.iRepository.INhanVienRepository;
 import utilities.DBackUpAndRestore;
@@ -72,7 +73,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     public TaiKhoanViewModel getDataTaiKhoanThem() {
         TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
-        String maTaiKhoan = txtMaTaiKhoanThem.getText();
+        String maTaiKhoan1 = txtMaTaiKhoanThem.getText();
         String maNhanVien = cbbMaNhanVienTaiKhoanThem.getSelectedItem().toString();
         int maNhanVienInt = Integer.parseInt(maNhanVien);
         String matKhau = txtMatKhauThem.getText();
@@ -80,15 +81,24 @@ public class TraSua_QL extends javax.swing.JFrame {
         Role role = Role.valueOf(selectedRole);
 
         String trangThai = cbbTrangThaiTaiKhoanThem.getSelectedItem().toString();
-        if (maTaiKhoan.trim().equals("") || matKhau.trim().equals("")) {
+
+        if (maTaiKhoan1.trim().equals("") || matKhau.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
+            return null;
+        }
+
+        if (!checkMaTaiKhoan(maTaiKhoan1)) {
+            return null;
+        }
+
+        if (!checkMaNhanVien(maNhanVienInt)) {
             return null;
         }
 
         if (matKhau.contains(" ")) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
             return null;
-        } else if (maTaiKhoan.contains(" ")) {
+        } else if (maTaiKhoan1.contains(" ")) {
             JOptionPane.showMessageDialog(this, "Mã tài khoản không được có dấu cách");
             return null;
         }
@@ -99,33 +109,110 @@ public class TraSua_QL extends javax.swing.JFrame {
             taiKhoanViewModel.setTrangThai(1);
         }
 
-        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan);
+        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
         taiKhoanViewModel.setMatKhau(matKhau);
         taiKhoanViewModel.setMaNhanVien(maNhanVienInt);
         taiKhoanViewModel.setRole(role);
         return taiKhoanViewModel;
     }
 
-    public boolean checkMaTaiKhoan(String maTaiKhoan, String maTaiKhoanCu) {
+    public boolean checkMaNhanVien(int maNhanVien) {
+        Set<Integer> existingMaNhanViens = new HashSet<>();
+        List<TaiKhoanViewModel> existingNhanViens = iTaiKhoanServicess.getAll();
+        for (TaiKhoanViewModel nv : existingNhanViens) {
+            existingMaNhanViens.add(nv.getMaNhanVien());
+        }
 
-        if (maTaiKhoan.equals(maTaiKhoanCu)) {
+        if (existingMaNhanViens.contains(maNhanVien)) {
+            JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại. Vui lòng kiểm tra lại.");
             return false;
         }
 
-        // Lấy danh sách CCCD hiện có từ cơ sở dữ liệu
-        Set<String> existingMaTaiKhoan = new HashSet<>();
-        List<TaiKhoanViewModel> existingTaiKhoan = iTaiKhoanServicess.getAll();
-        for (TaiKhoanViewModel taiKhoan : existingTaiKhoan) {
-            existingMaTaiKhoan.add(taiKhoan.getMaTaiKhoan());
+        return true;
+    }
+
+    public boolean checkMaTaiKhoan(String maTaiKhoan) {
+        if (maTaiKhoan.startsWith(" ") || maTaiKhoan.endsWith(" ") || maTaiKhoan.contains("  ")) {
+            JOptionPane.showMessageDialog(this, "Mã tài khoản không được chứa khoảng trắng ở đầu, giữa hoặc cuối.");
+            return false;
+        }
+        Set<String> existingMaTaiKhoans = new HashSet<>();
+        List<TaiKhoanViewModel> existingTaiKhoans = iTaiKhoanServicess.getAll();
+        for (TaiKhoanViewModel tk : existingTaiKhoans) {
+            existingMaTaiKhoans.add(tk.getMaTaiKhoan());
+        }
+        if (existingMaTaiKhoans.contains(maTaiKhoan)) {
+            JOptionPane.showMessageDialog(this, "Mã tài khoản đã tồn tại. Vui lòng kiểm tra lại.");
+            return false;
         }
 
-        // Kiểm tra xem CCCD mới có trong danh sách đã lấy được hay không
-        if (existingMaTaiKhoan.contains(maTaiKhoan)) {
-            JOptionPane.showMessageDialog(this, "Mã tài khoản đã tồn tại.");
-            return true;
+        return true;
+    }
+public boolean checkMaTaiKhoanCapNhat(boolean isUpdating, String maTaiKhoan, int maNhanVien) {
+    List<TaiKhoanViewModel> existingTaiKhoans = iTaiKhoanServicess.getAll();
+    for (TaiKhoanViewModel tk : existingTaiKhoans) {
+        if (!isUpdating || (isUpdating && tk.getMaNhanVien() != maNhanVien && tk.getMaTaiKhoan().equals(maTaiKhoan))) {
+            JOptionPane.showMessageDialog(null, "Mã tài khoản hoặc Mã nhân viên đang tồn tại. Vui lòng kiểm tra lại.");
+            return false;
+        }
+    }
+    return true;
+}
+
+public boolean checkMaNhanVienCapNhat(boolean isUpdating, int maNhanVien) {
+    List<TaiKhoanViewModel> existingNhanViens = iTaiKhoanServicess.getAll();
+    for (TaiKhoanViewModel nv : existingNhanViens) {
+        if (!isUpdating || (isUpdating && nv.getMaNhanVien() != maNhanVien)) {
+            JOptionPane.showMessageDialog(null, "Mã nhân viên đã tồn tại. Vui lòng kiểm tra lại.");
+            return false;
+        }
+    }
+    return true;
+}
+
+    public TaiKhoanViewModel getDataCapNhatTaiKhoan() {
+        TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
+        String maTaiKhoan1 = txtMaTaiKhoanSua.getText();
+        String maNhanVien = cbbMaNhanVienTaiKhoanSua.getSelectedItem().toString();
+        int maNhanVienInt = Integer.parseInt(maNhanVien);
+        String matKhau = txtMatKhauTaiKhoanSua.getText();
+        String vaiTro = cbbVaiTroTaiKhoanSua.getSelectedItem().toString();
+        Role role = Role.valueOf(vaiTro); // Chuyển đổi chuỗi thành kiểu Role
+
+        // Lấy thông tin tài khoản cũ từ dữ liệu hiện tại
+        TaiKhoanViewModel taiKhoanCu = iTaiKhoanServicess.getTaiKhoanByMa(maTaiKhoan1);
+
+        String trangThai = cbbTrangThaiTaiKhoanSua.getSelectedItem().toString();
+        if (trangThai.equals("Không Khoá")) {
+            taiKhoanViewModel.setTrangThai(1);
+        } else {
+            taiKhoanViewModel.setTrangThai(0);
         }
 
-        return false;
+        if (maTaiKhoan1.trim().equals("") || matKhau.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được rỗng");
+            return null;
+        }
+
+        // Kiểm tra xem có đang thực hiện cập nhật hay không
+        boolean isUpdating = !maTaiKhoan1.equals(taiKhoanCu.getMaTaiKhoan()) || maNhanVienInt != taiKhoanCu.getMaNhanVien();
+
+        // Nếu đang thực hiện cập nhật, truyền thông tin tài khoản cũ và mã nhân viên cũ vào phương thức kiểm tra
+        if (isUpdating && !checkMaTaiKhoanCapNhat(isUpdating, maTaiKhoan1, maNhanVienInt)) {
+            return null;
+        }
+
+        // Nếu đang thực hiện cập nhật, truyền thông tin mã nhân viên cũ vào phương thức kiểm tra
+        if (isUpdating && !checkMaNhanVienCapNhat(isUpdating, maNhanVienInt)) {
+            return null;
+        }
+
+        taiKhoanViewModel.setRole(role);
+        taiKhoanViewModel.setMaNhanVien(maNhanVienInt);
+        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
+        taiKhoanViewModel.setMatKhau(matKhau);
+        System.out.println("cap nhat tk" + " " + taiKhoanViewModel);
+        return taiKhoanViewModel;
     }
 
     public void loadTableNhanVien(ArrayList<NhanVienViewModel> list) {
@@ -159,6 +246,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             int maNhanVien = nhanVienViewModel.getMaNhanVien();
             String maNhanVienString = String.valueOf(maNhanVien); // Chuyển đổi từ int sang String
             cbbMaNhanVienTaiKhoanThem.addItem(maNhanVienString);
+            cbbMaNhanVienTaiKhoanSua.addItem(maNhanVienString);
         }
 
     }
@@ -396,7 +484,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             existingEmails.add(nv.getEmail());
         }
         NhanVienViewModel nhanVienCu = iNhanVienService.getNhanVienById(maNhanVienInt);
-        
+
         if (!email.equals(nhanVienCu.getEmail()) && existingEmails.contains(email)) {
             JOptionPane.showMessageDialog(this, "Email không được trùng.");
             return null;
@@ -700,7 +788,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel67 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
-        btnCapNhatTaiKhoan = new javax.swing.JButton();
+        btnCapNhatTaiKhoanNhanVien = new javax.swing.JButton();
         txtMaTaiKhoanSua = new javax.swing.JTextField();
         txtMatKhauTaiKhoanSua = new javax.swing.JTextField();
         cbbMaNhanVienTaiKhoanSua = new javax.swing.JComboBox<>();
@@ -2642,14 +2730,23 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jLabel69.setText("Trạng thái");
 
-        btnCapNhatTaiKhoan.setBackground(new java.awt.Color(45, 132, 252));
-        btnCapNhatTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCapNhatTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
-        btnCapNhatTaiKhoan.setText("Cập nhật");
+        btnCapNhatTaiKhoanNhanVien.setBackground(new java.awt.Color(45, 132, 252));
+        btnCapNhatTaiKhoanNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCapNhatTaiKhoanNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        btnCapNhatTaiKhoanNhanVien.setText("Cập nhật");
+        btnCapNhatTaiKhoanNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatTaiKhoanNhanVienActionPerformed(evt);
+            }
+        });
 
         txtMaTaiKhoanSua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         txtMatKhauTaiKhoanSua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+
+        cbbVaiTroTaiKhoanSua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "QuanLy", "PhaChe", "NhanVien" }));
+
+        cbbTrangThaiTaiKhoanSua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Không Khoá", "Đã Khoá" }));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -2660,7 +2757,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCapNhatTaiKhoan))
+                        .addComponent(btnCapNhatTaiKhoanNhanVien))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel69, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2702,7 +2799,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                     .addComponent(jLabel69)
                     .addComponent(cbbTrangThaiTaiKhoanSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
-                .addComponent(btnCapNhatTaiKhoan)
+                .addComponent(btnCapNhatTaiKhoanNhanVien)
                 .addGap(23, 23, 23))
         );
 
@@ -2748,6 +2845,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnCleanTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCleanTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
         btnCleanTaiKhoan.setText("Clean");
+        btnCleanTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCleanTaiKhoanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -2823,6 +2925,11 @@ public class TraSua_QL extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblTaiKhoanForm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTaiKhoanFormMouseClicked(evt);
             }
         });
         jScrollPane8.setViewportView(tblTaiKhoanForm);
@@ -3649,9 +3756,50 @@ public class TraSua_QL extends javax.swing.JFrame {
         if (taiKhoanViewModel == null) {
             return;
         }
+
         JOptionPane.showMessageDialog(this, iTaiKhoanServicess.insertTaiKhoan(taiKhoanViewModel));
         loadTableTaiKhoan(iTaiKhoanServicess.getAll());
     }//GEN-LAST:event_btnThemTaiKhoanActionPerformed
+    public void Clean() {
+        txtMaTaiKhoanThem.setText("");
+        txtMatKhauThem.setText("");
+    }
+    private void btnCleanTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanTaiKhoanActionPerformed
+        Clean();
+    }//GEN-LAST:event_btnCleanTaiKhoanActionPerformed
+
+    private void tblTaiKhoanFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTaiKhoanFormMouseClicked
+        int row = tblTaiKhoanForm.getSelectedRow();
+        String maTaiKhoan = tblTaiKhoanForm.getValueAt(row, 0).toString();
+        String maNhanVien = tblTaiKhoanForm.getValueAt(row, 1).toString();
+        String matKhau = tblTaiKhoanForm.getValueAt(row, 2).toString();
+        String vaiTro = tblTaiKhoanForm.getValueAt(row, 3).toString();
+        String trangThai = tblTaiKhoanForm.getValueAt(row, 4).toString();
+        txtMaTaiKhoanSua.setText(maTaiKhoan);
+        txtMatKhauTaiKhoanSua.setText(matKhau);
+        cbbMaNhanVienTaiKhoanSua.setSelectedItem(maNhanVien);
+        cbbVaiTroTaiKhoanSua.setSelectedItem(vaiTro);
+        cbbTrangThaiTaiKhoanSua.setSelectedItem(trangThai);
+
+    }//GEN-LAST:event_tblTaiKhoanFormMouseClicked
+
+    private void btnCapNhatTaiKhoanNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatTaiKhoanNhanVienActionPerformed
+        int row = tblTaiKhoanForm.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng để cập nhật");
+            return;
+        }
+
+        TaiKhoanViewModel taiKhoanViewModel = getDataCapNhatTaiKhoan();
+
+        if (taiKhoanViewModel == null) {
+            return;
+        }
+
+        String maTaiKhoan1 = tblTaiKhoanForm.getValueAt(row, 0).toString();
+        JOptionPane.showMessageDialog(this, iTaiKhoanServicess.updateTaiKhoan(maTaiKhoan1, taiKhoanViewModel));
+        loadTableTaiKhoan(iTaiKhoanServicess.getAll());
+    }//GEN-LAST:event_btnCapNhatTaiKhoanNhanVienActionPerformed
 
     public static void main(String args[]) {
 
@@ -3670,7 +3818,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnAnhNhanVien;
     private javax.swing.JButton btnAnhNhanVienSua;
     private javax.swing.JButton btnCapNhatNhanVien;
-    private javax.swing.JButton btnCapNhatTaiKhoan;
+    private javax.swing.JButton btnCapNhatTaiKhoanNhanVien;
     private javax.swing.JButton btnClean;
     private javax.swing.JButton btnCleanTaiKhoan;
     private javax.swing.JButton btnDangXuat;
