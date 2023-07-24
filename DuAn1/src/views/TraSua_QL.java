@@ -9,6 +9,7 @@ import domainmodel.Role;
 import interfaceservices.IBanService;
 import java.sql.Blob; // Thêm dòng này vào đầu tệp Java
 import interfaceservices.INhanVienService;
+import interfaceservices.IQuanLyBanServices;
 import interfaceservices.ITaiKhoanServicess;
 import java.awt.Color;
 import java.awt.Component;
@@ -48,13 +49,14 @@ import javax.swing.text.html.HTML;
 import repositorys.NhanVienRepository;
 import repositorys.iRepository.INhanVienRepository;
 import services.BanService;
+import services.QuanLyBanServices;
 import utilities.DBackUpAndRestore;
 import viewmodel.QuanLyBanViewmodel;
 
 public class TraSua_QL extends javax.swing.JFrame {
 
     DefaultTableModel BanBanModel = new DefaultTableModel();
-    public IBanService ibanServices = new BanService();
+    public IQuanLyBanServices ibanServices = new QuanLyBanServices();
     public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
     public INhanVienService iNhanVienService = new NhanVienService();
     private String maTaiKhoan;
