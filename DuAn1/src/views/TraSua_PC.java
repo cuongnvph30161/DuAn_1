@@ -805,10 +805,11 @@ public class TraSua_PC extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
-        jpnKhieuNaiHoTro.setVisible(true);
+//        jpnKhieuNaiHoTro.setVisible(true);
         jpnSanPham.setVisible(false);
         jpnHoaDon.setVisible(false);
         jpnLichSu.setVisible(false);
+        new HoTroKhachHang().setVisible(true);
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
     private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked

@@ -789,8 +789,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         tblBackUp = new javax.swing.JTable();
         jButton21 = new javax.swing.JButton();
         jLabel105 = new javax.swing.JLabel();
-        jpnKhieuNaiHoTro = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hệ thống quản lý quán trà sữa ToTo");
@@ -906,6 +904,11 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnKhieuNaiHoTroMouseEntered(evt);
+            }
+        });
+        btnKhieuNaiHoTro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKhieuNaiHoTroActionPerformed(evt);
             }
         });
         jpnMenu.add(btnKhieuNaiHoTro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 650, -1, 40));
@@ -3172,29 +3175,6 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jpnTong.add(jpnBackupHeThong, "card8");
 
-        jpnKhieuNaiHoTro.setBackground(new java.awt.Color(255, 204, 102));
-
-        jLabel9.setText("KHIẾU NẠI HỖ TRỢ");
-
-        javax.swing.GroupLayout jpnKhieuNaiHoTroLayout = new javax.swing.GroupLayout(jpnKhieuNaiHoTro);
-        jpnKhieuNaiHoTro.setLayout(jpnKhieuNaiHoTroLayout);
-        jpnKhieuNaiHoTroLayout.setHorizontalGroup(
-            jpnKhieuNaiHoTroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnKhieuNaiHoTroLayout.createSequentialGroup()
-                .addGap(169, 169, 169)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1623, Short.MAX_VALUE))
-        );
-        jpnKhieuNaiHoTroLayout.setVerticalGroup(
-            jpnKhieuNaiHoTroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnKhieuNaiHoTroLayout.createSequentialGroup()
-                .addGap(254, 254, 254)
-                .addComponent(jLabel9)
-                .addContainerGap(810, Short.MAX_VALUE))
-        );
-
-        jpnTong.add(jpnKhieuNaiHoTro, "card10");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -3226,7 +3206,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
-        jpnKhieuNaiHoTro.setVisible(true);
         jpnNhanVien.setVisible(false);
         jpnSanPham.setVisible(false);
         jpnQLBan.setVisible(false);
@@ -3234,7 +3213,8 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnVoucher.setVisible(false);
         jpnTaiKhoan.setVisible(false);
         jpnBackupHeThong.setVisible(false);
-
+        new HoTroKhachHang().setVisible(true);
+  
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
     private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked
@@ -3882,6 +3862,10 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBanCapNhatActionPerformed
 
+    private void btnKhieuNaiHoTroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnKhieuNaiHoTroActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -4049,7 +4033,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
@@ -4118,7 +4101,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel jpnBackupHeThong;
     private javax.swing.JPanel jpnHoaDon;
-    private javax.swing.JPanel jpnKhieuNaiHoTro;
     private javax.swing.JPanel jpnMenu;
     private javax.swing.JPanel jpnNhanVien;
     private javax.swing.JPanel jpnQLBan;
