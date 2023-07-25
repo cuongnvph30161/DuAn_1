@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import utilities.DBConnect;
+import utilities.JdbcHelper;
 
 /**
  *
@@ -46,8 +47,27 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     }
 
 	@Override
-	public List<ChiTietSanPhamDomainModel> getAll(int... page) {
-		// TODO Auto-generated method stub
+	public List<ChiTietSanPhamDomainModel> getAll(int... maSanPham) {
+		List<ChiTietSanPhamDomainModel> lstChiTietSanPhamDomainModels=new ArrayList<ChiTietSanPhamDomainModel>();
+		StringBuilder querry=new StringBuilder("SELECT MaChiTietSanPham,MaSanPham,Size,Gia FROM ChiTietSanPham ");
+		if(maSanPham.length>0) {
+			querry.append(" Where maSanPham="+maSanPham[0]);
+		}
+		try {
+			ResultSet rs=JdbcHelper.query(querry.toString());
+			while(rs.next()) {
+				ChiTietSanPhamDomainModel dmCTSP=new ChiTietSanPhamDomainModel();
+				dmCTSP.setMaChiTietSanPham(rs.getInt(1));
+				dmCTSP.setMaSanPham(rs.getInt(2));
+				dmCTSP.setSize(rs.getString(3));
+				dmCTSP.setGia(rs.getBigDecimal(4));
+				lstChiTietSanPhamDomainModels.add(dmCTSP);
+			}
+			return lstChiTietSanPhamDomainModels;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
