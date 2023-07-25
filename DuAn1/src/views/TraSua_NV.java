@@ -40,7 +40,6 @@ import viewmodel.TenBanViewModel;
 public class TraSua_NV extends javax.swing.JFrame {
 
     int demTrang = 1;
-    List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
     Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang = new HashMap<>();
     INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
     List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
@@ -89,7 +88,6 @@ public class TraSua_NV extends javax.swing.JFrame {
 
         phanTrang();
         truyenTrang(1);
-        fillTableNVHD(listNhanVienHDView);
         FillTableBan();
         clickChiTiet();
 
@@ -248,8 +246,10 @@ public class TraSua_NV extends javax.swing.JFrame {
     }
 
     public void truyenTrang(int index) {
+        List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
         lstTruyenTrang = mapPhanTrang.get(index);
         lblNhanVienTrangThaiTrang.setText("trang " + index + "/" + soTrang);
+        fillTableNVHD(lstTruyenTrang);
     }
 
     public void phanTrang() {
@@ -1633,6 +1633,12 @@ public class TraSua_NV extends javax.swing.JFrame {
             }
         });
         jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 70, -1, 30));
+
+        txtNhanVienNhapMaHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNhanVienNhapMaHDActionPerformed(evt);
+            }
+        });
         jpnHoaDon1.add(txtNhanVienNhapMaHD, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 890, 30));
 
         tblNhanVienHoaDon.setModel(new javax.swing.table.DefaultTableModel(
@@ -2004,14 +2010,12 @@ public class TraSua_NV extends javax.swing.JFrame {
     private void lblNVTrangDauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNVTrangDauMouseClicked
         // TODO add your handling code here:
         truyenTrang(1);
-        fillTableNVHD(lstTruyenTrang);
         demTrang = 1;
     }//GEN-LAST:event_lblNVTrangDauMouseClicked
 
     private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
         // TODO add your handling code here:
         truyenTrang(soTrang);
-        fillTableNVHD(lstTruyenTrang);
         demTrang = soTrang;
     }//GEN-LAST:event_jLabel27MouseClicked
 
@@ -2023,7 +2027,6 @@ public class TraSua_NV extends javax.swing.JFrame {
             return;
         } else {
             truyenTrang(demTrang);
-            fillTableNVHD(lstTruyenTrang);
             demTrang--;
         }
 
@@ -2037,7 +2040,6 @@ public class TraSua_NV extends javax.swing.JFrame {
             return;
         } else {
             truyenTrang(demTrang);
-            fillTableNVHD(lstTruyenTrang);
             demTrang++;
         }
     }//GEN-LAST:event_lblNVTienMouseClicked
@@ -2101,6 +2103,10 @@ public class TraSua_NV extends javax.swing.JFrame {
         nv.setVisible(true);
 
     }//GEN-LAST:event_tblNhanVienHoaDonMouseClicked
+
+    private void txtNhanVienNhapMaHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNhanVienNhapMaHDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNhanVienNhapMaHDActionPerformed
     MouseListener mouseListener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {

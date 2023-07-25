@@ -6,8 +6,10 @@ package views;
 
 import domainmodel.NhanVienDomainModel;
 import domainmodel.Role;
+import interfaceservices.IBanService;
 import java.sql.Blob; // Thêm dòng này vào đầu tệp Java
 import interfaceservices.INhanVienService;
+import interfaceservices.IQuanLyBanServices;
 import interfaceservices.ITaiKhoanServicess;
 import java.awt.Color;
 import java.awt.Component;
@@ -46,21 +48,27 @@ import javax.swing.JOptionPane;
 import javax.swing.text.html.HTML;
 import repositorys.NhanVienRepository;
 import repositorys.iRepository.INhanVienRepository;
+import services.BanService;
+import services.QuanLyBanServices;
 import utilities.DBackUpAndRestore;
+import utilities.Uhelper;
+import viewmodel.QuanLyBanViewmodel;
 
 public class TraSua_QL extends javax.swing.JFrame {
-
+    
+    DefaultTableModel BanBanModel = new DefaultTableModel();
+    public IQuanLyBanServices ibanServices = new QuanLyBanServices();
     public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
     public INhanVienService iNhanVienService = new NhanVienService();
     private String maTaiKhoan;
-
+    
     public void setMaTaiKhoan(String maTaiKhoan) {
         this.maTaiKhoan = maTaiKhoan;
-
+        
     }
-
+    
     public TraSua_QL(String maTaiKhoan) {
-
+        
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         init();
@@ -68,9 +76,23 @@ public class TraSua_QL extends javax.swing.JFrame {
         comBoBoxTaiKhoanMaNhanVien();
         loadTableTaiKhoan(iTaiKhoanServicess.getAll());
         loadTableNhanVien(iNhanVienService.getAll());
-
+        BanBanModel = (DefaultTableModel) tblBanBan.getModel();
+        fillBanTableBan();
     }
-
+    public void showBan(int index){
+        
+    }
+    public void fillBanTableBan() {
+        BanBanModel.setRowCount(0);
+        List<QuanLyBanViewmodel> listBanviewmodel = ibanServices.getListBan();
+        for (QuanLyBanViewmodel a : listBanviewmodel) {
+            BanBanModel.addRow(new Object[]{
+                a.getMaBan(), a.getTenBan(), a.getTang()
+            });
+        }
+        
+    }
+    
     public TaiKhoanViewModel getDataTaiKhoanThem() {
         TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
         String maTaiKhoan1 = txtMaTaiKhoanThem.getText();
@@ -79,22 +101,22 @@ public class TraSua_QL extends javax.swing.JFrame {
         String matKhau = txtMatKhauThem.getText();
         String selectedRole = cbbTrangThaiVaiTroThem.getSelectedItem().toString();
         Role role = Role.valueOf(selectedRole);
-
+        
         String trangThai = cbbTrangThaiTaiKhoanThem.getSelectedItem().toString();
-
+        
         if (maTaiKhoan1.trim().equals("") || matKhau.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
         }
-
+        
         if (!checkMaTaiKhoan(maTaiKhoan1)) {
             return null;
         }
-
+        
         if (!checkMaNhanVien(maNhanVienInt)) {
             return null;
         }
-
+        
         if (matKhau.contains(" ")) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
             return null;
@@ -102,35 +124,35 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Mã tài khoản không được có dấu cách");
             return null;
         }
-
+        
         if (trangThai.equals("Đã Khoá")) {
             taiKhoanViewModel.setTrangThai(0);
         } else {
             taiKhoanViewModel.setTrangThai(1);
         }
-
+        
         taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
         taiKhoanViewModel.setMatKhau(matKhau);
         taiKhoanViewModel.setMaNhanVien(maNhanVienInt);
         taiKhoanViewModel.setRole(role);
         return taiKhoanViewModel;
     }
-
+    
     public boolean checkMaNhanVien(int maNhanVien) {
         Set<Integer> existingMaNhanViens = new HashSet<>();
         List<TaiKhoanViewModel> existingNhanViens = iTaiKhoanServicess.getAll();
         for (TaiKhoanViewModel nv : existingNhanViens) {
             existingMaNhanViens.add(nv.getMaNhanVien());
         }
-
+        
         if (existingMaNhanViens.contains(maNhanVien)) {
             JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại. Vui lòng kiểm tra lại.");
             return false;
         }
-
+        
         return true;
     }
-
+    
     public boolean checkMaTaiKhoan(String maTaiKhoan) {
         if (maTaiKhoan.startsWith(" ") || maTaiKhoan.endsWith(" ") || maTaiKhoan.contains("  ")) {
             JOptionPane.showMessageDialog(this, "Mã tài khoản không được chứa khoảng trắng ở đầu, giữa hoặc cuối.");
@@ -145,10 +167,10 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Mã tài khoản đã tồn tại. Vui lòng kiểm tra lại.");
             return false;
         }
-
+        
         return true;
     }
-
+    
     public void loadTableNhanVien(ArrayList<NhanVienViewModel> list) {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tblNhanVienForm.getModel();
         defaultTableModel.setRowCount(0);
@@ -158,11 +180,11 @@ public class TraSua_QL extends javax.swing.JFrame {
             });
         }
     }
-
+    
     public void init() {
         setIconImage(XImages.getIconApp());
     }
-
+    
     public void loadTableTaiKhoan(ArrayList<TaiKhoanViewModel> list) {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tblTaiKhoanForm.getModel();
         defaultTableModel.setRowCount(0);
@@ -182,12 +204,12 @@ public class TraSua_QL extends javax.swing.JFrame {
             cbbMaNhanVienTaiKhoanThem.addItem(maNhanVienString);
             cbbMaNhanVienTaiKhoanSua.addItem(maNhanVienString);
         }
-
+        
     }
-
+    
     public NhanVienViewModel getDataNhanVien() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
-
+        
         String hoVaTen = txtHoVaTenThem.getText();
         String ngaySinh = txtNgaySinhThem.getText();
         String diaChi = txtDiaChiThem.getText();
@@ -207,12 +229,12 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên không được chứa dấu cách ở đầu");
             return null;
         }
-
+        
         if (cccd.startsWith(" ")) {
             JOptionPane.showMessageDialog(this, "CCCD không được chứa dấu cách ở đầu");
             return null;
         }
-
+        
         if (diaChi.startsWith(" ")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa dấu cách ở đầu");
             return null;
@@ -243,11 +265,11 @@ public class TraSua_QL extends javax.swing.JFrame {
             return null;
         }
         nhanVienViewModel.setCCCD(cccd);
-
+        
         nhanVienViewModel.setSoDienThoai(soDienThoai);
-
+        
         String chucVu = cbbChucVuNhanVienThem.getSelectedItem().toString();
-
+        
         nhanVienViewModel.setChucVu(chucVu);
 
         // định dạng ngày sinh
@@ -275,7 +297,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         // định dạng ngày sinh
         return nhanVienViewModel;
     }
-
+    
     public boolean isCCCDExists(String cccd, boolean isUpdating, String cccdCu) {
         // ...
         // Kiểm tra xem CCCD mới có khác với CCCD cũ hay không
@@ -298,10 +320,10 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
             return true;
         }
-
+        
         return false;
     }
-
+    
     public boolean isSoDienThoaiExists(String soDienThoai) {
         if (soDienThoai.isEmpty() || !soDienThoai.matches("\\d+")) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.");
@@ -315,19 +337,19 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         return false;
     }
-
+    
     private boolean isValidEmail(String email) {
         // Kiểm tra email không được viết hoa
         if (email.matches(".*[A-Z].*")) {
             return false;
         }
-
+        
         String lowercaseEmail = email.toLowerCase();
         String regex = "^[a-z0-9._%+-]+(\\.[a-z0-9._%+-]+)*@[a-z0-9.-]+\\.[a-z]{2,}$";
         boolean hasConsecutiveDots = lowercaseEmail.contains("..");
         return lowercaseEmail.matches(regex) && !hasConsecutiveDots;
     }
-
+    
     private byte[] getImageDataFromIcon(Icon icon) {
         if (icon != null && icon instanceof ImageIcon) {
             // Chuyển đổi Icon thành mảng byte
@@ -353,7 +375,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         return null;
     }
-
+    
     private Blob createBlobFromImageData(byte[] data) {
         Blob blob = null;
         try {
@@ -365,7 +387,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         return blob;
     }
-
+    
     public NhanVienViewModel getDataNhanVienCapNhat() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
         String maNhanVien = txtMaNhanVienXem.getText();
@@ -394,12 +416,12 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên không được chứa dấu cách ở đầu");
             return null;
         }
-
+        
         if (cccd.startsWith(" ")) {
             JOptionPane.showMessageDialog(this, "CCCD không được chứa dấu cách ở đầu");
             return null;
         }
-
+        
         if (diaChi.startsWith(" ")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa dấu cách ở đầu");
             return null;
@@ -411,7 +433,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         } else {
             nhanVienViewModel.setTrangThai(1);
         }
-
+        
         Set<String> existingEmails = new HashSet<>();
         List<NhanVienViewModel> existingNhanViens = iNhanVienService.getAll();
         for (NhanVienViewModel nv : existingNhanViens) {
@@ -419,12 +441,12 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         NhanVienViewModel nhanVienCu = iNhanVienService.getNhanVienById(maNhanVienInt);
         String cccdCu = nhanVienCu.getCCCD();
-
+        
         if (!email.equals(nhanVienCu.getEmail()) && existingEmails.contains(email)) {
             JOptionPane.showMessageDialog(this, "Email không được trùng.");
             return null;
         }
-
+        
         if (!isValidEmail(email)) {
             JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
             return null;
@@ -432,7 +454,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         if (isCCCDExists(cccd, true, cccdCu)) {
             return null;
         }
-
+        
         try {
             LocalDate localDate = LocalDate.parse(ngaySinh);
             nhanVienViewModel.setNgaySinh(java.sql.Date.valueOf(localDate));
@@ -463,7 +485,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         nhanVienViewModel.setGhiChu(ghiChu);
         return nhanVienViewModel;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -600,22 +622,20 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel98 = new javax.swing.JLabel();
         jLabel99 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jComboBox18 = new javax.swing.JComboBox<>();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
+        txtBanCapNhatTenBan = new javax.swing.JTextField();
+        cboBanCapNhatTang = new javax.swing.JComboBox<>();
+        btnBanCapNhatClear = new javax.swing.JButton();
+        btnBanCapNhat = new javax.swing.JButton();
+        lblBanCapNhatMaBan = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
-        jLabel100 = new javax.swing.JLabel();
         jLabel101 = new javax.swing.JLabel();
         jLabel102 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
-        jTextField16 = new javax.swing.JTextField();
-        jComboBox19 = new javax.swing.JComboBox<>();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
+        txtBanThemTenBan = new javax.swing.JTextField();
+        cboBanThemTang = new javax.swing.JComboBox<>();
+        btnBanThemClear = new javax.swing.JButton();
+        btnBanThem = new javax.swing.JButton();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        tblBanBan = new javax.swing.JTable();
         jLabel103 = new javax.swing.JLabel();
         jComboBox20 = new javax.swing.JComboBox<>();
         jpnHoaDon = new javax.swing.JPanel();
@@ -1709,21 +1729,31 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jLabel99.setText("Tầng");
 
-        jTextField13.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtBanCapNhatTenBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        jTextField14.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        cboBanCapNhatTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
-        jComboBox18.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnBanCapNhatClear.setBackground(new java.awt.Color(45, 132, 252));
+        btnBanCapNhatClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBanCapNhatClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnBanCapNhatClear.setText("Clear");
+        btnBanCapNhatClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBanCapNhatClearActionPerformed(evt);
+            }
+        });
 
-        jButton17.setBackground(new java.awt.Color(45, 132, 252));
-        jButton17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton17.setForeground(new java.awt.Color(255, 255, 255));
-        jButton17.setText("Xóa bàn");
+        btnBanCapNhat.setBackground(new java.awt.Color(45, 132, 252));
+        btnBanCapNhat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBanCapNhat.setForeground(new java.awt.Color(255, 255, 255));
+        btnBanCapNhat.setText("Cập nhật");
+        btnBanCapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBanCapNhatActionPerformed(evt);
+            }
+        });
 
-        jButton18.setBackground(new java.awt.Color(45, 132, 252));
-        jButton18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton18.setForeground(new java.awt.Color(255, 255, 255));
-        jButton18.setText("Cập nhật");
+        lblBanCapNhatMaBan.setText("1000");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1739,14 +1769,14 @@ public class TraSua_QL extends javax.swing.JFrame {
                             .addComponent(jLabel99, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(45, 45, 45)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                            .addComponent(jTextField13)
-                            .addComponent(jComboBox18, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtBanCapNhatTenBan, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                            .addComponent(cboBanCapNhatTang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblBanCapNhatMaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBanCapNhatClear, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBanCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
@@ -1755,48 +1785,56 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(lblBanCapNhatMaBan))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel98)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBanCapNhatTenBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel99)
-                    .addComponent(jComboBox18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                    .addComponent(cboBanCapNhatTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton17)
-                    .addComponent(jButton18))
+                    .addComponent(btnBanCapNhatClear)
+                    .addComponent(btnBanCapNhat))
                 .addGap(17, 17, 17))
         );
+
+        jPanel13Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboBanCapNhatTang, jLabel8, jLabel98, jLabel99, lblBanCapNhatMaBan, txtBanCapNhatTenBan});
 
         jTabbedPane5.addTab("Thông tin bàn", jPanel13);
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
         jPanel14.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel100.setText("Mã bàn");
-
         jLabel101.setText("Tên bàn");
 
         jLabel102.setText("Tầng");
 
-        jTextField15.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtBanThemTenBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        jTextField16.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        cboBanThemTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
-        jComboBox19.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnBanThemClear.setBackground(new java.awt.Color(45, 132, 252));
+        btnBanThemClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBanThemClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnBanThemClear.setText("Clear");
+        btnBanThemClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBanThemClearActionPerformed(evt);
+            }
+        });
 
-        jButton19.setBackground(new java.awt.Color(45, 132, 252));
-        jButton19.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton19.setForeground(new java.awt.Color(255, 255, 255));
-        jButton19.setText("Xóa bàn");
-
-        jButton20.setBackground(new java.awt.Color(45, 132, 252));
-        jButton20.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton20.setForeground(new java.awt.Color(255, 255, 255));
-        jButton20.setText("Cập nhật");
+        btnBanThem.setBackground(new java.awt.Color(45, 132, 252));
+        btnBanThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBanThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnBanThem.setText("Thêm");
+        btnBanThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBanThemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1805,48 +1843,44 @@ public class TraSua_QL extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnBanThemClear, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBanThem, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel100, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel101, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel102, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField16, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                            .addComponent(jTextField15)
-                            .addComponent(jComboBox19, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboBanThemTang, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBanThemTenBan, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel100)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel101)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel102)
-                    .addComponent(jComboBox19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                    .addComponent(txtBanThemTenBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton19)
-                    .addComponent(jButton20))
+                    .addComponent(jLabel102)
+                    .addComponent(cboBanThemTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBanThemClear)
+                    .addComponent(btnBanThem))
                 .addGap(17, 17, 17))
         );
 
+        jPanel14Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboBanThemTang, jLabel101, jLabel102, txtBanThemTenBan});
+
         jTabbedPane5.addTab("Thêm mới bàn", jPanel14);
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        tblBanBan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -1865,11 +1899,11 @@ public class TraSua_QL extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane12.setViewportView(jTable7);
+        jScrollPane12.setViewportView(tblBanBan);
 
         jLabel103.setText("Tầng ");
 
-        jComboBox20.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox20.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
         javax.swing.GroupLayout jpnQLBanLayout = new javax.swing.GroupLayout(jpnQLBan);
         jpnQLBan.setLayout(jpnQLBanLayout);
@@ -3183,7 +3217,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-
+        
         new DangXuat().setVisible(true);
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
@@ -3216,7 +3250,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblDoiMatKhau.setBackground(Color.gray);
         lblBackupHeThong.setOpaque(false);
         lblBackupHeThong.setBackground(Color.red);
-
+        
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -3246,7 +3280,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblDoiMatKhau.setBackground(Color.red);
         lblBackupHeThong.setOpaque(true);
         lblBackupHeThong.setBackground(Color.gray);
-
+        
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -3259,7 +3293,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBackupHeThongMouseClicked
 
     private void lblquanlyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblquanlyMouseClicked
-
+        
         jpnTaiKhoan.setVisible(true);
         jpnNhanVien.setVisible(false);
         jpnSanPham.setVisible(false);
@@ -3285,7 +3319,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblDoiMatKhau.setBackground(Color.red);
         lblBackupHeThong.setOpaque(false);
         lblBackupHeThong.setBackground(Color.red);
-
+        
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -3314,7 +3348,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblDoiMatKhau.setBackground(Color.red);
         lblBackupHeThong.setOpaque(false);
         lblBackupHeThong.setBackground(Color.red);
-
+        
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -3343,7 +3377,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblDoiMatKhau.setBackground(Color.red);
         lblBackupHeThong.setOpaque(false);
         lblBackupHeThong.setBackground(Color.red);
-
+        
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -3372,7 +3406,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblDoiMatKhau.setBackground(Color.red);
         lblBackupHeThong.setOpaque(false);
         lblBackupHeThong.setBackground(Color.red);
-
+        
         jpnSanPham.setVisible(true);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -3401,7 +3435,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblDoiMatKhau.setBackground(Color.red);
         lblBackupHeThong.setOpaque(false);
         lblBackupHeThong.setBackground(Color.red);
-
+        
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -3445,7 +3479,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblDoiMatKhau.setBackground(Color.red);
         lblBackupHeThong.setOpaque(false);
         lblBackupHeThong.setBackground(Color.red);
-
+        
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(true);
@@ -3470,9 +3504,9 @@ public class TraSua_QL extends javax.swing.JFrame {
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif");
         fileChooser.setFileFilter(filter);
-
+        
         int result = fileChooser.showOpenDialog(this);
-
+        
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = selectedFile.getAbsolutePath();
@@ -3497,7 +3531,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             lblAnhNhanVien.setIcon(scaledIcon);
     }//GEN-LAST:event_btnAnhNhanVienActionPerformed
     }
-
+    
     public void clean() {
         lblAnhNhanVien.setIcon(null);
         txtHoVaTenThem.setText("");
@@ -3552,7 +3586,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         } else {
             cbbTrangThaiNhanVienXem.setSelectedItem("Đang làm việc");
         }
-
+        
         Blob anh = nhanVienViewModel.getAnh();
         if (anh != null) {
             try {
@@ -3572,7 +3606,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             // Xử lý trường hợp đối tượng Blob là null hoặc không chứa dữ liệu ảnh
             lblAnhNhanVienSua.setIcon(null);
         }
-
+        
 
     }//GEN-LAST:event_tblNhanVienFormMouseClicked
 
@@ -3597,9 +3631,9 @@ public class TraSua_QL extends javax.swing.JFrame {
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif");
         fileChooser.setFileFilter(filter);
-
+        
         int result = fileChooser.showOpenDialog(this);
-
+        
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = selectedFile.getAbsolutePath();
@@ -3664,7 +3698,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTimKiemTenKeyReleased
 
     private void cbbTimKiemTrangThaiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbbTimKiemTrangThaiKeyPressed
-
+        
 
     }//GEN-LAST:event_cbbTimKiemTrangThaiKeyPressed
 
@@ -3682,7 +3716,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_cbbTimKiemTrangThaiActionPerformed
 
     private void txtTimKiemTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemTenActionPerformed
-
+        
 
     }//GEN-LAST:event_txtTimKiemTenActionPerformed
 
@@ -3691,7 +3725,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         if (taiKhoanViewModel == null) {
             return;
         }
-
+        
         JOptionPane.showMessageDialog(this, iTaiKhoanServicess.insertTaiKhoan(taiKhoanViewModel));
         loadTableTaiKhoan(iTaiKhoanServicess.getAll());
     }//GEN-LAST:event_btnThemTaiKhoanActionPerformed
@@ -3736,10 +3770,10 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
             return true;
         }
-
+        
         return false;
     }
-
+    
     public TaiKhoanViewModel getDataTaiKhoanCapNhat() {
         TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
         String maNhanVienString = cbbMaNhanVienTaiKhoanSua.getSelectedItem().toString();
@@ -3748,7 +3782,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         Role role = Role.valueOf(vaiTro); // Chuyển đổi chuỗi thành kiểu Role
         int maNhanVien = Integer.parseInt(maNhanVienString);
         String maTaiKhoan1 = txtMaTaiKhoanSua.getText();
-
+        
         TaiKhoanViewModel taiKhoanCu = iTaiKhoanServicess.getTaiKhoanByMa(maTaiKhoan1);
         int maNhanVienCu = taiKhoanCu.getMaNhanVien();
         if (isMNVExists(maNhanVien, true, maNhanVienCu)) {
@@ -3758,19 +3792,19 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
             return null;
         }
-            taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
-
-            taiKhoanViewModel.setMaNhanVien(maNhanVien);
-            taiKhoanViewModel.setMatKhau(matKhau);
-            String trangThai = cbbTrangThaiTaiKhoanSua.getSelectedItem().toString();
-            taiKhoanViewModel.setTrangThai(trangThai.equals("Không Khoá") ? 1 : 0);
-
-            taiKhoanViewModel.setRole(role);
-
-            System.out.println("cap nhat tk" + " " + taiKhoanViewModel);
-            return taiKhoanViewModel;
-        }
-
+        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
+        
+        taiKhoanViewModel.setMaNhanVien(maNhanVien);
+        taiKhoanViewModel.setMatKhau(matKhau);
+        String trangThai = cbbTrangThaiTaiKhoanSua.getSelectedItem().toString();
+        taiKhoanViewModel.setTrangThai(trangThai.equals("Không Khoá") ? 1 : 0);
+        
+        taiKhoanViewModel.setRole(role);
+        
+        System.out.println("cap nhat tk" + " " + taiKhoanViewModel);
+        return taiKhoanViewModel;
+    }
+    
 
     private void btnCapNhatTaiKhoanNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatTaiKhoanNhanVienActionPerformed
         int row = tblTaiKhoanForm.getSelectedRow();
@@ -3778,20 +3812,73 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng để cập nhật");
             return;
         }
-
+        
         TaiKhoanViewModel taiKhoanViewModel = getDataTaiKhoanCapNhat();
-
+        
         if (taiKhoanViewModel == null) {
             return;
         }
-
+        
         String maTaiKhoan1 = tblTaiKhoanForm.getValueAt(row, 0).toString();
         JOptionPane.showMessageDialog(this, iTaiKhoanServicess.updateTaiKhoan(maTaiKhoan1, taiKhoanViewModel));
         loadTableTaiKhoan(iTaiKhoanServicess.getAll());
     }//GEN-LAST:event_btnCapNhatTaiKhoanNhanVienActionPerformed
 
-    public static void main(String args[]) {
+    private void btnBanCapNhatClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanCapNhatClearActionPerformed
+        // TODO add your handling code here:
+        txtBanCapNhatTenBan.setText("");
+    }//GEN-LAST:event_btnBanCapNhatClearActionPerformed
 
+    private void btnBanThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanThemActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (Uhelper.checkNullText(txtBanThemTenBan, "tên bàn trống")) {
+                return;
+            }
+            QuanLyBanViewmodel ban = new QuanLyBanViewmodel(11, txtBanThemTenBan.getText(),
+                    Integer.parseInt(cboBanThemTang.getSelectedItem() + ""));
+            int thongBao = ibanServices.themBan(ban);
+            if (thongBao == 1) {
+                JOptionPane.showMessageDialog(this, "thêm thành công");
+                fillBanTableBan();
+                return;
+            } else {
+                JOptionPane.showMessageDialog(this, "thêm thất bại");
+                return;
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnBanThemActionPerformed
+
+    private void btnBanThemClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanThemClearActionPerformed
+        // TODO add your handling code here:
+        txtBanThemTenBan.setText("");
+    }//GEN-LAST:event_btnBanThemClearActionPerformed
+
+    private void btnBanCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanCapNhatActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (Uhelper.checkNullText(txtBanCapNhatTenBan, "tên bàn trống")) {
+                return;
+            }
+            QuanLyBanViewmodel ban
+                    = new QuanLyBanViewmodel(Integer.parseInt(lblBanCapNhatMaBan.getText()),
+                            txtBanCapNhatTenBan.getText(), Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + ""));
+            int thongBao = ibanServices.CapNhatBan(ban);
+            if (thongBao == 1) {
+                JOptionPane.showMessageDialog(this, "cập nhật thành công");
+                fillBanTableBan();
+                return;
+            } else {
+                JOptionPane.showMessageDialog(this, "cập nhật thất bại");
+                return;
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnBanCapNhatActionPerformed
+    
+    public static void main(String args[]) {
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -3806,6 +3893,10 @@ public class TraSua_QL extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnhNhanVien;
     private javax.swing.JButton btnAnhNhanVienSua;
+    private javax.swing.JButton btnBanCapNhat;
+    private javax.swing.JButton btnBanCapNhatClear;
+    private javax.swing.JButton btnBanThem;
+    private javax.swing.JButton btnBanThemClear;
     private javax.swing.JButton btnCapNhatNhanVien;
     private javax.swing.JButton btnCapNhatTaiKhoanNhanVien;
     private javax.swing.JButton btnClean;
@@ -3825,13 +3916,11 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbbTrangThaiTaiKhoanThem;
     private javax.swing.JComboBox<String> cbbTrangThaiVaiTroThem;
     private javax.swing.JComboBox<String> cbbVaiTroTaiKhoanSua;
+    private javax.swing.JComboBox<String> cboBanCapNhatTang;
+    private javax.swing.JComboBox<String> cboBanThemTang;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton3;
@@ -3856,15 +3945,12 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox16;
     private javax.swing.JComboBox<String> jComboBox17;
-    private javax.swing.JComboBox<String> jComboBox18;
-    private javax.swing.JComboBox<String> jComboBox19;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox20;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
@@ -4011,17 +4097,12 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable7;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -4043,6 +4124,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel lblAnhNhanVien;
     private javax.swing.JLabel lblAnhNhanVienSua;
     private javax.swing.JLabel lblBackupHeThong;
+    private javax.swing.JLabel lblBanCapNhatMaBan;
     private javax.swing.JLabel lblDoiMatKhau;
     private javax.swing.JLabel lblHoaDon;
     private javax.swing.JTextField lblMaSanPham10;
@@ -4080,8 +4162,11 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel lblVoucher;
     private javax.swing.JLabel lblquanly;
     private javax.swing.JTable tblBackUp;
+    private javax.swing.JTable tblBanBan;
     private javax.swing.JTable tblNhanVienForm;
     private javax.swing.JTable tblTaiKhoanForm;
+    private javax.swing.JTextField txtBanCapNhatTenBan;
+    private javax.swing.JTextField txtBanThemTenBan;
     private javax.swing.JTextField txtCCCDThem;
     private javax.swing.JTextField txtCCCDXem;
     private javax.swing.JTextField txtDiaChiThem;
@@ -4120,13 +4205,13 @@ public class TraSua_QL extends javax.swing.JFrame {
             public int compare(String o1, String o2) {
                 return -o1.compareTo(o2);
             }
-
+            
         });
         for (String file : lstRow) {
             try {
                 String time = file.substring(0, file.indexOf("."));
                 model.addRow(new Object[]{file, spd2.format(spd.parse(time))});
-
+                
             } catch (ParseException ex) {
                 ex.printStackTrace();
             }

@@ -1,6 +1,7 @@
 package interfaceservices;
 
 import java.util.List;
+import viewmodel.QuanLyBanViewmodel;
 import viewmodel.TenBanViewModel;
 import viewmodel.defaultViewModel.BanViewModel;
 
@@ -9,7 +10,6 @@ import viewmodel.defaultViewModel.BanViewModel;
  * @author Doanh
  */
 public interface IBanService {
-
     boolean insert(BanViewModel vmBan);
 
     List<TenBanViewModel> getTang1();

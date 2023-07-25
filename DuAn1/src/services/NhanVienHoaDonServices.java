@@ -78,32 +78,36 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
                     listDSSP.add(b);
                 }
             }
-            MaGiamGiaDomainModel maGiamGia = (MaGiamGiaDomainModel) mapMaGiamGia.get(a.getMaVoucher());
             double tongThanhToan = 0;
             double tienGiamTheoMa = 0;
             double tienChuaGiam = 0;
+            double giamToiDa = 0;
+            int phanTramGiam = 0;
             for (ChiTietHoaDonDomainModel c : lstCTHD) {
                 if (a.getMaHoaDon() == c.getMaHoaDon()) {
                     tienChuaGiam += (c.getSoLuong() * c.getGia().doubleValue());
                 }
             }
-            double giamToiDa = maGiamGia.getGiamToiDa().doubleValue();
-            int phanTramGiam = maGiamGia.getPhanTramGiam();
-            
-            
-            tienGiamTheoMa = tienChuaGiam / 100 * phanTramGiam;
-         
-            if (tienGiamTheoMa <= giamToiDa) {
-                tongThanhToan =tienChuaGiam - tienGiamTheoMa +a.getDichVuPhatSinh().doubleValue();
-            } else {
-                tongThanhToan = tienChuaGiam-giamToiDa +a.getDichVuPhatSinh().doubleValue();
+            if (a.getMaVoucher() != 0) {
+                MaGiamGiaDomainModel maGiamGia = (MaGiamGiaDomainModel) mapMaGiamGia.get(a.getMaVoucher());
+
+                giamToiDa = maGiamGia.getGiamToiDa().doubleValue();
+                phanTramGiam = maGiamGia.getPhanTramGiam();
+
+                tienGiamTheoMa = tienChuaGiam / 100 * phanTramGiam;
             }
-         listNVHD.add(new NhanVienHoaDonViewModel(a.getMaHoaDon(),
-                 a.getMaVoucher(), a.getMaNhanVien()+"", tenBan, 
-                 tenNguoiTao, a.getThoiGian(), BigDecimal.valueOf(tongThanhToan),
-                 a.getDichVuPhatSinh(), phanTramGiam, giamToiDa,
-                 tienChuaGiam, a.getTrangThaiThanhToan(), a.getGhiChu(), listDSSP));
-              }
+
+            if (tienGiamTheoMa <= giamToiDa) {
+                tongThanhToan = tienChuaGiam - tienGiamTheoMa + a.getDichVuPhatSinh().doubleValue();
+            } else {
+                tongThanhToan = tienChuaGiam - giamToiDa + a.getDichVuPhatSinh().doubleValue();
+            }
+            listNVHD.add(new NhanVienHoaDonViewModel(a.getMaHoaDon(),
+                    a.getMaVoucher(), a.getMaNhanVien() + "", tenBan,
+                    tenNguoiTao, a.getThoiGian(), BigDecimal.valueOf(tongThanhToan),
+                    a.getDichVuPhatSinh(), phanTramGiam, giamToiDa,
+                    tienChuaGiam, a.getTrangThaiThanhToan(), a.getGhiChu(), listDSSP));
+        }
 
         return listNVHD;
     }

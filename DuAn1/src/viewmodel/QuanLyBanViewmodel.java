@@ -2,34 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package domainmodel;
+package viewmodel;
 
 /**
  *
  * @author ADMIN
  */
-public class BanDomainModel {
-
+public class QuanLyBanViewmodel {
     private int maBan;
     private String tenBan;
     private int tang;
-    private int trangThai;
 
-    public BanDomainModel() {
+    public QuanLyBanViewmodel() {
     }
 
-    public BanDomainModel(int maBan, String tenBan, int tang, int trangThai) {
+    public QuanLyBanViewmodel(int maBan, String tenBan, int tang) {
         this.maBan = maBan;
         this.tenBan = tenBan;
         this.tang = tang;
-        this.trangThai = trangThai;
-    }
-
-    public BanDomainModel(String tenBan, int tang, int trangThai) {
-
-        this.tenBan = tenBan;
-        this.tang = tang;
-        this.trangThai = trangThai;
     }
 
     public int getMaBan() {
@@ -55,13 +45,5 @@ public class BanDomainModel {
     public void setTang(int tang) {
         this.tang = tang;
     }
-
-    public int getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(int trangThai) {
-        this.trangThai = trangThai;
-    }
-
+    
 }

@@ -12,10 +12,14 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public interface IBanRepository extends DAO<String,BanDomainModel>{
+public interface IBanRepository extends DAO<String, BanDomainModel> {
+
     List<BanDomainModel> getList();
-    
-     List<Ban> getTang1();
-   
-    
+
+    Integer ThemBan(BanDomainModel ban);
+
+    Integer CapNhatBan(BanDomainModel ban);
+
+    List<Ban> getTang1();
+
 }
