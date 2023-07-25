@@ -183,8 +183,16 @@ public class DangNhap extends javax.swing.JFrame {
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         String maTaiKhoan = txtTaiKhoan.getText();
         String matKhau = txtMatKhau.getText();
-        TaiKhoanDomail taiKhoan = iTaiKhoanService.getTaiKhoanByMaTaiKhoanAndMatKhau(maTaiKhoan, matKhau);
 
+        if (maTaiKhoan.trim().equals("") || matKhau.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin đăng nhập");
+            return;
+        }
+        if (maTaiKhoan.contains(" ") || matKhau.contains(" ")) {
+            JOptionPane.showMessageDialog(this, "Tài khoản và mật khẩu không được chứa dấu cách");
+            return;
+        }
+        TaiKhoanDomail taiKhoan = iTaiKhoanService.getTaiKhoanByMaTaiKhoanAndMatKhau(maTaiKhoan, matKhau);
         if (taiKhoan == null) {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
             return;
