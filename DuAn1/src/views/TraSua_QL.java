@@ -255,7 +255,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
             return null;
         }
-// kiem tra sdt
+            // kiem tra sdt
         if (isSoDienThoaiExists(soDienThoai)) {
             return null;
         }
@@ -3214,7 +3214,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnTaiKhoan.setVisible(false);
         jpnBackupHeThong.setVisible(false);
         new HoTroKhachHang().setVisible(true);
-  
+
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
     private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked

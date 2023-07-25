@@ -53,7 +53,34 @@ public class EmailSender {
         }
         return null;
     }
+    public static String sendSupPort(String mailNhan, String email, String pass, String content) {
+      
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
 
+        Session session = Session.getInstance(props,
+                new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(email, pass);
+            }
+        });
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(email));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(mailNhan));
+            message.setSubject("Nội dung hỗ trợ");
+            message.setText(content);
+            Transport.send(message);
+            return content;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static String getSentCode() {
         return sentCode;
     }

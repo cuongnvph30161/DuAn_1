@@ -153,7 +153,6 @@ public class NhapMaBaoMat extends javax.swing.JFrame {
     private void btnTiepTucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTiepTucActionPerformed
         String ma = txtMaBaoMat.getText();
         CodeValidator codeValidator = new CodeValidator();
-        System.out.println("emailxb" + email);
         // Kiểm tra mã xác nhận có khớp với mã đã gửi đi hay không
         if (codeValidator.validateCode(ma)) {
             // Mã xác nhận hợp lệ

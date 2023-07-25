@@ -134,4 +134,10 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
         return iTaiKhoanRepository.isMaTaiKhoanTrung(maTk, maTaiKhoanHienTai);
     }
 
+    @Override
+    public String getEmailByMaTaiKhoan(String maTaiKhoan) {
+        return iTaiKhoanRepository.getEmailByMaTaiKhoan(maTaiKhoan);
+    }
+    
+
 }

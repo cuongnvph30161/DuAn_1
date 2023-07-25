@@ -277,7 +277,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
                 taiKhoanDomail.setMatKhau(matKhau);
                 taiKhoanDomail.setRole(role);
                 taiKhoanDomail.setTrangThai(trangThai);
-                System.out.println("repo matk"+" "+taiKhoanDomail);
+                System.out.println("repo matk" + " " + taiKhoanDomail);
                 return taiKhoanDomail;
             }
         } catch (Exception e) {
@@ -306,6 +306,25 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public String getEmailByMaTaiKhoan(String maTaiKhoan) {
+        try {
+            String query = "select Email from NhanVien\n"
+                    + "inner join TaiKhoan on NhanVien.MaNhanVien = TaiKhoan.MaNhanVien\n"
+                    + "where MaTaiKhoan =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, maTaiKhoan);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Email");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
