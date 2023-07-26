@@ -9,6 +9,7 @@ import jakarta.mail.Message;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 import jakarta.mail.Transport;
+import jakarta.mail.URLName;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
@@ -51,6 +52,13 @@ public class EmailSender {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+
+    // Phương thức lấy Access Token từ Refresh Token (Bạn cần tự triển khai phương thức này)
+    private static String getAccessToken(String clientId, String clientSecret, String refreshToken) {
+        // Triển khai mã lấy Access Token từ Refresh Token ở đây
         return null;
     }
 

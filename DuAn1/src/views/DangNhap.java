@@ -187,11 +187,11 @@ public class DangNhap extends javax.swing.JFrame {
         if (maTaiKhoan.trim().equals("") || matKhau.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin đăng nhập");
             return;
-        }
-        if (maTaiKhoan.contains(" ") || matKhau.contains(" ")) {
+        } else if (maTaiKhoan.contains(" ") || matKhau.contains(" ")) {
             JOptionPane.showMessageDialog(this, "Tài khoản và mật khẩu không được chứa dấu cách");
             return;
         }
+
         TaiKhoanDomail taiKhoan = iTaiKhoanService.getTaiKhoanByMaTaiKhoanAndMatKhau(maTaiKhoan, matKhau);
         if (taiKhoan == null) {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
@@ -235,8 +235,6 @@ public class DangNhap extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
         }
-
-
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
