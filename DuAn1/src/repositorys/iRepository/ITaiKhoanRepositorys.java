@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public interface ITaiKhoanRepositorys extends DAO<String,TaiKhoanDomail>{
+public interface ITaiKhoanRepositorys extends DAO<String, TaiKhoanDomail> {
 
     public TaiKhoanDomail getTaiKhoanByMaTaiKhoanAndMatKhau(String maTaiKhoan, String matKhau);
 
@@ -22,12 +22,18 @@ public interface ITaiKhoanRepositorys extends DAO<String,TaiKhoanDomail>{
     public String checkTaiKhoan(String maTaiKhoan);
 
     public boolean doiMatKhau(String matKhau, String maTaiKhoan);
+
     public String checkMatKhau(String maTaiKhoan);
+
     public boolean insertTaiKhoan(TaiKhoanDomail taiKhoanDomail);
-    public boolean updateTaiKhoan(String maTaiKhoan ,TaiKhoanDomail taiKhoanDomail);
+
+    public boolean updateTaiKhoan(String maTaiKhoan, TaiKhoanDomail taiKhoanDomail);
 //    public String getMaTaiKhoanByMaTaiKhoan(String maTaiKhoan);
 //    public int getMaNhanVienByMaNhanVien(int maNhanVien);
+
     public TaiKhoanDomail getTaiKhoanByMa(String maTK);
+
     public boolean isMaTaiKhoanTrung(String maTk, String maTaiKhoanHienTai);
-   public String getEmailByMaTaiKhoan(String maTaiKhoan);
+
+    public String getEmailByMaTaiKhoan(String maTaiKhoan);
 }
