@@ -138,6 +138,21 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
     public String getEmailByMaTaiKhoan(String maTaiKhoan) {
         return iTaiKhoanRepository.getEmailByMaTaiKhoan(maTaiKhoan);
     }
-    
+
+    @Override
+    public ArrayList<TaiKhoanViewModel> getListTaiKhoanByMa(String maTK) {
+        ArrayList<TaiKhoanDomail> listTaiKhoan = iTaiKhoanRepository.getListTaiKhoanByMa(maTK);
+        ArrayList<TaiKhoanViewModel> listTaiKhoanViewModel = new ArrayList<>();
+        for (TaiKhoanDomail taiKhoanDomail : listTaiKhoan) {
+            TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
+            taiKhoanViewModel.setMaTaiKhoan(taiKhoanDomail.getMaTaiKhoan());
+            taiKhoanViewModel.setMaNhanVien(taiKhoanDomail.getMaNhanVien());
+            taiKhoanViewModel.setMatKhau(taiKhoanDomail.getMatKhau());
+            taiKhoanViewModel.setRole(taiKhoanDomail.getRole());
+            taiKhoanViewModel.setTrangThai(taiKhoanDomail.getTrangThai());
+            listTaiKhoanViewModel.add(taiKhoanViewModel);
+        }
+        return listTaiKhoanViewModel;
+    }
 
 }

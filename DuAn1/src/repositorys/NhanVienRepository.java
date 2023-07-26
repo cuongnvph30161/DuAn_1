@@ -273,7 +273,7 @@ public class NhanVienRepository implements INhanVienRepository {
                 nhanVienDomainModel.setGhiChu(rs.getString("GhiChu"));
                 nhanVienDomainModel.setAnh(rs.getBlob("Anh"));
                 nhanVienDomainModel.setChucVu(rs.getString("ChucVu"));
-                System.out.println("repo nhan vien"+" "+nhanVienDomainModel);
+                System.out.println("repo nhan vien" + " " + nhanVienDomainModel);
             }
         } catch (Exception e) {
             return null;
@@ -286,9 +286,9 @@ public class NhanVienRepository implements INhanVienRepository {
     public ArrayList<NhanVienDomainModel> getNhanVienByTen(String ten) {
         ArrayList<NhanVienDomainModel> getList = new ArrayList<>();
         try {
-            String query = "select MaNhanVien ,HoVaTen,CCCD,SoDienThoai,Email,ChucVu from NhanVien where HoVaTen =?";
+            String query = "select MaNhanVien ,HoVaTen,CCCD,SoDienThoai,Email,ChucVu from NhanVien where HoVaTen LIKE ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, ten);
+            ps.setString(1, "%" + ten + "%"); // Truyền tham số vào câu truy vấn
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int maNhanVien = rs.getInt("MaNhanVien");
@@ -351,10 +351,10 @@ public class NhanVienRepository implements INhanVienRepository {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, cccd);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                
-                return true ;
-            }else{
+            if (rs.next()) {
+
+                return true;
+            } else {
                 return false;
             }
         } catch (Exception e) {
@@ -362,5 +362,4 @@ public class NhanVienRepository implements INhanVienRepository {
         }
     }
 
-  
 }

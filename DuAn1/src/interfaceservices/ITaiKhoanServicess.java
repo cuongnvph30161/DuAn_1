@@ -38,5 +38,9 @@ public interface ITaiKhoanServicess {
     public TaiKhoanViewModel getTaiKhoanByMa(String maTK);
 
     public boolean isMaTaiKhoanTrung(String maTk, String maTaiKhoanHienTai);
+
     public String getEmailByMaTaiKhoan(String maTaiKhoan);
+
+    public ArrayList<TaiKhoanViewModel> getListTaiKhoanByMa(String maTK);
+
 }

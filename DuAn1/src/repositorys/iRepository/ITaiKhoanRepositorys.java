@@ -36,4 +36,7 @@ public interface ITaiKhoanRepositorys extends DAO<String, TaiKhoanDomail> {
     public boolean isMaTaiKhoanTrung(String maTk, String maTaiKhoanHienTai);
 
     public String getEmailByMaTaiKhoan(String maTaiKhoan);
+
+    public ArrayList<TaiKhoanDomail> getListTaiKhoanByMa(String maTaiKhoan);
+
 }

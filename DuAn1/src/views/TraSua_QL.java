@@ -768,7 +768,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         cbbTrangThaiTaiKhoanThem = new javax.swing.JComboBox<>();
         btnThemTaiKhoan = new javax.swing.JButton();
         btnCleanTaiKhoan = new javax.swing.JButton();
-        jTextField11 = new javax.swing.JTextField();
+        txtTimKiemTaiKhoan = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
         tblTaiKhoanForm = new javax.swing.JTable();
         jpnBackupHeThong = new javax.swing.JPanel();
@@ -2925,6 +2925,17 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Thêm mới tài khoản", jPanel10);
 
+        txtTimKiemTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemTaiKhoanActionPerformed(evt);
+            }
+        });
+        txtTimKiemTaiKhoan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimKiemTaiKhoanKeyPressed(evt);
+            }
+        });
+
         tblTaiKhoanForm.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -2961,7 +2972,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(jpnTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtTimKiemTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(711, Short.MAX_VALUE))
         );
         jpnTaiKhoanLayout.setVerticalGroup(
@@ -2972,7 +2983,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jpnTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jpnTaiKhoanLayout.createSequentialGroup()
-                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTimKiemTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane8))
                     .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3938,6 +3949,20 @@ public class TraSua_QL extends javax.swing.JFrame {
         int index = tblBanBan.getSelectedRow();
         fillMaBan(index);
     }//GEN-LAST:event_tblBanBanMouseClicked
+
+    private void txtTimKiemTaiKhoanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemTaiKhoanKeyPressed
+         String searchMaTaiKhoan = txtTimKiemTaiKhoan.getText();
+        if (searchMaTaiKhoan.isEmpty()) {
+            loadTableTaiKhoan(iTaiKhoanServicess.getAll());
+        } else {
+            ArrayList<TaiKhoanViewModel> listTaiKhoan = iTaiKhoanServicess.getListTaiKhoanByMa(searchMaTaiKhoan);
+            loadTableTaiKhoan(listTaiKhoan);
+        }
+    }//GEN-LAST:event_txtTimKiemTaiKhoanKeyPressed
+
+    private void txtTimKiemTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemTaiKhoanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemTaiKhoanActionPerformed
     
     public void fillMaBan(int index) {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
@@ -4171,7 +4196,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -4255,6 +4279,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField txtNgaySinhXem;
     private javax.swing.JTextField txtSDTThem;
     private javax.swing.JTextField txtSDTXem;
+    private javax.swing.JTextField txtTimKiemTaiKhoan;
     private javax.swing.JTextField txtTimKiemTen;
     // End of variables declaration//GEN-END:variables
 

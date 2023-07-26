@@ -327,4 +327,33 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
         return null;
     }
 
+    @Override
+    public ArrayList<TaiKhoanDomail> getListTaiKhoanByMa(String maTK) {
+               ArrayList<TaiKhoanDomail> getList = new ArrayList<>();
+        try {
+            String query = "select * from TaiKhoan where MaTaiKhoan LIKE ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, "%" + maTK + "%"); // Truyền tham số vào câu truy vấn
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String maTaiKhoan = rs.getString("MaTaiKhoan");
+                int maNhanVien = rs.getInt("MaNhanVien");
+                String matKhau = rs.getString("MatKhau");
+                Role role = Role.valueOf(rs.getString("VaiTro"));
+                int trangThai = rs.getInt("TrangThai");
+                TaiKhoanDomail taiKhoanDomail = new TaiKhoanDomail();
+                taiKhoanDomail.setMaTaiKhoan(maTaiKhoan);
+                taiKhoanDomail.setMaNhanVien(maNhanVien);
+                taiKhoanDomail.setMatKhau(matKhau);
+                taiKhoanDomail.setRole(role);
+                taiKhoanDomail.setTrangThai(trangThai);
+                getList.add(taiKhoanDomail);
+            }
+            return getList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
