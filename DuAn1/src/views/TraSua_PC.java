@@ -22,6 +22,7 @@ import services.PhaCheHoaDonServices;
 import services.PhaCheLichSuServices;
 import services.SanPhamService;
 import utilities.PhaCheSanPhamJPanel;
+import utilities.Uhelper;
 import utilities.XImages;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
 import viewmodel.PhaCheLichSuViewModel;
@@ -481,6 +482,15 @@ public class TraSua_PC extends javax.swing.JFrame {
         jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png"))); // NOI18N
         jpnSanPham.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 50, 30, -1));
 
+        txtTimKiemSPPhaChe.setText("nhập tên sản phẩm...");
+        txtTimKiemSPPhaChe.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTimKiemSPPhaCheFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTimKiemSPPhaCheFocusLost(evt);
+            }
+        });
         txtTimKiemSPPhaChe.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTimKiemSPPhaCheKeyReleased(evt);
@@ -982,6 +992,25 @@ public class TraSua_PC extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtTimKiemSPPhaCheKeyReleased
+
+    private void txtTimKiemSPPhaCheFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemSPPhaCheFocusGained
+        // TODO add your handling code here:
+        //txtTimKiemSPPhaChe
+         if(txtTimKiemSPPhaChe.getText().equalsIgnoreCase("nhập tên sản phẩm...")){
+            txtTimKiemSPPhaChe.setText(null);
+            txtTimKiemSPPhaChe.requestFocus();
+            Uhelper.removePlayhoder(txtTimKiemSPPhaChe);
+            
+        }
+    }//GEN-LAST:event_txtTimKiemSPPhaCheFocusGained
+
+    private void txtTimKiemSPPhaCheFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemSPPhaCheFocusLost
+        // TODO add your handling code here:
+         if(txtTimKiemSPPhaChe.getText().length()==0){
+             Uhelper.adPlayhoder(txtTimKiemSPPhaChe);
+            txtTimKiemSPPhaChe.setText("nhập tên sản phẩm...");
+        }
+    }//GEN-LAST:event_txtTimKiemSPPhaCheFocusLost
 
     public void showGhiChu(int index) {
         txtlichsuGhiChu.setText(lst.get(index).getGhiChu());

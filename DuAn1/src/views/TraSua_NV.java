@@ -1632,7 +1632,7 @@ public class TraSua_NV extends javax.swing.JFrame {
                 lblTimKiemMouseClicked(evt);
             }
         });
-        jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 70, -1, 30));
+        jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 70, -1, 30));
 
         txtNhanVienNhapMaHD.setText("nhập mã nhân viên...");
         txtNhanVienNhapMaHD.addFocusListener(new java.awt.event.FocusAdapter() {
