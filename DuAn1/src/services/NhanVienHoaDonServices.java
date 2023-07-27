@@ -177,7 +177,7 @@ public class NhanVienHoaDonServices implements INhanVienHoaDonServices {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String thoiGian = a.getThoiGian() + "";
                 java.util.Date TG = df.parse(thoiGian);
-                if ((TG.compareTo(ngayTu) >= 0 && TG.compareTo(ngayDen) <= 0) || a.getTrangThai() == trangThai || a.getMaHoaDon() == maHoaDon) {
+                if ((TG.compareTo(ngayTu) >= 0 && TG.compareTo(ngayDen) <= 0) && a.getTrangThai() == trangThai && Integer.parseInt(a.getMaNguoiTao()) == maHoaDon) {
 
                     list.add(a);
 
