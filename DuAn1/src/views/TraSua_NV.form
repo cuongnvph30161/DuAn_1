@@ -2233,7 +2233,12 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNhanVienNhapMaHD">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="nh&#x1ead;p m&#xe3; nh&#xe2;n vi&#xea;n..."/>
+              </Properties>
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNhanVienNhapMaHDFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNhanVienNhapMaHDFocusLost"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNhanVienNhapMaHDActionPerformed"/>
               </Events>
               <Constraints>

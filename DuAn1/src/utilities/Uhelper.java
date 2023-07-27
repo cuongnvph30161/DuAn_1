@@ -57,14 +57,14 @@ public class Uhelper {
             return false;
         }
     }
-    public void adPlayhoder(JTextField jtex) {
+    public static void adPlayhoder(JTextField jtex) {
         Font font = jtex.getFont();
         font = font.deriveFont(Font.ITALIC);
         jtex.setFont(font);
         jtex.setForeground(Color.gray);
     }
 
-    public void removePlayhoder(JTextField jtex) {
+    public static void removePlayhoder(JTextField jtex) {
         Font font = jtex.getFont();
         font = font.deriveFont(Font.PLAIN|Font.BOLD);
         jtex.setFont(font);

@@ -1634,6 +1634,15 @@ public class TraSua_NV extends javax.swing.JFrame {
         });
         jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 70, -1, 30));
 
+        txtNhanVienNhapMaHD.setText("nhập mã nhân viên...");
+        txtNhanVienNhapMaHD.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNhanVienNhapMaHDFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNhanVienNhapMaHDFocusLost(evt);
+            }
+        });
         txtNhanVienNhapMaHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNhanVienNhapMaHDActionPerformed(evt);
@@ -1876,13 +1885,13 @@ public class TraSua_NV extends javax.swing.JFrame {
     private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimKiemMouseClicked
         // TODO add your handling code her
         try {
-            if (Uhelper.checkNullText(txtNhanVienNhapMaHD, "bạn chưa nhập mã hóa đơn")) {
+            if (Uhelper.checkNullText(txtNhanVienNhapMaHD, "bạn chưa nhập mã nhân viên")) {
                 return;
             } else {
                 try {
                     int maHD = Integer.parseInt(txtNhanVienNhapMaHD.getText());
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "mã hóa đơn phải là số, hãy đảm bảo mã hóa đơn không có khoảng trắng");
+                    JOptionPane.showMessageDialog(this, "mã nhân viên phải là số, hãy đảm bảo mã hóa đơn không có khoảng trắng");
                     txtNhanVienNhapMaHD.requestFocus();;
                     return;
                 }
@@ -2107,6 +2116,25 @@ public class TraSua_NV extends javax.swing.JFrame {
     private void txtNhanVienNhapMaHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNhanVienNhapMaHDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNhanVienNhapMaHDActionPerformed
+
+    private void txtNhanVienNhapMaHDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNhanVienNhapMaHDFocusGained
+        // TODO add your handling code here:
+        //txtNhanVienNhapMaHD
+         if(txtNhanVienNhapMaHD.getText().equalsIgnoreCase("nhập mã nhân viên...")){
+            txtNhanVienNhapMaHD.setText(null);
+            txtNhanVienNhapMaHD.requestFocus();
+            Uhelper.removePlayhoder(txtNhanVienNhapMaHD);
+            
+        }
+    }//GEN-LAST:event_txtNhanVienNhapMaHDFocusGained
+
+    private void txtNhanVienNhapMaHDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNhanVienNhapMaHDFocusLost
+        // TODO add your handling code here:
+         if(txtNhanVienNhapMaHD.getText().length()==0){
+             Uhelper.adPlayhoder(txtNhanVienNhapMaHD);
+            txtNhanVienNhapMaHD.setText("nhập mã nhân viên...");
+        }
+    }//GEN-LAST:event_txtNhanVienNhapMaHDFocusLost
     MouseListener mouseListener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
