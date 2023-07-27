@@ -224,9 +224,10 @@ public class TraSua_QL extends javax.swing.JFrame {
         String soDienThoai = txtSDTThem.getText();
         String ghiChu = txtGhiChuThem.getText();
         String nhanVienCu = iNhanVienService.getNhanVienByCCCD(cccd);
+        String soDienThoaiCu = iNhanVienService.getSoDienThoaiBySDT(soDienThoai);
         String chucVu = cbbChucVuNhanVienThem.getSelectedItem().toString();
         String trangThai = cbbTrangThaiNhanVienThem.getSelectedItem().toString();
-        
+
         // Lấy ảnh từ lblAnhNhanVien
         Icon icon = lblAnhNhanVien.getIcon();
         if (icon != null) {
@@ -239,12 +240,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
 
         // check rỗng 
-        if (hoVaTen.trim().equals("") || ngaySinh.trim().equals("") || diaChi.trim().equals("")||cccd.trim().equals("") || email.trim().equals("") || soDienThoai.trim().equals("")) {
+        if (hoVaTen.trim().equals("") || ngaySinh.trim().equals("") || diaChi.trim().equals("") || cccd.trim().equals("") || email.trim().equals("") || soDienThoai.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
         }
 
-        
         // Kiểm tra dấu cách ở đầu và cuối tên, CCCD và địa chỉ
         if (hoVaTen.startsWith(" ")) {
             JOptionPane.showMessageDialog(this, "Tên không được chứa dấu cách ở đầu");
@@ -272,7 +272,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         } else if (!isValidEmail(email)) {
             JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
             return null;
-        } else if (isSoDienThoaiExists(soDienThoai)) {
+        } else if (isSoDienThoaiExists(soDienThoai, false, soDienThoaiCu)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại. Vui lòng kiểm tra lại");
+            return null;
+        } else if (!isSoDienThoaiValid(soDienThoai)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải là số và thuộc trong khoảng 10 đến 11 số.");
             return null;
         } else if (isCCCDExists(cccd, false, nhanVienCu)) {
             JOptionPane.showMessageDialog(this, "CCCD đã tồn tại. Vui lòng kiểm tra lại.");
@@ -317,19 +321,37 @@ public class TraSua_QL extends javax.swing.JFrame {
         return false;
     }
 
-    public boolean isSoDienThoaiExists(String soDienThoai) {
-        if (soDienThoai.isEmpty() || !soDienThoai.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.");
+    public boolean isSoDienThoaiValid(String soDienThoai) {
+        if (soDienThoai.matches("\\d+") && (soDienThoai.length() == 10 || soDienThoai.length() == 11)) {
             return true;
-        }else if(){
-            
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isSoDienThoaiExists(String soDienThoai, boolean isUpdating, String soDienThoaiCu) {
+
+        if (isUpdating && soDienThoai.equals(soDienThoaiCu)) {
+            // Nếu số điện thoại mới không khác số điện thoại cũ, không cần kiểm tra và không báo lỗi
+            return false;
         }
 
-// Kiểm tra độ dài của số điện thoại là 10 hoặc 11 số
-        if (soDienThoai.length() != 10 && soDienThoai.length() != 11) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 hoặc 11 số.");
+        // Lấy danh sách số điện thoại hiện có từ cơ sở dữ liệu
+        Set<String> existingSDTs = new HashSet<>();
+        List<NhanVienViewModel> existingNhanViens = iNhanVienService.getAll();
+        for (NhanVienViewModel nv : existingNhanViens) {
+            existingSDTs.add(nv.getSoDienThoai());
+        }
+
+        // Kiểm tra xem số điện thoại mới có trong danh sách đã lấy được hay không
+        if (existingSDTs.contains(soDienThoai)) {
+            // Kiểm tra nếu đang thực hiện cập nhật (update) thì hiển thị thông báo
+            if (isUpdating) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại.");
+            }
             return true;
         }
+
         return false;
     }
 
@@ -397,67 +419,9 @@ public class TraSua_QL extends javax.swing.JFrame {
         String soDienThoai = txtSDTXem.getText();
         String ghiChu = txtGhiChuXem.getText();
         String chucVu = cbbChucVuNhanVienXem.getSelectedItem().toString();
-        // check rỗng 
-        if (hoVaTen.trim().equals(" ") || ngaySinh.trim().equals(" ") || cccd.trim().equals(" ") || email.trim().equals(" ") || soDienThoai.trim().equals(" ") || diaChi.trim().equals(" ")) {
-            JOptionPane.showMessageDialog(this, "Không được rỗng");
-            return null;
-        }
-        if (!cccd.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
-            return null;
-        }
-        // Kiểm tra dấu cách ở đầu và cuối tên, CCCD và địa chỉ
-        if (hoVaTen.startsWith(" ")) {
-            JOptionPane.showMessageDialog(this, "Tên không được chứa dấu cách ở đầu");
-            return null;
-        }
-
-        if (cccd.startsWith(" ")) {
-            JOptionPane.showMessageDialog(this, "CCCD không được chứa dấu cách ở đầu");
-            return null;
-        }
-
-        if (diaChi.startsWith(" ")) {
-            JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa dấu cách ở đầu");
-            return null;
-        }
-        // Lấy trạng thái từ ComboBox
-        String trangThai = cbbTrangThaiNhanVienXem.getSelectedItem().toString();
-        if (trangThai.equals("Đã nghỉ việc")) {
-            nhanVienViewModel.setTrangThai(0);
-        } else {
-            nhanVienViewModel.setTrangThai(1);
-        }
-
-        Set<String> existingEmails = new HashSet<>();
-        List<NhanVienViewModel> existingNhanViens = iNhanVienService.getAll();
-        for (NhanVienViewModel nv : existingNhanViens) {
-            existingEmails.add(nv.getEmail());
-        }
         NhanVienViewModel nhanVienCu = iNhanVienService.getNhanVienById(maNhanVienInt);
         String cccdCu = nhanVienCu.getCCCD();
-
-        if (!email.equals(nhanVienCu.getEmail()) && existingEmails.contains(email)) {
-            JOptionPane.showMessageDialog(this, "Email không được trùng.");
-            return null;
-        }
-
-        if (!isValidEmail(email)) {
-            JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
-            return null;
-        }
-        if (isCCCDExists(cccd, true, cccdCu)) {
-            return null;
-        }
-
-        try {
-            LocalDate localDate = LocalDate.parse(ngaySinh);
-            nhanVienViewModel.setNgaySinh(java.sql.Date.valueOf(localDate));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày sinh");
-            return null;
-        }
-
+        String soDienThoaiCu = nhanVienCu.getSoDienThoai();
         // Lấy ảnh từ lblAnhNhanVien
         Icon icon = lblAnhNhanVienSua.getIcon();
         if (icon != null) {
@@ -468,15 +432,71 @@ public class TraSua_QL extends javax.swing.JFrame {
             // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
             nhanVienViewModel.setAnh(null);
         }
-        if (isSoDienThoaiExists(soDienThoai)) {
+        // check rỗng 
+        if (hoVaTen.trim().equals("") || ngaySinh.trim().equals("") || cccd.trim().equals("") || email.trim().equals("") || soDienThoai.trim().equals("") || diaChi.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được rỗng");
+            return null;
+        } else if (hoVaTen.startsWith(" ")) {
+            JOptionPane.showMessageDialog(this, "Tên không được chứa dấu cách ở đầu");
             return null;
         }
-        nhanVienViewModel.setEmail(email);
-        nhanVienViewModel.setCCCD(cccd);
-        nhanVienViewModel.setChucVu(chucVu);
-        nhanVienViewModel.setSoDienThoai(soDienThoai);
         nhanVienViewModel.setHoVaTen(hoVaTen);
+
+        try {
+            LocalDate localDate = LocalDate.parse(ngaySinh);
+            nhanVienViewModel.setNgaySinh(java.sql.Date.valueOf(localDate));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày sinh");
+            return null;
+        }
+        if (diaChi.startsWith(" ")) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa dấu cách ở đầu");
+            return null;
+        }
         nhanVienViewModel.setDiaChi(diaChi);
+        if (cccd.startsWith(" ")) {
+            JOptionPane.showMessageDialog(this, "CCCD không được chứa dấu cách ở đầu");
+            return null;
+        } else if (!cccd.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
+            return null;
+        } else if (isCCCDExists(cccd, true, cccdCu)) {
+            return null;
+        }
+        nhanVienViewModel.setCCCD(cccd);
+        Set<String> existingEmails = new HashSet<>();
+        List<NhanVienViewModel> existingNhanViens = iNhanVienService.getAll();
+        for (NhanVienViewModel nv : existingNhanViens) {
+            existingEmails.add(nv.getEmail());
+        }
+
+        if (!email.equals(nhanVienCu.getEmail()) && existingEmails.contains(email)) {
+            JOptionPane.showMessageDialog(this, "Email không được trùng.");
+            return null;
+        } else if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
+            return null;
+        }
+
+        nhanVienViewModel.setEmail(email);
+
+        if (isSoDienThoaiExists(soDienThoai, true, soDienThoaiCu)) {
+            return null;
+        } else if (!isSoDienThoaiValid(soDienThoai)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải là số và thuộc trong khoảng 10 đến 11 số.");
+            return null;
+        }
+        nhanVienViewModel.setSoDienThoai(soDienThoai);
+
+        nhanVienViewModel.setChucVu(chucVu);
+
+        String trangThai = cbbTrangThaiNhanVienXem.getSelectedItem().toString();
+        if (trangThai.equals("Đã nghỉ việc")) {
+            nhanVienViewModel.setTrangThai(0);
+        } else {
+            nhanVienViewModel.setTrangThai(1);
+        }
+
         nhanVienViewModel.setGhiChu(ghiChu);
         return nhanVienViewModel;
     }

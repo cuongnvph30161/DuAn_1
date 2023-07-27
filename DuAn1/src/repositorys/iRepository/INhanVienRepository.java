@@ -35,4 +35,6 @@ public interface INhanVienRepository extends DAO<String, NhanVienDomainModel> {
 
     public boolean getNhanVienByCCCD(String cccd);
     
+    public String getSoDienThoaiBySDT(String sdt);
+    
 }

@@ -167,10 +167,15 @@ public class NhanVienService implements INhanVienService {
 
     @Override
     public String getNhanVienByCCCD(String cccd) {
-        if(iNhanVienRepository.getNhanVienByCCCD(cccd)){
+        if (iNhanVienRepository.getNhanVienByCCCD(cccd)) {
             return "CCCD đã tồn tại";
-        }else{
+        } else {
             return null;
         }
+    }
+
+    @Override
+    public String getSoDienThoaiBySDT(String sdt) {
+        return iNhanVienRepository.getSoDienThoaiBySDT(sdt);
     }
 }

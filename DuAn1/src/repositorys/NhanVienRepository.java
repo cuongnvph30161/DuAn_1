@@ -362,4 +362,21 @@ public class NhanVienRepository implements INhanVienRepository {
         }
     }
 
+    @Override
+    public String getSoDienThoaiBySDT(String sdt) {
+        try {
+            String query = "select SoDienThoai from NhanVien where SoDienThoai =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, sdt);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString(sdt);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

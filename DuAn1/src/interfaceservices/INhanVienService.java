@@ -32,4 +32,5 @@ public interface INhanVienService {
     public ArrayList<NhanVienViewModel> getNhanVienByTrangThai(int trangThai);
 
     public String getNhanVienByCCCD(String cccd);
+    public String getSoDienThoaiBySDT(String sdt);
 }
