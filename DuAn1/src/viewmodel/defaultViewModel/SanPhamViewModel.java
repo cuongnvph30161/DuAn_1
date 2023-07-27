@@ -69,4 +69,17 @@ public class SanPhamViewModel {
         this.anh = anh;
     }
 
+    public String getStatus() {
+        if (trangThai == 0) {
+            return "Hết hàng";
+        }
+        if (trangThai == 1) {
+            return "Còn hàng";
+        }
+        if (trangThai == 2) {
+            return "Ngừng kinh doanh";
+        }
+        return null;
+    }
+
 }

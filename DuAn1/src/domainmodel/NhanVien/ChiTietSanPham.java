@@ -13,14 +13,14 @@ import java.math.BigDecimal;
 public class ChiTietSanPham {
 
     private int maChiTietSanPham;
-    private int maSanPham;
+    private SanPham maSanPham;
     private String size;
     private BigDecimal gia;
 
     public ChiTietSanPham() {
     }
 
-    public ChiTietSanPham(int maChiTietSanPham, int maSanPham, String size, BigDecimal gia) {
+    public ChiTietSanPham(int maChiTietSanPham, SanPham maSanPham, String size, BigDecimal gia) {
         this.maChiTietSanPham = maChiTietSanPham;
         this.maSanPham = maSanPham;
         this.size = size;
@@ -35,11 +35,11 @@ public class ChiTietSanPham {
         this.maChiTietSanPham = maChiTietSanPham;
     }
 
-    public int getMaSanPham() {
+    public SanPham getMaSanPham() {
         return maSanPham;
     }
 
-    public void setMaSanPham(int maSanPham) {
+    public void setMaSanPham(SanPham maSanPham) {
         this.maSanPham = maSanPham;
     }
 
@@ -58,6 +58,5 @@ public class ChiTietSanPham {
     public void setGia(BigDecimal gia) {
         this.gia = gia;
     }
-    
 
 }

@@ -2,34 +2,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package viewmodel.defaultViewModel;
+package domainmodel.NhanVien;
 
-import java.math.BigDecimal;
 import java.sql.Blob;
 
 /**
  *
- * @author ADMIN
+ * @author Admin
  */
-public class ChiTietSanPhamViewModel {
+public class SanPham {
 
     private int maSanPham;
     private String tenSanPham;
     private int trangThai;
-    private String size;
-    private BigDecimal gia;
     private String motTa;
     private Blob anh;
 
-    public ChiTietSanPhamViewModel() {
+    public SanPham() {
     }
 
-    public ChiTietSanPhamViewModel(int maSanPham, String tenSanPham, int trangThai, String size, BigDecimal gia, String motTa, Blob anh) {
+    public SanPham(int maSanPham, String tenSanPham, int trangThai, String motTa, Blob anh) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         this.trangThai = trangThai;
-        this.size = size;
-        this.gia = gia;
         this.motTa = motTa;
         this.anh = anh;
     }
@@ -56,22 +51,6 @@ public class ChiTietSanPhamViewModel {
 
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public BigDecimal getGia() {
-        return gia;
-    }
-
-    public void setGia(BigDecimal gia) {
-        this.gia = gia;
     }
 
     public String getMotTa() {
