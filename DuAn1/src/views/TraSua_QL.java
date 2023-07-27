@@ -18,9 +18,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -89,8 +92,9 @@ public class TraSua_QL extends javax.swing.JFrame {
         ///////////////
         loadTableSanPham();
         clickCheckBox();
-        
+
     }
+
     private void loadTableSanPham() {
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
         DefaultTableModel tableModelSanPham = (DefaultTableModel) tblQuanLySanPham.getModel();
@@ -103,7 +107,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 spView.getMotTa()});
         }
     }
-      
+
     private void clickCheckBox() {
         String size = "";
 
@@ -118,13 +122,13 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
         }
     }
-        
+
     private static Icon resizeIcon(ImageIcon icon, int width, int height) {
         Image img = icon.getImage();
         Image resizedImage = img.getScaledInstance(263, 141, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
     }
-    
+
     public void cleanSanPham() {
         lblAnhSanPhamThem.setIcon(null);
         txtMaSanPhamThem.setText("");
@@ -135,16 +139,287 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtGiaSizeSThem.setText("");
         txtMoTaSanPhamThem.setText("");
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    public void CTSPMouclick() {
+        chkSizeSXem.setSelected(false);
+        chkSizeMXem.setSelected(false);
+        chkSizeLXem.setSelected(false);
+        txtGiaSizeSXem.setText("");
+        txtGiaSizeMXem.setText("");
+        txtGiaSizeLXem.setText("");
+        int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = (int) (tblQuanLySanPham.getValueAt(index, 0));
+        List<ChiTietSanPhamViewModel> listCTSPVM = iCTSPSe.getCTSPMouclick(maSanPham);
+        for (ChiTietSanPhamViewModel ctspVM : listCTSPVM) {
+            String size = ctspVM.getSize();
+            if (size.equals("S")) {
+                chkSizeSXem.setSelected(true);
+                txtGiaSizeSXem.setText(ctspVM.getGia() + "");
+
+            }
+            if (size.equals("M")) {
+                chkSizeMXem.setSelected(true);
+                txtGiaSizeMXem.setText(ctspVM.getGia() + "");
+
+            }
+            if (size.equals("L")) {
+                chkSizeLXem.setSelected(true);
+                txtGiaSizeLXem.setText(ctspVM.getGia() + "");
+
+            }
+
+        }
+    }
+
+    public void sanPhamMouclick() {
+        int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = (int) (tblQuanLySanPham.getValueAt(index, 0));
+        List<SanPhamViewModel> listSPVM = iCTSPSe.getSPMouclick(maSanPham);
+
+        for (SanPhamViewModel spVM : listSPVM) {
+            txtMaSanPhamXem.setText(spVM.getMaSanPham() + "");
+            txtTenSanPhamXem.setText(spVM.getTenSanPham());
+            int trangThai = spVM.getTrangThai();
+            if (trangThai == 0) {
+                cboTrangThaiSanPhamXem.setSelectedItem("Hết hàng");
+            }
+            if (trangThai == 1) {
+                cboTrangThaiSanPhamXem.setSelectedItem("Còn hàng");
+            }
+            if (trangThai == 2) {
+                cboTrangThaiSanPhamXem.setSelectedItem("Ngừng kinh doanh");
+            }
+
+            Blob anh = spVM.getAnh();
+            if (anh != null) {
+                try {
+                    BufferedImage img;
+                    // Đọc dữ liệu từ đối tượng Blob thành mảng byte
+                    byte[] pximg = anh.getBytes(1, (int) anh.length());
+                    InputStream in = new ByteArrayInputStream(pximg);
+                    try {
+                        img = ImageIO.read(in);
+                        ImageIcon sp = new ImageIcon(img);
+                        lblAnhSanPhamXem.setIcon(resizeIcon(sp, lblAnhSanPhamXem.getWidth(), lblAnhSanPhamXem.getHeight()));
+                    } catch (Exception e) {
+                    }
+
+                    // Chuyển đổi mảng byte thành ImageIcon
+                    // Thiết lập ImageIcon lên JLabel
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    // Xử lý lỗi khi đọc dữ liệu từ Blob
+                }
+            } else {
+                // Xử lý trường hợp đối tượng Blob là null hoặc không chứa dữ liệu ảnh
+                lblAnhSanPhamXem.setIcon(null);
+            }
+            txtMoTaSanPhamXem.setText(spVM.getMotTa());
+
+        }
+    }
+
+    private void themSP() {
+
+        int lastRow = tblQuanLySanPham.getRowCount() - 1; // Lấy chỉ số hàng cuối cùng        
+        int maSanPham = (int) (tblQuanLySanPham.getValueAt(lastRow, 0)) + 1;
+        String tenSanPham = txtTenSanPhamThem.getText();
+        String tt = cboTrangThaiSanPhamThem.getSelectedItem().toString();
+        int trangThai = -1;
+        if (tt.equals("Còn hàng")) {
+            trangThai = 1;
+        }
+        if (tt.equals("Hết hàng")) {
+            trangThai = 0;
+        }
+        if (tt.equals("Ngừng kinh doanh")) {
+            trangThai = 2;
+        }
+        String moTa = txtMoTaSanPhamThem.getText();
+
+        Icon icon = lblAnhSanPhamThem.getIcon();
+        Blob anh = null;
+        if (icon != null) {
+            byte[] imageData = getImageDataFromIcon(icon);
+            anh = createBlobFromImageData(imageData);
+
+        } else {
+            // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
+            anh = null;
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ảnh");
+            return;
+
+        }
+        if (tenSanPham.length() == 0 || moTa.length() == 0) {
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+            return;
+        }
+
+        SanPhamViewModel spVM = new SanPhamViewModel(maSanPham, tenSanPham, trangThai, moTa, anh);
+        iCTSPSe.insertSanPham(spVM);
+
+    }
+
+    private void themSizeCTSP() {
+        int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = (int) (tblQuanLySanPham.getValueAt(index, 0));
+        if (chkSizeSXem.isSelected()) {
+
+            BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "S") == false) {
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
+            }
+        }
+        if (chkSizeMXem.isSelected()) {
+
+            BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "M") == false) {
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
+            }
+        }
+        if (chkSizeLXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "L") == false) {
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
+            }
+        }
+
+    }
+
+    private void themCTSP() {
+        int lastRow = tblQuanLySanPham.getRowCount() - 1; // Lấy chỉ số hàng cuối cùng        
+        int maSanPham = (int) (tblQuanLySanPham.getValueAt(lastRow, 0)) + 1;
+        int maCTSP = 0;
+
+        if (chkSizeSThem.isSelected()) {
+
+            BigDecimal gia = new BigDecimal(txtGiaSizeSThem.getText());
+            ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
+
+            iCTSPSe.insertChiTietSP(ctspVM);
+
+        }
+        if (chkSizeMThem.isSelected()) {
+
+            BigDecimal gia = new BigDecimal(txtGiaSizeMThem.getText());
+            ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
+            iCTSPSe.insertChiTietSP(ctspVM);
+        }
+        if (chkSizeLThem.isSelected()) {
+
+            BigDecimal gia = new BigDecimal(txtGiaSizeLThem.getText());
+            ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
+
+            iCTSPSe.insertChiTietSP(ctspVM);
+        }
+
+        loadTableSanPham();
+
+    }
+
+    private boolean checkValidateCTSP() {
+        if (chkSizeMThem.isSelected()) {
+            if (txtGiaSizeMThem.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Giá sản phẩm size M không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+
+        }
+        if (chkSizeSThem.isSelected()) {
+            if (txtGiaSizeSThem.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Giá sản phẩm size S không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+
+        }
+        if (chkSizeLThem.isSelected()) {
+            if (txtGiaSizeLThem.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Giá sản phẩm size L không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    private void capNhatSanPham() {
+        int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = (int) tblQuanLySanPham.getValueAt(index, 0);
+        String tenSanPham = txtTenSanPhamXem.getText();
+        String tt = cboTrangThaiSanPhamXem.getSelectedItem().toString();
+        int trangThai = -1;
+        if (tt.equals("Còn hàng")) {
+            trangThai = 1;
+        }
+        if (tt.equals("Hết hàng")) {
+            trangThai = 0;
+        }
+        if (tt.equals("Ngừng kinh doanh")) {
+            trangThai = 2;
+        }
+        String moTa = txtMoTaSanPhamXem.getText();
+
+        Icon icon = lblAnhSanPhamXem.getIcon();
+        Blob anh = null;
+        if (icon != null) {
+            byte[] imageData = getImageDataFromIcon(icon);
+            anh = createBlobFromImageData(imageData);
+
+        } else {
+            // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
+            anh = null;
+
+        }
+        SanPhamViewModel spVM = new SanPhamViewModel(maSanPham, tenSanPham, trangThai, moTa, anh);
+        iCTSPSe.updateSanPham(spVM);
+
+    }
+
+    private void deleteCTSP() {
+        int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = (int) tblQuanLySanPham.getValueAt(index, 0);
+        if (chkSizeSXem.isSelected() == false) {
+            if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
+                iCTSPSe.deleteCTSP(maSanPham, "S");
+            }
+        }
+
+        if (chkSizeMXem.isSelected() == false) {
+            if (iCTSPSe.checkTonCTSP(maSanPham, "M") == true) {
+                iCTSPSe.deleteCTSP(maSanPham, "M");
+            }
+        }
+
+        if (chkSizeLXem.isSelected() == false) {
+            if (iCTSPSe.checkTonCTSP(maSanPham, "L") == true) {
+                iCTSPSe.deleteCTSP(maSanPham, "L");
+            }
+        }
+
+    }
+
+    private void updateGiaCTSP() {
+        int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = (int) tblQuanLySanPham.getValueAt(index, 0);
+        if (chkSizeSXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
+            String size = "S";
+            iCTSPSe.updateSizeCTSP(maSanPham, size, gia);
+        }
+        if (chkSizeMXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
+            String size = "M";
+            iCTSPSe.updateSizeCTSP(maSanPham, size, gia);
+        }
+        if (chkSizeLXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
+            String size = "L";
+            iCTSPSe.updateSizeCTSP(maSanPham, size, gia);
+        }
+    }
 
     public void loadComBoBoxTaiKhoanMaNhanVien(List<NhanVienViewModel> listNhanVienViewModels) {
         cbbMaNhanVienTaiKhoanThem.removeAllItems(); // Xóa tất cả các item cũ trong ComboBox
@@ -1468,13 +1743,17 @@ public class TraSua_QL extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblAnhSanPhamXem.setText("Hình ảnh");
         lblAnhSanPhamXem.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnChonAnhSanPhamXem.setBackground(new java.awt.Color(45, 132, 252));
         btnChonAnhSanPhamXem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnChonAnhSanPhamXem.setForeground(new java.awt.Color(255, 255, 255));
         btnChonAnhSanPhamXem.setText("Chọn ảnh");
+        btnChonAnhSanPhamXem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonAnhSanPhamXemActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Mã sản phẩm");
 
@@ -1498,6 +1777,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnCapNhatSanPham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCapNhatSanPham.setForeground(new java.awt.Color(255, 255, 255));
         btnCapNhatSanPham.setText("Cập nhật");
+        btnCapNhatSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatSanPhamActionPerformed(evt);
+            }
+        });
 
         txtMaSanPhamXem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
@@ -1507,7 +1791,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtGiaSizeMXem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        cboTrangThaiSanPhamXem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTrangThaiSanPhamXem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn hàng", "Hết hàng", "Ngừng kinh doanh" }));
 
         chkSizeSXem.setText("S");
 
@@ -1623,7 +1907,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         chkSizeMThem.setText("M");
 
-        cboTrangThaiSanPhamThem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTrangThaiSanPhamThem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn hàng", "Hết hàng", "Ngừng kinh doanh" }));
 
         jLabel18.setText("Giá size S");
 
@@ -1651,13 +1935,22 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnThemSanPham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnThemSanPham.setForeground(new java.awt.Color(255, 255, 255));
         btnThemSanPham.setText("Thêm");
+        btnThemSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemSanPhamActionPerformed(evt);
+            }
+        });
 
         btnChonAnhSanPhamThem.setBackground(new java.awt.Color(45, 132, 252));
         btnChonAnhSanPhamThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnChonAnhSanPhamThem.setForeground(new java.awt.Color(255, 255, 255));
         btnChonAnhSanPhamThem.setText("Chọn ảnh");
+        btnChonAnhSanPhamThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonAnhSanPhamThemActionPerformed(evt);
+            }
+        });
 
-        lblAnhSanPhamThem.setText("Hình ảnh");
         lblAnhSanPhamThem.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txtGiaSizeSThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
@@ -1668,7 +1961,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         chkSizeLThem.setText("L");
 
-        jLabel24.setText("Giá size M");
+        jLabel24.setText("Giá size L");
 
         txtGiaSizeLThem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
@@ -1676,6 +1969,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1780,6 +2078,12 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Thêm sản phẩm", jPanel3);
 
+        txtTimKiemSanPham.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemSanPhamKeyReleased(evt);
+            }
+        });
+
         tblQuanLySanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1797,6 +2101,11 @@ public class TraSua_QL extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblQuanLySanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblQuanLySanPhamMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblQuanLySanPham);
@@ -4082,6 +4391,117 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void txtTimKiemTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemTaiKhoanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemTaiKhoanActionPerformed
+
+    private void tblQuanLySanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanLySanPhamMouseClicked
+        sanPhamMouclick();
+        CTSPMouclick();
+    }//GEN-LAST:event_tblQuanLySanPhamMouseClicked
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        cleanSanPham();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnChonAnhSanPhamXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhSanPhamXemActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String filePath = selectedFile.getAbsolutePath();
+
+            // Tạo ImageIcon từ đường dẫn tệp tin ảnh
+            ImageIcon imageIcon = new ImageIcon(filePath);
+
+            // Lấy kích thước của JLabel
+            int labelWidth = lblAnhSanPhamXem.getWidth();
+            int labelHeight = lblAnhSanPhamXem.getHeight();
+
+            // Lấy Image từ ImageIcon
+            Image image = imageIcon.getImage();
+
+            // Thay đổi kích thước của ảnh để khớp với kích thước của JLabel
+            Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+            // Tạo ImageIcon mới từ ảnh đã được thay đổi kích thước
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+            // Thiết lập ImageIcon mới cho JLabel
+            lblAnhSanPhamXem.setIcon(scaledIcon);
+        }
+    }//GEN-LAST:event_btnChonAnhSanPhamXemActionPerformed
+
+    private void btnCapNhatSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatSanPhamActionPerformed
+        capNhatSanPham();
+        themSizeCTSP();
+        deleteCTSP();
+        updateGiaCTSP();
+        loadTableSanPham();
+        JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+    }//GEN-LAST:event_btnCapNhatSanPhamActionPerformed
+
+    private void btnChonAnhSanPhamThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhSanPhamThemActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String filePath = selectedFile.getAbsolutePath();
+
+            // Tạo ImageIcon từ đường dẫn tệp tin ảnh
+            ImageIcon imageIcon = new ImageIcon(filePath);
+
+            // Lấy kích thước của JLabel
+            int labelWidth = lblAnhSanPhamThem.getWidth();
+            int labelHeight = lblAnhSanPhamThem.getHeight();
+
+            // Lấy Image từ ImageIcon
+            Image image = imageIcon.getImage();
+
+            // Thay đổi kích thước của ảnh để khớp với kích thước của JLabel
+            Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+            // Tạo ImageIcon mới từ ảnh đã được thay đổi kích thước
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+            // Thiết lập ImageIcon mới cho JLabel
+            lblAnhSanPhamThem.setIcon(scaledIcon);
+        }
+    }//GEN-LAST:event_btnChonAnhSanPhamThemActionPerformed
+
+    private void txtTimKiemSanPhamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemSanPhamKeyReleased
+        SanPhamViewModel ctsp = new SanPhamViewModel();
+        String searchTen = txtTimKiemSanPham.getText();
+        ArrayList<SanPhamViewModel> listSPVM = iCTSPSe.getSanPhamByTen(searchTen);
+        DefaultTableModel tableModelSanPham = (DefaultTableModel) tblQuanLySanPham.getModel();
+        tableModelSanPham.setRowCount(0);
+        for (SanPhamViewModel spView : listSPVM) {
+            tableModelSanPham.addRow(new Object[]{
+                spView.getMaSanPham(),
+                spView.getTenSanPham(),
+                spView.getStatus(),
+                spView.getMotTa()});
+            System.out.println(spView.getTenSanPham());
+
+        }
+        if (listSPVM.isEmpty()) {
+            tblQuanLySanPham.removeAll();
+        }
+    }//GEN-LAST:event_txtTimKiemSanPhamKeyReleased
+
+    private void btnThemSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSanPhamActionPerformed
+        themSP();
+        if (checkValidateCTSP()) {
+            themCTSP();
+        }
+    }//GEN-LAST:event_btnThemSanPhamActionPerformed
 
     public void fillMaBan(int index) {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
