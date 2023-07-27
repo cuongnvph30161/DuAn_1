@@ -1,5 +1,6 @@
-﻿USE master
-GO
+go
+﻿use [master]
+go
 DROP DATABASE if exists ToTo
 GO
 CREATE DATABASE ToTo
@@ -146,12 +147,12 @@ VALUES
 (N'Trà sữa ô long',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua o long.jpg', single_blob) as T)),
 (N'Trà sữa panda',0,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
 go
-select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'Tra%'
+select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'%'
 --nạp dữ liệu bảng mã giảm giá
-INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,HanSuDung,MaNguoiTao,TrangThai)
-VALUES (24,1,40.4,'2022-06-06',1001,1),
-(20,1,30.4,'2022-06-06',1001,1),
-(10,1,20.4,'2022-06-06',1001,1)
+INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,NgayBatDau,NgayKetThuc,MaNguoiTao,SoLuong)
+VALUES (20,1,40000.4,'2022-06-06','2022-06-06',1001,100),
+(20,1,300000.4,'2022-06-06','2024-06-06',1001,10),
+(10,1,20000.4,'2022-06-06','2025-06-06',1001,1000)
 go
 
 --nạp dữ liệu bảng bàn
@@ -166,9 +167,9 @@ go
 
 --nạp dữ liệu hóa đơn
 INSERT INTO HoaDon
-VALUES(1000,1001,GETDATE(),0,1,1000,N'ít đường',33.3),
-(1001,1001,GETDATE(),1,0,1000,N'nhiều đường',33.3),
-(1002,1001,GETDATE(),1,0,1000,N'nhiều đá',33.3)
+VALUES(1000,1001,GETDATE(),0,1,1000000,N'ít đường',33.3),
+(1001,1001,GETDATE(),1,0,1000007,N'nhiều đường',33.3),
+(1002,1001,GETDATE(),1,0,1000014,N'nhiều đá',33.3)
 
 
 go
