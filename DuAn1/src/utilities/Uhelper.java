@@ -1,5 +1,6 @@
 package utilities;
-
+import java.awt.Color;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -55,6 +56,19 @@ public class Uhelper {
         } else {
             return false;
         }
+    }
+    public void adPlayhoder(JTextField jtex) {
+        Font font = jtex.getFont();
+        font = font.deriveFont(Font.ITALIC);
+        jtex.setFont(font);
+        jtex.setForeground(Color.gray);
+    }
+
+    public void removePlayhoder(JTextField jtex) {
+        Font font = jtex.getFont();
+        font = font.deriveFont(Font.PLAIN|Font.BOLD);
+        jtex.setFont(font);
+        jtex.setForeground(Color.black);
     }
 
 }
