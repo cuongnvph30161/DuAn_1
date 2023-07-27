@@ -17,21 +17,23 @@ public class MaGiamGiaDomainModel {
     private int phanTramGiam;
     private int donToiThieu;
     private BigDecimal giamToiDa;
-    private Date hanSuDung;
+    private Date NgayBatDau;
+    private Date NgayKetThuc;
     private int maNguoiTao;
-    private int trangThai;
+    private int SoLuong;
 
     public MaGiamGiaDomainModel() {
     }
 
-    public MaGiamGiaDomainModel(int maVoucher, int phanTramGiam, int donToiThieu, BigDecimal giamToiDa, Date hanSuDung, int maNguoiTao, int trangThai) {
+    public MaGiamGiaDomainModel(int maVoucher, int phanTramGiam, int donToiThieu, BigDecimal giamToiDa, Date NgayBatDau, Date NgayKetThuc, int maNguoiTao, int SoLuong) {
         this.maVoucher = maVoucher;
         this.phanTramGiam = phanTramGiam;
         this.donToiThieu = donToiThieu;
         this.giamToiDa = giamToiDa;
-        this.hanSuDung = hanSuDung;
+        this.NgayBatDau = NgayBatDau;
+        this.NgayKetThuc = NgayKetThuc;
         this.maNguoiTao = maNguoiTao;
-        this.trangThai = trangThai;
+        this.SoLuong = SoLuong;
     }
 
     public int getMaVoucher() {
@@ -66,14 +68,6 @@ public class MaGiamGiaDomainModel {
         this.giamToiDa = giamToiDa;
     }
 
-    public Date getHanSuDung() {
-        return hanSuDung;
-    }
-
-    public void setHanSuDung(Date hanSuDung) {
-        this.hanSuDung = hanSuDung;
-    }
-
     public int getMaNguoiTao() {
         return maNguoiTao;
     }
@@ -82,12 +76,28 @@ public class MaGiamGiaDomainModel {
         this.maNguoiTao = maNguoiTao;
     }
 
-    public int getTrangThai() {
-        return trangThai;
+    public Date getNgayBatDau() {
+        return NgayBatDau;
     }
 
-    public void setTrangThai(int trangThai) {
-        this.trangThai = trangThai;
+    public void setNgayBatDau(Date NgayBatDau) {
+        this.NgayBatDau = NgayBatDau;
+    }
+
+    public Date getNgayKetThuc() {
+        return NgayKetThuc;
+    }
+
+    public void setNgayKetThuc(Date NgayKetThuc) {
+        this.NgayKetThuc = NgayKetThuc;
+    }
+
+    public int getSoLuong() {
+        return SoLuong;
+    }
+
+    public void setSoLuong(int SoLuong) {
+        this.SoLuong = SoLuong;
     }
 
 }

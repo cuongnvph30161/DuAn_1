@@ -1,5 +1,5 @@
 go
-﻿use [master]
+USE master
 go
 DROP DATABASE if exists ToTo
 GO
@@ -154,7 +154,6 @@ VALUES (20,1,40000.4,'2022-06-06','2022-06-06',1001,100),
 (20,1,300000.4,'2022-06-06','2024-06-06',1001,10),
 (10,1,20000.4,'2022-06-06','2025-06-06',1001,1000)
 go
-
 --nạp dữ liệu bảng bàn
 INSERT INTO Ban(TenBan,Tang,TrangThai)
 VALUES (N'1',5,0),
