@@ -1634,6 +1634,8 @@ public class TraSua_NV extends javax.swing.JFrame {
         });
         jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 70, -1, 30));
 
+        txtNhanVienNhapMaHD.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        txtNhanVienNhapMaHD.setForeground(new java.awt.Color(128, 128, 128));
         txtNhanVienNhapMaHD.setText("nhập mã nhân viên...");
         txtNhanVienNhapMaHD.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {

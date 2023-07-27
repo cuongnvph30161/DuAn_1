@@ -482,6 +482,8 @@ public class TraSua_PC extends javax.swing.JFrame {
         jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png"))); // NOI18N
         jpnSanPham.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 50, 30, -1));
 
+        txtTimKiemSPPhaChe.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        txtTimKiemSPPhaChe.setForeground(new java.awt.Color(128, 128, 128));
         txtTimKiemSPPhaChe.setText("nhập tên sản phẩm...");
         txtTimKiemSPPhaChe.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {

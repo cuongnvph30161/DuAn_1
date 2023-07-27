@@ -2234,6 +2234,12 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtNhanVienNhapMaHD">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="2"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="80" green="80" red="80" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="nh&#x1ead;p m&#xe3; nh&#xe2;n vi&#xea;n..."/>
               </Properties>
               <Events>
