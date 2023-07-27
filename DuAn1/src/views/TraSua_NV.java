@@ -1626,13 +1626,16 @@ public class TraSua_NV extends javax.swing.JFrame {
         jLabel13.setText("HÓA ĐƠN");
         jpnHoaDon1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
+        lblTimKiem.setForeground(new java.awt.Color(255, 255, 255));
+        lblTimKiem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png"))); // NOI18N
+        lblTimKiem.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 51), 1, true));
         lblTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblTimKiemMouseClicked(evt);
             }
         });
-        jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 70, -1, 30));
+        jpnHoaDon1.add(lblTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 70, 30, 30));
 
         txtNhanVienNhapMaHD.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txtNhanVienNhapMaHD.setForeground(new java.awt.Color(128, 128, 128));
@@ -1650,7 +1653,7 @@ public class TraSua_NV extends javax.swing.JFrame {
                 txtNhanVienNhapMaHDActionPerformed(evt);
             }
         });
-        jpnHoaDon1.add(txtNhanVienNhapMaHD, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 890, 30));
+        jpnHoaDon1.add(txtNhanVienNhapMaHD, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 860, 30));
 
         tblNhanVienHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
