@@ -39,4 +39,5 @@ public interface ITaiKhoanRepositorys extends DAO<String, TaiKhoanDomail> {
 
     public ArrayList<TaiKhoanDomail> getListTaiKhoanByMa(String maTaiKhoan);
 
+    public String getMaNhanVienByMaTaiKhoan(String maTaiKhoan);
 }

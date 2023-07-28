@@ -43,4 +43,5 @@ public interface ITaiKhoanServicess {
 
     public ArrayList<TaiKhoanViewModel> getListTaiKhoanByMa(String maTK);
 
+    public String getMaNhanVienByMa(String maTaiKhoan);
 }

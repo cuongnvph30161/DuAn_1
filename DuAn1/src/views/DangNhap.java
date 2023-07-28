@@ -8,6 +8,7 @@ import domainmodel.TaiKhoanDomail;
 import interfaceservices.ITaiKhoanServicess;
 import javax.swing.JOptionPane;
 import services.TaiKhoanServicess;
+import utilities.Uhelper;
 import utilities.XImages;
 
 /**
@@ -97,8 +98,18 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel7.setText("Tài Khoản");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
-        txtTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtTaiKhoan.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        txtTaiKhoan.setForeground(new java.awt.Color(128, 128, 128));
+        txtTaiKhoan.setText("tên tài khoản...");
         txtTaiKhoan.setBorder(null);
+        txtTaiKhoan.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTaiKhoanFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTaiKhoanFocusLost(evt);
+            }
+        });
         txtTaiKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtTaiKhoanMouseClicked(evt);
@@ -143,8 +154,19 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel14.setText("_________________________________________________________");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 280, -1));
 
-        txtMatKhau.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtMatKhau.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        txtMatKhau.setForeground(new java.awt.Color(128, 128, 128));
+        txtMatKhau.setText("mật khẩu...");
         txtMatKhau.setBorder(null);
+        txtMatKhau.setEchoChar('\u0000');
+        txtMatKhau.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMatKhauFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtMatKhauFocusLost(evt);
+            }
+        });
         jPanel1.add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 152, 240, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 330, 340));
@@ -180,6 +202,7 @@ public class DangNhap extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTaiKhoanActionPerformed
 
+    
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         String maTaiKhoan = txtTaiKhoan.getText();
         String matKhau = txtMatKhau.getText();
@@ -241,6 +264,43 @@ public class DangNhap extends javax.swing.JFrame {
         new QuenMatKhau().setVisible(true);
         dispose();
     }//GEN-LAST:event_lblQuenMatKhauMouseClicked
+
+    private void txtTaiKhoanFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTaiKhoanFocusGained
+        // TODO add your handling code here:
+        if (txtTaiKhoan.getText().equalsIgnoreCase("tên tài khoản...")) {
+            txtTaiKhoan.setText(null);
+            txtTaiKhoan.requestFocus();
+            Uhelper.removePlayhoder(txtTaiKhoan);
+        }
+    }//GEN-LAST:event_txtTaiKhoanFocusGained
+
+    private void txtTaiKhoanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTaiKhoanFocusLost
+        // TODO add your handling code here:
+        if(txtTaiKhoan.getText().length()==0){
+            Uhelper.adPlayhoder(txtTaiKhoan);
+            txtTaiKhoan.setText("tên tài khoản...");
+        }
+    }//GEN-LAST:event_txtTaiKhoanFocusLost
+
+    private void txtMatKhauFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMatKhauFocusGained
+        // TODO add your handling code here:
+        if(txtMatKhau.getText().equalsIgnoreCase("mật khẩu...")){
+            txtMatKhau.setText(null);
+            txtMatKhau.requestFocus();
+            txtMatKhau.setEchoChar('\u2022');
+            Uhelper.removePlayhoder(txtMatKhau);
+        }
+    }//GEN-LAST:event_txtMatKhauFocusGained
+
+    private void txtMatKhauFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMatKhauFocusLost
+        // TODO add your handling code here:
+         if(txtMatKhau.getText().length()==0){
+            Uhelper.adPlayhoder(txtMatKhau);
+            txtMatKhau.setText("mật khẩu...");
+            txtMatKhau.setEchoChar('\u0000');
+            
+        }
+    }//GEN-LAST:event_txtMatKhauFocusLost
 
     /**
      * @param args the command line arguments

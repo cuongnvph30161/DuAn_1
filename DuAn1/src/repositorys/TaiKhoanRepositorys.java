@@ -329,7 +329,7 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
 
     @Override
     public ArrayList<TaiKhoanDomail> getListTaiKhoanByMa(String maTK) {
-               ArrayList<TaiKhoanDomail> getList = new ArrayList<>();
+        ArrayList<TaiKhoanDomail> getList = new ArrayList<>();
         try {
             String query = "select * from TaiKhoan where MaTaiKhoan LIKE ?";
             PreparedStatement ps = connection.prepareStatement(query);
@@ -354,6 +354,22 @@ public class TaiKhoanRepositorys implements ITaiKhoanRepositorys {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public String getMaNhanVienByMaTaiKhoan(String maTaiKhoan) {
+        try {
+            String query = " select MaNhanVien from TaiKhoan where MaTaiKhoan =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, maTaiKhoan);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("MaNhanVien");
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
     }
 
 }

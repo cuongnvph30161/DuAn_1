@@ -155,4 +155,9 @@ public class TaiKhoanServicess implements ITaiKhoanServicess {
         return listTaiKhoanViewModel;
     }
 
+    @Override
+    public String getMaNhanVienByMa(String maTaiKhoan) {
+        return iTaiKhoanRepository.getMaNhanVienByMaTaiKhoan(maTaiKhoan);
+    }
+
 }

@@ -42,24 +42,22 @@ TrangThai INT NOT NULL,
 MoTa NVARCHAR(200),
 Anh VARBINARY(MAX)
 );
-
 GO
 
+
 CREATE TABLE MaGiamGia(
-MaVoucher INT IDENTITY(1000000, 7) PRIMARY KEY,
-PhanTramGiam INT NOT NULL DEFAULT 100,
-HoaDonToiThieu INT NOT NULL  DEFAULT 0,
-GiamToiDa DECIMAL(19,4) NOT NULL  DEFAULT 100000,
-SoLuong INT NOT NULL DEFAULT 1,
+MaVoucher INT IDENTITY(80293992,949) PRIMARY KEY,
+PhanTramGiam INT NOT NULL ,
+HoaDonToiThieu INT NOT NULL  ,
+GiamToiDa DECIMAL(19,4) NOT NULL ,
+SoLuong INT NOT NULL ,
 MaNguoiTao INT NOT NULL,
 NgayBatDau Date NOT NULL DEFAULT GETDATE(),
 NgayKetThuc Date NOT NULL,
-
 FOREIGN KEY (MaNguoiTao) REFERENCES NhanVien(MaNhanVien)
 );
-
-
 GO
+
 
 CREATE TABLE Ban(
 MaBan INT IDENTITY(1000, 1) PRIMARY KEY,
@@ -159,19 +157,15 @@ INSERT INTO Ban(TenBan,Tang,TrangThai)
 VALUES (N'1',5,0),
 	   (N'2',5,1),
 	   (N'3',5,0)
-
-
-
 go
 
 --nạp dữ liệu hóa đơn
 INSERT INTO HoaDon
-VALUES(1000,1001,GETDATE(),0,1,1000000,N'ít đường',33.3),
-(1001,1001,GETDATE(),1,0,1000007,N'nhiều đường',33.3),
-(1002,1001,GETDATE(),1,0,1000014,N'nhiều đá',33.3)
-
-
+VALUES(1000,1001,GETDATE(),0,1,80293992,N'ít đường',33.3),
+(1001,1001,GETDATE(),1,0,80294941,N'nhiều đường',33.3),
+(1002,1001,GETDATE(),1,0,80295890,N'nhiều đá',33.3)
 go
+
 --nạp dữ liệu bàn-hóa đơn
 INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
 VALUES(1000,1000),
@@ -190,6 +184,7 @@ VALUES(1000,1000,4,44.5),
 (1001,1000,4,44.5),
 (1002,1000,5,44.5),
 (1002,1001,3,44.5)
+go
 
 -- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
 --1 .NhanVien

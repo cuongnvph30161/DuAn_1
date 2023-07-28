@@ -4,7 +4,9 @@
  */
 package interfaceservices;
 
+import java.util.ArrayList;
 import javax.swing.JTextField;
+import viewmodel.MaGiamGiaViewModel;
 
 /**
  *
@@ -15,4 +17,6 @@ public interface IMaGiamGiaService {
     boolean checkMaGiamGia(JTextField a);
 
     Integer phanTramGiamGia(Integer b);
+    public ArrayList<MaGiamGiaViewModel> getListMaGiamGia();
+    public String  insertMaGiamGia(MaGiamGiaViewModel maGiamGiaViewModel);
 }

@@ -8,6 +8,7 @@ import domainmodel.NhanVienDomainModel;
 import domainmodel.Role;
 import interfaceservices.IBanService;
 import interfaceservices.IChiTietSanPhamService;
+import interfaceservices.IMaGiamGiaService;
 import java.sql.Blob; // Thêm dòng này vào đầu tệp Java
 import interfaceservices.INhanVienService;
 import interfaceservices.IQuanLyBanServices;
@@ -43,6 +44,7 @@ import java.time.LocalDate;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -54,9 +56,11 @@ import repositorys.NhanVienRepository;
 import repositorys.iRepository.INhanVienRepository;
 import services.BanService;
 import services.ChiTietSanPhamService;
+import services.MaGiamGiaService;
 import services.QuanLyBanServices;
 import utilities.DBackUpAndRestore;
 import utilities.Uhelper;
+import viewmodel.MaGiamGiaViewModel;
 import viewmodel.QuanLyBanViewmodel;
 import viewmodel.defaultViewModel.ChiTietSanPhamViewModel;
 import viewmodel.defaultViewModel.SanPhamViewModel;
@@ -68,6 +72,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     public IQuanLyBanServices ibanServices = new QuanLyBanServices();
     public ITaiKhoanServicess iTaiKhoanServicess = new TaiKhoanServicess();
     public INhanVienService iNhanVienService = new NhanVienService();
+    public IMaGiamGiaService iMaGiamGiaService = new MaGiamGiaService();
     private String maTaiKhoan;
     /////////////////////////////
     public IChiTietSanPhamService iCTSPSe = new ChiTietSanPhamService();
@@ -92,7 +97,97 @@ public class TraSua_QL extends javax.swing.JFrame {
         ///////////////
         loadTableSanPham();
         clickCheckBox();
+        loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
 
+    }
+
+    public boolean isNumeric(String str) {
+        return str != null && str.matches("-?\\d+");
+    }
+
+    public MaGiamGiaViewModel getDataMaGiamGia() {
+
+        MaGiamGiaViewModel maGiamGiaViewModel = new MaGiamGiaViewModel();
+        String maNhanVien = iTaiKhoanServicess.getMaNhanVienByMa(maTaiKhoan);
+
+        String phanTramGiam = txtPhanTramGiam.getText();
+
+        String hoaDonToiThieu = txtHoaDonToiThieu.getText();
+
+        String giamToiDa = txtGiamToiDa.getText();
+
+        String soLuong = txtSoLuong.getText();
+
+        String ngayKetThuc = txtNgayKetThuc.getText();
+
+        if (phanTramGiam.trim().equals("") || hoaDonToiThieu.trim().equals("") || giamToiDa.trim().equals("") || soLuong.trim().equals("") || ngayKetThuc.trim().equals("") || maNhanVien.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được rỗng");
+            return null;
+        }
+        if (!isNumeric(maNhanVien) || !isNumeric(phanTramGiam) || !isNumeric(hoaDonToiThieu) || !isNumeric(soLuong) || !isNumeric(giamToiDa)) {
+            JOptionPane.showMessageDialog(this, "Các trường dữ liệu phải là số");
+            return null;
+        }
+
+        int maNhanVienInt = Integer.parseInt(maNhanVien);
+        System.out.println("maNhanVien" + " " + maNhanVienInt);
+        int phanTramGiamInt = Integer.parseInt(phanTramGiam);
+        int hoaDonToiThieuInt = Integer.parseInt(hoaDonToiThieu);
+        BigDecimal giamToiDaBigDecimal = new BigDecimal(giamToiDa);
+        int soLuongInt = Integer.parseInt(soLuong);
+
+        if (phanTramGiamInt <= 0 || phanTramGiamInt > 100) {
+            JOptionPane.showMessageDialog(this, "Phần trăm giảm phải thuộc trong khoảng (0,100]");
+            return null;
+        } else if (hoaDonToiThieuInt <= 0) {
+            JOptionPane.showMessageDialog(this, "Hoá đơn tối thiểu phải >0");
+            return null;
+        } else if (giamToiDaBigDecimal.compareTo(BigDecimal.ZERO) <= 0) {
+            JOptionPane.showMessageDialog(this, "Giảm tối đa phải >0");
+            return null;
+        } else if (soLuongInt <= 0) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải >0");
+            return null;
+        }
+
+        maGiamGiaViewModel.setPhanTramGiam(phanTramGiamInt);
+        maGiamGiaViewModel.setDonToiThieu(hoaDonToiThieuInt);
+        maGiamGiaViewModel.setGiamToiDa(giamToiDaBigDecimal);
+        maGiamGiaViewModel.setSoLuong(soLuongInt);
+
+        try {
+            LocalDate ngayKetThucLocalDate = LocalDate.parse(ngayKetThuc);
+            LocalDate currentDate = LocalDate.now();
+
+            if (ngayKetThucLocalDate.isBefore(currentDate)) {
+                JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn hoặc bằng ngày hiện tại");
+                return null; // Hoặc làm xử lý phù hợp tùy trường hợp
+            }
+
+            maGiamGiaViewModel.setNgayKetThuc(java.sql.Date.valueOf(ngayKetThucLocalDate));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày kết thúc");
+            return null;
+        }
+
+        maGiamGiaViewModel.setMaNguoiTao(maNhanVienInt);
+
+        return maGiamGiaViewModel;
+    }
+
+    public void loadTableVorCher(ArrayList<MaGiamGiaViewModel> list) {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tblVorCherFrom.getModel();
+        defaultTableModel.setRowCount(0);
+        int stt = 1;
+        for (MaGiamGiaViewModel maGiamGiaViewModel : list) {
+            defaultTableModel.addRow(new Object[]{
+                stt++, maGiamGiaViewModel.getMaVoucher(), maGiamGiaViewModel.getPhanTramGiam(),
+                maGiamGiaViewModel.getDonToiThieu(), maGiamGiaViewModel.getGiamToiDa(),
+                maGiamGiaViewModel.getSoLuong(), maGiamGiaViewModel.getNgayBatDau(),
+                maGiamGiaViewModel.getNgayKetThuc(), maGiamGiaViewModel.getMaNguoiTao(),
+                maGiamGiaViewModel.getHoTen()
+            });
+        }
     }
 
     private void loadTableSanPham() {
@@ -1046,22 +1141,22 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel61 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
         jLabel63 = new javax.swing.JLabel();
-        jLabel64 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        lblMaSanPham30 = new javax.swing.JTextField();
-        lblMaSanPham31 = new javax.swing.JTextField();
-        lblMaSanPham32 = new javax.swing.JTextField();
-        lblMaSanPham33 = new javax.swing.JTextField();
-        lblMaSanPham34 = new javax.swing.JTextField();
-        lblMaSanPham35 = new javax.swing.JTextField();
+        btnThuHoi = new javax.swing.JButton();
+        txtMaVorCher = new javax.swing.JTextField();
+        txtPhanTramGiam = new javax.swing.JTextField();
+        txtHoaDonToiThieu = new javax.swing.JTextField();
+        txtGiamToiDa = new javax.swing.JTextField();
+        txtSoLuong = new javax.swing.JTextField();
+        btnTaoMoi = new javax.swing.JButton();
         jLabel100 = new javax.swing.JLabel();
-        jLabel108 = new javax.swing.JLabel();
-        lblMaSanPham36 = new javax.swing.JTextField();
-        lblMaSanPham37 = new javax.swing.JTextField();
-        jButton11 = new javax.swing.JButton();
+        txtNgayBatDau = new javax.swing.JTextField();
+        jLabel109 = new javax.swing.JLabel();
+        txtMaNguoiTao = new javax.swing.JTextField();
+        jLabel110 = new javax.swing.JLabel();
+        txtNgayKetThuc = new javax.swing.JTextField();
         jTextField10 = new javax.swing.JTextField();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tblVorCherFrom = new javax.swing.JTable();
         jLabel58 = new javax.swing.JLabel();
         jComboBox4 = new javax.swing.JComboBox<>();
         jpnTaiKhoan = new javax.swing.JPanel();
@@ -2687,62 +2782,70 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel59.setText("Mã voucher");
         jPanel7.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 21, -1, -1));
 
-        jLabel60.setText("Tỉ lệ voucher(%)");
+        jLabel60.setText("Phần trăm giảm(%)");
         jPanel7.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 57, -1, -1));
 
-        jLabel61.setText("Hóa đơn tối thi:");
-        jPanel7.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 93, 85, -1));
+        jLabel61.setText("Hóa đơn tối thiểu:");
+        jPanel7.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 93, 100, -1));
 
-        jLabel62.setText("Giảm tối đa");
+        jLabel62.setText("Giảm tối đa:");
         jPanel7.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 129, 85, -1));
 
-        jLabel63.setText("Ngày bắt đầu");
+        jLabel63.setText("Số lượng:");
         jPanel7.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 165, 85, -1));
 
-        jLabel64.setText("Số lượng");
-        jPanel7.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 85, -1));
+        btnThuHoi.setBackground(new java.awt.Color(45, 132, 252));
+        btnThuHoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThuHoi.setForeground(new java.awt.Color(255, 255, 255));
+        btnThuHoi.setText("Thu hồi");
+        jPanel7.add(btnThuHoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, -1, -1));
 
-        jButton10.setBackground(new java.awt.Color(45, 132, 252));
-        jButton10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setText("Thu hồi");
-        jPanel7.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, -1, -1));
+        txtMaVorCher.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtMaVorCher.setEnabled(false);
+        jPanel7.add(txtMaVorCher, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 21, 202, -1));
 
-        lblMaSanPham30.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        jPanel7.add(lblMaSanPham30, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 21, 202, -1));
+        txtPhanTramGiam.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        jPanel7.add(txtPhanTramGiam, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 57, 202, -1));
 
-        lblMaSanPham31.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        jPanel7.add(lblMaSanPham31, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 57, 202, -1));
+        txtHoaDonToiThieu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        jPanel7.add(txtHoaDonToiThieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 93, 202, -1));
 
-        lblMaSanPham32.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        jPanel7.add(lblMaSanPham32, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 93, 202, -1));
+        txtGiamToiDa.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        jPanel7.add(txtGiamToiDa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 129, 202, -1));
 
-        lblMaSanPham33.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        jPanel7.add(lblMaSanPham33, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 129, 202, -1));
+        txtSoLuong.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        jPanel7.add(txtSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 165, 202, -1));
 
-        lblMaSanPham34.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        jPanel7.add(lblMaSanPham34, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 165, 202, -1));
+        btnTaoMoi.setBackground(new java.awt.Color(45, 132, 252));
+        btnTaoMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTaoMoi.setForeground(new java.awt.Color(255, 255, 255));
+        btnTaoMoi.setText("Tạo mới");
+        btnTaoMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTaoMoiActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnTaoMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, -1, -1));
 
-        lblMaSanPham35.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        jPanel7.add(lblMaSanPham35, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 202, -1));
+        jLabel100.setText("Ngày bắt đầu:");
+        jPanel7.add(jLabel100, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 85, -1));
 
-        jLabel100.setText("Ngày kết thúc");
-        jPanel7.add(jLabel100, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 201, 85, -1));
+        txtNgayBatDau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtNgayBatDau.setEnabled(false);
+        jPanel7.add(txtNgayBatDau, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 202, -1));
 
-        jLabel108.setText("Ngày kết thúc");
-        jPanel7.add(jLabel108, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 201, 85, -1));
+        jLabel109.setText("Mã người tạo");
+        jPanel7.add(jLabel109, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 85, -1));
 
-        lblMaSanPham36.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        jPanel7.add(lblMaSanPham36, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 201, 202, -1));
+        txtMaNguoiTao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtMaNguoiTao.setEnabled(false);
+        jPanel7.add(txtMaNguoiTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 202, -1));
 
-        lblMaSanPham37.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        jPanel7.add(lblMaSanPham37, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 201, 202, -1));
+        jLabel110.setText("Ngày kết thúc:");
+        jPanel7.add(jLabel110, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 85, -1));
 
-        jButton11.setBackground(new java.awt.Color(45, 132, 252));
-        jButton11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setText("Tạo mới");
-        jPanel7.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, -1, -1));
+        txtNgayKetThuc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        jPanel7.add(txtNgayKetThuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 202, -1));
 
         jTabbedPane2.addTab("Tạo voucher", jPanel7);
 
@@ -2763,33 +2866,30 @@ public class TraSua_QL extends javax.swing.JFrame {
         );
 
         jpnVoucher.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 38, 430, 730));
-        jpnVoucher.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 38, 800, 33));
+        jpnVoucher.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 38, 990, 33));
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tblVorCherFrom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "STT", "Mã voucher", "Tỉ lệ giảm", "Hóa đơn tối thiểu", "Giảm tối đa", "Ngày bắt đầu", "Ngày kết thúc"
+                "STT", "Mã voucher", "Phần trăm giảm", "Hóa đơn tối thiểu", "Giảm tối đa", "Số lượng", "Ngày bắt đầu", "Ngày kết thúc", "Mã người tạo", "Tên người tạo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane7.setViewportView(jTable4);
+        jScrollPane7.setViewportView(tblVorCherFrom);
 
-        jpnVoucher.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 89, 800, 680));
+        jpnVoucher.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 990, 680));
 
         jLabel58.setText("Thời gian tạo");
-        jpnVoucher.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(1095, 13, -1, -1));
+        jpnVoucher.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 10, -1, -1));
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
@@ -2797,7 +2897,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 jComboBox4ActionPerformed(evt);
             }
         });
-        jpnVoucher.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1198, 10, -1, -1));
+        jpnVoucher.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 10, -1, -1));
 
         jpnTong.add(jpnVoucher, "card6");
 
@@ -4152,6 +4252,22 @@ public class TraSua_QL extends javax.swing.JFrame {
             themCTSP();
         }
     }//GEN-LAST:event_btnThemSanPhamActionPerformed
+    public void cleanMaGiamGia() {
+        txtPhanTramGiam.setText("");
+        txtHoaDonToiThieu.setText("");
+        txtGiamToiDa.setText("");
+        txtSoLuong.setText("");
+        txtNgayKetThuc.setText("");
+    }
+    private void btnTaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoMoiActionPerformed
+        MaGiamGiaViewModel maGiamGiaViewModel = getDataMaGiamGia();
+        if (maGiamGiaViewModel == null) {
+            return;
+        }
+        JOptionPane.showMessageDialog(this, iMaGiamGiaService.insertMaGiamGia(maGiamGiaViewModel));
+        loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
+//        cleanMaGiamGia();
+    }//GEN-LAST:event_btnTaoMoiActionPerformed
 
     public void fillMaBan(int index) {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
@@ -4190,9 +4306,11 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnKhieuNaiHoTro;
+    private javax.swing.JButton btnTaoMoi;
     private javax.swing.JButton btnThemNhanVien;
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton btnThemTaiKhoan;
+    private javax.swing.JButton btnThuHoi;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienXem;
     private javax.swing.JComboBox<String> cbbMaNhanVienTaiKhoanSua;
@@ -4215,8 +4333,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkSizeMXem;
     private javax.swing.JCheckBox chkSizeSThem;
     private javax.swing.JCheckBox chkSizeSXem;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JCheckBox jCheckBox13;
@@ -4237,8 +4353,9 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel105;
     private javax.swing.JLabel jLabel106;
     private javax.swing.JLabel jLabel107;
-    private javax.swing.JLabel jLabel108;
+    private javax.swing.JLabel jLabel109;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel110;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -4281,7 +4398,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
@@ -4358,7 +4474,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane6;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField7;
@@ -4382,14 +4497,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField lblMaSanPham10;
     private javax.swing.JTextField lblMaSanPham11;
     private javax.swing.JTextField lblMaSanPham3;
-    private javax.swing.JTextField lblMaSanPham30;
-    private javax.swing.JTextField lblMaSanPham31;
-    private javax.swing.JTextField lblMaSanPham32;
-    private javax.swing.JTextField lblMaSanPham33;
-    private javax.swing.JTextField lblMaSanPham34;
-    private javax.swing.JTextField lblMaSanPham35;
-    private javax.swing.JTextField lblMaSanPham36;
-    private javax.swing.JTextField lblMaSanPham37;
     private javax.swing.JTextField lblMaSanPham4;
     private javax.swing.JTextField lblMaSanPham5;
     private javax.swing.JTextField lblMaSanPham6;
@@ -4409,6 +4516,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTable tblNhanVienForm;
     private javax.swing.JTable tblQuanLySanPham;
     private javax.swing.JTable tblTaiKhoanForm;
+    private javax.swing.JTable tblVorCherFrom;
     private javax.swing.JTextField txtBanCapNhatTenBan;
     private javax.swing.JTextField txtBanThemTenBan;
     private javax.swing.JTextField txtCCCDThem;
@@ -4425,22 +4533,30 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField txtGiaSizeMXem;
     private javax.swing.JTextField txtGiaSizeSThem;
     private javax.swing.JTextField txtGiaSizeSXem;
+    private javax.swing.JTextField txtGiamToiDa;
     private javax.swing.JTextField txtHoVaTenThem;
     private javax.swing.JTextField txtHoVaTenXem;
+    private javax.swing.JTextField txtHoaDonToiThieu;
+    private javax.swing.JTextField txtMaNguoiTao;
     private javax.swing.JTextField txtMaNhanVienThem;
     private javax.swing.JTextField txtMaNhanVienXem;
     private javax.swing.JTextField txtMaSanPhamThem;
     private javax.swing.JTextField txtMaSanPhamXem;
     private javax.swing.JTextField txtMaTaiKhoanSua;
     private javax.swing.JTextField txtMaTaiKhoanThem;
+    private javax.swing.JTextField txtMaVorCher;
     private javax.swing.JTextField txtMatKhauTaiKhoanSua;
     private javax.swing.JTextField txtMatKhauThem;
     private javax.swing.JTextArea txtMoTaSanPhamThem;
     private javax.swing.JTextArea txtMoTaSanPhamXem;
+    private javax.swing.JTextField txtNgayBatDau;
+    private javax.swing.JTextField txtNgayKetThuc;
     private javax.swing.JTextField txtNgaySinhThem;
     private javax.swing.JTextField txtNgaySinhXem;
+    private javax.swing.JTextField txtPhanTramGiam;
     private javax.swing.JTextField txtSDTThem;
     private javax.swing.JTextField txtSDTXem;
+    private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSanPhamThem;
     private javax.swing.JTextField txtTenSanPhamXem;
     private javax.swing.JTextField txtTimKiemSanPham;

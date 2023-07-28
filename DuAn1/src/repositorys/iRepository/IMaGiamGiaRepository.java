@@ -6,6 +6,8 @@ package repositorys.iRepository;
 
 //import interfacerepositorys.*;
 import domainmodel.MaGiamGiaDomainModel;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JTextField;
 
@@ -15,9 +17,13 @@ import javax.swing.JTextField;
  */
 public interface IMaGiamGiaRepository {
 
-    List<MaGiamGiaDomainModel> getList();
+    public List<MaGiamGiaDomainModel> getList();
 
     boolean checkMaGiamGia(JTextField a);
 
     Integer phanTramGiamGia(Integer b);
+
+    public ArrayList<MaGiamGiaDomainModel> getListMaGiamGia();
+
+    public boolean insertMaGiamGia(MaGiamGiaDomainModel maGiamGiaDomainModel);
 }
