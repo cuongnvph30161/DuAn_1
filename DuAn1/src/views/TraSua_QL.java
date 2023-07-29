@@ -577,8 +577,14 @@ public class TraSua_QL extends javax.swing.JFrame {
         BanBanModel.setRowCount(0);
         listBanviewmodel = ibanServices.getListBan();
         for (QuanLyBanViewmodel a : listBanviewmodel) {
+            String tang;
+            if (a.getTang() == 0) {
+                tang = "Mang về";
+            } else {
+                tang = a.getTang() + "";
+            }
             BanBanModel.addRow(new Object[]{
-                a.getMaBan(), a.getTenBan(), a.getTang()
+                a.getMaBan(), a.getTenBan(), tang
             });
         }
 
@@ -2481,7 +2487,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jLabel103.setText("Tầng ");
 
-        cboTimBanTheoTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cboTimBanTheoTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "Mang về" }));
         cboTimBanTheoTang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboTimBanTheoTangActionPerformed(evt);
@@ -4141,16 +4147,26 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private void cboTimBanTheoTangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimBanTheoTangActionPerformed
         // TODO add your handling code here:
-        int tang = Integer.parseInt(cboTimBanTheoTang.getSelectedItem() + "");
-        BanBanModel.setRowCount(0);
-        for (QuanLyBanViewmodel a : listBanviewmodel) {
-            if (a.getTang() == tang) {
-                BanBanModel.addRow(new Object[]{
-                    a.getMaBan(), a.getTenBan(), a.getTang()
-                });
+        if (cboTimBanTheoTang.getSelectedItem().equals("Mang về")) {
+            BanBanModel.setRowCount(0);
+            for (QuanLyBanViewmodel a : listBanviewmodel) {
+                if (a.getTang() == 0) {
+                    BanBanModel.addRow(new Object[]{
+                        a.getMaBan(), a.getTenBan(), "Mang về"
+                    });
+                }
+            }
+        } else {
+            int tang = Integer.parseInt(cboTimBanTheoTang.getSelectedItem() + "");
+            BanBanModel.setRowCount(0);
+            for (QuanLyBanViewmodel a : listBanviewmodel) {
+                if (a.getTang() == tang) {
+                    BanBanModel.addRow(new Object[]{
+                        a.getMaBan(), a.getTenBan(), a.getTang()
+                    });
+                }
             }
         }
-
     }//GEN-LAST:event_cboTimBanTheoTangActionPerformed
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
