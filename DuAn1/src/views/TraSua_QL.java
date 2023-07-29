@@ -42,6 +42,7 @@ import javax.sql.rowset.serial.SerialBlob;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeParseException;
@@ -50,6 +51,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.text.html.HTML;
 import repositorys.NhanVienRepository;
@@ -552,41 +554,96 @@ public class TraSua_QL extends javax.swing.JFrame {
         String matKhau = txtMatKhauThem.getText();
         String selectedRole = cbbTrangThaiVaiTroThem.getSelectedItem().toString();
         Role role = Role.valueOf(selectedRole);
-
         String trangThai = cbbTrangThaiTaiKhoanThem.getSelectedItem().toString();
 
         if (maTaiKhoan1.trim().equals("") || matKhau.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
         }
-
         if (!checkMaTaiKhoan(maTaiKhoan1)) {
             return null;
         }
-
-        if (!checkMaNhanVien(maNhanVienInt)) {
+        if (hasDiacritics(maTaiKhoan1)) {
+            JOptionPane.showMessageDialog(this, "Mã tài khoản không được có dấu");
             return null;
         }
-
-        if (matKhau.contains(" ")) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
-            return null;
-        } else if (maTaiKhoan1.contains(" ")) {
+        if (maTaiKhoan1.contains(" ")) {
             JOptionPane.showMessageDialog(this, "Mã tài khoản không được có dấu cách");
             return null;
         }
+        if (!checkMaNhanVien(maNhanVienInt)) {
+            return null;
+        }
+        if (matKhau.contains(" ")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
+            return null;
+        }
+        if (hasDiacritics(matKhau)) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu");
+            return null;
+        }
 
+        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
+        taiKhoanViewModel.setMaNhanVien(maNhanVienInt);
+        taiKhoanViewModel.setMatKhau(matKhau);
+        taiKhoanViewModel.setRole(role);
         if (trangThai.equals("Đã Khoá")) {
             taiKhoanViewModel.setTrangThai(0);
         } else {
             taiKhoanViewModel.setTrangThai(1);
         }
 
-        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
-        taiKhoanViewModel.setMatKhau(matKhau);
-        taiKhoanViewModel.setMaNhanVien(maNhanVienInt);
-        taiKhoanViewModel.setRole(role);
         return taiKhoanViewModel;
+    }
+
+    public TaiKhoanViewModel getDataTaiKhoanCapNhat() {
+        TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
+
+        String maNhanVienString = cbbMaNhanVienTaiKhoanSua.getSelectedItem().toString();
+        String matKhau = txtMatKhauTaiKhoanSua.getText();
+        String vaiTro = cbbVaiTroTaiKhoanSua.getSelectedItem().toString();
+        Role role = Role.valueOf(vaiTro); // Chuyển đổi chuỗi thành kiểu Role
+        int maNhanVien = Integer.parseInt(maNhanVienString);
+        String maTaiKhoan1 = txtMaTaiKhoanSua.getText();
+        TaiKhoanViewModel taiKhoanCu = iTaiKhoanServicess.getTaiKhoanByMa(maTaiKhoan1);
+        int maNhanVienCu = taiKhoanCu.getMaNhanVien();
+        String trangThai = cbbTrangThaiTaiKhoanSua.getSelectedItem().toString();
+
+        if (maTaiKhoan1.trim().equals("") || matKhau.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được rỗng");
+            return null;
+        }
+// Ở phần cập nhật không thay đổi được tên tài khoản
+// check trùng mã nhân viên
+        if (isMNVExists(maNhanVien, true, maNhanVienCu)) {
+            return null;
+        }
+
+        if (matKhau.contains(" ")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
+            return null;
+        }
+        if (hasDiacritics(matKhau)) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu");
+            return null;
+        }
+
+        taiKhoanViewModel.setMaNhanVien(maNhanVien);
+        taiKhoanViewModel.setMatKhau(matKhau);
+        taiKhoanViewModel.setRole(role);
+        taiKhoanViewModel.setTrangThai(trangThai.equals("Không Khoá") ? 1 : 0);
+
+        return taiKhoanViewModel;
+    }
+
+    public static boolean hasDiacritics(String input) {
+        // Loại bỏ các dấu diacritical marks trong chuỗi
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        // Tạo mẫu Regex để tìm các ký tự dấu diacritical marks
+        Pattern diacriticsPattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+
+        // Kiểm tra xem chuỗi có khớp với mẫu Regex hay không
+        return diacriticsPattern.matcher(normalized).find();
     }
 
     public boolean checkMaNhanVien(int maNhanVien) {
@@ -3985,36 +4042,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
 
         return false;
-    }
-
-    public TaiKhoanViewModel getDataTaiKhoanCapNhat() {
-        TaiKhoanViewModel taiKhoanViewModel = new TaiKhoanViewModel();
-        String maNhanVienString = cbbMaNhanVienTaiKhoanSua.getSelectedItem().toString();
-        String matKhau = txtMatKhauTaiKhoanSua.getText();
-        String vaiTro = cbbVaiTroTaiKhoanSua.getSelectedItem().toString();
-        Role role = Role.valueOf(vaiTro); // Chuyển đổi chuỗi thành kiểu Role
-        int maNhanVien = Integer.parseInt(maNhanVienString);
-        String maTaiKhoan1 = txtMaTaiKhoanSua.getText();
-
-        TaiKhoanViewModel taiKhoanCu = iTaiKhoanServicess.getTaiKhoanByMa(maTaiKhoan1);
-        int maNhanVienCu = taiKhoanCu.getMaNhanVien();
-        if (isMNVExists(maNhanVien, true, maNhanVienCu)) {
-            return null;
-        }
-        if (matKhau.contains(" ")) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
-            return null;
-        }
-        taiKhoanViewModel.setMaTaiKhoan(maTaiKhoan1);
-
-        taiKhoanViewModel.setMaNhanVien(maNhanVien);
-        taiKhoanViewModel.setMatKhau(matKhau);
-        String trangThai = cbbTrangThaiTaiKhoanSua.getSelectedItem().toString();
-        taiKhoanViewModel.setTrangThai(trangThai.equals("Không Khoá") ? 1 : 0);
-
-        taiKhoanViewModel.setRole(role);
-
-        return taiKhoanViewModel;
     }
 
 
