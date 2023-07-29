@@ -26,4 +26,5 @@ public interface IMaGiamGiaRepository {
     public ArrayList<MaGiamGiaDomainModel> getListMaGiamGia();
 
     public boolean insertMaGiamGia(MaGiamGiaDomainModel maGiamGiaDomainModel);
+    public boolean updateMaGiamGiaSoLuong(int maVouCher ,MaGiamGiaDomainModel maGiamGiaDomainModel);
 }

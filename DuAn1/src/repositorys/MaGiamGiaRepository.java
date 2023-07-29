@@ -134,5 +134,20 @@ public class MaGiamGiaRepository implements IMaGiamGiaRepository {
         }
     }
 
+    @Override
+    public boolean updateMaGiamGiaSoLuong(int maVouCher, MaGiamGiaDomainModel maGiamGiaDomainModel) {
+        try {
+            String query = "update MaGiamGia set SoLuong = ? where MaVoucher = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, maGiamGiaDomainModel.getSoLuong());
+            ps.setInt(2, maVouCher);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
