@@ -72,7 +72,7 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
 
         sp.setAnh(spVM.getAnh());
         sp.setMotTa(spVM.getMotTa());
-        sp.setMaSanPham(spVM.getMaSanPham());
+//        sp.setMaSanPham(spVM.getMaSanPham());
         sp.setTenSanPham(spVM.getTenSanPham());
         sp.setTrangThai(spVM.getTrangThai());
 
@@ -167,5 +167,6 @@ public class ChiTietSanPhamService implements IChiTietSanPhamService {
     public boolean updateSizeCTSP(int maSanPham, String size, BigDecimal gia) {
         return ctspRepo.updateSizeCTSP(maSanPham, size, gia);
     }
+
 
 }

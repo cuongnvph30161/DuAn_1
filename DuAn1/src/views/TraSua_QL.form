@@ -2530,12 +2530,13 @@
             <Component class="javax.swing.JComboBox" name="cboTimBanTheoTang">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
+                  <StringArray count="6">
                     <StringItem index="0" value="1"/>
                     <StringItem index="1" value="2"/>
                     <StringItem index="2" value="3"/>
                     <StringItem index="3" value="4"/>
                     <StringItem index="4" value="5"/>
+                    <StringItem index="5" value="Mang v&#x1ec1;"/>
                   </StringArray>
                 </Property>
               </Properties>

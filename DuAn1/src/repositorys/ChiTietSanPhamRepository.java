@@ -26,7 +26,7 @@ import utilities.JdbcHelper;
  */
 public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
-    static Connection con = null;
+     static Connection con = null;
 
     @Override
     public List<ChiTietSanPhamDomainModel> getList() {
@@ -186,13 +186,13 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     @Override
     public boolean insertSanPham(SanPham sp) {
         try {
-            String query1 = "insert into SanPham(MaSanPham,TenSanPham,TrangThai,MoTa,Anh) values(?,?,?,?,?)";
+            String query1 = "insert into SanPham(TenSanPham,TrangThai,MoTa,Anh) values(?,?,?,?)";
             PreparedStatement ps1 = con.prepareStatement(query1);
-            ps1.setInt(1, sp.getMaSanPham());
-            ps1.setString(2, sp.getTenSanPham());
-            ps1.setInt(3, sp.getTrangThai());
-            ps1.setString(4, sp.getMotTa());
-            ps1.setBlob(5, sp.getAnh());
+
+            ps1.setString(1, sp.getTenSanPham());
+            ps1.setInt(2, sp.getTrangThai());
+            ps1.setString(3, sp.getMotTa());
+            ps1.setBlob(4, sp.getAnh());
             ps1.executeUpdate();
             return true;
 
@@ -336,11 +336,12 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, maSanPham);
             ps.setString(2, size);
-            ps.executeQuery().next();
-            return true;
+            return ps.executeQuery().next();
+
         } catch (Exception ex) {
+              return false;
         }
-        return false;
+      
 
     }
 

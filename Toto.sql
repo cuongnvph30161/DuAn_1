@@ -117,9 +117,9 @@ go
 -- nạp dữ liệu bảng nhân viên
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
 VALUES 
-(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tung@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Quản lý'),
-(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','3333533333',0,'nam@gmail.com','03393061033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên'),
-(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','33333333',0,'duy@gmail.com','03393026033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên')
+(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tung@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'G:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Quản lý'),
+(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','3333533333',0,'nam@gmail.com','03393061033',N'chăm chỉ',(select * from openrowset (bulk 'G:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên'),
+(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','33333333',0,'duy@gmail.com','03393026033',N'chăm chỉ',(select * from openrowset (bulk 'G:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên')
 go
 
 --nạp dữ liệu bảng tài khoản
@@ -133,17 +133,17 @@ go
 --nạp dữ liệu bảng sản phẩm
 INSERT INTO SanPham(TenSanPham,TrangThai,MoTa,Anh)
 VALUES
-(N'Trà xoài bưởi hồng',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra xoai buoi hong.png', single_blob) as T)),
-(N'Choco ngũ cốc kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T)),
-(N'Hồng trà sữa ngũ cốc kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\hong tra ngu coc kem cafe.png', single_blob) as T)),
-(N'Ô long xoài kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\O long xoài kem ca phe.jpg', single_blob) as T)),
-(N'Tiger sugar',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tiger sugar.jpg', single_blob) as T)),
-(N'Trà đào bưởi hồng',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\Tra dao buoi hong.jpg', single_blob) as T)),
-(N'Trà dứa nhiệt đới',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra dua nhiet doi.png', single_blob) as T)),
-(N'Trà sữa chân châu',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua chan chau.jpg', single_blob) as T)),
-(N'Trà sữa Matcha',2,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua matcha.jpg', single_blob) as T)),
-(N'Trà sữa ô long',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua o long.jpg', single_blob) as T)),
-(N'Trà sữa panda',0,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
+(N'Trà xoài bưởi hồng',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra xoai buoi hong.png', single_blob) as T)),
+(N'Choco ngũ cốc kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T)),
+(N'Hồng trà sữa ngũ cốc kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\hong tra ngu coc kem cafe.png', single_blob) as T)),
+(N'Ô long xoài kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\O long xoài kem ca phe.jpg', single_blob) as T)),
+(N'Tiger sugar',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tiger sugar.jpg', single_blob) as T)),
+(N'Trà đào bưởi hồng',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\Tra dao buoi hong.jpg', single_blob) as T)),
+(N'Trà dứa nhiệt đới',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra dua nhiet doi.png', single_blob) as T)),
+(N'Trà sữa chân châu',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra sua chan chau.jpg', single_blob) as T)),
+(N'Trà sữa Matcha',2,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra sua matcha.jpg', single_blob) as T)),
+(N'Trà sữa ô long',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra sua o long.jpg', single_blob) as T)),
+(N'Trà sữa panda',0,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
 go
 select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'%'
 --nạp dữ liệu bảng mã giảm giá
@@ -250,3 +250,4 @@ go
 select * from HoaDon
 update HoaDon set TrangThaiOrder=0 where MaHoaDon=1002
 select * from Ban
+select * from ChiTietSanPham
