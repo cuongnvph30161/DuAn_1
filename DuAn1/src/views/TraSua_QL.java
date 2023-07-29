@@ -122,33 +122,46 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         String ngayKetThuc = txtNgayKetThuc.getText();
 
-        if (phanTramGiam.trim().equals("") || hoaDonToiThieu.trim().equals("") || giamToiDa.trim().equals("") || soLuong.trim().equals("") || ngayKetThuc.trim().equals("") || maNhanVien.trim().equals("")) {
+        if (phanTramGiam.trim().equals("") || hoaDonToiThieu.trim().equals("") || giamToiDa.trim().equals("") || soLuong.trim().equals("") || ngayKetThuc.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
         }
-        if (!isNumeric(maNhanVien) || !isNumeric(phanTramGiam) || !isNumeric(hoaDonToiThieu) || !isNumeric(soLuong) || !isNumeric(giamToiDa)) {
-            JOptionPane.showMessageDialog(this, "Các trường dữ liệu phải là số");
+
+        if (!isNumeric(phanTramGiam)) {
+            JOptionPane.showMessageDialog(this, "Phần trăm giảm phải là số nguyên và không được chứa kí tự đặc biệt");
+            return null;
+        }
+        int phanTramGiamInt = Integer.parseInt(phanTramGiam);
+        if (phanTramGiamInt <= 0 || phanTramGiamInt > 100) {
+            JOptionPane.showMessageDialog(this, "Phần trăm giảm phải thuộc trong khoảng (0,100]");
+            return null;
+        }
+
+        if (!isNumeric(hoaDonToiThieu)) {
+            JOptionPane.showMessageDialog(this, "Hoá đơn tối thiểu phải là số nguyên và không được chứa kí tự đặc biệt");
+            return null;
+        }
+        int hoaDonToiThieuInt = Integer.parseInt(hoaDonToiThieu);
+        if (hoaDonToiThieuInt <= 0) {
+            JOptionPane.showMessageDialog(this, "Hoá đơn tối thiểu phải >0");
+            return null;
+        }
+
+        if (!isNumeric(soLuong)) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên và không được chứa kí tự đặc biệt");
+            return null;
+        }
+        int soLuongInt = Integer.parseInt(soLuong);
+        if (soLuongInt <= 0) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải >0");
             return null;
         }
 
         int maNhanVienInt = Integer.parseInt(maNhanVien);
-        System.out.println("maNhanVien" + " " + maNhanVienInt);
-        int phanTramGiamInt = Integer.parseInt(phanTramGiam);
-        int hoaDonToiThieuInt = Integer.parseInt(hoaDonToiThieu);
         BigDecimal giamToiDaBigDecimal = new BigDecimal(giamToiDa);
-        int soLuongInt = Integer.parseInt(soLuong);
 
-        if (phanTramGiamInt <= 0 || phanTramGiamInt > 100) {
-            JOptionPane.showMessageDialog(this, "Phần trăm giảm phải thuộc trong khoảng (0,100]");
-            return null;
-        } else if (hoaDonToiThieuInt <= 0) {
-            JOptionPane.showMessageDialog(this, "Hoá đơn tối thiểu phải >0");
-            return null;
-        } else if (giamToiDaBigDecimal.compareTo(BigDecimal.ZERO) <= 0) {
+        if (giamToiDaBigDecimal.compareTo(BigDecimal.ZERO) <= 0) {
             JOptionPane.showMessageDialog(this, "Giảm tối đa phải >0");
-            return null;
-        } else if (soLuongInt <= 0) {
-            JOptionPane.showMessageDialog(this, "Số lượng phải >0");
             return null;
         }
 
@@ -1237,7 +1250,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel61 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
         jLabel63 = new javax.swing.JLabel();
-        btnThuHoi = new javax.swing.JButton();
+        btnCleanMaGiamGia = new javax.swing.JButton();
         txtMaVorCher = new javax.swing.JTextField();
         txtPhanTramGiam = new javax.swing.JTextField();
         txtHoaDonToiThieu = new javax.swing.JTextField();
@@ -1250,6 +1263,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtMaNguoiTao = new javax.swing.JTextField();
         jLabel110 = new javax.swing.JLabel();
         txtNgayKetThuc = new javax.swing.JTextField();
+        btnThuHoi1 = new javax.swing.JButton();
         jTextField10 = new javax.swing.JTextField();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblVorCherFrom = new javax.swing.JTable();
@@ -2865,11 +2879,16 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel63.setText("Số lượng:");
         jPanel7.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 165, 85, -1));
 
-        btnThuHoi.setBackground(new java.awt.Color(45, 132, 252));
-        btnThuHoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThuHoi.setForeground(new java.awt.Color(255, 255, 255));
-        btnThuHoi.setText("Thu hồi");
-        jPanel7.add(btnThuHoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, -1, -1));
+        btnCleanMaGiamGia.setBackground(new java.awt.Color(45, 132, 252));
+        btnCleanMaGiamGia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCleanMaGiamGia.setForeground(new java.awt.Color(255, 255, 255));
+        btnCleanMaGiamGia.setText("Clean");
+        btnCleanMaGiamGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCleanMaGiamGiaActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnCleanMaGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 500, -1, -1));
 
         txtMaVorCher.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
         txtMaVorCher.setEnabled(false);
@@ -2896,7 +2915,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 btnTaoMoiActionPerformed(evt);
             }
         });
-        jPanel7.add(btnTaoMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, -1, -1));
+        jPanel7.add(btnTaoMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 500, -1, -1));
 
         jLabel100.setText("Ngày bắt đầu:");
         jPanel7.add(jLabel100, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 85, -1));
@@ -2917,6 +2936,17 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtNgayKetThuc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
         jPanel7.add(txtNgayKetThuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 202, -1));
+
+        btnThuHoi1.setBackground(new java.awt.Color(45, 132, 252));
+        btnThuHoi1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThuHoi1.setForeground(new java.awt.Color(255, 255, 255));
+        btnThuHoi1.setText("Thu hồi");
+        btnThuHoi1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThuHoi1ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnThuHoi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, -1, -1));
 
         jTabbedPane2.addTab("Tạo voucher", jPanel7);
 
@@ -2953,6 +2983,11 @@ public class TraSua_QL extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblVorCherFrom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVorCherFromMouseClicked(evt);
             }
         });
         jScrollPane7.setViewportView(tblVorCherFrom);
@@ -4308,6 +4343,9 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtGiamToiDa.setText("");
         txtSoLuong.setText("");
         txtNgayKetThuc.setText("");
+        txtMaVorCher.setText("");
+        txtNgayBatDau.setText("");
+        txtMaNguoiTao.setText("");
     }
     private void btnTaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoMoiActionPerformed
         MaGiamGiaViewModel maGiamGiaViewModel = getDataMaGiamGia();
@@ -4316,8 +4354,24 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, iMaGiamGiaService.insertMaGiamGia(maGiamGiaViewModel));
         loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
-//        cleanMaGiamGia();
     }//GEN-LAST:event_btnTaoMoiActionPerformed
+
+    private void tblVorCherFromMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVorCherFromMouseClicked
+
+    }//GEN-LAST:event_tblVorCherFromMouseClicked
+
+    private void btnCleanMaGiamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanMaGiamGiaActionPerformed
+        cleanMaGiamGia();
+    }//GEN-LAST:event_btnCleanMaGiamGiaActionPerformed
+
+    private void btnThuHoi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuHoi1ActionPerformed
+        MaGiamGiaViewModel maGiamGiaViewModel = getDataMaGiamGia();
+        int row = tblVorCherFrom.getSelectedRow();
+        String maVouCher = tblVorCherFrom.getValueAt(row, 1).toString();
+        int maVouCherInt = Integer.parseInt(maVouCher);
+        JOptionPane.showMessageDialog(this, iMaGiamGiaService.updateMaGiamGiaSoLuong(maVouCherInt, maGiamGiaViewModel));
+        loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
+    }//GEN-LAST:event_btnThuHoi1ActionPerformed
 
     public void fillMaBan(int index) {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
@@ -4352,6 +4406,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnChonAnhSanPhamThem;
     private javax.swing.JButton btnChonAnhSanPhamXem;
     private javax.swing.JButton btnClean;
+    private javax.swing.JButton btnCleanMaGiamGia;
     private javax.swing.JButton btnCleanTaiKhoan;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDangXuat;
@@ -4360,7 +4415,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnThemNhanVien;
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton btnThemTaiKhoan;
-    private javax.swing.JButton btnThuHoi;
+    private javax.swing.JButton btnThuHoi1;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienXem;
     private javax.swing.JComboBox<String> cbbMaNhanVienTaiKhoanSua;

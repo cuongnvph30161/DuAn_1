@@ -77,4 +77,17 @@ public class MaGiamGiaService implements IMaGiamGiaService {
 
     }
 
+    @Override
+    public String updateMaGiamGiaSoLuong(int maVouCher, MaGiamGiaViewModel maGiamGiaViewModel) {
+        MaGiamGiaDomainModel maGiamGiaDomainModel = new MaGiamGiaDomainModel();
+        maGiamGiaDomainModel.setMaVoucher(maGiamGiaViewModel.getMaVoucher());
+        maGiamGiaDomainModel.setSoLuong(maGiamGiaViewModel.getSoLuong());
+        if (iMaGiamGiaRepository.updateMaGiamGiaSoLuong(maVouCher, maGiamGiaDomainModel)) {
+            return "Thu hồi mã giảm giá thành công";
+        } else {
+            return "Thu hồi mã giảm giá thất bại";
+        }
+
+    }
+
 }

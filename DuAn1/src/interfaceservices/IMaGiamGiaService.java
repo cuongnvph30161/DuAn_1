@@ -19,4 +19,5 @@ public interface IMaGiamGiaService {
     Integer phanTramGiamGia(Integer b);
     public ArrayList<MaGiamGiaViewModel> getListMaGiamGia();
     public String  insertMaGiamGia(MaGiamGiaViewModel maGiamGiaViewModel);
+    public String updateMaGiamGiaSoLuong(int maVouCher ,MaGiamGiaViewModel maGiamGiaViewModel);
 }

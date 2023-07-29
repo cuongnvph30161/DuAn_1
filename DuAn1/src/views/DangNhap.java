@@ -186,7 +186,6 @@ public class DangNhap extends javax.swing.JFrame {
     private void txtTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTaiKhoanMouseClicked
         // TODO add your handling code here:
 
-
     }//GEN-LAST:event_txtTaiKhoanMouseClicked
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
