@@ -21,9 +21,10 @@ import viewmodel.VaiTroQuanLyBanViewModel;
 public interface IHoaDonService {
     List<QuanLyHoaDonViewModel> getListQLHD();
     BigDecimal TongHoaDonQLHD(int maHoaDon);
-    Integer PhanTranGiamQLHD(int maGiamGia);
+    Integer PhanTranGiamQLHD(int maHoaDon);
+    BigDecimal DVPhatSinhQLHD(int maHoaDon);
     List<QuanLyHoaDonViewModel> getListQLHDTheoMaHD(int maHoaDon);
     List<VaiTroQuanLyBanViewModel> getBanQLHD(int maHoaDon);
     List<QuanLyHoaDonViewModel> TimKiemQLHoaDon(int maHoaDon);
-    List<QuanLyHoaDonViewModel> TimKiemQLHoaDonTheoNgay(Date ngay,List<QuanLyHoaDonViewModel> listTim);
+    List<NhanVienHoaDonViewModel> TimKiemQLHoaDonTheoNgay(Date ngay,List<NhanVienHoaDonViewModel> listTim);
 }

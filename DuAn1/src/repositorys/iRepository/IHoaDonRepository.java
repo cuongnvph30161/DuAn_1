@@ -21,7 +21,8 @@ public interface IHoaDonRepository extends DAO<Integer,HoaDonDoMainModel>{
         
         ///Quản lý hóa đơn (vai tò quản lý)
         BigDecimal TongHoaDonQLHD(int maHoaDon);
-        Integer PhanTranGiamQLHD(int maGiamGia);
+        Integer PhanTranGiamQLHD(int maHoaDon);
+        BigDecimal DVPhatSinhQLHD(int maHoaDon);
         List<HoaDonDoMainModel> getListQLHDTheoMaHD(int maHoaDon);
         List<BanDomainModel> getBanQLHD(int maHoaDon);
         List<HoaDonDoMainModel> TimKiemQLHoaDon(int maHoaDon);

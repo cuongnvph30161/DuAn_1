@@ -120,11 +120,13 @@ public class HoaDonRepository implements IHoaDonRepository {
     }
 
     @Override
-    public Integer PhanTranGiamQLHD(int maGiamGia) {
+    public Integer PhanTranGiamQLHD(int maHoaDon) {
         int PhanTramGiam = -1;
         try {
             con = DBConnect.getConnect();
-            String lenh = "select PhanTramGiam from MaGiamGia where MaVoucher=" + maGiamGia;
+            String lenh = "select PhanTramGiam from HoaDon\n"
+                    + "join MaGiamGia on HoaDon.MaVoucher=MaGiamGia.MaVoucher\n"
+                    + "where MaHoaDon="+maHoaDon;
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
@@ -133,6 +135,22 @@ public class HoaDonRepository implements IHoaDonRepository {
             return PhanTramGiam;
         } catch (Exception e) {
             return -1;
+        }
+    }
+    @Override
+    public BigDecimal DVPhatSinhQLHD(int maHoaDon) {
+        BigDecimal DVPhatSinh = null;
+        try {
+            con = DBConnect.getConnect();
+            String lenh = "select DichVuPhatSinh from HoaDon where MaHoaDon=" + maHoaDon;
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                DVPhatSinh = rs.getBigDecimal("DichVuPhatSinh");
+            }
+            return DVPhatSinh;
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -182,7 +200,7 @@ public class HoaDonRepository implements IHoaDonRepository {
     public List<HoaDonDoMainModel> TimKiemQLHoaDon(int maHoaDon) {
         List<HoaDonDoMainModel> lst = new ArrayList<>();
         try {
-            
+
             con = DBConnect.getConnect();
             String lenh = "SELECT MaHoaDon,MaNhanVien,ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher,GhiChu,DichVuPhatSinh FROM HoaDon where MaHoaDon like '" + maHoaDon + "%'";
             Statement st = con.createStatement();
@@ -196,8 +214,9 @@ public class HoaDonRepository implements IHoaDonRepository {
         } catch (Exception e) {
             return null;
         }
-        
+
     }
 
-   
+    
+
 }

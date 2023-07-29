@@ -54,6 +54,10 @@ public class HoaDonService implements IHoaDonService {
     public Integer PhanTranGiamQLHD(int maGiamGia) {
         return HoaDonRepo.PhanTranGiamQLHD(maGiamGia);
     }
+    @Override
+    public BigDecimal DVPhatSinhQLHD(int maHoaDon) {
+        return HoaDonRepo.DVPhatSinhQLHD(maHoaDon);
+    }
 
     @Override
     public List<QuanLyHoaDonViewModel> getListQLHDTheoMaHD(int maHoaDon) {
@@ -111,10 +115,10 @@ public class HoaDonService implements IHoaDonService {
     }
 
     @Override
-    public List<QuanLyHoaDonViewModel> TimKiemQLHoaDonTheoNgay(java.util.Date ngay, List<QuanLyHoaDonViewModel> listTim) {
+    public List<NhanVienHoaDonViewModel> TimKiemQLHoaDonTheoNgay(java.util.Date ngay, List<NhanVienHoaDonViewModel> listTim) {
         try {
-            List<QuanLyHoaDonViewModel> list = new ArrayList<>();
-            for (QuanLyHoaDonViewModel a : listTim) {
+            List<NhanVienHoaDonViewModel> list = new ArrayList<>();
+            for (NhanVienHoaDonViewModel a : listTim) {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String thoiGian = a.getThoiGian() + "";
                 java.util.Date TG = df.parse(thoiGian);
@@ -129,6 +133,8 @@ public class HoaDonService implements IHoaDonService {
         }
         return null;
     }
+
+    
 
     
 

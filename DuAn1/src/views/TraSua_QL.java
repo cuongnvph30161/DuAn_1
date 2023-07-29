@@ -162,6 +162,21 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
     }
 
+    private BigDecimal TongThanhToanQLHD(int maHoaDon) {
+        BigDecimal tram = new BigDecimal(100);
+        BigDecimal TongHoaDon = QLHDService.TongHoaDonQLHD(maHoaDon);
+        if (TongHoaDon == null) {
+            TongHoaDon = new BigDecimal(0);
+        }
+        BigDecimal DVPhatSinh = QLHDService.DVPhatSinhQLHD(maHoaDon);
+        BigDecimal phanTramGiam = new BigDecimal(QLHDService.PhanTranGiamQLHD(maHoaDon));
+        if (phanTramGiam == null) {
+            TongHoaDon = new BigDecimal(0);
+        }
+        BigDecimal TongThanhToan = (DVPhatSinh.add(TongHoaDon)).subtract((TongHoaDon.multiply(phanTramGiam)).divide(tram));
+        return TongThanhToan;
+    }
+
     /////////
     public MaGiamGiaViewModel getDataMaGiamGia() {
 
@@ -1292,6 +1307,8 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblTimKiemTheoNgay = new javax.swing.JLabel();
         jdcTimTheoNgay = new com.toedter.calendar.JDateChooser();
         lblTrangQLHG = new javax.swing.JLabel();
+        btnTimKiemQLHD = new javax.swing.JButton();
+        btnXemQLHD = new javax.swing.JButton();
         jpnVoucher = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -2817,6 +2834,9 @@ public class TraSua_QL extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTimKiemQuanLyHoaDonKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTimKiemQuanLyHoaDonKeyTyped(evt);
+            }
         });
 
         tblQuanLyHoaDon.setModel(new javax.swing.table.DefaultTableModel(
@@ -2873,6 +2893,28 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
         });
 
+        btnTimKiemQLHD.setBackground(new java.awt.Color(45, 132, 252));
+        btnTimKiemQLHD.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        btnTimKiemQLHD.setForeground(new java.awt.Color(255, 255, 255));
+        btnTimKiemQLHD.setText("Tìm kiếm");
+        btnTimKiemQLHD.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(51, 204, 255)));
+        btnTimKiemQLHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemQLHDActionPerformed(evt);
+            }
+        });
+
+        btnXemQLHD.setBackground(new java.awt.Color(45, 132, 252));
+        btnXemQLHD.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        btnXemQLHD.setForeground(new java.awt.Color(255, 255, 255));
+        btnXemQLHD.setText("Xem tất cả");
+        btnXemQLHD.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(51, 204, 255)));
+        btnXemQLHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXemQLHDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnHoaDonLayout = new javax.swing.GroupLayout(jpnHoaDon);
         jpnHoaDon.setLayout(jpnHoaDonLayout);
         jpnHoaDonLayout.setHorizontalGroup(
@@ -2884,8 +2926,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                     .addGroup(jpnHoaDonLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jpnHoaDonLayout.createSequentialGroup()
                                 .addComponent(lblQLHDDau)
                                 .addGap(18, 18, 18)
@@ -2895,42 +2936,57 @@ public class TraSua_QL extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblQLHDTien)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblQLHDCuoi)
-                                .addGap(214, 214, 214)
-                                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblQLHDCuoi))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnHoaDonLayout.createSequentialGroup()
+                                .addComponent(txtTimKiemQuanLyHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnTimKiemQLHD, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jpnHoaDonLayout.createSequentialGroup()
                                     .addComponent(lblTimKiemTheoNgay)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jdcTimTheoNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtTimKiemQuanLyHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jdcTimTheoNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnHoaDonLayout.createSequentialGroup()
+                                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(112, 112, 112)
+                                .addComponent(btnXemQLHD, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(810, Short.MAX_VALUE))
         );
         jpnHoaDonLayout.setVerticalGroup(
             jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnHoaDonLayout.createSequentialGroup()
+                .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpnHoaDonLayout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jLabel4))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnHoaDonLayout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(jdcTimTheoNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblTimKiemTheoNgay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jdcTimTheoNgay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblTimKiemTheoNgay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jpnHoaDonLayout.createSequentialGroup()
-                        .addComponent(txtTimKiemQuanLyHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(6, 6, 6)
+                        .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTimKiemQuanLyHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTimKiemQLHD, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnXemQLHD)
+                            .addComponent(jLabel41))
+                        .addGap(8, 8, 8)
                         .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel41)
-                            .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblQLHDDau)
-                                .addComponent(lblQLHDLui, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblQLHDCuoi)
-                                .addComponent(lblQLHDTien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblQLHDDau)
+                            .addComponent(lblQLHDLui, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblQLHDTien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblQLHDCuoi)
                             .addComponent(lblTrangQLHG, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(304, Short.MAX_VALUE))
         );
 
         jpnTong.add(jpnHoaDon, "card5");
@@ -4435,7 +4491,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         for (QuanLyHoaDonViewModel hd : qlhd) {
             txtTongThanhToanQLHD.setText(tblQuanLyHoaDon.getValueAt(index, 2) + " VNĐ");
             BigDecimal TongHoaDon = QLHDService.TongHoaDonQLHD(hd.getMaHoaDon());
+
             txtQLHDTongHoaDon.setText(TongHoaDon + " VNĐ");
+            if (TongHoaDon == null) {
+                txtQLHDTongHoaDon.setText("0 VNĐ");
+            }
             txtQLHDMaHoaDon.setText(hd.getMaHoaDon() + "");
             txtQLHDMaNhanVien.setText(hd.getMaNhanVien() + "");
             txtQLHDThoiGian.setText(hd.getThoiGian() + "");
@@ -4450,13 +4510,16 @@ public class TraSua_QL extends javax.swing.JFrame {
                 txtQLHDTrangThaiThanhToan.setText("Đã hủy");
             }
             txtQLHDMaGiamGia.setText(hd.getMaVoucher() + "");
+            if (hd.getMaVoucher() == 0) {
+                txtQLHDMaGiamGia.setText("Không có");
+            }
             txtQLHDGhiChu.setText(hd.getGhiChu());
             txtQLHDDichVuPhatSinh.setText(hd.getDichVuPhatSinh() + " VNĐ");
         }
         txtQLHDTang.setText("");
         txtQLHDBan.setText("");
         List<VaiTroQuanLyBanViewModel> banView = QLHDService.getBanQLHD(maHoaDon);
-        if (banView.size()>0) {
+        if (banView.size() > 0) {
             for (VaiTroQuanLyBanViewModel ban : banView) {
                 txtQLHDTang.setText(ban.getTang() + "");
                 txtQLHDBan.setText(ban.getTenBan());
@@ -4468,38 +4531,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private void txtTimKiemQuanLyHoaDonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemQuanLyHoaDonKeyReleased
         // TODO add your handling code here:
-        try {
 
-            int maHoaDon = -1;
-            String HoaDon = txtTimKiemQuanLyHoaDon.getText();
-            if (HoaDon.equals("")) {
-                maHoaDon = -1;
-            } else {
-                maHoaDon = Integer.parseInt(HoaDon);
-            }
-
-            BigDecimal tramPhantram = new BigDecimal(100);
-            List<QuanLyHoaDonViewModel> danhSachTheoMaHD = QLHDService.TimKiemQLHoaDon(maHoaDon);
-            if (danhSachTheoMaHD.isEmpty()) {
-                tblQuanLyHoaDon.removeAll();
-            }
-            DefaultTableModel QLHDModel = (DefaultTableModel) tblQuanLyHoaDon.getModel();
-            QLHDModel.setRowCount(0);
-            for (QuanLyHoaDonViewModel ql : danhSachTheoMaHD) {
-                BigDecimal TongHoaDon = QLHDService.TongHoaDonQLHD(ql.getMaHoaDon());
-                BigDecimal phanTramGiam = new BigDecimal(QLHDService.PhanTranGiamQLHD(ql.getMaVoucher()));
-                BigDecimal TongThanhToan = (ql.getDichVuPhatSinh().add(TongHoaDon)).subtract((TongHoaDon.multiply(phanTramGiam)).divide(tramPhantram));
-
-                QLHDModel.addRow(new Object[]{ql.getMaHoaDon(), ql.getThoiGian(), TongThanhToan, ql.getGhiChu()});
-            }
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Mã hóa đơn phải là số tự nhiên!", "LỖI", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (txtTimKiemQuanLyHoaDon.getText().equals("")) {
-            LoadTableQLHD();
-        }
     }//GEN-LAST:event_txtTimKiemQuanLyHoaDonKeyReleased
 
     private void jdcTimTheoNgayKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jdcTimTheoNgayKeyReleased
@@ -4527,32 +4559,80 @@ public class TraSua_QL extends javax.swing.JFrame {
             return;
         }
         try {
-            BigDecimal tramPhantram = new BigDecimal(100);
+
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String ngay = df.format(jdcTimTheoNgay.getDate());
 
             java.util.Date ngayTim = (java.util.Date) df.parse(ngay);
 
-            List<QuanLyHoaDonViewModel> lst = QLHDService.getListQLHD();
-            List<QuanLyHoaDonViewModel> lstTim = QLHDService.TimKiemQLHoaDonTheoNgay(ngayTim, lst);
+            List<NhanVienHoaDonViewModel> lst = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
+            List<NhanVienHoaDonViewModel> lstTim = QLHDService.TimKiemQLHoaDonTheoNgay(ngayTim, lst);
             if (lstTim.size() <= 0) {
                 tblQuanLyHoaDon.removeAll();
                 JOptionPane.showMessageDialog(this, "Ngày này không có hóa đơn nào!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+
             DefaultTableModel QLHDModel = (DefaultTableModel) tblQuanLyHoaDon.getModel();
             QLHDModel.setRowCount(0);
-            for (QuanLyHoaDonViewModel ql : lstTim) {
-                BigDecimal TongHoaDon = QLHDService.TongHoaDonQLHD(ql.getMaHoaDon());
-                BigDecimal phanTramGiam = new BigDecimal(QLHDService.PhanTranGiamQLHD(ql.getMaVoucher()));
-                BigDecimal TongThanhToan = (ql.getDichVuPhatSinh().add(TongHoaDon)).subtract((TongHoaDon.multiply(phanTramGiam)).divide(tramPhantram));
-
-                QLHDModel.addRow(new Object[]{ql.getMaHoaDon(), ql.getThoiGian(), TongThanhToan, ql.getGhiChu()});
+            for (NhanVienHoaDonViewModel ql : lstTim) {
+                QLHDModel.addRow(new Object[]{ql.getMaHoaDon(), ql.getThoiGian(), ql.getTongThanhToan(), ql.getGhiChu()});
             }
 
         } catch (Exception e) {
         }
     }//GEN-LAST:event_lblTimKiemTheoNgayMouseClicked
+
+    private void txtTimKiemQuanLyHoaDonKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemQuanLyHoaDonKeyTyped
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtTimKiemQuanLyHoaDonKeyTyped
+
+    private void btnTimKiemQLHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemQLHDActionPerformed
+        // TODO add your handling code here:
+        if (txtTimKiemQuanLyHoaDon.getText().equals("")) {
+            LoadTableQLHD();
+            JOptionPane.showMessageDialog(this, "Mời nhập mã hóa đơn muốn tìm kiếm!", "LỖI", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        try {
+            int checkTKQLHD = 0;
+            int maHoaDon = -1;
+            String HoaDon = txtTimKiemQuanLyHoaDon.getText();
+            if (HoaDon.equals("")) {
+                maHoaDon = -1;
+            } else {
+                maHoaDon = Integer.parseInt(HoaDon);
+            }
+            DefaultTableModel QLHDModel = (DefaultTableModel) tblQuanLyHoaDon.getModel();
+            QLHDModel.setRowCount(0);
+            List<NhanVienHoaDonViewModel> listTKQLHD = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
+            for (NhanVienHoaDonViewModel n : listTKQLHD) {
+                if (maHoaDon == n.getMaHoaDon()) {
+                    QLHDModel.addRow(new Object[]{n.getMaHoaDon(), n.getThoiGian(), n.getTongThanhToan(), n.getGhiChu()});
+                    JOptionPane.showMessageDialog(this, "Tìm thành công!");
+                    checkTKQLHD = 1;
+                    break;
+                }
+
+            }
+            if (checkTKQLHD == 0) {
+                LoadTableQLHD();
+                JOptionPane.showMessageDialog(this, "Mã hóa đơn không tồn tại, vui lòng kiểm tra lại!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Mã hóa đơn phải là số tự nhiên và không được chứa khoảng trắng, vui lòng kiểm tra lại!", "LỖI", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+    }//GEN-LAST:event_btnTimKiemQLHDActionPerformed
+
+    private void btnXemQLHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemQLHDActionPerformed
+        // TODO add your handling code here:
+        LoadTableQLHD();
+    }//GEN-LAST:event_btnXemQLHDActionPerformed
 
     public void fillMaBan(int index) {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
@@ -4596,6 +4676,8 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton btnThemTaiKhoan;
     private javax.swing.JButton btnThuHoi;
+    private javax.swing.JButton btnTimKiemQLHD;
+    private javax.swing.JButton btnXemQLHD;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienXem;
     private javax.swing.JComboBox<String> cbbMaNhanVienTaiKhoanSua;

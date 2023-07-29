@@ -151,7 +151,8 @@ INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,NgayBatDau,NgayKetTh
 VALUES (20,1,40000.4,'2022-06-06','2022-06-06',1001,100),
 (20,1,300000.4,'2022-06-06','2024-06-06',1001,10),
 (10,1,20000.4,'2022-06-06','2025-06-06',1001,1000)
-select * from MaGiamGia
+select * from MaGiamGia where MaVoucher=null
+select DichVuPhatSinh from HoaDon where MaHoaDon=1111
 go
 --nạp dữ liệu bảng bàn
 INSERT INTO Ban(TenBan,Tang,TrangThai)
@@ -165,7 +166,7 @@ INSERT INTO HoaDon VALUES
 --(1000,1001,GETDATE(),0,1,80293992,N'ít đường',33.3),
 --(1001,1001,GETDATE(),1,0,80294941,N'nhiều đường',33.3),
 --(1002,1001,GETDATE(),1,0,80295890,N'nhiều đá',33.3),
-(1004,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1112,1001,GETDATE(),0,1,null,N'it duong',null),
 (1005,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1006,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1007,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
@@ -267,9 +268,10 @@ INSERT INTO HoaDon VALUES
 (1101,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1102,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1103,1001,GETDATE(),0,1,80293992,N'it duong',33.3)
-update HoaDon set ThoiGian='2023-07-27 14:00:13.520' where MaHoaDon=1000
+update HoaDon set DichVuPhatSinh=0 where MaHoaDon=1112
 select * from HoaDon where ThoiGian like '%2023%'
-Delete from HoaDon where MaHoaDon=1003
+select * from HoaDon where MaHoaDon=1112
+select 
 --nạp dữ liệu bàn-hóa đơn
 INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
 VALUES
