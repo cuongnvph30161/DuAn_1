@@ -98,7 +98,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         fillMaBan(0);
         ///////////////
         loadTableSanPham();
-        clickCheckBox();
         loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
 
     }
@@ -205,21 +204,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
     }
 
-    private void clickCheckBox() {
-        String size = "";
-
-        ArrayList<ChiTietSanPhamViewModel> ctspVM = iCTSPSe.getGiaBySize(size);
-        for (ChiTietSanPhamViewModel ctsp : ctspVM) {
-            if (chkSizeSXem.isSelected()) {
-                txtGiaSizeSXem.setText(ctsp.getSize());
-            } else if (chkSizeMXem.isSelected()) {
-                txtGiaSizeMXem.setText(ctsp.getSize());
-            } else {
-                txtGiaSizeLXem.setText(ctsp.getSize());
-            }
-        }
-    }
-
     private static Icon resizeIcon(ImageIcon icon, int width, int height) {
         Image img = icon.getImage();
         Image resizedImage = img.getScaledInstance(263, 141, Image.SCALE_SMOOTH);
@@ -317,154 +301,153 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 
     private void themSP() {
-
-        int lastRow = tblQuanLySanPham.getRowCount() - 1; // Lấy chỉ số hàng cuối cùng        
-        int maSanPham = (int) (tblQuanLySanPham.getValueAt(lastRow, 0)) + 1;
-        String tenSanPham = txtTenSanPhamThem.getText();
-        String tt = cboTrangThaiSanPhamThem.getSelectedItem().toString();
-        int trangThai = -1;
-        if (tt.equals("Còn hàng")) {
-            trangThai = 1;
-        }
-        if (tt.equals("Hết hàng")) {
-            trangThai = 0;
-        }
-        if (tt.equals("Ngừng kinh doanh")) {
-            trangThai = 2;
-        }
-        String moTa = txtMoTaSanPhamThem.getText();
-
-        Icon icon = lblAnhSanPhamThem.getIcon();
-        Blob anh = null;
-        if (icon != null) {
-            byte[] imageData = getImageDataFromIcon(icon);
-            anh = createBlobFromImageData(imageData);
-
-        } else {
-
-        }
-        if (anh == null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn ảnh");
-            return;
-
-        }
-        if (Uhelper.checkNullText(txtTenSanPhamThem, "Tên sản phẩm không được để trống")) {
-            return;
-        }
-        if (chkSizeSThem.isSelected() == false && chkSizeMThem.isSelected() == false && chkSizeLThem.isSelected() == false) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn size!", "LỖI", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (chkSizeMThem.isSelected()) {
-            if (txtGiaSizeMThem.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Giá sản phẩm size M không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+        try {
+            String tenSanPham = txtTenSanPhamThem.getText();
+            String tt = cboTrangThaiSanPhamThem.getSelectedItem().toString();
+            int trangThai = -1;
+            if (tt.equals("Còn hàng")) {
+                trangThai = 1;
+            }
+            if (tt.equals("Hết hàng")) {
+                trangThai = 0;
+            }
+            if (tt.equals("Ngừng kinh doanh")) {
+                trangThai = 2;
+            }
+            String moTa = txtMoTaSanPhamThem.getText();
+            Icon icon = lblAnhSanPhamThem.getIcon();
+            Blob anh = null;
+            if (icon != null) {
+                byte[] imageData = getImageDataFromIcon(icon);
+                anh = createBlobFromImageData(imageData);
+            } else {
+            }
+            if (anh == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ảnh");
                 return;
             }
-            try {
-                BigDecimal gia = new BigDecimal(txtGiaSizeSThem.getText());
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Giá size M không đúng kiểu dữ liệu!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                return;
-
-            }
-
-        } else if (chkSizeSThem.isSelected()) {
-            if (txtGiaSizeSThem.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Giá sản phẩm size S không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+            if (Uhelper.checkNullText(txtTenSanPhamThem, "Tên sản phẩm không được để trống")) {
                 return;
             }
-            try {
-                BigDecimal gia = new BigDecimal(txtGiaSizeMThem.getText());
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Giá size S không đúng kiểu dữ liệu!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                return;
-
-            }
-
-        } else {
-            if (txtGiaSizeLThem.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Giá sản phẩm size L không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+            if (chkSizeSThem.isSelected() == false && chkSizeMThem.isSelected() == false && chkSizeLThem.isSelected() == false) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn size!", "LỖI", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            try {
-                BigDecimal gia = new BigDecimal(txtGiaSizeLThem.getText());
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Giá size L không đúng kiểu dữ liệu!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                return;
+            if (chkSizeSThem.isSelected()) {
+                if (txtGiaSizeSThem.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size S không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                try {
+                    BigDecimal gia = new BigDecimal(txtGiaSizeSThem.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Giá size S phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+            if (chkSizeMThem.isSelected()) {
+                if (txtGiaSizeMThem.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size M không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                try {
+                    BigDecimal gia = new BigDecimal(txtGiaSizeMThem.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Giá size M phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
 
             }
+            if (chkSizeLThem.isSelected()) {
+                if (txtGiaSizeLThem.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size L không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                try {
+                    BigDecimal gia = new BigDecimal(txtGiaSizeLThem.getText());
 
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Giá size L phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+            SanPhamViewModel spVM = new SanPhamViewModel();
+            spVM.setTenSanPham(tenSanPham);
+            spVM.setTrangThai(trangThai);
+            spVM.setMotTa(moTa);
+            spVM.setAnh(anh);
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            iCTSPSe.insertSanPham(spVM);
+        } catch (Exception e) {
         }
-
-        SanPhamViewModel spVM = new SanPhamViewModel(maSanPham, tenSanPham, trangThai, moTa, anh);
-        iCTSPSe.insertSanPham(spVM);
-
     }
 
     private void themSizeCTSP() {
+
         try {
-            int index = tblQuanLySanPham.getSelectedRow();
-            int maSanPham = (int) (tblQuanLySanPham.getValueAt(index, 0));
-            if (chkSizeSXem.isSelected()) {
+             int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+        if (chkSizeSXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "S") == false) {
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
+            }
+        }
+        if (chkSizeMXem.isSelected()) {
 
-                BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
-                if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
-                    ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
-                    iCTSPSe.insertChiTietSP(ctspVM);
-                }
+            BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "M") == false) {
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
             }
-            if (chkSizeMXem.isSelected()) {
-
-                BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
-                if (iCTSPSe.checkTonCTSP(maSanPham, "M") == true) {
-                    ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
-                    iCTSPSe.insertChiTietSP(ctspVM);
-                }
+        }
+        if (chkSizeLXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "L") == false) {
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
             }
-            if (chkSizeLXem.isSelected()) {
-                BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
-                if (iCTSPSe.checkTonCTSP(maSanPham, "L") == true) {
-                    ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
-                    iCTSPSe.insertChiTietSP(ctspVM);
-                }
-            }
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+         
+        }
         } catch (Exception e) {
         }
 
     }
 
     private void themCTSP() {
-        int lastRow = tblQuanLySanPham.getRowCount() - 1; // Lấy chỉ số hàng cuối cùng        
-        int maSanPham = (int) (tblQuanLySanPham.getValueAt(lastRow, 0)) + 1;
-        int maCTSP = 0;
+        try {
+            int lastRow = tblQuanLySanPham.getRowCount() - 1; // Lấy chỉ số hàng cuối cùng   
+            System.out.println("chỉ số hàng cuối cùng:" + lastRow);
+            int maSanPham = (int) (tblQuanLySanPham.getValueAt(lastRow, 0)) + 1;
+            System.out.println("mã sản phẩm:" + maSanPham);
+            int maCTSP = 0;
 
-        if (chkSizeSThem.isSelected()) {
+            if (chkSizeSThem.isSelected()) {
 
-            BigDecimal gia = new BigDecimal(txtGiaSizeSThem.getText());
-            ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
+                BigDecimal gia = new BigDecimal(txtGiaSizeSThem.getText());
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
 
-            iCTSPSe.insertChiTietSP(ctspVM);
+                iCTSPSe.insertChiTietSP(ctspVM);
 
+            }
+            if (chkSizeMThem.isSelected()) {
+
+                BigDecimal gia = new BigDecimal(txtGiaSizeMThem.getText());
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
+            }
+            if (chkSizeLThem.isSelected()) {
+
+                BigDecimal gia = new BigDecimal(txtGiaSizeLThem.getText());
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
+
+                iCTSPSe.insertChiTietSP(ctspVM);
+            }
+
+            loadTableSanPham();
+        } catch (Exception e) {
         }
-        if (chkSizeMThem.isSelected()) {
-
-            BigDecimal gia = new BigDecimal(txtGiaSizeMThem.getText());
-            ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
-            iCTSPSe.insertChiTietSP(ctspVM);
-        }
-        if (chkSizeLThem.isSelected()) {
-
-            BigDecimal gia = new BigDecimal(txtGiaSizeLThem.getText());
-            ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
-
-            iCTSPSe.insertChiTietSP(ctspVM);
-        }
-
-        loadTableSanPham();
 
     }
 
@@ -502,37 +485,12 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
             SanPhamViewModel spVM = new SanPhamViewModel(maSanPham, tenSanPham, trangThai, moTa, anh);
             iCTSPSe.updateSanPham(spVM);
+          
 
         } catch (Exception e) {
         }
     }
-
-    private void deleteCTSP() {
-        try {
-            int index = tblQuanLySanPham.getSelectedRow();
-            int maSanPham = (int) tblQuanLySanPham.getValueAt(index, 0);
-            if (chkSizeSXem.isSelected() == false) {
-                if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
-                    iCTSPSe.deleteCTSP(maSanPham, "S");
-                }
-            }
-
-            if (chkSizeMXem.isSelected() == false) {
-                if (iCTSPSe.checkTonCTSP(maSanPham, "M") == true) {
-                    iCTSPSe.deleteCTSP(maSanPham, "M");
-                }
-            }
-
-            if (chkSizeLXem.isSelected() == false) {
-                if (iCTSPSe.checkTonCTSP(maSanPham, "L") == true) {
-                    iCTSPSe.deleteCTSP(maSanPham, "L");
-                }
-            }
-
-        } catch (Exception e) {
-        }
-    }
-
+    
     private void updateGiaCTSP() {
         try {
             int index = tblQuanLySanPham.getSelectedRow();
@@ -555,6 +513,50 @@ public class TraSua_QL extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
+
+    private boolean checkCapNhatSize() {
+        try {
+             if (chkSizeSXem.isSelected() == false) {
+            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
+                chkSizeSXem.setSelected(true);
+                JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
+                CTSPMouclick();
+                return false;
+            }
+
+        }
+
+        if (chkSizeMXem.isSelected() == false) {
+            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "M") == true) {
+                chkSizeMXem.setSelected(true);
+                JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
+                CTSPMouclick();
+                return false;
+            }
+
+        }
+
+        if (chkSizeLXem.isSelected() == false) {
+            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "L") == true) {
+                chkSizeLXem.setSelected(true);
+                JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
+                CTSPMouclick();
+                return false;
+            }
+
+        }
+             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+     
+        } catch (Exception e) {
+        }
+        return true;
+
+    }
+    
+    
 
     public void loadComBoBoxTaiKhoanMaNhanVien(List<NhanVienViewModel> listNhanVienViewModels) {
         cbbMaNhanVienTaiKhoanThem.removeAllItems(); // Xóa tất cả các item cũ trong ComboBox
@@ -4252,12 +4254,15 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     }
     private void btnCapNhatSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatSanPhamActionPerformed
-        capNhatSanPham();
-        themSizeCTSP();
-        deleteCTSP();
-        updateGiaCTSP();
-        loadTableSanPham();
-        clearCapNhat();
+             capNhatSanPham();
+        if (checkCapNhatSize()) {
+      
+            themSizeCTSP();
+            updateGiaCTSP();
+            loadTableSanPham();
+            clearCapNhat();
+
+        }
 
     }//GEN-LAST:event_btnCapNhatSanPhamActionPerformed
 
