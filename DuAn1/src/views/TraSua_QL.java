@@ -398,31 +398,31 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void themSizeCTSP() {
 
         try {
-             int index = tblQuanLySanPham.getSelectedRow();
-        int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
-        if (chkSizeSXem.isSelected()) {
-            BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
-            if (iCTSPSe.checkTonCTSP(maSanPham, "S") == false) {
-                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
-                iCTSPSe.insertChiTietSP(ctspVM);
+            int index = tblQuanLySanPham.getSelectedRow();
+            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+            if (chkSizeSXem.isSelected()) {
+                BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
+                if (iCTSPSe.checkTonCTSP(maSanPham, "S") == false) {
+                    ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
+                    iCTSPSe.insertChiTietSP(ctspVM);
+                }
             }
-        }
-        if (chkSizeMXem.isSelected()) {
+            if (chkSizeMXem.isSelected()) {
 
-            BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
-            if (iCTSPSe.checkTonCTSP(maSanPham, "M") == false) {
-                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
-                iCTSPSe.insertChiTietSP(ctspVM);
+                BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
+                if (iCTSPSe.checkTonCTSP(maSanPham, "M") == false) {
+                    ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
+                    iCTSPSe.insertChiTietSP(ctspVM);
+                }
             }
-        }
-        if (chkSizeLXem.isSelected()) {
-            BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
-            if (iCTSPSe.checkTonCTSP(maSanPham, "L") == false) {
-                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
-                iCTSPSe.insertChiTietSP(ctspVM);
+            if (chkSizeLXem.isSelected()) {
+                BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
+                if (iCTSPSe.checkTonCTSP(maSanPham, "L") == false) {
+                    ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
+                    iCTSPSe.insertChiTietSP(ctspVM);
+                }
+
             }
-         
-        }
         } catch (Exception e) {
         }
 
@@ -498,12 +498,11 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
             SanPhamViewModel spVM = new SanPhamViewModel(maSanPham, tenSanPham, trangThai, moTa, anh);
             iCTSPSe.updateSanPham(spVM);
-          
 
         } catch (Exception e) {
         }
     }
-    
+
     private void updateGiaCTSP() {
         try {
             int index = tblQuanLySanPham.getSelectedRow();
@@ -529,47 +528,45 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private boolean checkCapNhatSize() {
         try {
-             if (chkSizeSXem.isSelected() == false) {
-            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
-            if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
-                chkSizeSXem.setSelected(true);
-                JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
-                CTSPMouclick();
-                return false;
+            if (chkSizeSXem.isSelected() == false) {
+                int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+                if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
+                    chkSizeSXem.setSelected(true);
+                    JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    CTSPMouclick();
+                    return false;
+                }
+
             }
 
-        }
+            if (chkSizeMXem.isSelected() == false) {
+                int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+                if (iCTSPSe.checkTonCTSP(maSanPham, "M") == true) {
+                    chkSizeMXem.setSelected(true);
+                    JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    CTSPMouclick();
+                    return false;
+                }
 
-        if (chkSizeMXem.isSelected() == false) {
-            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
-            if (iCTSPSe.checkTonCTSP(maSanPham, "M") == true) {
-                chkSizeMXem.setSelected(true);
-                JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
-                CTSPMouclick();
-                return false;
             }
 
-        }
+            if (chkSizeLXem.isSelected() == false) {
+                int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+                if (iCTSPSe.checkTonCTSP(maSanPham, "L") == true) {
+                    chkSizeLXem.setSelected(true);
+                    JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    CTSPMouclick();
+                    return false;
+                }
 
-        if (chkSizeLXem.isSelected() == false) {
-            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
-            if (iCTSPSe.checkTonCTSP(maSanPham, "L") == true) {
-                chkSizeLXem.setSelected(true);
-                JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
-                CTSPMouclick();
-                return false;
             }
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
 
-        }
-             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-     
         } catch (Exception e) {
         }
         return true;
 
     }
-    
-    
 
     public void loadComBoBoxTaiKhoanMaNhanVien(List<NhanVienViewModel> listNhanVienViewModels) {
         cbbMaNhanVienTaiKhoanThem.removeAllItems(); // Xóa tất cả các item cũ trong ComboBox
@@ -4289,9 +4286,9 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     }
     private void btnCapNhatSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatSanPhamActionPerformed
-             capNhatSanPham();
+        capNhatSanPham();
         if (checkCapNhatSize()) {
-      
+
             themSizeCTSP();
             updateGiaCTSP();
             loadTableSanPham();
@@ -4386,12 +4383,20 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCleanMaGiamGiaActionPerformed
 
     private void btnThuHoi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuHoi1ActionPerformed
-        MaGiamGiaViewModel maGiamGiaViewModel = getDataMaGiamGia();
+
         int row = tblVorCherFrom.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một voucher để thu hồi.");
+            return;
+        }
+
+        MaGiamGiaViewModel maGiamGiaViewModel = new MaGiamGiaViewModel();
+        maGiamGiaViewModel.setSoLuong(0);
         String maVouCher = tblVorCherFrom.getValueAt(row, 1).toString();
         int maVouCherInt = Integer.parseInt(maVouCher);
         JOptionPane.showMessageDialog(this, iMaGiamGiaService.updateMaGiamGiaSoLuong(maVouCherInt, maGiamGiaViewModel));
         loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
+        
     }//GEN-LAST:event_btnThuHoi1ActionPerformed
 
     public void fillMaBan(int index) {
