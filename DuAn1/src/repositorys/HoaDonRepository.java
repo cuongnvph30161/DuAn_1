@@ -4,6 +4,7 @@
  */
 package repositorys;
 
+import com.toedter.calendar.JDateChooser;
 import java.sql.*;
 import domainmodel.BanDomainModel;
 import domainmodel.HoaDonDoMainModel;
@@ -34,9 +35,9 @@ public class HoaDonRepository implements IHoaDonRepository {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
-                lst.add(new HoaDonDoMainModel(rs.getInt(1), rs.getInt(2), 
-                        rs.getTimestamp(3), rs.getInt(4), 
-                        rs.getInt(5), rs.getInt(6), rs.getBigDecimal(8), rs.getString(7)));
+                lst.add(new HoaDonDoMainModel(rs.getInt("MaHoaDon"), rs.getInt("MaNhanVien"),
+                        rs.getTimestamp("ThoiGian"), rs.getInt("TrangThaiThanhToan"),
+                        rs.getInt("TrangThaiOrder"), rs.getInt("MaVoucher"), rs.getBigDecimal("DichVuPhatSinh"), rs.getString("GhiChu")));
             }
             return lst;
         } catch (Exception e) {
@@ -62,7 +63,7 @@ public class HoaDonRepository implements IHoaDonRepository {
                 + "VALUES (?,?,?,?,?)";
 
         return JdbcHelper.update(querry, object.getMaHoaDon(), object.getMaNhanVien(),
-                 object.getMaVoucher() == 0 ? null : object.getMaVoucher(), object.getGhiChu(), object.getDichVuPhatSinh()) == 1;
+                object.getMaVoucher() == 0 ? null : object.getMaVoucher(), object.getGhiChu(), object.getDichVuPhatSinh()) == 1;
     }
 
     @Override
@@ -100,4 +101,103 @@ public class HoaDonRepository implements IHoaDonRepository {
         }
         return -1;
     }
+
+    @Override
+    public BigDecimal TongHoaDonQLHD(int maHoaDon) {
+        BigDecimal TongHoaDon = null;
+        try {
+            con = DBConnect.getConnect();
+            String lenh = "select Sum(Gia*SoLuong) AS 'TongHoaDon' from ChiTietHoaDon where MaHoaDon=" + maHoaDon;
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                TongHoaDon = rs.getBigDecimal("TongHoaDon");
+            }
+            return TongHoaDon;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Integer PhanTranGiamQLHD(int maGiamGia) {
+        int PhanTramGiam = -1;
+        try {
+            con = DBConnect.getConnect();
+            String lenh = "select PhanTramGiam from MaGiamGia where MaVoucher=" + maGiamGia;
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                PhanTramGiam = rs.getInt("PhanTramGiam");
+            }
+            return PhanTramGiam;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @Override
+    public List<HoaDonDoMainModel> getListQLHDTheoMaHD(int maHoaDon) {
+        try {
+            List<HoaDonDoMainModel> lst = new ArrayList<>();
+            con = DBConnect.getConnect();
+            String lenh = "SELECT MaHoaDon,MaNhanVien,ThoiGian,"
+                    + "TrangThaiThanhToan,TrangThaiOrder,MaVoucher,GhiChu,DichVuPhatSinh FROM HoaDon where MaHoaDon=" + maHoaDon;
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                lst.add(new HoaDonDoMainModel(rs.getInt("MaHoaDon"), rs.getInt("MaNhanVien"),
+                        rs.getTimestamp("ThoiGian"), rs.getInt("TrangThaiThanhToan"),
+                        rs.getInt("TrangThaiOrder"), rs.getInt("MaVoucher"), rs.getBigDecimal("DichVuPhatSinh"), rs.getString("GhiChu")));
+            }
+            return lst;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    @Override
+    public List<BanDomainModel> getBanQLHD(int maHoaDon) {
+        List<BanDomainModel> ListBanQLHD = new ArrayList<>();
+        try {
+            con = DBConnect.getConnect();
+            String lenh = "select Tang,TenBan from Ban join Ban_HoaDon on Ban.MaBan=Ban_HoaDon.MaBan where MaHoaDon=" + maHoaDon;
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                int tang = rs.getInt("Tang");
+                String tenBan = rs.getString("TenBan");
+                BanDomainModel banDomain = new BanDomainModel();
+                banDomain.setTang(tang);
+                banDomain.setTenBan(tenBan);
+                ListBanQLHD.add(banDomain);
+            }
+            return ListBanQLHD;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<HoaDonDoMainModel> TimKiemQLHoaDon(int maHoaDon) {
+        List<HoaDonDoMainModel> lst = new ArrayList<>();
+        try {
+            
+            con = DBConnect.getConnect();
+            String lenh = "SELECT MaHoaDon,MaNhanVien,ThoiGian,TrangThaiThanhToan,TrangThaiOrder,MaVoucher,GhiChu,DichVuPhatSinh FROM HoaDon where MaHoaDon like '" + maHoaDon + "%'";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(lenh);
+            while (rs.next()) {
+                lst.add(new HoaDonDoMainModel(rs.getInt("MaHoaDon"), rs.getInt("MaNhanVien"),
+                        rs.getTimestamp("ThoiGian"), rs.getInt("TrangThaiThanhToan"),
+                        rs.getInt("TrangThaiOrder"), rs.getInt("MaVoucher"), rs.getBigDecimal("DichVuPhatSinh"), rs.getString("GhiChu")));
+            }
+            return lst;
+        } catch (Exception e) {
+            return null;
+        }
+        
+    }
+
+   
 }

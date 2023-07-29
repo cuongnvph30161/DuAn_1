@@ -989,7 +989,12 @@ public class TraSua_PC extends javax.swing.JFrame {
                 y++;
             }
         }
+        
         if (LstPCSPJPanel.isEmpty()) {
+            jpnHienThiSP.removeAll();
+            jpnHienThiSP.updateUI();
+        }
+        if(txtTimKiemSPPhaChe.equals("")){
             LoadSanPham();
         }
 

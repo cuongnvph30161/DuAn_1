@@ -80,8 +80,8 @@ DichVuPhatSinh money DEFAULT 0
 FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
 FOREIGN KEY (MaVoucher) REFERENCES MaGiamGia(MaVoucher)
 );
-GO
 
+GO
 CREATE TABLE Ban_HoaDon(
 MaHoaDon INT NOT NULL,
 MaBan INT NOT NULL,
@@ -145,12 +145,13 @@ VALUES
 (N'Trà sữa ô long',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua o long.jpg', single_blob) as T)),
 (N'Trà sữa panda',0,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
 go
-select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'%'
+select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'Trà%'
 --nạp dữ liệu bảng mã giảm giá
 INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,NgayBatDau,NgayKetThuc,MaNguoiTao,SoLuong)
 VALUES (20,1,40000.4,'2022-06-06','2022-06-06',1001,100),
 (20,1,300000.4,'2022-06-06','2024-06-06',1001,10),
 (10,1,20000.4,'2022-06-06','2025-06-06',1001,1000)
+select * from MaGiamGia
 go
 --nạp dữ liệu bảng bàn
 INSERT INTO Ban(TenBan,Tang,TrangThai)
@@ -160,17 +161,125 @@ VALUES (N'1',5,0),
 go
 
 --nạp dữ liệu hóa đơn
-INSERT INTO HoaDon
-VALUES(1000,1001,GETDATE(),0,1,80293992,N'ít đường',33.3),
-(1001,1001,GETDATE(),1,0,80294941,N'nhiều đường',33.3),
-(1002,1001,GETDATE(),1,0,80295890,N'nhiều đá',33.3)
+INSERT INTO HoaDon VALUES
+--(1000,1001,GETDATE(),0,1,80293992,N'ít đường',33.3),
+--(1001,1001,GETDATE(),1,0,80294941,N'nhiều đường',33.3),
+--(1002,1001,GETDATE(),1,0,80295890,N'nhiều đá',33.3),
+(1004,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1005,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1006,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1007,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1008,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1009,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1010,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1011,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1012,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1013,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1014,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1015,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1016,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1017,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1018,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1019,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1020,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1021,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1022,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1023,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1024,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1025,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1026,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1027,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1028,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1029,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1030,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1031,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1032,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1033,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1034,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1035,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1036,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1037,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1038,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1039,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1040,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1041,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1042,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1043,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1044,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1045,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1046,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1047,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1048,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1049,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1050,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1051,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1052,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1053,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1054,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1055,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1056,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1057,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1058,1001,GETDATE(),0,1,80293992,N'it duong',33.3)
 go
-
+INSERT INTO HoaDon VALUES
+(1059,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1060,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1061,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1062,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1063,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1064,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1065,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1066,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1067,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1068,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1069,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1070,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1071,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1072,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1073,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1074,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1075,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1076,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1077,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1078,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1079,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1080,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1081,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1082,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1083,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1084,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1085,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1086,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1087,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1088,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1089,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1090,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1091,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1092,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1093,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1094,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1095,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1096,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1097,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1098,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1099,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1100,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1101,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1102,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1103,1001,GETDATE(),0,1,80293992,N'it duong',33.3)
+update HoaDon set ThoiGian='2023-07-27 14:00:13.520' where MaHoaDon=1000
+select * from HoaDon where ThoiGian like '%2023%'
+Delete from HoaDon where MaHoaDon=1003
 --nạp dữ liệu bàn-hóa đơn
 INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
-VALUES(1000,1000),
+VALUES
+(1004,1002),
+(1000,1000),
 (1001,1001),
 (1002,1000)
+select Tang ,TenBan from Ban
+join Ban_HoaDon on Ban.MaBan=Ban_HoaDon.MaBan
+where MaHoaDon=1004
 go
 --nạp dữ liệu chi tiết sản phẩm
 INSERT INTO ChiTietSanPham(MaSanPham,Size,Gia)
@@ -185,6 +294,7 @@ VALUES(1000,1000,4,44.5),
 (1002,1000,5,44.5),
 (1002,1001,3,44.5)
 go
+
 
 -- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
 --1 .NhanVien

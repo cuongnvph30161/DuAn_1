@@ -4,7 +4,11 @@
  */
 package repositorys.iRepository;
 
+import com.toedter.calendar.JDateChooser;
+import domainmodel.BanDomainModel;
 import domainmodel.HoaDonDoMainModel;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -14,4 +18,11 @@ import java.util.List;
 public interface IHoaDonRepository extends DAO<Integer,HoaDonDoMainModel>{
         List<HoaDonDoMainModel> getList();
         Integer capNhatTrangThai(int maHD,int trangThai);
+        
+        ///Quản lý hóa đơn (vai tò quản lý)
+        BigDecimal TongHoaDonQLHD(int maHoaDon);
+        Integer PhanTranGiamQLHD(int maGiamGia);
+        List<HoaDonDoMainModel> getListQLHDTheoMaHD(int maHoaDon);
+        List<BanDomainModel> getBanQLHD(int maHoaDon);
+        List<HoaDonDoMainModel> TimKiemQLHoaDon(int maHoaDon);
 }
