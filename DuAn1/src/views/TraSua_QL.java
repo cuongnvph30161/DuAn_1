@@ -503,6 +503,16 @@ public class TraSua_QL extends javax.swing.JFrame {
             int index = tblQuanLySanPham.getSelectedRow();
             int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
             if (chkSizeSXem.isSelected()) {
+                if (txtGiaSizeSXem.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size S không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                try {
+                    BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Giá size S phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
                 if (iCTSPSe.checkTonCTSP(maSanPham, "S") == false) {
                     ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
@@ -510,6 +520,19 @@ public class TraSua_QL extends javax.swing.JFrame {
                 }
             }
             if (chkSizeMXem.isSelected()) {
+                if (txtGiaSizeMXem.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size M không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                    return;
+                }
+                try {
+                    BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Giá size M phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                    return;
+                }
 
                 BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
                 if (iCTSPSe.checkTonCTSP(maSanPham, "M") == false) {
@@ -518,6 +541,19 @@ public class TraSua_QL extends javax.swing.JFrame {
                 }
             }
             if (chkSizeLXem.isSelected()) {
+                if (txtGiaSizeLXem.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size L không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                    return;
+                }
+                try {
+                    BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Giá size L phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                    return;
+                }
                 BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
                 if (iCTSPSe.checkTonCTSP(maSanPham, "L") == false) {
                     ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
@@ -527,6 +563,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
+        JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+        clearCapNhat();
 
     }
 
@@ -662,7 +700,6 @@ public class TraSua_QL extends javax.swing.JFrame {
                 }
 
             }
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
 
         } catch (Exception e) {
         }
@@ -2057,6 +2094,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnTong.add(jpnNhanVien, "card2");
 
         jpnSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        jpnSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpnSanPhamMouseClicked(evt);
+            }
+        });
         jpnSanPham.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -2065,6 +2107,11 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         lblAnhSanPhamXem.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -2405,6 +2452,13 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png"))); // NOI18N
         jpnSanPham.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 90, -1, -1));
 
+        txtTimKiemSanPham.setForeground(new java.awt.Color(153, 153, 153));
+        txtTimKiemSanPham.setText("Mời bạn nhập tên sản phẩm ...");
+        txtTimKiemSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTimKiemSanPhamMouseClicked(evt);
+            }
+        });
         txtTimKiemSanPham.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTimKiemSanPhamKeyReleased(evt);
@@ -4473,6 +4527,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void tblQuanLySanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanLySanPhamMouseClicked
         sanPhamMouclick();
         CTSPMouclick();
+        txtTimKiemSanPham.setText("Mời bạn nhập tên sản phẩm ...");
     }//GEN-LAST:event_tblQuanLySanPhamMouseClicked
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -4525,11 +4580,9 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void btnCapNhatSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatSanPhamActionPerformed
         capNhatSanPham();
         if (checkCapNhatSize()) {
-
             themSizeCTSP();
             updateGiaCTSP();
             loadTableSanPham();
-            clearCapNhat();
 
         }
 
@@ -4886,6 +4939,18 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void txtCCCDXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCCCDXemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCCCDXemActionPerformed
+
+    private void txtTimKiemSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemSanPhamMouseClicked
+        txtTimKiemSanPham.setText("");
+    }//GEN-LAST:event_txtTimKiemSanPhamMouseClicked
+
+    private void jpnSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnSanPhamMouseClicked
+        txtTimKiemSanPham.setText("Mời bạn nhập tên sản phẩm ...");
+    }//GEN-LAST:event_jpnSanPhamMouseClicked
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        txtTimKiemSanPham.setText("Mời bạn nhập tên sản phẩm ...");
+    }//GEN-LAST:event_jPanel2MouseClicked
     private void loadChuMoTapTrungTimKiemChoMaGiamGia() {
         // Đặt placeholder ban đầu cho thanh tìm kiếm
         txtTimKiemMaGiamGia.setText("Nhập hoá đơn tối thiểu...");
