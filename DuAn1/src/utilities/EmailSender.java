@@ -6,6 +6,7 @@ package utilities;
 
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 import jakarta.mail.Transport;
@@ -56,11 +57,33 @@ public class EmailSender {
     }
 
 
-    // Phương thức lấy Access Token từ Refresh Token (Bạn cần tự triển khai phương thức này)
-    private static String getAccessToken(String clientId, String clientSecret, String refreshToken) {
-        // Triển khai mã lấy Access Token từ Refresh Token ở đây
-        return null;
+  public static String sendSupPort(String mailNhan, String email, String pass, String content) {
+    try {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props,
+                new Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(email, pass);
+                    }
+                });
+
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(email));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailNhan));
+        message.setSubject("Hỗ trợ khách hàng");
+        message.setText(content);
+
+        Transport.send(message);
+        return "Gửi email thành công!";
+    } catch (MessagingException e) {
+        return "Gửi email không thành công. Vui lòng kiểm tra lại thông tin email.";
     }
+}
 
     public static String getSentCode() {
         return sentCode;

@@ -1787,10 +1787,10 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
 //        jpnKhieuNaiHoTro.setVisible(true);
-        jpnSanPham.setVisible(false);
-        jpnBanHang.setVisible(false);
-        jpnQLBan.setVisible(false);
-        jpnHoaDon1.setVisible(false);
+//        jpnSanPham.setVisible(false);
+//        jpnBanHang.setVisible(false);
+//        jpnQLBan.setVisible(false);
+//        jpnHoaDon1.setVisible(false);
         new HoTroKhachHang().setVisible(true);
 
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked

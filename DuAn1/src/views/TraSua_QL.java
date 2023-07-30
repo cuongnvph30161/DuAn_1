@@ -3746,13 +3746,13 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
-        jpnNhanVien.setVisible(false);
-        jpnSanPham.setVisible(false);
-        jpnQLBan.setVisible(false);
-        jpnHoaDon.setVisible(false);
-        jpnVoucher.setVisible(false);
-        jpnTaiKhoan.setVisible(false);
-        jpnBackupHeThong.setVisible(false);
+//        jpnNhanVien.setVisible(false);
+//        jpnSanPham.setVisible(false);
+//        jpnQLBan.setVisible(false);
+//        jpnHoaDon.setVisible(false);
+//        jpnVoucher.setVisible(false);
+//        jpnTaiKhoan.setVisible(false);
+//        jpnBackupHeThong.setVisible(false);
         new HoTroKhachHang().setVisible(true);
 
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
