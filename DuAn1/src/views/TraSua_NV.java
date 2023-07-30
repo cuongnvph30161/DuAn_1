@@ -2034,26 +2034,24 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     private void lblNVluiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNVluiMouseClicked
         // TODO add your handling code here:
-        if (demTrang == 1) {
-            JOptionPane.showMessageDialog(this, "không thể lùi");
-            demTrang = 1;
-            return;
-        } else {
-            truyenTrang(demTrang);
+        if (demTrang > 1) {
             demTrang--;
+            truyenTrang(demTrang);
+        } else {
+            JOptionPane.showMessageDialog(null, demTrang);
+            return;
         }
 
     }//GEN-LAST:event_lblNVluiMouseClicked
 
     private void lblNVTienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNVTienMouseClicked
         // TODO add your handling code here:
-        if (demTrang == soTrang) {
-            JOptionPane.showMessageDialog(this, "không thể tiến");
-            demTrang = soTrang;
-            return;
-        } else {
-            truyenTrang(demTrang);
+        if (demTrang < soTrang) {
             demTrang++;
+            truyenTrang(demTrang);
+        } else {
+            JOptionPane.showMessageDialog(null, demTrang);
+            return;
         }
     }//GEN-LAST:event_lblNVTienMouseClicked
     int viTri;
