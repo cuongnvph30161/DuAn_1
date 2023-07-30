@@ -161,7 +161,7 @@ go
 
 --nạp dữ liệu hóa đơn
 INSERT INTO HoaDon
-VALUES(1000,1001,GETDATE(),0,1,80293992,N'ít đường',33.3),
+VALUES(1204,1001,'2023-07-29 14:12:55.373',0,1,80293992,N'ít đường',33.3),
 (1001,1001,GETDATE(),1,0,80294941,N'nhiều đường',33.3),
 (1002,1001,GETDATE(),1,0,80295890,N'nhiều đá',33.3),
 (1003,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
@@ -366,7 +366,7 @@ VALUES(1000,1001,GETDATE(),0,1,80293992,N'ít đường',33.3),
 (1202,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1203,1001,GETDATE(),0,1,80293992,N'it duong',33.3)
 go
-
+select * from HoaDon
 --nạp dữ liệu bàn-hóa đơn
 INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
 VALUES(1000,1000),

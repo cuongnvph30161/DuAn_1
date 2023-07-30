@@ -103,56 +103,24 @@ public class HoaDonRepository implements IHoaDonRepository {
     }
 
     @Override
-    public BigDecimal TongHoaDonQLHD(int maHoaDon) {
-        BigDecimal TongHoaDon = null;
+    public double TongHoaDonQLHD(int maHoaDon) {
+        double TongHoaDon = 0;
         try {
             con = DBConnect.getConnect();
             String lenh = "select Sum(Gia*SoLuong) AS 'TongHoaDon' from ChiTietHoaDon where MaHoaDon=" + maHoaDon;
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(lenh);
             while (rs.next()) {
-                TongHoaDon = rs.getBigDecimal("TongHoaDon");
+                TongHoaDon = rs.getBigDecimal("TongHoaDon").doubleValue();
             }
             return TongHoaDon;
         } catch (Exception e) {
-            return null;
+            return 0;
         }
     }
 
-    @Override
-    public Integer PhanTranGiamQLHD(int maHoaDon) {
-        int PhanTramGiam = -1;
-        try {
-            con = DBConnect.getConnect();
-            String lenh = "select PhanTramGiam from HoaDon\n"
-                    + "join MaGiamGia on HoaDon.MaVoucher=MaGiamGia.MaVoucher\n"
-                    + "where MaHoaDon="+maHoaDon;
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(lenh);
-            while (rs.next()) {
-                PhanTramGiam = rs.getInt("PhanTramGiam");
-            }
-            return PhanTramGiam;
-        } catch (Exception e) {
-            return -1;
-        }
-    }
-    @Override
-    public BigDecimal DVPhatSinhQLHD(int maHoaDon) {
-        BigDecimal DVPhatSinh = null;
-        try {
-            con = DBConnect.getConnect();
-            String lenh = "select DichVuPhatSinh from HoaDon where MaHoaDon=" + maHoaDon;
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(lenh);
-            while (rs.next()) {
-                DVPhatSinh = rs.getBigDecimal("DichVuPhatSinh");
-            }
-            return DVPhatSinh;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+   
+    
 
     @Override
     public List<HoaDonDoMainModel> getListQLHDTheoMaHD(int maHoaDon) {

@@ -46,18 +46,11 @@ public class HoaDonService implements IHoaDonService {
     // public boolean insert(String maNhanVi);
 
     @Override
-    public BigDecimal TongHoaDonQLHD(int maHoaDon) {
+    public double TongHoaDonQLHD(int maHoaDon) {
         return HoaDonRepo.TongHoaDonQLHD(maHoaDon);
     }
 
-    @Override
-    public Integer PhanTranGiamQLHD(int maGiamGia) {
-        return HoaDonRepo.PhanTranGiamQLHD(maGiamGia);
-    }
-    @Override
-    public BigDecimal DVPhatSinhQLHD(int maHoaDon) {
-        return HoaDonRepo.DVPhatSinhQLHD(maHoaDon);
-    }
+   
 
     @Override
     public List<QuanLyHoaDonViewModel> getListQLHDTheoMaHD(int maHoaDon) {
@@ -133,6 +126,8 @@ public class HoaDonService implements IHoaDonService {
         }
         return null;
     }
+
+    
 
     
 
