@@ -4520,7 +4520,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
     }//GEN-LAST:event_btnTaoMoiActionPerformed
 
-<<<<<<< HEAD
     private void tblQuanLyHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanLyHoaDonMouseClicked
         // TODO add your handling code here:
         int index = tblQuanLyHoaDon.getSelectedRow();
@@ -4673,7 +4672,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         // TODO add your handling code here:
         LoadTableQLHD();
     }//GEN-LAST:event_btnXemQLHDActionPerformed
-=======
     private void tblVorCherFromMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVorCherFromMouseClicked
 
     }//GEN-LAST:event_tblVorCherFromMouseClicked
@@ -4698,7 +4696,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
         
     }//GEN-LAST:event_btnThuHoi1ActionPerformed
->>>>>>> ebf377b3b525bc1f149c77676fa71361251fd361
 
     public void fillMaBan(int index) {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
@@ -4742,13 +4739,10 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnThemNhanVien;
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton btnThemTaiKhoan;
-<<<<<<< HEAD
     private javax.swing.JButton btnThuHoi;
     private javax.swing.JButton btnTimKiemQLHD;
     private javax.swing.JButton btnXemQLHD;
-=======
     private javax.swing.JButton btnThuHoi1;
->>>>>>> ebf377b3b525bc1f149c77676fa71361251fd361
     private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienXem;
     private javax.swing.JComboBox<String> cbbMaNhanVienTaiKhoanSua;
