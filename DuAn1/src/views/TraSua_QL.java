@@ -898,14 +898,14 @@ public class TraSua_QL extends javax.swing.JFrame {
         if (hoVaTen.startsWith(" ")) {
             JOptionPane.showMessageDialog(this, "Tên không được chứa dấu cách ở đầu");
             return null;
-        } else if (cccd.startsWith(" ")) {
-            JOptionPane.showMessageDialog(this, "CCCD không được chứa dấu cách ở đầu");
-            return null;
-        } else if (diaChi.startsWith(" ")) {
-            JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa dấu cách ở đầu");
-            return null;
         }
         nhanVienViewModel.setHoVaTen(hoVaTen);
+
+        if (cccd.startsWith(" ")) {
+            JOptionPane.showMessageDialog(this, "CCCD không được chứa dấu cách ở đầu");
+            return null;
+        }
+
         // định dạng ngày sinh
         try {
             LocalDate localDate = LocalDate.parse(ngaySinh);
@@ -914,25 +914,44 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày sinh");
             return null;
         }
+
+        if (diaChi.startsWith(" ")) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa dấu cách ở đầu");
+            return null;
+        }
         nhanVienViewModel.setDiaChi(diaChi);
+
         if (!cccd.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
+            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số và không chứa kí tự.");
             return null;
-        } else if (!isValidEmail(email)) {
-            JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
-            return null;
-        } else if (isSoDienThoaiExists(soDienThoai, false, soDienThoaiCu)) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại. Vui lòng kiểm tra lại");
-            return null;
-        } else if (!isSoDienThoaiValid(soDienThoai)) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại phải là số và thuộc trong khoảng 10 đến 11 số.");
-            return null;
-        } else if (isCCCDExists(cccd, false, nhanVienCu)) {
+        }
+
+        if (isCCCDExists(cccd, false, nhanVienCu)) {
             JOptionPane.showMessageDialog(this, "CCCD đã tồn tại. Vui lòng kiểm tra lại.");
             return null;
         }
+        if (cccd.length() != 12) {
+            JOptionPane.showMessageDialog(this, "Căn cước công dân phải đạt 12 số");
+            return null;
+        }
+
         nhanVienViewModel.setCCCD(cccd);
+
+        if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
+            return null;
+        }
         nhanVienViewModel.setEmail(email);
+
+        if (isSoDienThoaiExists(soDienThoai, false, soDienThoaiCu)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại. Vui lòng kiểm tra lại");
+            return null;
+        }
+
+        if (!isSoDienThoaiValid(soDienThoai)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải là số và thuộc trong khoảng 10 đến 11 số.");
+            return null;
+        }
         nhanVienViewModel.setSoDienThoai(soDienThoai);
         nhanVienViewModel.setChucVu(chucVu);
         if (trangThai.equals("Đã nghỉ việc")) {
@@ -945,7 +964,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 
     public boolean isCCCDExists(String cccd, boolean isUpdating, String cccdCu) {
-        // ...
+
         // Kiểm tra xem CCCD mới có khác với CCCD cũ hay không
         if (isUpdating && cccd.equals(cccdCu)) {
             // Nếu CCCD mới không khác CCCD cũ, không cần kiểm tra và không báo lỗi
@@ -1071,6 +1090,8 @@ public class TraSua_QL extends javax.swing.JFrame {
         NhanVienViewModel nhanVienCu = iNhanVienService.getNhanVienById(maNhanVienInt);
         String cccdCu = nhanVienCu.getCCCD();
         String soDienThoaiCu = nhanVienCu.getSoDienThoai();
+        String trangThai = cbbTrangThaiNhanVienXem.getSelectedItem().toString();
+
         // Lấy ảnh từ lblAnhNhanVien
         Icon icon = lblAnhNhanVienSua.getIcon();
         if (icon != null) {
@@ -1098,21 +1119,31 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày sinh");
             return null;
         }
+
         if (diaChi.startsWith(" ")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được chứa dấu cách ở đầu");
             return null;
         }
+
         nhanVienViewModel.setDiaChi(diaChi);
+
         if (cccd.startsWith(" ")) {
             JOptionPane.showMessageDialog(this, "CCCD không được chứa dấu cách ở đầu");
             return null;
-        } else if (!cccd.matches("\\d+")) {
+        }
+        if (!cccd.matches("\\d+")) {
             JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
             return null;
-        } else if (isCCCDExists(cccd, true, cccdCu)) {
+        }
+        if (isCCCDExists(cccd, true, cccdCu)) {
+            return null;
+        }
+        if (cccd.length() != 12) {
+            JOptionPane.showMessageDialog(this, "Căn cước công dân phải đạt 12 số");
             return null;
         }
         nhanVienViewModel.setCCCD(cccd);
+
         Set<String> existingEmails = new HashSet<>();
         List<NhanVienViewModel> existingNhanViens = iNhanVienService.getAll();
         for (NhanVienViewModel nv : existingNhanViens) {
@@ -1122,7 +1153,8 @@ public class TraSua_QL extends javax.swing.JFrame {
         if (!email.equals(nhanVienCu.getEmail()) && existingEmails.contains(email)) {
             JOptionPane.showMessageDialog(this, "Email không được trùng.");
             return null;
-        } else if (!isValidEmail(email)) {
+        }
+        if (!isValidEmail(email)) {
             JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
             return null;
         }
@@ -1139,7 +1171,6 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         nhanVienViewModel.setChucVu(chucVu);
 
-        String trangThai = cbbTrangThaiNhanVienXem.getSelectedItem().toString();
         if (trangThai.equals("Đã nghỉ việc")) {
             nhanVienViewModel.setTrangThai(0);
         } else {
@@ -1666,6 +1697,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtDiaChiXem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         txtCCCDXem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtCCCDXem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCCCDXemActionPerformed(evt);
+            }
+        });
 
         txtEmailXem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
@@ -4846,6 +4882,10 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void txtTimKiemMaGiamGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemMaGiamGiaKeyReleased
 
     }//GEN-LAST:event_txtTimKiemMaGiamGiaKeyReleased
+
+    private void txtCCCDXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCCCDXemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCCCDXemActionPerformed
     private void loadChuMoTapTrungTimKiemChoMaGiamGia() {
         // Đặt placeholder ban đầu cho thanh tìm kiếm
         txtTimKiemMaGiamGia.setText("Nhập hoá đơn tối thiểu...");
