@@ -38,7 +38,7 @@ import viewmodel.TaiKhoanViewModel;
 import viewmodel.TenBanViewModel;
 
 public class TraSua_NV extends javax.swing.JFrame {
-    
+
     int demTrang = 1;
     Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang = new HashMap<>();
     INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
@@ -51,17 +51,17 @@ public class TraSua_NV extends javax.swing.JFrame {
     List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
     private String maTaiKhoan;
     int soTrang = 1;
-    
+
     public void setMaTaiKhoan(String maTaiKhoan) {
         this.maTaiKhoan = maTaiKhoan;
-        
+
     }
     ////////////////////////////////////////////////////////////////
     BanService banSe = new BanService();
     IMaGiamGiaService iMGGSe = new MaGiamGiaService();
     NhanVienBanService nvBanSe = new NhanVienBanService();
     DefaultTableModel tableModelBan = new DefaultTableModel();
-    
+
     public TraSua_NV(String maTaiKhoan) {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -78,148 +78,148 @@ public class TraSua_NV extends javax.swing.JFrame {
         //hienBanTang5();
 
         lblTang.setText("Tầng 1");
-        
+
         modelNVhoaDon = (DefaultTableModel) tblNhanVienHoaDon.getModel();
         btnThem.setVisible(false);
         btnthem2.setVisible(false);
         init();
         jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
-        
+
         phanTrang();
         truyenTrang(1);
         FillTableBan();
         clickChiTiet();
-        
+
     }
-    
+
     public void loadBanTang1() {
         List<TenBanViewModel> listTenBanVM = banSe.getTang1();
         List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
         for (TenBanViewModel tb : listTenBanVM) {
             listBanJpanel.add(new NhanVienBanJpanel(tb));
-            
+
         }
         GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
         layout.setHgap(20);
         layout.setVgap(20);
         layout.setRows(0);
         jpnTang1.setLayout(layout);
-        
+
         for (NhanVienBanJpanel banPanel : listBanJpanel) {
             jpnTang1.add(banPanel);
-            
+
         }
     }
-    
+
     private void loadBanTang2() {
         List<TenBanViewModel> listTenBanVM = banSe.getTang2();
         List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
         for (TenBanViewModel tb : listTenBanVM) {
             listBanJpanel.add(new NhanVienBanJpanel(tb));
-            
+
         }
         GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
         layout.setHgap(20);
         layout.setVgap(20);
         layout.setRows(0);
         jpnTang2.setLayout(layout);
-        
+
         for (NhanVienBanJpanel banPanel : listBanJpanel) {
             jpnTang2.add(banPanel);
-            
+
         }
     }
-    
+
     private void loadBanTang3() {
         List<TenBanViewModel> listTenBanVM = banSe.getTang3();
         List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
         for (TenBanViewModel tb : listTenBanVM) {
             listBanJpanel.add(new NhanVienBanJpanel(tb));
-            
+
         }
         GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
         layout.setHgap(20);
         layout.setVgap(20);
         layout.setRows(0);
         jpnTang3.setLayout(layout);
-        
+
         for (NhanVienBanJpanel banPanel : listBanJpanel) {
             jpnTang3.add(banPanel);
-            
+
         }
-        
+
     }
-    
+
     private void loadBanTang4() {
         List<TenBanViewModel> listTenBanVM = banSe.getTang4();
         List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
         for (TenBanViewModel tb : listTenBanVM) {
             listBanJpanel.add(new NhanVienBanJpanel(tb));
-            
+
         }
         GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
         layout.setHgap(20);
         layout.setVgap(20);
         layout.setRows(0);
         jpnTang4.setLayout(layout);
-        
+
         for (NhanVienBanJpanel banPanel : listBanJpanel) {
             jpnTang4.add(banPanel);
-            
+
         }
-        
+
     }
-    
+
     private void loadBanTang5() {
         List<TenBanViewModel> listTenBanVM = banSe.getTang5();
         List<NhanVienBanJpanel> listBanJpanel = new ArrayList<>();
         for (TenBanViewModel tb : listTenBanVM) {
             listBanJpanel.add(new NhanVienBanJpanel(tb));
-            
+
         }
         GridLayout layout = new GridLayout((int) Math.ceil(listBanJpanel.size() / 3), 3);
         layout.setHgap(20);
         layout.setVgap(20);
         layout.setColumns(0);
         jpnTang5.setLayout(layout);
-        
+
         for (NhanVienBanJpanel banPanel : listBanJpanel) {
             jpnTang5.add(banPanel);
-            
+
         }
-        
+
     }
-    
+
     private void hienBanTang2() {
-        
+
         jpnTang2.setVisible(true);
         jpnTang1.setVisible(false);
         jpnTang3.setVisible(false);
         jpnTang4.setVisible(false);
         jpnTang5.setVisible(false);
     }
-    
+
     private void hienBanTang3() {
-        
+
         jpnTang3.setVisible(true);
         jpnTang1.setVisible(false);
         jpnTang2.setVisible(false);
         jpnTang4.setVisible(false);
         jpnTang5.setVisible(false);
     }
-    
+
     private void hienBanTang4() {
-        
+
         jpnTang4.setVisible(true);
         jpnTang1.setVisible(false);
         jpnTang2.setVisible(false);
         jpnTang3.setVisible(false);
         jpnTang5.setVisible(false);
     }
-    
+
     private void hienBanTang5() {
-        
+
         jpnTang5.setVisible(true);
         jpnTang1.setVisible(false);
         jpnTang2.setVisible(false);
@@ -227,10 +227,10 @@ public class TraSua_NV extends javax.swing.JFrame {
         jpnTang4.setVisible(false);
     }
     List<NhanVienBanViewModel> listNVban = nvBanSe.getAllNhanVienBan();
-    
+
     private void FillTableBan() {
         String chiTiet = " Xem ";
-        
+
         tableModelBan = (DefaultTableModel) tblNhanVienBan.getModel();
         tableModelBan.setRowCount(0);
         for (NhanVienBanViewModel nv : listNVban) {
@@ -241,58 +241,57 @@ public class TraSua_NV extends javax.swing.JFrame {
                 nv.getTrangThaiOrder() == 1 ? "Đã làm" : "Đang làm ",
                 chiTiet
             });
-            
+
         }
     }
-    
+
     public void truyenTrang(int index) {
         List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
         lstTruyenTrang = mapPhanTrang.get(index);
         lblNhanVienTrangThaiTrang.setText("trang " + index + "/" + soTrang);
         fillTableNVHD(lstTruyenTrang);
     }
-    
+
     public void phanTrang() {
-        //lấy số trang
         if (listNhanVienHDView.size() > 100) {
-            double so = listNhanVienHDView.size() / 100;
-            soTrang = (int) Math.ceil(so);
+            double a = listNhanVienHDView.size();
+            double b = 100;
+            soTrang = (int) Math.ceil(a / b);
+
         } else {
             soTrang = 1;
         }
         if (soTrang > 1) {
-            int viTriChay = 1;
-            int viTriDung = 100;
-            //add map
             for (int i = 1; i <= soTrang; i++) {
                 List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
-                //add list
-
-                if (i <= soTrang - 1) {
-                    for (int k = viTriChay; k <= viTriDung; k++) {
-                        listTrang.add(listNhanVienHDView.get(k));
+                if (i == soTrang) {
+                    int doDaiTrangCuoi = listNhanVienHDView.size() - (soTrang - 1) * 100;
+                    for (int j = ((soTrang - 1) * 100); j < (doDaiTrangCuoi + (((soTrang - 1) * 100))); j++) {
+                        listTrang.add(listNhanVienHDView.get(j));
                     }
-                    viTriDung += 100;
-                    viTriChay += 100;
+
                 } else {
-                    if (i == soTrang) {
-                        for (int j = (i - 1) * 100 + 1; j <= listNhanVienHDView.size(); j++) {
-                            listTrang.add(listNhanVienHDView.get(j));
+                    if (i == 1) {
+                        for (int k = 0; k < 100; k++) {
+                            listTrang.add(listNhanVienHDView.get(k));
+                        }
+                    } else {
+                        for (int h = (i - 1) * 100; h <= ((i - 1) * 100 + 99); h++) {
+                            listTrang.add(listNhanVienHDView.get(h));
                         }
                     }
                 }
-                
                 mapPhanTrang.put(i, listTrang);
             }
         } else {
             mapPhanTrang.put(1, listNhanVienHDView);
         }
     }
-    
+
     public void init() {
         setIconImage(XImages.getIconApp());
     }
-    
+
     public void fillTableNVHD(List<NhanVienHoaDonViewModel> list) {
         modelNVhoaDon.setRowCount(0);
         String trangThai = "";
@@ -303,9 +302,9 @@ public class TraSua_NV extends javax.swing.JFrame {
                 a.getGhiChu(), "Chi tiết"
             });
         }
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1797,17 +1796,17 @@ public class TraSua_NV extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
     private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked
-        
+
         lblDoiMatKhau.setOpaque(true);
         lblDoiMatKhau.setBackground(Color.gray);
-        
+
         lblQuanLyBan.setBackground(Color.red);
         lblQuanLyBan.setOpaque(false);
         lblSanPham.setBackground(Color.red);
         lblSanPham.setOpaque(false);
         lblHoaDon.setBackground(Color.red);
         lblHoaDon.setOpaque(false);
-        
+
         new DoiMatKhau(maTaiKhoan).setVisible(true);
     }//GEN-LAST:event_lblDoiMatKhauMouseClicked
 
@@ -1822,7 +1821,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         lblSanPham.setOpaque(true);
         lblSanPham.setBackground(Color.gray);
-        
+
         lblQuanLyBan.setBackground(Color.red);
         lblQuanLyBan.setOpaque(false);
         lblHoaDon.setBackground(Color.red);
@@ -1838,16 +1837,16 @@ public class TraSua_NV extends javax.swing.JFrame {
     private void lblQuanLyBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLyBanMouseClicked
         lblQuanLyBan.setOpaque(true);
         lblQuanLyBan.setBackground(Color.gray);
-        
+
         lblSanPham.setBackground(Color.red);
         lblSanPham.setOpaque(false);
-        
+
         lblHoaDon.setBackground(Color.red);
         lblHoaDon.setOpaque(false);
-        
+
         lblDoiMatKhau.setBackground(Color.red);
         lblDoiMatKhau.setOpaque(false);
-        
+
         jpnBanHang1.setVisible(true);
         jpnSanPham.setVisible(false);
         jpnBanHang.setVisible(false);
@@ -1860,10 +1859,10 @@ public class TraSua_NV extends javax.swing.JFrame {
         lblQuanLyBan.setOpaque(false);
         lblSanPham.setBackground(Color.red);
         lblSanPham.setOpaque(false);
-        
+
         lblDoiMatKhau.setBackground(Color.red);
         lblDoiMatKhau.setOpaque(false);
-        
+
         jpnHoaDon1.setVisible(true);
         jpnSanPham.setVisible(false);
         jpnBanHang1.setVisible(false);
@@ -1903,11 +1902,11 @@ public class TraSua_NV extends javax.swing.JFrame {
             }
             try {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                
+
                 String ngay1 = df.format(jdcTu.getDate());
-                
+
                 java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
-                
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "chưa nhập ngày bắt đầu");
                 jdcTu.requestFocus();
@@ -1915,21 +1914,21 @@ public class TraSua_NV extends javax.swing.JFrame {
             }
             try {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                
+
                 String ngay2 = df.format(jdcDen.getDate());
-                
+
                 java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
-                
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "chưa nhập ngày kết thúc");
                 jdcDen.requestFocus();
                 return;
             }
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            
+
             String ngay1 = df.format(jdcTu.getDate());
             String ngay2 = df.format(jdcDen.getDate());
-            
+
             java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
             java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
             int maHoaDon = Integer.parseInt(txtNhanVienNhapMaHD.getText());
@@ -1944,7 +1943,7 @@ public class TraSua_NV extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "không tìm thấy danh sách phù hợp");
                 return;
             }
-            
+
         } catch (Exception e) {
         }
 
@@ -1982,7 +1981,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTang2ActionPerformed
 
     private void btnTang3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTang3ActionPerformed
-        
+
         hienBanTang3();
         btnTang3.setBackground(Color.gray);
         btnTang1.setBackground(new Color(45, 132, 252));
@@ -2076,19 +2075,19 @@ public class TraSua_NV extends javax.swing.JFrame {
         }
         try {
             double voucher2 = Double.parseDouble(voucher);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu");
             return;
-            
+
         }
         int click = tblNhanVienBan.getSelectedRow();
         if (click == -1) {
             JOptionPane.showMessageDialog(this, "Bạn vui lòng chọn hóa đơn");
             return;
-            
+
         } else {
-            
+
             if (iMGGSe.checkMaGiamGia(txtVoucher) == false) {
                 JOptionPane.showMessageDialog(this, "Mã voucher sai");
                 return;
@@ -2101,7 +2100,7 @@ public class TraSua_NV extends javax.swing.JFrame {
                 lblGiaSauKhiGiam.setText(giaSauKhiGiam + " VNĐ");
                 System.out.println(phanTramGiamGia);
             }
-            
+
         }
     }//GEN-LAST:event_btnApDungBanActionPerformed
 
@@ -2125,18 +2124,18 @@ public class TraSua_NV extends javax.swing.JFrame {
     private void txtNhanVienNhapMaHDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNhanVienNhapMaHDFocusGained
         // TODO add your handling code here:
         //txtNhanVienNhapMaHD
-         if(txtNhanVienNhapMaHD.getText().equalsIgnoreCase("nhập mã nhân viên...")){
+        if (txtNhanVienNhapMaHD.getText().equalsIgnoreCase("nhập mã nhân viên...")) {
             txtNhanVienNhapMaHD.setText(null);
             txtNhanVienNhapMaHD.requestFocus();
             Uhelper.removePlayhoder(txtNhanVienNhapMaHD);
-            
+
         }
     }//GEN-LAST:event_txtNhanVienNhapMaHDFocusGained
 
     private void txtNhanVienNhapMaHDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNhanVienNhapMaHDFocusLost
         // TODO add your handling code here:
-         if(txtNhanVienNhapMaHD.getText().length()==0){
-             Uhelper.adPlayhoder(txtNhanVienNhapMaHD);
+        if (txtNhanVienNhapMaHD.getText().length() == 0) {
+            Uhelper.adPlayhoder(txtNhanVienNhapMaHD);
             txtNhanVienNhapMaHD.setText("nhập mã nhân viên...");
         }
     }//GEN-LAST:event_txtNhanVienNhapMaHDFocusLost
@@ -2163,7 +2162,7 @@ public class TraSua_NV extends javax.swing.JFrame {
             }
         }
     };
-    
+
     private void clickChiTiet() {
         //        int viTri = tblNhanVienBan.getRowCount();
 //        System.out.println(viTri);
@@ -2175,9 +2174,9 @@ public class TraSua_NV extends javax.swing.JFrame {
 //        tblNhanVienBan.getColumnModel().getColumn(2).addMouseListener(new ColumnMouseListener(2));
         tblNhanVienBan.addMouseListener(mouseListener);
     }
-    
+
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {

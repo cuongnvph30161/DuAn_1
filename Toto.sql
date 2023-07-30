@@ -80,8 +80,8 @@ DichVuPhatSinh money DEFAULT 0
 FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
 FOREIGN KEY (MaVoucher) REFERENCES MaGiamGia(MaVoucher)
 );
-
 GO
+
 CREATE TABLE Ban_HoaDon(
 MaHoaDon INT NOT NULL,
 MaBan INT NOT NULL,
@@ -117,9 +117,9 @@ go
 -- nạp dữ liệu bảng nhân viên
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
 VALUES 
-(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tung@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'G:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Quản lý'),
-(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','3333533333',0,'nam@gmail.com','03393061033',N'chăm chỉ',(select * from openrowset (bulk 'G:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên'),
-(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','33333333',0,'duy@gmail.com','03393026033',N'chăm chỉ',(select * from openrowset (bulk 'G:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên')
+(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','22222222222',1,'tung@gmail.com','0339306033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Quản lý'),
+(N'Nguyễn Văn Nam','1999-07-10',N'Bắc Ninh','3333533333',0,'nam@gmail.com','03393061033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên'),
+(N'Nguyễn Văn Duy','1999-07-10',N'Bắc Ninh','33333333',0,'duy@gmail.com','03393026033',N'chăm chỉ',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T),N'Nhân viên')
 go
 
 --nạp dữ liệu bảng tài khoản
@@ -133,26 +133,24 @@ go
 --nạp dữ liệu bảng sản phẩm
 INSERT INTO SanPham(TenSanPham,TrangThai,MoTa,Anh)
 VALUES
-(N'Trà xoài bưởi hồng',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra xoai buoi hong.png', single_blob) as T)),
-(N'Choco ngũ cốc kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T)),
-(N'Hồng trà sữa ngũ cốc kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\hong tra ngu coc kem cafe.png', single_blob) as T)),
-(N'Ô long xoài kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\O long xoài kem ca phe.jpg', single_blob) as T)),
-(N'Tiger sugar',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tiger sugar.jpg', single_blob) as T)),
-(N'Trà đào bưởi hồng',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\Tra dao buoi hong.jpg', single_blob) as T)),
-(N'Trà dứa nhiệt đới',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra dua nhiet doi.png', single_blob) as T)),
-(N'Trà sữa chân châu',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra sua chan chau.jpg', single_blob) as T)),
-(N'Trà sữa Matcha',2,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra sua matcha.jpg', single_blob) as T)),
-(N'Trà sữa ô long',1,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra sua o long.jpg', single_blob) as T)),
-(N'Trà sữa panda',0,N'thơm ngon',(select * from openrowset (bulk 'G:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
+(N'Trà xoài bưởi hồng',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra xoai buoi hong.png', single_blob) as T)),
+(N'Choco ngũ cốc kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\choco ngu coc kem ca phe.png', single_blob) as T)),
+(N'Hồng trà sữa ngũ cốc kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\hong tra ngu coc kem cafe.png', single_blob) as T)),
+(N'Ô long xoài kem cafe',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\O long xoài kem ca phe.jpg', single_blob) as T)),
+(N'Tiger sugar',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tiger sugar.jpg', single_blob) as T)),
+(N'Trà đào bưởi hồng',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\Tra dao buoi hong.jpg', single_blob) as T)),
+(N'Trà dứa nhiệt đới',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra dua nhiet doi.png', single_blob) as T)),
+(N'Trà sữa chân châu',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua chan chau.jpg', single_blob) as T)),
+(N'Trà sữa Matcha',2,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua matcha.jpg', single_blob) as T)),
+(N'Trà sữa ô long',1,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua o long.jpg', single_blob) as T)),
+(N'Trà sữa panda',0,N'thơm ngon',(select * from openrowset (bulk 'D:\Anh tra sua\tra sua panda.jpg', single_blob) as T))
 go
-select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'Trà%'
+select MaSanPham,TenSanPham,TrangThai,MoTa,Anh from SanPham where TenSanPham like N'%'
 --nạp dữ liệu bảng mã giảm giá
 INSERT INTO MaGiamGia(PhanTramGiam,HoaDonToiThieu,GiamToiDa,NgayBatDau,NgayKetThuc,MaNguoiTao,SoLuong)
 VALUES (20,1,40000.4,'2022-06-06','2022-06-06',1001,100),
 (20,1,300000.4,'2022-06-06','2024-06-06',1001,10),
 (10,1,20000.4,'2022-06-06','2025-06-06',1001,1000)
-select * from MaGiamGia where MaVoucher=null
-select DichVuPhatSinh from HoaDon where MaHoaDon=1111
 go
 --nạp dữ liệu bảng bàn
 INSERT INTO Ban(TenBan,Tang,TrangThai)
@@ -162,11 +160,12 @@ VALUES (N'1',5,0),
 go
 
 --nạp dữ liệu hóa đơn
-INSERT INTO HoaDon VALUES
---(1000,1001,GETDATE(),0,1,80293992,N'ít đường',33.3),
---(1001,1001,GETDATE(),1,0,80294941,N'nhiều đường',33.3),
---(1002,1001,GETDATE(),1,0,80295890,N'nhiều đá',33.3),
-(1112,1001,GETDATE(),0,1,null,N'it duong',null),
+INSERT INTO HoaDon
+VALUES(1000,1001,GETDATE(),0,1,80293992,N'ít đường',33.3),
+(1001,1001,GETDATE(),1,0,80294941,N'nhiều đường',33.3),
+(1002,1001,GETDATE(),1,0,80295890,N'nhiều đá',33.3),
+(1003,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1004,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1005,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1006,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1007,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
@@ -220,9 +219,7 @@ INSERT INTO HoaDon VALUES
 (1055,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1056,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1057,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
-(1058,1001,GETDATE(),0,1,80293992,N'it duong',33.3)
-go
-INSERT INTO HoaDon VALUES
+(1058,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1059,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1060,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1061,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
@@ -267,21 +264,114 @@ INSERT INTO HoaDon VALUES
 (1100,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1101,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
 (1102,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
-(1103,1001,GETDATE(),0,1,80293992,N'it duong',33.3)
-update HoaDon set DichVuPhatSinh=0 where MaHoaDon=1112
-select * from HoaDon where ThoiGian like '%2023%'
-select * from HoaDon where MaHoaDon=1112
-select 
+(1103,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1104,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1105,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1106,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1107,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1108,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1109,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1110,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1111,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1112,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1113,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1114,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1115,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1116,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1117,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1118,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1119,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1120,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1121,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1122,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1123,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1124,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1125,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1126,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1127,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1128,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1129,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1130,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1131,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1132,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1133,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1134,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1135,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1136,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1137,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1138,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1139,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1140,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1141,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1142,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1143,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1144,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1145,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1146,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1147,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1148,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1149,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1150,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1151,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1152,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1153,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1154,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1155,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1156,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1157,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1158,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1159,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1160,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1161,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1162,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1163,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1164,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1165,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1166,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1167,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1168,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1169,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1170,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1171,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1172,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1173,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1174,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1175,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1176,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1177,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1178,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1179,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1180,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1181,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1182,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1183,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1184,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1185,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1186,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1187,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1188,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1189,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1190,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1191,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1192,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1193,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1194,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1195,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1196,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1197,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1198,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1199,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1200,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1201,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1202,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
+(1203,1001,GETDATE(),0,1,80293992,N'it duong',33.3)
+go
+
 --nạp dữ liệu bàn-hóa đơn
 INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
-VALUES
-(1004,1002),
-(1000,1000),
+VALUES(1000,1000),
 (1001,1001),
 (1002,1000)
-select Tang ,TenBan from Ban
-join Ban_HoaDon on Ban.MaBan=Ban_HoaDon.MaBan
-where MaHoaDon=1004
 go
 --nạp dữ liệu chi tiết sản phẩm
 INSERT INTO ChiTietSanPham(MaSanPham,Size,Gia)
@@ -296,7 +386,6 @@ VALUES(1000,1000,4,44.5),
 (1002,1000,5,44.5),
 (1002,1001,3,44.5)
 go
-
 
 -- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
 --1 .NhanVien
@@ -362,4 +451,3 @@ go
 select * from HoaDon
 update HoaDon set TrangThaiOrder=0 where MaHoaDon=1002
 select * from Ban
-select * from ChiTietSanPham
