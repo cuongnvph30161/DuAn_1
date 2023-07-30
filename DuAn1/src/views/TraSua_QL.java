@@ -128,6 +128,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jdcTimTheoNgay.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
         phanTrangQLHD();
         truyenTrangQLHD(1);
+        loadChuMoTapTrungTimKiemChoMaGiamGia();
 
     }
 
@@ -1374,12 +1375,10 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtMaNguoiTao = new javax.swing.JTextField();
         jLabel110 = new javax.swing.JLabel();
         txtNgayKetThuc = new javax.swing.JTextField();
-        btnThuHoi1 = new javax.swing.JButton();
-        jTextField10 = new javax.swing.JTextField();
+        btnThuHoiMaVouCher = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblVorCherFrom = new javax.swing.JTable();
-        jLabel58 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        txtTimKiemMaGiamGia = new javax.swing.JTextField();
         jpnTaiKhoan = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
@@ -3144,16 +3143,16 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtNgayKetThuc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
         jPanel7.add(txtNgayKetThuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 202, -1));
 
-        btnThuHoi1.setBackground(new java.awt.Color(45, 132, 252));
-        btnThuHoi1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThuHoi1.setForeground(new java.awt.Color(255, 255, 255));
-        btnThuHoi1.setText("Thu hồi");
-        btnThuHoi1.addActionListener(new java.awt.event.ActionListener() {
+        btnThuHoiMaVouCher.setBackground(new java.awt.Color(45, 132, 252));
+        btnThuHoiMaVouCher.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThuHoiMaVouCher.setForeground(new java.awt.Color(255, 255, 255));
+        btnThuHoiMaVouCher.setText("Thu hồi");
+        btnThuHoiMaVouCher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThuHoi1ActionPerformed(evt);
+                btnThuHoiMaVouCherActionPerformed(evt);
             }
         });
-        jPanel7.add(btnThuHoi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, -1, -1));
+        jPanel7.add(btnThuHoiMaVouCher, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, -1, -1));
 
         jTabbedPane2.addTab("Tạo voucher", jPanel7);
 
@@ -3174,7 +3173,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         );
 
         jpnVoucher.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 38, 430, 730));
-        jpnVoucher.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 38, 990, 33));
 
         tblVorCherFrom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3201,16 +3199,25 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jpnVoucher.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 990, 680));
 
-        jLabel58.setText("Thời gian tạo");
-        jpnVoucher.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 10, -1, -1));
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
+        txtTimKiemMaGiamGia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTimKiemMaGiamGiaFocusGained(evt);
             }
         });
-        jpnVoucher.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 10, -1, -1));
+        txtTimKiemMaGiamGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemMaGiamGiaActionPerformed(evt);
+            }
+        });
+        txtTimKiemMaGiamGia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimKiemMaGiamGiaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemMaGiamGiaKeyReleased(evt);
+            }
+        });
+        jpnVoucher.add(txtTimKiemMaGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 42, 990, 30));
 
         jpnTong.add(jpnVoucher, "card6");
 
@@ -3978,10 +3985,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void lblNhanVienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhanVienMouseEntered
     }//GEN-LAST:event_lblNhanVienMouseEntered
 
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
-
-    }//GEN-LAST:event_jComboBox4ActionPerformed
-
     private void lblTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTaiKhoanMouseClicked
         lblSanPham.setOpaque(false);
         lblSanPham.setBackground(Color.red);
@@ -4688,14 +4691,14 @@ public class TraSua_QL extends javax.swing.JFrame {
                         }
                     }
                     mapPhanTrangQLHD.put(i, listTrang);
-                    
+
                 }
                 truyenTrangQLHD(1);
             } else {
                 mapPhanTrangQLHD.put(1, listQLHDPhanTrang);
                 truyenTrangQLHD(1);
             }
-            
+
             ///////////
         } catch (Exception e) {
         }
@@ -4762,7 +4765,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         cleanMaGiamGia();
     }//GEN-LAST:event_btnCleanMaGiamGiaActionPerformed
 
-    private void btnThuHoi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuHoi1ActionPerformed
+    private void btnThuHoiMaVouCherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuHoiMaVouCherActionPerformed
 
         int row = tblVorCherFrom.getSelectedRow();
         if (row == -1) {
@@ -4777,7 +4780,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, iMaGiamGiaService.updateMaGiamGiaSoLuong(maVouCherInt, maGiamGiaViewModel));
         loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
 
-    }//GEN-LAST:event_btnThuHoi1ActionPerformed
+    }//GEN-LAST:event_btnThuHoiMaVouCherActionPerformed
 
     private void lblQLHDDauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLHDDauMouseClicked
         // TODO add your handling code here:
@@ -4812,6 +4815,61 @@ public class TraSua_QL extends javax.swing.JFrame {
         truyenTrangQLHD(soTrangQLHD);
         demTrangQLHD = soTrangQLHD;
     }//GEN-LAST:event_lblQLHDCuoiMouseClicked
+
+    private void txtTimKiemMaGiamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemMaGiamGiaActionPerformed
+
+    }//GEN-LAST:event_txtTimKiemMaGiamGiaActionPerformed
+
+    private void txtTimKiemMaGiamGiaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemMaGiamGiaFocusGained
+
+    }//GEN-LAST:event_txtTimKiemMaGiamGiaFocusGained
+
+    private void txtTimKiemMaGiamGiaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemMaGiamGiaKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String searchHoaDonToiThieu = txtTimKiemMaGiamGia.getText().trim();
+
+            if (searchHoaDonToiThieu.isEmpty()) {
+                loadTableVorCher(iMaGiamGiaService.getListMaGiamGia());
+            } else {
+                try {
+                    int searchHoaDonToiThieuInt = Integer.parseInt(searchHoaDonToiThieu);
+                    ArrayList<MaGiamGiaViewModel> listMaGiamGia = iMaGiamGiaService.getFindHoaDonToiThieu(searchHoaDonToiThieuInt);
+                    loadTableVorCher(listMaGiamGia);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Vui lòng nhập số nguyên hợp lệ.");
+                    txtTimKiemMaGiamGia.setText("");
+                }
+            }
+        }
+    }//GEN-LAST:event_txtTimKiemMaGiamGiaKeyPressed
+
+    private void txtTimKiemMaGiamGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemMaGiamGiaKeyReleased
+
+    }//GEN-LAST:event_txtTimKiemMaGiamGiaKeyReleased
+    private void loadChuMoTapTrungTimKiemChoMaGiamGia() {
+        // Đặt placeholder ban đầu cho thanh tìm kiếm
+        txtTimKiemMaGiamGia.setText("Nhập hoá đơn tối thiểu...");
+
+        // Thêm sự kiện focusGained
+        txtTimKiemMaGiamGia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                // Kiểm tra nếu là placeholder hoặc rỗng thì xóa và đặt lại giá trị thành rỗng
+                if (txtTimKiemMaGiamGia.getText().equalsIgnoreCase("Nhập hoá đơn tối thiểu...") || txtTimKiemMaGiamGia.getText().trim().isEmpty()) {
+                    txtTimKiemMaGiamGia.setText("");
+                }
+            }
+        });
+
+        // Thêm sự kiện focusLost
+        txtTimKiemMaGiamGia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                // Kiểm tra nếu là rỗng thì đặt lại giá trị thành placeholder
+                if (txtTimKiemMaGiamGia.getText().trim().isEmpty()) {
+                    txtTimKiemMaGiamGia.setText("Nhập hoá đơn tối thiểu...");
+                }
+            }
+        });
+    }
 
     public void fillMaBan(int index) {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
@@ -4855,7 +4913,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JButton btnThemNhanVien;
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton btnThemTaiKhoan;
-    private javax.swing.JButton btnThuHoi1;
+    private javax.swing.JButton btnThuHoiMaVouCher;
     private javax.swing.JButton btnTimKiemQLHD;
     private javax.swing.JButton btnXemQLHD;
     private javax.swing.JComboBox<String> cbbChucVuNhanVienThem;
@@ -4888,7 +4946,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox16;
     private javax.swing.JCheckBox jCheckBox17;
     private javax.swing.JCheckBox jCheckBox18;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -4934,7 +4991,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
@@ -5015,7 +5071,6 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTabbedPane jTabbedPane6;
-    private javax.swing.JTextField jTextField10;
     private com.toedter.calendar.JDateChooser jdcTimTheoNgay;
     private javax.swing.JPanel jpnBackupHeThong;
     private javax.swing.JPanel jpnHoaDon;
@@ -5108,6 +5163,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSanPhamThem;
     private javax.swing.JTextField txtTenSanPhamXem;
+    private javax.swing.JTextField txtTimKiemMaGiamGia;
     private javax.swing.JTextField txtTimKiemQuanLyHoaDon;
     private javax.swing.JTextField txtTimKiemSanPham;
     private javax.swing.JTextField txtTimKiemTaiKhoan;

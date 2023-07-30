@@ -150,4 +150,33 @@ public class MaGiamGiaRepository implements IMaGiamGiaRepository {
         }
     }
 
+    @Override
+    public ArrayList<MaGiamGiaDomainModel> findMaGiamGiaByHoaDonToiThieu(int hoaDonToiThieuByTimKiem) {
+        ArrayList<MaGiamGiaDomainModel> getList = new ArrayList<>();
+
+        try {
+            String query = "select * from MaGiamGia where HoaDonToiThieu = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, hoaDonToiThieuByTimKiem);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int maGiamGia = rs.getInt("MaVoucher");
+                int phanTramGiam = rs.getInt("PhanTramGiam");
+                int hoaDonToiThieu = rs.getInt("HoaDonToiThieu");
+                BigDecimal giamToiDa = rs.getBigDecimal("GiamToiDa");
+                int soLuong = rs.getInt("SoLuong");
+                int maNguoiTao = rs.getInt("MaNguoiTao");
+                Date ngayBatDau = rs.getDate("NgayBatDau");
+                Date ngayKetThuc = rs.getDate("NgayKetThuc");
+                MaGiamGiaDomainModel maGiamGiaDomainModel = new MaGiamGiaDomainModel(maGiamGia, phanTramGiam, hoaDonToiThieu, giamToiDa, ngayBatDau, ngayKetThuc, maNguoiTao, soLuong);
+
+                getList.add(maGiamGiaDomainModel);
+            }
+            return getList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

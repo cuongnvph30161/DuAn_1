@@ -493,6 +493,11 @@ public class TraSua_PC extends javax.swing.JFrame {
                 txtTimKiemSPPhaCheFocusLost(evt);
             }
         });
+        txtTimKiemSPPhaChe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemSPPhaCheActionPerformed(evt);
+            }
+        });
         txtTimKiemSPPhaChe.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTimKiemSPPhaCheKeyReleased(evt);
@@ -1018,6 +1023,10 @@ public class TraSua_PC extends javax.swing.JFrame {
             txtTimKiemSPPhaChe.setText("nhập tên sản phẩm...");
         }
     }//GEN-LAST:event_txtTimKiemSPPhaCheFocusLost
+
+    private void txtTimKiemSPPhaCheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemSPPhaCheActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemSPPhaCheActionPerformed
 
     public void showGhiChu(int index) {
         txtlichsuGhiChu.setText(lst.get(index).getGhiChu());

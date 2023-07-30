@@ -7,6 +7,7 @@ package interfaceservices;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 import viewmodel.MaGiamGiaViewModel;
+import viewmodel.defaultViewModel.HoaDonViewModel;
 
 /**
  *
@@ -20,4 +21,5 @@ public interface IMaGiamGiaService {
     public ArrayList<MaGiamGiaViewModel> getListMaGiamGia();
     public String  insertMaGiamGia(MaGiamGiaViewModel maGiamGiaViewModel);
     public String updateMaGiamGiaSoLuong(int maVouCher ,MaGiamGiaViewModel maGiamGiaViewModel);
+    public ArrayList<MaGiamGiaViewModel> getFindHoaDonToiThieu(int hoaDonToiThieuByTimKiem);
 }

@@ -17,6 +17,7 @@ import repositorys.iRepository.IMaGiamGiaRepository;
 import repositorys.iRepository.INhanVienRepository;
 import viewmodel.MaGiamGiaViewModel;
 import viewmodel.NhanVienViewModel;
+import viewmodel.defaultViewModel.HoaDonViewModel;
 
 /**
  *
@@ -80,16 +81,38 @@ public class MaGiamGiaService implements IMaGiamGiaService {
     @Override
     public String updateMaGiamGiaSoLuong(int maVouCher, MaGiamGiaViewModel maGiamGiaViewModel) {
         MaGiamGiaDomainModel maGiamGiaDomainModel = new MaGiamGiaDomainModel();
-        
+
         maGiamGiaDomainModel.setMaVoucher(maGiamGiaViewModel.getMaVoucher());
         maGiamGiaDomainModel.setSoLuong(maGiamGiaViewModel.getSoLuong());
-        
+
         if (iMaGiamGiaRepository.updateMaGiamGiaSoLuong(maVouCher, maGiamGiaDomainModel)) {
             return "Thu hồi mã giảm giá thành công";
         } else {
             return "Thu hồi mã giảm giá thất bại";
         }
 
+    }
+
+    @Override
+    public ArrayList<MaGiamGiaViewModel> getFindHoaDonToiThieu(int hoaDonToiThieuByTimKiem) {
+        ArrayList<MaGiamGiaDomainModel> maGiamGiaDomainModel = iMaGiamGiaRepository.findMaGiamGiaByHoaDonToiThieu(hoaDonToiThieuByTimKiem);
+        ArrayList<MaGiamGiaViewModel> list = new ArrayList<>();
+        for (MaGiamGiaDomainModel mgg : maGiamGiaDomainModel) {
+            MaGiamGiaViewModel maGiamGiaViewModel = new MaGiamGiaViewModel();
+            maGiamGiaViewModel.setMaVoucher(mgg.getMaVoucher());
+            maGiamGiaViewModel.setPhanTramGiam(mgg.getPhanTramGiam());
+            maGiamGiaViewModel.setDonToiThieu(mgg.getDonToiThieu());
+            maGiamGiaViewModel.setGiamToiDa(mgg.getGiamToiDa());
+            maGiamGiaViewModel.setSoLuong(mgg.getSoLuong());
+            maGiamGiaViewModel.setMaNguoiTao(mgg.getMaNguoiTao());
+            NhanVienDomainModel nhanVien = iNhanVienRepository.getNhanVienById(mgg.getMaNguoiTao());
+            String hoTen = nhanVien.getHoVaTen();
+            maGiamGiaViewModel.setHoTen(hoTen);
+            maGiamGiaViewModel.setNgayBatDau(mgg.getNgayBatDau());
+            maGiamGiaViewModel.setNgayKetThuc(mgg.getNgayKetThuc());
+            list.add(maGiamGiaViewModel);
+        }
+        return list;
     }
 
 }

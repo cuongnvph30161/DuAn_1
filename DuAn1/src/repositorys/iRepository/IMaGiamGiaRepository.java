@@ -27,4 +27,5 @@ public interface IMaGiamGiaRepository {
 
     public boolean insertMaGiamGia(MaGiamGiaDomainModel maGiamGiaDomainModel);
     public boolean updateMaGiamGiaSoLuong(int maVouCher ,MaGiamGiaDomainModel maGiamGiaDomainModel);
+    public ArrayList<MaGiamGiaDomainModel> findMaGiamGiaByHoaDonToiThieu(int hoaDonToiThieuByTimKiem);
 }
