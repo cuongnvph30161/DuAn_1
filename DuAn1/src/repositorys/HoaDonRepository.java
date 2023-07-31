@@ -44,7 +44,29 @@ public class HoaDonRepository implements IHoaDonRepository {
         }
         return null;
     }
-
+    public boolean thanhToanHoaDon(Integer[] maHoaDon,int maVouCher) {
+    	StringBuilder querry=new StringBuilder();
+    	querry.append("Update hoaDon set TrangThaiThanhToan=1,maVoucher="+(maVouCher==0?"Null":maVouCher)+" where maHoaDon="+maHoaDon[0]);
+    	for(int i=1;i<maHoaDon.length;i++) {
+    		querry.append(" or maHoaDon="+maHoaDon[i]);
+    	}
+    	if(maVouCher!=0) {
+    		querry.append(" declare @maVoucher int="+maVouCher);
+    		querry.append("  update MaGiamGia set SoLuong = (select SoLuong-1 from MaGiamGia WHERE MaVoucher  = @maVoucher) where maVoucher=@maVoucher");
+    	}
+    	System.out.println(querry.toString());
+    	Connection conn=JdbcHelper.getConnection();
+    	try {
+			Statement stm=conn.createStatement();
+			return stm.executeUpdate(querry.toString())>0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		
+			
+		}
+    	return false;
+    	
+    }
     @Override
     public List<HoaDonDoMainModel> getAll(int... page) {
         // TODO Auto-generated method stub
@@ -53,7 +75,17 @@ public class HoaDonRepository implements IHoaDonRepository {
 
     @Override
     public HoaDonDoMainModel getById(Integer id) {
-        // TODO Auto-generated method stub
+        String querry = "SELECT MaHoaDon,MaNhanVien,ThoiGian,"
+                + "TrangThaiThanhToan,TrangThaiOrder,MaVoucher,GhiChu,DichVuPhatSinh FROM HoaDon where MaHoaDon =?";
+        try {
+			ResultSet rs=JdbcHelper.query(querry, id);
+			if(rs.next()) {
+				return new HoaDonDoMainModel(rs.getInt(1), rs.getInt(2), rs.getTimestamp(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getBigDecimal(8),rs.getString(7));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return null;
     }
 
@@ -63,9 +95,8 @@ public class HoaDonRepository implements IHoaDonRepository {
                 + "VALUES (?,?,?,?,?)";
 
         return JdbcHelper.update(querry, object.getMaHoaDon(), object.getMaNhanVien(),
-                object.getMaVoucher() == 0 ? null : object.getMaVoucher(), object.getGhiChu(), object.getDichVuPhatSinh()) == 1;
+                 object.getMaVoucher() == 0 ? null : object.getMaVoucher(), object.getGhiChu(), object.getDichVuPhatSinh()) == 1;
     }
-
     @Override
     public boolean update(HoaDonDoMainModel object) {
         // TODO Auto-generated method stub

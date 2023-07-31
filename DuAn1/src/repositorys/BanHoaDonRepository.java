@@ -11,7 +11,10 @@ import repositorys.iRepository.IBanHoaDonRepository;
 import repositorys.iRepository.IBanRepository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import utilities.DBConnect;
 import utilities.JdbcHelper;
 
@@ -22,7 +25,30 @@ import utilities.JdbcHelper;
 public class BanHoaDonRepository implements IBanHoaDonRepository {
     
     static Connection con = null;
-
+    public List<Integer> getIdHoaDonByIdBan(Integer[] id){
+		Set<Integer> lstMaHoaDon=new HashSet<Integer>();
+		var querry=new StringBuilder();
+		querry.append("Select HoaDon.MaHoaDon from HoaDon right join Ban_HoaDon on Ban_HoaDon.MaHoaDon=HoaDon.MaHoaDon where TrangThaiThanhToan=0 and (MaBan ="+id[0]);
+		for(int i=1;i<id.length;i++) {
+			querry.append(" or MaBan ="+id[i]);
+		}
+		querry.append(")");
+		System.out.println(querry);
+		Connection conn=JdbcHelper.getConnection();
+		try {
+			Statement smt=conn.createStatement();
+			var rs=smt.executeQuery(querry.toString());
+			while(rs.next()) {
+				lstMaHoaDon.add(rs.getInt(1));
+			}
+			return new ArrayList<Integer>(lstMaHoaDon);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
     @Override
     public List<BanHoaDonDomainModel> getList() {
      try {

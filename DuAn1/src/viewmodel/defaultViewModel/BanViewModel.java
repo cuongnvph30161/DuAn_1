@@ -55,5 +55,10 @@ public class BanViewModel {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
+    @Override
+    public String toString() {
+    	
+    	return trangThai==1?"<html><body style=';text-align: center; color:  #1E90FF'>"+tenBan+"</body></html>>":tenBan;
+    }
     
 }

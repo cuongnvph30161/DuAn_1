@@ -25,7 +25,30 @@ import utilities.JdbcHelper;
 public class ChiTietHoaDonRepository implements IChiTietHoaDonRepository {
 
     static Connection con = null;
-
+    public List<ChiTietHoaDonDomainModel> getLstByMaHoaDon(int maHoaDon){
+    	List<ChiTietHoaDonDomainModel> lstChiTietHoaDon=new ArrayList<>();
+    	
+    	try {
+			ResultSet rs=JdbcHelper.query("Select MaChiTietSanPham,SoLuong,Gia from ChiTietHoaDon where MaHoaDon=?", maHoaDon);
+			while(rs.next()) {
+				ChiTietHoaDonDomainModel dmCthd=new ChiTietHoaDonDomainModel();
+		    	dmCthd.setMaHoaDon(maHoaDon);
+				dmCthd.setGia(rs.getBigDecimal(3));
+				dmCthd.setSoLuong(rs.getInt(2));
+				dmCthd.setMaChiTietSanPham(rs.getInt(1));
+				lstChiTietHoaDon.add(dmCthd);
+			}
+			return lstChiTietHoaDon;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return null;
+    	
+    }
     @Override
     public List<ChiTietHoaDonDomainModel> getList() {
         try {

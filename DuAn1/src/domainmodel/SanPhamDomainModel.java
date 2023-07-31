@@ -6,6 +6,8 @@ package domainmodel;
 
 import java.sql.*;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Admin
@@ -16,7 +18,8 @@ public class SanPhamDomainModel {
     private String tenSanPham;
     private int trangThai;
     private String motTa;
-    private Blob anh;
+    private Blob anh;    private ImageIcon anhSanPham;
+
 
     public SanPhamDomainModel() {
     }
@@ -68,5 +71,13 @@ public class SanPhamDomainModel {
     public void setAnh(Blob anh) {
         this.anh = anh;
     }
+
+	public ImageIcon getAnhSanPham() {
+		return anhSanPham;
+	}
+
+	public void setAnhSanPham(ImageIcon anhSanPham) {
+		this.anhSanPham = anhSanPham;
+	}
 
 }

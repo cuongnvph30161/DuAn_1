@@ -53,8 +53,15 @@ public class Order {
 	public Order() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	public List<ChiTietHoaDonViewModel> getLstChiTietHoaDonViewModels() {
 		return lstChiTietHoaDonViewModels;
+	}
+	@Override
+	public String toString() {
+		return "Order [maNhanVien=" + maNhanVien + ", dichVuPhatSinh=" + dichVuPhatSinh + ", maVoucher=" + maVoucher
+				+ ", lstMaBan=" + lstMaBan + ", lstChiTietHoaDonViewModels=" + lstChiTietHoaDonViewModels + ", ghiChu="
+				+ ghiChu + "]";
 	}
 	public void setLstChiTietHoaDonViewModels(List<ChiTietHoaDonViewModel> lstChiTietHoaDonViewModels) {
 		this.lstChiTietHoaDonViewModels = lstChiTietHoaDonViewModels;

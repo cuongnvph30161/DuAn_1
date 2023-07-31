@@ -6,6 +6,8 @@ package viewmodel.defaultViewModel;
 
 import java.sql.*;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Admin
@@ -17,6 +19,7 @@ public class SanPhamViewModel {
     private int trangThai;
     private String motTa;
     private Blob anh;
+    private ImageIcon hinh;
 
     public SanPhamViewModel() {
     }
@@ -81,5 +84,13 @@ public class SanPhamViewModel {
         }
         return null;
     }
+
+	public ImageIcon getHinh() {
+		return hinh;
+	}
+
+	public void setHinh(ImageIcon hinh) {
+		this.hinh = hinh;
+	}
 
 }

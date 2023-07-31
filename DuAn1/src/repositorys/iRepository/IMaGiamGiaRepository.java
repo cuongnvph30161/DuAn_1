@@ -16,10 +16,14 @@ import javax.swing.JTextField;
  * @author ADMIN
  */
 public interface IMaGiamGiaRepository {
-
+	boolean checkMaGiamGia(Integer a);
+    boolean checkMaGiamGia(int a);
+    Integer applyVoucher(int voucher,int tongThanhToan);
+    String [] getLstID();
+    
     public List<MaGiamGiaDomainModel> getList();
 
-    boolean checkMaGiamGia(JTextField a);
+  
 
     Integer phanTramGiamGia(Integer b);
 

@@ -27,7 +27,52 @@ import utilities.JdbcHelper;
 public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
      static Connection con = null;
+     @Override
+ 	public List<ChiTietSanPhamDomainModel> getAll(int... maSanPham) {
+ 		List<ChiTietSanPhamDomainModel> lstChiTietSanPhamDomainModels=new ArrayList<ChiTietSanPhamDomainModel>();
+ 		StringBuilder querry=new StringBuilder("SELECT MaChiTietSanPham,MaSanPham,Size,Gia FROM ChiTietSanPham ");
+ 		if(maSanPham.length>0) {
+ 			querry.append(" Where maSanPham="+maSanPham[0]);
+ 		}	
+ 		try {
+ 			ResultSet rs=JdbcHelper.query(querry.toString());
+ 			while(rs.next()) {
+ 				ChiTietSanPhamDomainModel dmCTSP=new ChiTietSanPhamDomainModel();
+ 				dmCTSP.setMaChiTietSanPham(rs.getInt(1));
+ 				dmCTSP.setMaSanPham(rs.getInt(2));
+ 				dmCTSP.setSize(rs.getString(3));
+ 				dmCTSP.setGia(rs.getBigDecimal(4));
+ 				lstChiTietSanPhamDomainModels.add(dmCTSP);
+ 			}
+ 			return lstChiTietSanPhamDomainModels;
+ 		} catch (Exception e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 		return null;
+ 	}
 
+ 	@Override
+ 	public ChiTietSanPhamDomainModel getById(Integer id) {
+ 		List<ChiTietSanPhamDomainModel> lstChiTietSanPhamDomainModels=new ArrayList<ChiTietSanPhamDomainModel>();
+ 		StringBuilder querry=new StringBuilder("SELECT MaChiTietSanPham,MaSanPham,Size,Gia FROM ChiTietSanPham where MaChiTietSanPham="+id);
+ 		
+ 		try {
+ 			ResultSet rs=JdbcHelper.query(querry.toString());
+ 			if(rs.next()) {
+ 				ChiTietSanPhamDomainModel dmCTSP=new ChiTietSanPhamDomainModel();
+ 				dmCTSP.setMaChiTietSanPham(rs.getInt(1));
+ 				dmCTSP.setMaSanPham(rs.getInt(2));
+ 				dmCTSP.setSize(rs.getString(3));
+ 				dmCTSP.setGia(rs.getBigDecimal(4));
+ 				return dmCTSP;
+ 			}
+ 		} catch (Exception e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 		return null;
+ 	}
     @Override
     public List<ChiTietSanPhamDomainModel> getList() {
         try {
@@ -48,36 +93,9 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
 
     }
 
-    @Override
-    public List<ChiTietSanPhamDomainModel> getAll(int... maSanPham) {
-        List<ChiTietSanPhamDomainModel> lstChiTietSanPhamDomainModels = new ArrayList<ChiTietSanPhamDomainModel>();
-        StringBuilder querry = new StringBuilder("SELECT MaChiTietSanPham,MaSanPham,Size,Gia FROM ChiTietSanPham ");
-        if (maSanPham.length > 0) {
-            querry.append(" Where maSanPham=" + maSanPham[0]);
-        }
-        try {
-            ResultSet rs = JdbcHelper.query(querry.toString());
-            while (rs.next()) {
-                ChiTietSanPhamDomainModel dmCTSP = new ChiTietSanPhamDomainModel();
-                dmCTSP.setMaChiTietSanPham(rs.getInt(1));
-                dmCTSP.setMaSanPham(rs.getInt(2));
-                dmCTSP.setSize(rs.getString(3));
-                dmCTSP.setGia(rs.getBigDecimal(4));
-                lstChiTietSanPhamDomainModels.add(dmCTSP);
-            }
-            return lstChiTietSanPhamDomainModels;
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
+    
 
-    @Override
-    public ChiTietSanPhamDomainModel getById(String id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+   
 
     @Override
     public boolean insert(ChiTietSanPhamDomainModel object) {
@@ -91,11 +109,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         return false;
     }
 
-    @Override
-    public boolean deleteById(String id) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+   
 
     @Override
     public List<ChiTietSanPhamDomainModel> getBySql(String sql, Object... args) {
@@ -359,4 +373,10 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
         }
         return false;
     }
+
+	@Override
+	public boolean deleteById(Integer id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

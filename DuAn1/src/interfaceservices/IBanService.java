@@ -11,7 +11,7 @@ import viewmodel.defaultViewModel.BanViewModel;
  */
 public interface IBanService {
     boolean insert(BanViewModel vmBan);
-
+    
     List<TenBanViewModel> getTang1();
 
     List<TenBanViewModel> getTang2();

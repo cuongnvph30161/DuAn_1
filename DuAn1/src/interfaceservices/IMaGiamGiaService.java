@@ -15,8 +15,10 @@ import viewmodel.defaultViewModel.HoaDonViewModel;
  */
 public interface IMaGiamGiaService {
 
-    boolean checkMaGiamGia(JTextField a);
-
+    boolean checkMaGiamGia(Integer a);
+    boolean checkMaGiamGia(int a);
+    Integer applyVoucher(int voucher,int tongThanhToan);
+    String [] getLstID();
     Integer phanTramGiamGia(Integer b);
     public ArrayList<MaGiamGiaViewModel> getListMaGiamGia();
     public String  insertMaGiamGia(MaGiamGiaViewModel maGiamGiaViewModel);

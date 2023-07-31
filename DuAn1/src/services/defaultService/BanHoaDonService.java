@@ -23,5 +23,7 @@ public class BanHoaDonService implements IBanHoaDonService{
 		return rpBanHoaDon.deleteById(maBan);
 		
 	}
+	
+
     
 }

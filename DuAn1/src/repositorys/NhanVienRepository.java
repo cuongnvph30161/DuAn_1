@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.sql.Date;
 import utilities.DBConnect;
+import utilities.JdbcHelper;
 
 /**
  *
@@ -33,7 +34,10 @@ public class NhanVienRepository implements INhanVienRepository {
         }
 
     }
-
+    @Override
+	public int getByIdAccount(String idAccount) {
+		return (int) JdbcHelper.value("select NhanVien.MaNhanVien from NhanVien right join TaiKhoan on TaiKhoan.MaNhanVien=NhanVien.MaNhanVien where MaTaiKhoan=?", idAccount);
+	}
     @Override
     public int getMaNhanVienByEmail(String email) {
         int maNhanVien = 0;

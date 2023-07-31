@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public interface IBanRepository extends DAO<String, BanDomainModel> {
+public interface IBanRepository extends DAO<Integer, BanDomainModel> {
 
     List<BanDomainModel> getList();
 

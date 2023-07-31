@@ -13,6 +13,7 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import utilities.DBConnect;
+import utilities.JdbcHelper;
 
 /**
  *
@@ -29,7 +30,41 @@ public class MaGiamGiaRepository implements IMaGiamGiaRepository {
             e.printStackTrace();
         }
     }
-
+    @Override
+	public String[] getLstID() {
+		 List<String> lst = new ArrayList<>();
+		 lst.add("");
+		try {
+          
+           ResultSet rs=JdbcHelper.query("Select maVoucher from MaGiamGia");
+           while(rs.next()) {
+           	lst.add(rs.getString(1));
+           }
+           return lst.toArray(new String[0]);
+       } catch (Exception e) {
+       }
+       return new String[] {""};
+	}
+    @Override
+    public Integer applyVoucher(int idVoucher,int tongThanhToan) {
+    	String querry="select PhanTramGiam,HoaDonToiThieu,GiamToiDa from MaGiamGia where (getDate() between NgayBatDau and NgayKetThuc) and MaVoucher=? and soLuong>1";
+    	try {
+			ResultSet rs=JdbcHelper.query(querry, idVoucher);
+			if(rs.next()) {
+				var phanTramGiam=rs.getInt(1);
+				var hoaDonToiThieu=rs.getInt(2);
+				var giamToiDa=rs.getInt(3);
+				var soTienGiam=tongThanhToan<hoaDonToiThieu?0:tongThanhToan*phanTramGiam/100>giamToiDa?giamToiDa:tongThanhToan*phanTramGiam/100;
+				return tongThanhToan-soTienGiam;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	JOptionPane.showMessageDialog(null, "Mã giảm giá đã được sử dụng hoặc hết hạn !");
+    	return tongThanhToan;
+    	
+    }
     @Override
     public List<MaGiamGiaDomainModel> getList() {
         try {
@@ -52,13 +87,14 @@ public class MaGiamGiaRepository implements IMaGiamGiaRepository {
         return null;
     }
 
+
     @Override
-    public boolean checkMaGiamGia(JTextField a) {
+    public boolean checkMaGiamGia(int a) {
         try {
             Connection connection = DBConnect.getConnect();
-            String query = "select MaVoucher from magiamgia where MaVoucher like ?";
+            String query = "select MaVoucher from magiamgia where MaVoucher =?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, Integer.parseInt(a.getText()));
+            ps.setInt(1, a);
             return ps.executeQuery().next();
         } catch (Exception ex) {
             return false;
@@ -178,5 +214,18 @@ public class MaGiamGiaRepository implements IMaGiamGiaRepository {
             return null;
         }
     }
+	@Override
+	public boolean checkMaGiamGia(Integer a) {
+		try {
+            Connection connection = DBConnect.getConnect();
+            String query = "select MaVoucher from magiamgia where MaVoucher =?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, a);
+            return ps.executeQuery().next();
+        } catch (Exception ex) {
+            return false;
+        }
+	}
+	
 
 }

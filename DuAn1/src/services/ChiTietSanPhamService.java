@@ -15,6 +15,13 @@ import repositorys.ChiTietSanPhamRepository;
 import repositorys.iRepository.IChiTietSanPhamRepository;
 import viewmodel.defaultViewModel.ChiTietSanPhamViewModel;
 import viewmodel.defaultViewModel.SanPhamViewModel;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import domainmodel.ChiTietSanPhamDomainModel;
+import interfaceservices.IChiTietSanPhamService;
+import repositorys.ChiTietSanPhamRepository;
+import viewmodel.defaultViewModel.ChiTietSanPhamViewModel;
 
 /**
  *
@@ -23,7 +30,27 @@ import viewmodel.defaultViewModel.SanPhamViewModel;
 public class ChiTietSanPhamService implements IChiTietSanPhamService {
 
     private IChiTietSanPhamRepository ctspRepo = new ChiTietSanPhamRepository();
-
+    private ChiTietSanPhamRepository rpCTSP=new ChiTietSanPhamRepository();
+    public List<ChiTietSanPhamViewModel> getAll(int... maSanPham){
+   
+    	return rpCTSP.getAll(maSanPham).stream().map(dmCTSP->{
+    		ChiTietSanPhamViewModel vmCTSP=new ChiTietSanPhamViewModel();
+    		vmCTSP.setGia(dmCTSP.getGia());
+    		vmCTSP.setMaChiTietSanPham(dmCTSP.getMaChiTietSanPham());
+    		vmCTSP.setMaSanPham(dmCTSP.getMaSanPham());
+    		vmCTSP.setSize(dmCTSP.getSize());
+    		return vmCTSP;
+    	}).collect(Collectors.toList());
+    }
+    public ChiTietSanPhamViewModel getById(int id) {
+    	ChiTietSanPhamViewModel vmCTSP=new ChiTietSanPhamViewModel();
+    	ChiTietSanPhamDomainModel dmCTSP=rpCTSP.getById(id);
+    	vmCTSP.setGia(dmCTSP.getGia());
+    	vmCTSP.setMaChiTietSanPham(dmCTSP.getMaChiTietSanPham());
+    	vmCTSP.setMaSanPham(dmCTSP.getMaSanPham());
+    	vmCTSP.setSize(dmCTSP.getSize());
+    	return vmCTSP;
+    }
     @Override
     public List<SanPhamViewModel> getListSanPham() {
         List<SanPhamViewModel> listNV = new ArrayList<>();

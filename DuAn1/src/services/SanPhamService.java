@@ -11,6 +11,7 @@ import java.util.List;
 import repositorys.SanPhamRepository;
 import repositorys.iRepository.ISanPhamRepository;
 import viewmodel.PhaCheSanPhamViewModel;
+import viewmodel.defaultViewModel.SanPhamViewModel;
 
 /**
  *
@@ -35,7 +36,19 @@ public class SanPhamService implements ISanPhamService{
         
         return LstPhaCheSP;
     }
-
+    public List<SanPhamViewModel> getAll(){
+    	List<SanPhamViewModel> lstSP=new ArrayList<>();
+    	for(SanPhamDomainModel dmSanPham:SanPhamRepo.getAll()) {
+    		SanPhamViewModel vmSanPham=new SanPhamViewModel();
+    		vmSanPham.setHinh(dmSanPham.getAnhSanPham());
+    		vmSanPham.setMaSanPham(dmSanPham.getMaSanPham());
+    		vmSanPham.setMotTa(dmSanPham.getMotTa());
+    		vmSanPham.setTenSanPham(dmSanPham.getTenSanPham());
+    		vmSanPham.setTrangThai(dmSanPham.getTrangThai());
+    	lstSP.add(vmSanPham);
+    	}
+    	return lstSP;
+    }
     @Override
     public List<PhaCheSanPhamViewModel> getSanPhamTheoTen(String ten) {
         List<SanPhamDomainModel> LstSanPhamDomain=SanPhamRepo.getSanPhamTheoTen(ten);

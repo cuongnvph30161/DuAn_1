@@ -14,10 +14,16 @@ import repositorys.iRepository.IChiTietHoaDonRepository;
 import repositorys.iRepository.IChiTietSanPhamRepository;
 import repositorys.iRepository.ISanPhamRepository;
 
+import java.awt.Image;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 import utilities.DBConnect;
+import utilities.JdbcHelper;
 
 /**
  *
@@ -47,11 +53,30 @@ public class SanPhamRepository implements ISanPhamRepository {
 
     }
 
-	@Override
+    @Override
 	public List<SanPhamDomainModel> getAll(int... page) {
-		// TODO Auto-generated method stub
+		List<SanPhamDomainModel>lstDMSP=new ArrayList<SanPhamDomainModel>();
+		try {
+			ResultSet rs=JdbcHelper.query("SELECT MaSanPham,TenSanPham,TrangThai,MoTa,Anh FROM SanPham");
+			SanPhamDomainModel dmSanPham=null;
+			while (rs.next()) {
+				dmSanPham=new SanPhamDomainModel();
+				dmSanPham.setMaSanPham(rs.getInt(1));
+				dmSanPham.setTenSanPham(rs.getString(2));
+				dmSanPham.setTrangThai(rs.getInt(3));
+				dmSanPham.setMotTa(rs.getString(4));
+				dmSanPham.setAnhSanPham(new ImageIcon(ImageIO.read(rs.getBinaryStream(5)).getScaledInstance(210, 240, Image.SCALE_SMOOTH)));
+				lstDMSP.add(dmSanPham);
+			}
+			return lstDMSP;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
+		
 	}
+
 
 	@Override
 	public SanPhamDomainModel getById(String id) {

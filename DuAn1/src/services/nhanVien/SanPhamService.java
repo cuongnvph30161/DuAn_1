@@ -1,10 +1,17 @@
 package services.nhanVien;
 
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import javax.swing.table.DefaultTableModel;
+
+import services.BanService;
+import services.ChiTietSanPhamService;
 import services.defaultService.BanHoaDonService;
 import services.defaultService.ChiTietHoaDonService;
 import services.defaultService.HoaDonServices;
@@ -13,7 +20,9 @@ import viewmodel.defaultViewModel.BanHoaDonViewModel;
 import viewmodel.defaultViewModel.ChiTietHoaDonViewModel;
 import viewmodel.defaultViewModel.ChiTietSanPhamViewModel;
 import viewmodel.defaultViewModel.HoaDonViewModel;
+import viewmodel.defaultViewModel.SanPhamViewModel;
 import viewmodel.nhanVien.sanPham.Order;
+import views.element.SanPham;
 
 /**
  *
@@ -23,11 +32,18 @@ public class SanPhamService {
 	private HoaDonServices svHoaDon = null;
 	private ChiTietHoaDonService svChiTietHoaDon = null;
 	private BanHoaDonService svBanHoaDon = null;
+	private services.SanPhamService svSanPham=null;
+	private ChiTietSanPhamService svCTSP=null;
+	private BanService svBan=null;
 
 	public SanPhamService() {
 		svHoaDon = new HoaDonServices();
 		svChiTietHoaDon = new ChiTietHoaDonService();
 		svBanHoaDon = new BanHoaDonService();
+		svSanPham=new services.SanPhamService();
+		svCTSP=new ChiTietSanPhamService();
+		svBan=new BanService();
+		
 
 	}
 
@@ -56,17 +72,21 @@ public class SanPhamService {
 			BanHoaDonViewModel vmBanHoaDon = new BanHoaDonViewModel();
 			vmBanHoaDon.setMaHoaDon(maHoaDon);
 			for (int maBan : order.getLstMaBan()) {
+				svBan.actives(maBan,true);
 				vmBanHoaDon.setMaBan(maBan);
 				boolean bl=svBanHoaDon.insert(vmBanHoaDon);
 				results = results && bl;
 			}
 			// Kiểm tra toàn vẹn dữ liệu
 			if (!results) {
+				
 				for (int maBan : order.getLstMaBan()) {
-					svBanHoaDon.deleteById(maBan);
+					
+					svBan.actives(maBan,false);
 				}
+				
 				svChiTietHoaDon.deleteById(maHoaDon);
-
+				svHoaDon.deleteById(maHoaDon);
 			}
 
 		} else {
@@ -94,6 +114,12 @@ public class SanPhamService {
 		SanPhamService svSP = new SanPhamService();
 		System.out.println(svSP.themHoaDon(od));;
 
+	}
+	public List<SanPham> getAllSanPham(DefaultTableModel model){
+		return svSanPham.getAll().stream().map(vmSP->{
+			System.out.println(this.getClass().getName());
+			return new SanPham(vmSP.getMaSanPham(),vmSP.getHinh(),vmSP.getTenSanPham(),vmSP.getTrangThai()==1,model);
+		}).collect(Collectors.toList());
 	}
 
 }

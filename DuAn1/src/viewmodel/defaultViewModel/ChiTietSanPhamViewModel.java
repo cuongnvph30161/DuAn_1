@@ -13,6 +13,7 @@ import java.sql.Blob;
  */
 public class ChiTietSanPhamViewModel {
 
+    private int maChiTietSanPham;
     private int maSanPham;
     private String tenSanPham;
     private int trangThai;
@@ -33,7 +34,13 @@ public class ChiTietSanPhamViewModel {
         this.motTa = motTa;
         this.anh = anh;
     }
+  public int getMaChiTietSanPham() {
+        return maChiTietSanPham;
+    }
 
+    public void setMaChiTietSanPham(int maChiTietSanPham) {
+        this.maChiTietSanPham = maChiTietSanPham;
+    }
     public int getMaSanPham() {
         return maSanPham;
     }

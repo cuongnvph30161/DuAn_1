@@ -178,4 +178,7 @@ public class NhanVienService implements INhanVienService {
     public String getSoDienThoaiBySDT(String sdt) {
         return iNhanVienRepository.getSoDienThoaiBySDT(sdt);
     }
+    public int getByIdAccount(String idAccount) {
+    	return iNhanVienRepository.getByIdAccount(idAccount);
+    }
 }

@@ -29,8 +29,26 @@ public class MaGiamGiaService implements IMaGiamGiaService {
     public IMaGiamGiaRepository iMaGiamGiaRepository = new MaGiamGiaRepository();
     public INhanVienRepository iNhanVienRepository = new NhanVienRepository();
 
+    
+
     @Override
-    public boolean checkMaGiamGia(JTextField a) {
+    public boolean checkMaGiamGia(int a) {
+        return mggRepo.checkMaGiamGia(a);
+    }
+
+   
+
+	@Override
+	public Integer applyVoucher(int voucher, int tongThanhToan) {
+		return mggRepo.applyVoucher(voucher, tongThanhToan);
+	}
+
+	@Override
+	public String[] getLstID() {
+		return mggRepo.getLstID();
+	}
+    @Override
+    public boolean checkMaGiamGia(Integer a) {
         return mggRepo.checkMaGiamGia(a);
     }
 

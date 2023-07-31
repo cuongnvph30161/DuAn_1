@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public interface IChiTietSanPhamRepository extends DAO<String, ChiTietSanPhamDomainModel> {
+public interface IChiTietSanPhamRepository extends DAO<Integer, ChiTietSanPhamDomainModel> {
 
     List<ChiTietSanPhamDomainModel> getList();
 
