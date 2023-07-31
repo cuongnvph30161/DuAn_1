@@ -27,6 +27,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -55,6 +56,7 @@ import services.MaGiamGiaService;
 import services.NhanVienBanService;
 import services.NhanVienHoaDonServices;
 import services.NhanVienService;
+import utilities.DPlaceHolder;
 import utilities.NhanVienBanJpanel;
 import utilities.NhanVienHoaDon_ChiTiet;
 import utilities.Uhelper;
@@ -159,7 +161,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 	private javax.swing.JSeparator jSeparator2;
 	private javax.swing.JTable tblDanhSachSanPham;
 	private javax.swing.JTextArea txtGhiChu;
-	private javax.swing.JTextField jTextField1;
+	private javax.swing.JTextField txtSearchTenSanPham;
 	private com.toedter.calendar.JDateChooser jdcDen;
 	private com.toedter.calendar.JDateChooser jdcTu;
 	private javax.swing.JPanel pnDanhSachBan;
@@ -244,6 +246,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 //        FillTableBan();
 		maNhanVien = svNhanVien.getByIdAccount(maTaiKhoan);
 		loadView("pnQuanLyBan");
+		DPlaceHolder.addPlaceHolder(txtSearchTenSanPham, "Tìm kiếm theo tên sản phẩm");
 
 	}
 
@@ -374,12 +377,13 @@ public class TraSua_NV extends javax.swing.JFrame {
 		jScrollPane7 = new javax.swing.JScrollPane();
 		jScrollPane7.setBounds(570, 159, 673, 275);
 		tblNhanVienBan = new javax.swing.JTable();
-		
+
 		tblNhanVienBan.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(tblNhanVienBan.getSelectedColumn()==4) {
-					ChiTietHoaDon cthd=new ChiTietHoaDon(lstHoaDon.get(tblNhanVienBan.getSelectedRow()),(Frame) (rootPane.getParent()));
+				if (tblNhanVienBan.getSelectedColumn() == 4) {
+					ChiTietHoaDon cthd = new ChiTietHoaDon(lstHoaDon.get(tblNhanVienBan.getSelectedRow()),
+							(Frame) (rootPane.getParent()));
 					cthd.setLocationRelativeTo(rootPane);
 					cthd.setVisible(true);
 				}
@@ -389,8 +393,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 //					@Override
 //					public void paste() {
 //					}
-				};
-		
+		};
+
 		txtVoucher.setModel(new SpinnerListModel(iMGGSe.getLstID()));
 		txtVoucher.setBounds(570, 486, 500, 38);
 		jLabel35 = new javax.swing.JLabel();
@@ -444,19 +448,18 @@ public class TraSua_NV extends javax.swing.JFrame {
 		jScrollPane1.setRequestFocusEnabled(false);
 		jScrollPane1.setBounds(12, 306, 363, 145);
 		tblDanhSachSanPham = new javax.swing.JTable();
-		
-	
+
 		tblDanhSachSanPham.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = tblDanhSachSanPham.getSelectedRow();
 				if (tblDanhSachSanPham.getSelectedColumn() == 4) {
 					((DefaultTableModel) tblDanhSachSanPham.getModel()).removeRow(row);
-					
+
 				}
 			}
 		});
-		
+
 		jScrollPane2 = new javax.swing.JScrollPane();
 		jScrollPane2.setBackground(Color.WHITE);
 		jScrollPane2
@@ -468,38 +471,40 @@ public class TraSua_NV extends javax.swing.JFrame {
 		jButton3 = new javax.swing.JButton();
 		jButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tblBanDuocChon.getRowCount()<1||tblDanhSachSanPham.getRowCount()<1) {
-					
-					JOptionPane.showMessageDialog(rootPane.getParent(), "Vui lòng chọn thêm bàn hoặc hóa đơn","Lỗi",JOptionPane.ERROR_MESSAGE);
-				}else {
-				Order od = new Order();
-				od.setMaNhanVien(maNhanVien);
-				int dichVuPhatSinh=0;
-				try {
-					dichVuPhatSinh=Integer.parseInt(txtDichVuPhatSinh.getText());
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-				;
-				od.setDichVuPhatSinh(dichVuPhatSinh);
-				od.setGhiChu(txtGhiChu.getText());
-				od.setLstMaBan(lstBanDuocChon.stream().toList());
-				List<ChiTietHoaDonViewModel> lstCTHD=new ArrayList<ChiTietHoaDonViewModel>();
-				for(int i=0;i<tblDanhSachSanPham.getRowCount();i++) {
-					ChiTietHoaDonViewModel cthd=new ChiTietHoaDonViewModel();
-					cthd.setMaChiTietSanPham((int)tblDanhSachSanPham.getValueAt(i, 1));
-					cthd.setSoLuong((int)tblDanhSachSanPham.getValueAt(i, 3));
-					cthd.setGia(BigDecimal.valueOf(Double.parseDouble(tblDanhSachSanPham.getValueAt(i, 2).toString())));
-					lstCTHD.add(cthd);
-				}
-						
-				od.setLstChiTietHoaDonViewModels(lstCTHD);
-				System.out.println(od);
-				svQLSanPham.themHoaDon(od);
+				if (tblBanDuocChon.getRowCount() < 1 || tblDanhSachSanPham.getRowCount() < 1) {
+
+					JOptionPane.showMessageDialog(rootPane.getParent(), "Vui lòng chọn thêm bàn hoặc hóa đơn", "Lỗi",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					Order od = new Order();
+					od.setMaNhanVien(maNhanVien);
+					int dichVuPhatSinh = 0;
+					try {
+						dichVuPhatSinh = Integer.parseInt(txtDichVuPhatSinh.getText());
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+					;
+					od.setDichVuPhatSinh(dichVuPhatSinh);
+					od.setGhiChu(txtGhiChu.getText());
+					od.setLstMaBan(lstBanDuocChon.stream().toList());
+					List<ChiTietHoaDonViewModel> lstCTHD = new ArrayList<ChiTietHoaDonViewModel>();
+					for (int i = 0; i < tblDanhSachSanPham.getRowCount(); i++) {
+						ChiTietHoaDonViewModel cthd = new ChiTietHoaDonViewModel();
+						cthd.setMaChiTietSanPham((int) tblDanhSachSanPham.getValueAt(i, 1));
+						cthd.setSoLuong((int) tblDanhSachSanPham.getValueAt(i, 3));
+						cthd.setGia(
+								BigDecimal.valueOf(Double.parseDouble(tblDanhSachSanPham.getValueAt(i, 2).toString())));
+						lstCTHD.add(cthd);
+					}
+
+					od.setLstChiTietHoaDonViewModels(lstCTHD);
+					System.out.println(od);
+					svQLSanPham.themHoaDon(od);
 //				od.set
 //				od.setDichVuPhatSinh(Integer);
 //				svQLSanPham.themHoaDon(new o)
-				loadView("pnQuanLyBan");
+					loadView("pnQuanLyBan");
 				}
 			}
 		});
@@ -524,6 +529,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 		lblTimKiem = new javax.swing.JLabel();
 		lblTimKiem.setBounds(1170, 70, 24, 30);
 		txtNhanVienNhapMaHD = new javax.swing.JTextField();
+		DPlaceHolder.addPlaceHolder(txtNhanVienNhapMaHD, "Tìm kiếm theo Mã nhân viên");
 		txtNhanVienNhapMaHD.setBounds(310, 70, 890, 30);
 		jScrollPane5 = new javax.swing.JScrollPane();
 		jScrollPane5.setBounds(310, 150, 890, 530);
@@ -692,7 +698,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 				return canEdit[columnIndex];
 			}
 		});
-		
+
 		jScrollPane7.setViewportView(tblNhanVienBan);
 
 		jpnQuanLyBan.add(jScrollPane7);
@@ -783,7 +789,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 
 		tblDanhSachSanPham.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "S\u1EA3n ph\u1EA9m",
 				"M\u00E3 s\u1EA3n ph\u1EA9m", "\u0110\u01A1n gi\u00E1", "S\u1ED1 l\u01B0\u1EE3ng", "X\u00F3a" }) {
-			Class[] columnTypes = new Class[] { Object.class, Integer.class, Integer.class, Integer.class, Object.class };
+			Class[] columnTypes = new Class[] { Object.class, Integer.class, Integer.class, Integer.class,
+					Object.class };
 
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -858,7 +865,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 		txtDichVuPhatSinh = new JTextField() {
 			@Override
 			public void paste() {
-				
+
 			};
 		};
 		txtDichVuPhatSinh.addKeyListener(new KeyAdapter() {
@@ -869,6 +876,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 				else
 					loadTTTTTT();
 			}
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				loadTTTTTT();
@@ -976,7 +984,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 		jLabel21_1.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		jLabel21_1.setBounds(320, 103, 56, 16);
 		jPanel1.add(jLabel21_1);
-		
+
 		txtTTTTT = new JLabel();
 		txtTTTTT.setBounds(178, 615, 125, 13);
 		jPanel1.add(txtTTTTT);
@@ -992,10 +1000,22 @@ public class TraSua_NV extends javax.swing.JFrame {
 		panel_1.add(jLabel22);
 
 		jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png")));
-		jTextField1 = new javax.swing.JTextField();
-		jTextField1.setBounds(1, 1, 805, 33);
-		panel_1.add(jTextField1);
-		jTextField1.setBorder(null);
+		txtSearchTenSanPham = new JTextField();
+		txtSearchTenSanPham.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				searchDanhSachSanPham();
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				searchDanhSachSanPham();
+			}
+		});
+		txtSearchTenSanPham.setBounds(1, 1, 805, 33);
+		txtSearchTenSanPham.setMargin(new Insets(2, 202, 2, 2));
+		panel_1.add(txtSearchTenSanPham);
+
+		txtSearchTenSanPham.setBorder(null);
 
 		jScrollPane4.setViewportView(pnDanhSachSanPham);
 
@@ -1128,20 +1148,20 @@ public class TraSua_NV extends javax.swing.JFrame {
 		pnTong.add(pnHoaDon, "pnHoaDon");
 		modelSPDC = (DefaultTableModel) tblDanhSachSanPham.getModel();
 		pack();
-		DefaultTableCellRenderer dfr=new DefaultTableCellRenderer();
+		DefaultTableCellRenderer dfr = new DefaultTableCellRenderer();
 		dfr.setHorizontalAlignment(SwingConstants.CENTER);
-		for(int i=0;i<tblNhanVienBan.getColumnCount();i++) {
-			
+		for (int i = 0; i < tblNhanVienBan.getColumnCount(); i++) {
+
 			tblNhanVienBan.getColumnModel().getColumn(i).setCellRenderer(dfr);
 		}
-	tblDanhSachSanPham.getModel().addTableModelListener(new TableModelListener() {
-			
+		tblDanhSachSanPham.getModel().addTableModelListener(new TableModelListener() {
+
 			@Override
 			public void tableChanged(TableModelEvent e) {
 				loadTTTTTT();
 			}
 		});
-		
+
 	}// </editor-fold>//GEN-END:initComponents
 
 	protected void loadBanDuocChon() {
@@ -1309,20 +1329,18 @@ public class TraSua_NV extends javax.swing.JFrame {
 
 	int viTri;
 
-
-
 	private void btnApDungBanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnApDungBanActionPerformed
 		DecimalFormat fmt = new DecimalFormat("###,###,###");
 
 		if (tblNhanVienBan.getRowCount() <= 0) {
-			JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn cần thanh toán !","Lỗi",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn cần thanh toán !", "Lỗi", JOptionPane.ERROR_MESSAGE);
 			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 			return;
 
 		}
 		String voucher = txtVoucher.getValue().toString();
-		if (voucher.length() <2) {
-			JOptionPane.showMessageDialog(this, "Vui lòng nhập voucher","Lỗi",JOptionPane.ERROR_MESSAGE);
+		if (voucher.length() < 2) {
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập voucher", "Lỗi", JOptionPane.ERROR_MESSAGE);
 			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 
 			return;
@@ -1331,40 +1349,44 @@ public class TraSua_NV extends javax.swing.JFrame {
 			double voucher2 = Double.parseDouble(voucher);
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu","Lỗi",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
 			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 
 			return;
 
 		}
 
-		if (iMGGSe.checkMaGiamGia(Integer.parseInt(txtVoucher.getValue().toString().trim().equals("")?"0":txtVoucher.getValue().toString())) == false) {
-			JOptionPane.showMessageDialog(this, "Mã voucher sai","Lỗi",JOptionPane.ERROR_MESSAGE);
+		if (iMGGSe.checkMaGiamGia(Integer.parseInt(txtVoucher.getValue().toString().trim().equals("") ? "0"
+				: txtVoucher.getValue().toString())) == false) {
+			JOptionPane.showMessageDialog(this, "Mã voucher sai", "Lỗi", JOptionPane.ERROR_MESSAGE);
 			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 
 			return;
 		}
-		_voucher =Integer.parseInt(txtVoucher.getValue().toString().trim().equals("")?"0":txtVoucher.getValue().toString());
-		lblGiaSauKhiGiam
-				.setText("<html><strike>" + fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND" + "</strike> "
-						+ fmt.format(_tongDichVuPhatSinh
-								+ iMGGSe.applyVoucher(Integer.parseInt(txtVoucher.getValue().toString().trim().equals("")?"0":txtVoucher.getValue().toString()), _tongTatCaHoaDon))
-						+ " VND </html>");
+		_voucher = Integer
+				.parseInt(txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString());
+		lblGiaSauKhiGiam.setText("<html><strike>" + fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND"
+				+ "</strike> "
+				+ fmt.format(_tongDichVuPhatSinh + iMGGSe.applyVoucher(Integer.parseInt(
+						txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString()),
+						_tongTatCaHoaDon))
+				+ " VND </html>");
 
 	}// GEN-LAST:event_btnApDungBanActionPerformed
 
 	private void btnThanhToanBanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThanhToanBanActionPerformed
 		for (Integer maBan : lstBanDuocChon) {
-			svBan.actives(maBan,false);
+			svBan.actives(maBan, false);
 		}
-		System.out.println("Voucehe"+_voucher);
+		System.out.println("Voucehe" + _voucher);
 		lstBanDuocChon.removeAll(lstBanDuocChon);
 		loadDanhSachBan(_tangDuocChon);
 		if (tblNhanVienBan.getRowCount() == 0) {
-			JOptionPane.showMessageDialog(null, "Không có hóa đơn nào cần thanh toán","Lỗi",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Không có hóa đơn nào cần thanh toán", "Lỗi",
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
+
 		Integer[] danhSachHoaDon = new Integer[tblNhanVienBan.getRowCount()];
 		for (int i = 0; i < tblNhanVienBan.getRowCount(); i++) {
 			danhSachHoaDon[i] = Integer.parseInt(tblNhanVienBan.getValueAt(i, 0).toString());
@@ -1373,7 +1395,6 @@ public class TraSua_NV extends javax.swing.JFrame {
 				svQuanLyBan.thanhToanHoaDon(danhSachHoaDon, _voucher) ? "Thanh toán thành công !"
 						: "Thanh toán thất bại !");
 		loadHoaDon(lstBanDuocChon);
-		
 
 	}// GEN-LAST:event_btnThanhToanBanActionPerformed
 
@@ -1386,7 +1407,6 @@ public class TraSua_NV extends javax.swing.JFrame {
 
 	}// GEN-LAST:event_tblNhanVienHoaDonMouseClicked
 
-	
 	public static void main(String args[]) {
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1436,8 +1456,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 			loadDanhSachBan(_tangDuocChon);
 			loadDanhSachBanDuocChon();
 			cboTang.setSelectedIndex(_tangDuocChon);
-			((DefaultTableModel)tblDanhSachSanPham.getModel()).setRowCount(0);
-		
+			((DefaultTableModel) tblDanhSachSanPham.getModel()).setRowCount(0);
+
 			break;
 		}
 		case "pnHoaDon": {
@@ -1623,7 +1643,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 	private int _tongTatCaHoaDon = 0;
 	private JLabel lblTongDichVuPhatSinh;
 //	private ListlstHoaDonDetail
-	List<viewmodel.nhanVien.quanLyBan.HoaDon> lstHoaDon=null;
+	List<viewmodel.nhanVien.quanLyBan.HoaDon> lstHoaDon = null;
+
 	private void loadHoaDon(Set<Integer> lstBanDuocChon) {
 		txtVoucher.getModel().setValue("");
 		DefaultTableModel model = new DefaultTableModel();
@@ -1634,7 +1655,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 		lblGiaSauKhiGiam.setText("0 VND");
 		lblTongDichVuPhatSinh.setText("0 VND");
 		lblTongTien.setText("0 VND");
-		if(lstBanDuocChon.size()<1){
+		if (lstBanDuocChon.size() < 1) {
 			return;
 		}
 		Integer lstMaBan[] = lstBanDuocChon.toArray(new Integer[0]);
@@ -1642,37 +1663,44 @@ public class TraSua_NV extends javax.swing.JFrame {
 		SimpleDateFormat fm = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 
 		for (viewmodel.nhanVien.quanLyBan.HoaDon hoaDon : lstHoaDon) {
-			int tongTien =0;
-			 for(var cthd:hoaDon.getLstCTHD()) {
-				 System.out.println(cthd.getGia().intValue()*cthd.getSoLuong());
-				 tongTien+=cthd.getGia().intValue()*cthd.getSoLuong();
-			 }
+			int tongTien = 0;
+			for (var cthd : hoaDon.getLstCTHD()) {
+				System.out.println(cthd.getGia().intValue() * cthd.getSoLuong());
+				tongTien += cthd.getGia().intValue() * cthd.getSoLuong();
+			}
 
 			_tongTatCaHoaDon += tongTien;
-			hoaDon.setTongThanhToan(tongTien+hoaDon.getDichVuPhatSinh())	;	
+			hoaDon.setTongThanhToan(tongTien + hoaDon.getDichVuPhatSinh());
 			model.addRow(new Object[] { hoaDon.getMaHoaDon(), fm.format(hoaDon.getThoiGian()), tongTien,
-					hoaDon.getTrangThaiOder() == 0 ? "Đã tiếp nhận" : "Đã làm", "<html><body style=';text-align: center; color:  #1E90FF'><u>Xem chi tiết</u></body></html>" });
+					hoaDon.getTrangThaiOder() == 0 ? "Đã tiếp nhận" : "Đã làm",
+					"<html><body style=';text-align: center; color:  #1E90FF'><u>Xem chi tiết</u></body></html>" });
 			_tongDichVuPhatSinh += hoaDon.getDichVuPhatSinh();
 		}
 		DecimalFormat fmt = new DecimalFormat("###,###,###");
 		lblTongTien.setText(fmt.format(_tongTatCaHoaDon) + " VND");
 		lblTongDichVuPhatSinh.setText(fmt.format(_tongDichVuPhatSinh) + " VND");
-		
+
 		lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 
-	
-			if (iMGGSe.checkMaGiamGia(Integer.parseInt(txtVoucher.getValue().toString().trim().equals("")?"0":txtVoucher.getValue().toString()))) {
-				lblGiaSauKhiGiam.setText(
-						"<html><strike>" + fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND" + "</strike> "
-								+ fmt.format(_tongDichVuPhatSinh
-										+ iMGGSe.applyVoucher(Integer.parseInt(txtVoucher.getValue().toString().trim().equals("")?"0":txtVoucher.getValue().toString()), _tongTatCaHoaDon))
-								+ " VND </html>");
-				System.out.println("APL");
-				_voucher = Integer.parseInt(txtVoucher.getValue().toString().trim().equals("")?"0":txtVoucher.getValue().toString());
+		if (iMGGSe.checkMaGiamGia(Integer.parseInt(
+				txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString()))) {
+			lblGiaSauKhiGiam
+					.setText(
+							"<html><strike>" + fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND"
+									+ "</strike> "
+									+ fmt.format(
+											_tongDichVuPhatSinh + iMGGSe.applyVoucher(
+													Integer.parseInt(
+															txtVoucher.getValue().toString().trim().equals("") ? "0"
+																	: txtVoucher.getValue().toString()),
+													_tongTatCaHoaDon))
+									+ " VND </html>");
+			System.out.println("APL");
+			_voucher = Integer.parseInt(
+					txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString());
 
-			} else
-				lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
-		
+		} else
+			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 
 	}
 
@@ -1684,21 +1712,23 @@ public class TraSua_NV extends javax.swing.JFrame {
 	private JPanel panel_1;
 	private DefaultTableModel modelSPDC;
 	private JLabel txtTTTTT;
+
 	private void loadTTTTTT() {
-		int tongTien=0;
-		for(int i=0;i<tblDanhSachSanPham.getRowCount();i++) {
-			tongTien+=(int)tblDanhSachSanPham.getValueAt(i, 2)*(int)tblDanhSachSanPham.getValueAt(i, 3);
+		int tongTien = 0;
+		for (int i = 0; i < tblDanhSachSanPham.getRowCount(); i++) {
+			tongTien += (int) tblDanhSachSanPham.getValueAt(i, 2) * (int) tblDanhSachSanPham.getValueAt(i, 3);
 		}
 		try {
-			tongTien+=Integer.parseInt(txtDichVuPhatSinh.getText());
+			tongTien += Integer.parseInt(txtDichVuPhatSinh.getText());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		DecimalFormat df=new DecimalFormat("###,###,###");
-		txtTTTTT.setText(df.format(tongTien)+" VND");
+		DecimalFormat df = new DecimalFormat("###,###,###");
+		txtTTTTT.setText(df.format(tongTien) + " VND");
 	}
+	List<views.element.SanPham> lstSP = svQLSanPham.getAllSanPham(modelSPDC);
 	private void loadDanhSachSanPham() {
-		List<views.element.SanPham> lstSP = svQLSanPham.getAllSanPham(modelSPDC);
+	
 
 		pnDanhSachSanPham.removeAll();
 		pnDanhSachSanPham.setLayout(new GridBagLayout());
@@ -1710,22 +1740,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 		pnDanhSachSanPham.setSize(pnDanhSachSanPham.getWidth(), 280 * (lstSP.size() / 3));
 		System.out.println(pnDanhSachSanPham.getSize());
 		gbc.insets = new Insets(10, 10, 10, 10);
-		
-//		for (int i = 0; i < lstSP.size(); i++) {
-//			gbc.gridx = col;
-//			gbc.gridy = row;
-//			
-//			
-//		
-//			pnDanhSachSanPham.add(lstSP.get(i), gbc);
-//			if (col == 2) {
-//				row++;
-//				col = 0;
-//			} else {
-//				col++;
-//			}
-//
-//		}
+
 		for (SanPham sp : lstSP) {
 			gbc.gridx = col;
 			gbc.gridy = row;
@@ -1741,5 +1756,71 @@ public class TraSua_NV extends javax.swing.JFrame {
 		}
 		pnDanhSachSanPham.revalidate();
 		pnDanhSachSanPham.repaint();
+	}
+
+	private void searchDanhSachSanPham() {
+		String searchKey=txtSearchTenSanPham.getText().toLowerCase();
+		if(!searchKey.equalsIgnoreCase("Tìm kiếm theo tên sản phẩm".toLowerCase())) {
+			var searchKeyKD=Normalizer.normalize (searchKey, Normalizer.Form.NFD).replaceAll ("\\p{M}", "");;
+			List<SanPham> lstSP=this.lstSP.stream().filter(sanPham->
+			Normalizer.normalize (sanPham.getTenSanPham().toLowerCase(), Normalizer.Form.NFD).replaceAll ("\\p{M}", "").matches(".*"+searchKeyKD+".*")
+			).collect(Collectors.toList());
+			pnDanhSachSanPham.removeAll();
+			pnDanhSachSanPham.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+
+			int row = 0;
+			int col = 0;
+
+			pnDanhSachSanPham.setSize(pnDanhSachSanPham.getWidth(), 280 * (lstSP.size() / 3));
+			System.out.println(pnDanhSachSanPham.getSize());
+			gbc.insets = new Insets(10, 10, 10, 10);
+
+			for (SanPham sp : lstSP) {
+				gbc.gridx = col;
+				gbc.gridy = row;
+
+				pnDanhSachSanPham.add(sp, gbc);
+				if (col == 2) {
+					row++;
+					col = 0;
+				} else {
+					col++;
+				}
+
+			}
+			pnDanhSachSanPham.revalidate();
+			pnDanhSachSanPham.repaint();
+		}
+		else {
+			pnDanhSachSanPham.removeAll();
+			pnDanhSachSanPham.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+
+			int row = 0;
+			int col = 0;
+
+			pnDanhSachSanPham.setSize(pnDanhSachSanPham.getWidth(), 280 * (lstSP.size() / 3));
+			System.out.println(pnDanhSachSanPham.getSize());
+			gbc.insets = new Insets(10, 10, 10, 10);
+
+			for (SanPham sp : lstSP) {
+				gbc.gridx = col;
+				gbc.gridy = row;
+
+				pnDanhSachSanPham.add(sp, gbc);
+				if (col == 2) {
+					row++;
+					col = 0;
+				} else {
+					col++;
+				}
+
+			}
+			pnDanhSachSanPham.revalidate();
+			pnDanhSachSanPham.repaint();
+		}
+
+		
 	}
 }

@@ -76,6 +76,28 @@ public class SanPhamRepository implements ISanPhamRepository {
 		return null;
 		
 	}
+    public List<SanPhamDomainModel> getAll(String searchKey) {
+		List<SanPhamDomainModel>lstDMSP=new ArrayList<SanPhamDomainModel>();
+		try {
+			ResultSet rs=JdbcHelper.query("SELECT MaSanPham,TenSanPham,TrangThai,MoTa,Anh FROM SanPham where TenSanPham like '%"+searchKey+"%'");
+			SanPhamDomainModel dmSanPham=null;
+			while (rs.next()) {
+				dmSanPham=new SanPhamDomainModel();
+				dmSanPham.setMaSanPham(rs.getInt(1));
+				dmSanPham.setTenSanPham(rs.getString(2));
+				dmSanPham.setTrangThai(rs.getInt(3));
+				dmSanPham.setMotTa(rs.getString(4));
+				dmSanPham.setAnhSanPham(new ImageIcon(ImageIO.read(rs.getBinaryStream(5)).getScaledInstance(210, 240, Image.SCALE_SMOOTH)));
+				lstDMSP.add(dmSanPham);
+			}
+			return lstDMSP;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 
 
 	@Override

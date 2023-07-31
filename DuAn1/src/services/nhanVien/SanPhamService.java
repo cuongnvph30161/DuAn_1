@@ -121,5 +121,11 @@ public class SanPhamService {
 			return new SanPham(vmSP.getMaSanPham(),vmSP.getHinh(),vmSP.getTenSanPham(),vmSP.getTrangThai()==1,model);
 		}).collect(Collectors.toList());
 	}
+	public List<SanPham> getAllSanPham(String searchKey,DefaultTableModel model){
+		return svSanPham.getAll(searchKey).stream().map(vmSP->{
+			System.out.println(this.getClass().getName());
+			return new SanPham(vmSP.getMaSanPham(),vmSP.getHinh(),vmSP.getTenSanPham(),vmSP.getTrangThai()==1,model);
+		}).collect(Collectors.toList());
+	}
 
 }
