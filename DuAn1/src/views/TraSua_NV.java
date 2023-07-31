@@ -349,7 +349,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 		lblDoiMatKhau.setOpaque(true);
 		lblDoiMatKhau.setBounds(37, 420, 185, 40);
 		btnKhieuNaiHoTro = new javax.swing.JButton();
-		btnKhieuNaiHoTro.setBounds(30, 680, 177, 40);
+		btnKhieuNaiHoTro.setMargin(new Insets(2, 0, 2, 0));
+		btnKhieuNaiHoTro.setBounds(30, 680, 170, 40);
 		btnDangXuat = new javax.swing.JButton();
 		btnDangXuat.setBounds(30, 740, 170, 29);
 		jSeparator2 = new javax.swing.JSeparator();
@@ -1146,7 +1147,6 @@ public class TraSua_NV extends javax.swing.JFrame {
 		pnHoaDon.add(jLabel27);
 
 		pnTong.add(pnHoaDon, "pnHoaDon");
-		modelSPDC = (DefaultTableModel) tblDanhSachSanPham.getModel();
 		pack();
 		DefaultTableCellRenderer dfr = new DefaultTableCellRenderer();
 		dfr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1161,6 +1161,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 				loadTTTTTT();
 			}
 		});
+		modelSPDC = (DefaultTableModel) tblDanhSachSanPham.getModel();
 
 	}// </editor-fold>//GEN-END:initComponents
 
@@ -1178,13 +1179,16 @@ public class TraSua_NV extends javax.swing.JFrame {
 	}// GEN-LAST:event_btnDangXuatMouseClicked
 
 	private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
-
+		HoTroKhachHang htkh=new HoTroKhachHang();
+		htkh.setVisible(true);
+		loadView("pnDoiMatKhau");
 	}// GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
 	private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblDoiMatKhauMouseClicked
 
 		DoiMatKhau dmk = new DoiMatKhau(maTaiKhoan);
 		pnTrong.removeAll();
+		pnTrong.setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnTrong.add(dmk.getContentPane());
 		loadView("pnDoiMatKhau");
 
@@ -1726,10 +1730,9 @@ public class TraSua_NV extends javax.swing.JFrame {
 		DecimalFormat df = new DecimalFormat("###,###,###");
 		txtTTTTT.setText(df.format(tongTien) + " VND");
 	}
-	List<views.element.SanPham> lstSP = svQLSanPham.getAllSanPham(modelSPDC);
+	List<views.element.SanPham> lstSP;
 	private void loadDanhSachSanPham() {
-	
-
+		lstSP = svQLSanPham.getAllSanPham(modelSPDC);
 		pnDanhSachSanPham.removeAll();
 		pnDanhSachSanPham.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
