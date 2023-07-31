@@ -243,7 +243,6 @@ public class TraSua_NV extends javax.swing.JFrame {
 		phanTrang();
 		truyenTrang(1);
 		fillTableNVHD(listNhanVienHDView);
-//        FillTableBan();
 		maNhanVien = svNhanVien.getByIdAccount(maTaiKhoan);
 		loadView("pnQuanLyBan");
 		DPlaceHolder.addPlaceHolder(txtSearchTenSanPham, "Tìm kiếm theo tên sản phẩm");
@@ -265,47 +264,47 @@ public class TraSua_NV extends javax.swing.JFrame {
 	}
 
 	public void truyenTrang(int index) {
-		lstTruyenTrang = mapPhanTrang.get(index);
-		lblNhanVienTrangThaiTrang.setText("trang " + index + "/" + soTrang);
-	}
+        List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
+        lstTruyenTrang = mapPhanTrang.get(index);
+        lblNhanVienTrangThaiTrang.setText("trang " + index + "/" + soTrang);
+        fillTableNVHD(lstTruyenTrang);
+    }
 
 	public void phanTrang() {
-		// lấy số trang
-		if (listNhanVienHDView.size() > 100) {
-			double so = listNhanVienHDView.size() / 100;
-			soTrang = (int) Math.ceil(so);
-		} else {
-			soTrang = 1;
-		}
-		if (soTrang > 1) {
-			int viTriChay = 1;
-			int viTriDung = 100;
-			// add map
-			for (int i = 1; i <= soTrang; i++) {
-				List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
-				// add list
+        if (listNhanVienHDView.size() > 100) {
+            double a = listNhanVienHDView.size();
+            double b = 100;
+            soTrang = (int) Math.ceil(a / b);
 
-				if (i <= soTrang - 1) {
-					for (int k = viTriChay; k <= viTriDung; k++) {
-						listTrang.add(listNhanVienHDView.get(k));
-					}
-					viTriDung += 100;
-					viTriChay += 100;
-				} else {
-					if (i == soTrang) {
-						for (int j = (i - 1) * 100 + 1; j <= listNhanVienHDView.size(); j++) {
-							listTrang.add(listNhanVienHDView.get(j));
-						}
-					}
-				}
+        } else {
+            soTrang = 1;
+        }
+        if (soTrang > 1) {
+            for (int i = 1; i <= soTrang; i++) {
+                List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
+                if (i == soTrang) {
+                    int doDaiTrangCuoi = listNhanVienHDView.size() - (soTrang - 1) * 100;
+                    for (int j = ((soTrang - 1) * 100); j < (doDaiTrangCuoi + (((soTrang - 1) * 100))); j++) {
+                        listTrang.add(listNhanVienHDView.get(j));
+                    }
 
-				mapPhanTrang.put(i, listTrang);
-			}
-		} else {
-			mapPhanTrang.put(1, listNhanVienHDView);
-		}
-	}
-
+                } else {
+                    if (i == 1) {
+                        for (int k = 0; k < 100; k++) {
+                            listTrang.add(listNhanVienHDView.get(k));
+                        }
+                    } else {
+                        for (int h = (i - 1) * 100; h <= ((i - 1) * 100 + 99); h++) {
+                            listTrang.add(listNhanVienHDView.get(h));
+                        }
+                    }
+                }
+                mapPhanTrang.put(i, listTrang);
+            }
+        } else {
+            mapPhanTrang.put(1, listNhanVienHDView);
+        }
+    }
 	public void init() {
 		setIconImage(XImages.getIconApp());
 	}
@@ -527,11 +526,6 @@ public class TraSua_NV extends javax.swing.JFrame {
 		pnHoaDon = new javax.swing.JPanel();
 		jLabel13 = new javax.swing.JLabel();
 		jLabel13.setBounds(40, 20, 88, 25);
-		lblTimKiem = new javax.swing.JLabel();
-		lblTimKiem.setBounds(1170, 70, 24, 30);
-		txtNhanVienNhapMaHD = new javax.swing.JTextField();
-		DPlaceHolder.addPlaceHolder(txtNhanVienNhapMaHD, "Tìm kiếm theo Mã nhân viên");
-		txtNhanVienNhapMaHD.setBounds(310, 70, 890, 30);
 		jScrollPane5 = new javax.swing.JScrollPane();
 		jScrollPane5.setBounds(310, 150, 890, 530);
 		tblNhanVienHoaDon = new javax.swing.JTable();
@@ -1035,15 +1029,28 @@ public class TraSua_NV extends javax.swing.JFrame {
 		jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 		jLabel13.setText("HÓA ĐƠN");
 		pnHoaDon.add(jLabel13);
-
-		lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png"))); // NOI18N
-		lblTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				lblTimKiemMouseClicked(evt);
-			}
-		});
-		pnHoaDon.add(lblTimKiem);
-		pnHoaDon.add(txtNhanVienNhapMaHD);
+		
+		panel_2 = new JPanel();
+		panel_2.setBackground(new Color(255, 255, 255));
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_2.setBounds(310, 70, 884, 30);
+		pnHoaDon.add(panel_2);
+		panel_2.setLayout(null);
+		lblTimKiem = new javax.swing.JLabel();
+		lblTimKiem.setBounds(860, 0, 24, 30);
+		panel_2.add(lblTimKiem);
+		
+				lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/tim3.png"))); // NOI18N
+				txtNhanVienNhapMaHD = new javax.swing.JTextField();
+				txtNhanVienNhapMaHD.setBounds(5, 2, 845, 27);
+				panel_2.add(txtNhanVienNhapMaHD);
+				txtNhanVienNhapMaHD.setBorder(null);
+				DPlaceHolder.addPlaceHolder(txtNhanVienNhapMaHD, "Tìm kiếm theo Mã nhân viên");
+				lblTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+					public void mouseClicked(java.awt.event.MouseEvent evt) {
+						lblTimKiemMouseClicked(evt);
+					}
+				});
 
 		tblNhanVienHoaDon.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] { { null, null, null, null, null, null, null },
@@ -1220,66 +1227,63 @@ public class TraSua_NV extends javax.swing.JFrame {
 	private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblTimKiemMouseClicked
 		// TODO add your handling code her
 		try {
-			if (Uhelper.checkNullText(txtNhanVienNhapMaHD, "bạn chưa nhập mã hóa đơn")) {
-				return;
-			} else {
-				try {
-					int maHD = Integer.parseInt(txtNhanVienNhapMaHD.getText());
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(this,
-							"mã hóa đơn phải là số, hãy đảm bảo mã hóa đơn không có khoảng trắng");
-					txtNhanVienNhapMaHD.requestFocus();
-					;
-					return;
-				}
-			}
-			try {
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            if (Uhelper.checkNullText(txtNhanVienNhapMaHD, "bạn chưa nhập mã nhân viên")) {
+                return;
+            } else {
+                try {
+                    int maHD = Integer.parseInt(txtNhanVienNhapMaHD.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "mã nhân viên phải là số, hãy đảm bảo mã hóa đơn không có khoảng trắng");
+                    txtNhanVienNhapMaHD.requestFocus();;
+                    return;
+                }
+            }
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-				String ngay1 = df.format(jdcTu.getDate());
+                String ngay1 = df.format(jdcTu.getDate());
 
-				java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
+                java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
 
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "chưa nhập ngày bắt đầu");
-				jdcTu.requestFocus();
-				return;
-			}
-			try {
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "chưa nhập ngày bắt đầu");
+                jdcTu.requestFocus();
+                return;
+            }
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-				String ngay2 = df.format(jdcDen.getDate());
+                String ngay2 = df.format(jdcDen.getDate());
 
-				java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
+                java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
 
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "chưa nhập ngày kết thúc");
-				jdcDen.requestFocus();
-				return;
-			}
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "chưa nhập ngày kết thúc");
+                jdcDen.requestFocus();
+                return;
+            }
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-			String ngay1 = df.format(jdcTu.getDate());
-			String ngay2 = df.format(jdcDen.getDate());
+            String ngay1 = df.format(jdcTu.getDate());
+            String ngay2 = df.format(jdcDen.getDate());
 
-			java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
-			java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
-			int maHoaDon = Integer.parseInt(txtNhanVienNhapMaHD.getText());
-			int trangThai = (cboNhanVienHDTrangThai.getSelectedItem() + "").equalsIgnoreCase("Đã thanh toán") ? 1 : 0;
-			List<NhanVienHoaDonViewModel> lst = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
-			List<NhanVienHoaDonViewModel> lstTim = NVHoaDonSv.timHD(ngayTu, ngayDen, maHoaDon, trangThai, lst);
-			if (lstTim.size() > 0) {
-				fillTableNVHD(lstTim);
-				JOptionPane.showMessageDialog(null, "danh sách đã hiển thị");
-				return;
-			} else {
-				JOptionPane.showMessageDialog(null, "không tìm thấy danh sách phù hợp");
-				return;
-			}
+            java.util.Date ngayTu = (java.util.Date) df.parse(ngay1);
+            java.util.Date ngayDen = (java.util.Date) df.parse(ngay2);
+            int maHoaDon = Integer.parseInt(txtNhanVienNhapMaHD.getText());
+            int trangThai = (cboNhanVienHDTrangThai.getSelectedItem() + "").equalsIgnoreCase("Đã thanh toán") ? 1 : 0;
+            List<NhanVienHoaDonViewModel> lst = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
+            List<NhanVienHoaDonViewModel> lstTim = NVHoaDonSv.timHD(ngayTu, ngayDen, maHoaDon, trangThai, lst);
+            if (lstTim.size() > 0) {
+                fillTableNVHD(lstTim);
+                JOptionPane.showMessageDialog(null, "danh sách đã hiển thị");
+                return;
+            } else {
+                JOptionPane.showMessageDialog(null, "không tìm thấy danh sách phù hợp");
+                return;
+            }
 
-		} catch (Exception e) {
-		}
-
+        } catch (Exception e) {
+        }
 	}// GEN-LAST:event_lblTimKiemMouseClicked
 
 	private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblBanHangMouseClicked
@@ -1290,48 +1294,41 @@ public class TraSua_NV extends javax.swing.JFrame {
 		// TODO add your handling code here:
 	}// GEN-LAST:event_txtVoucherActionPerformed
 
-	private void lblNVTrangDauMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblNVTrangDauMouseClicked
-		// TODO add your handling code here:
-		truyenTrang(1);
-		fillTableNVHD(lstTruyenTrang);
-		demTrang = 1;
-	}// GEN-LAST:event_lblNVTrangDauMouseClicked
+	private void lblNVTrangDauMouseClicked(java.awt.event.MouseEvent evt) {                                           
+        // TODO add your handling code here:
+        truyenTrang(1);
+        demTrang = 1;
+    }
 
 	private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel27MouseClicked
 		// TODO add your handling code here:
 		truyenTrang(soTrang);
-		fillTableNVHD(lstTruyenTrang);
 		demTrang = soTrang;
 	}// GEN-LAST:event_jLabel27MouseClicked
 
-	private void lblNVluiMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblNVluiMouseClicked
-		// TODO add your handling code here:
-		if (demTrang == 1) {
-			JOptionPane.showMessageDialog(this, "không thể lùi");
-			demTrang = 1;
-			return;
-		} else {
-			truyenTrang(demTrang);
-			fillTableNVHD(lstTruyenTrang);
-			demTrang--;
-		}
+	private void lblNVluiMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        // TODO add your handling code here:
+        if (demTrang > 1) {
+            demTrang--;
+            truyenTrang(demTrang);
+        } else {
+        	  JOptionPane.showMessageDialog(null, "Không thể lùi !", "Lỗi",JOptionPane.ERROR_MESSAGE);            return;
+        }
 
+    
 	}// GEN-LAST:event_lblNVluiMouseClicked
 
-	private void lblNVTienMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblNVTienMouseClicked
-		// TODO add your handling code here:
-		if (demTrang == soTrang) {
-			JOptionPane.showMessageDialog(this, "không thể tiến");
-			demTrang = soTrang;
-			return;
-		} else {
-			truyenTrang(demTrang);
-			fillTableNVHD(lstTruyenTrang);
-			demTrang++;
-		}
-	}// GEN-LAST:event_lblNVTienMouseClicked
-
-	int viTri;
+	private void lblNVTienMouseClicked(java.awt.event.MouseEvent evt) {                                       
+        // TODO add your handling code here:
+        if (demTrang < soTrang) {
+            demTrang++;
+            truyenTrang(demTrang);
+        } else {
+            JOptionPane.showMessageDialog(null, "Không thể tiến !", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }                                      
+    int viTri;
 
 	private void btnApDungBanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnApDungBanActionPerformed
 		DecimalFormat fmt = new DecimalFormat("###,###,###");
@@ -1472,7 +1469,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 			lblSanPham.setBackground(new Color(8, 26, 81));
 			phanTrang();
 			truyenTrang(1);
-			fillTableNVHD(listNhanVienHDView);
+			
 			break;
 
 		}
@@ -1731,6 +1728,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 		txtTTTTT.setText(df.format(tongTien) + " VND");
 	}
 	List<views.element.SanPham> lstSP;
+	private JPanel panel_2;
 	private void loadDanhSachSanPham() {
 		lstSP = svQLSanPham.getAllSanPham(modelSPDC);
 		pnDanhSachSanPham.removeAll();
