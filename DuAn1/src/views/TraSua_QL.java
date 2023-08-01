@@ -3850,7 +3850,6 @@ public class TraSua_QL extends javax.swing.JFrame {
 //        jpnVoucher.setVisible(false);
 //        jpnTaiKhoan.setVisible(false);
 //        jpnBackupHeThong.setVisible(false);
-        new HoTroKhachHang().setVisible(true);
 
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
