@@ -237,6 +237,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Phần trăm giảm phải thuộc trong khoảng (0,100]");
             return null;
         }
+        maGiamGiaViewModel.setPhanTramGiam(phanTramGiamInt);
 
         if (!isNumeric(hoaDonToiThieu)) {
             JOptionPane.showMessageDialog(this, "Hoá đơn tối thiểu phải là số nguyên và không được chứa kí tự đặc biệt");
@@ -247,6 +248,19 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Hoá đơn tối thiểu phải >0");
             return null;
         }
+        maGiamGiaViewModel.setDonToiThieu(hoaDonToiThieuInt);
+
+        if (!isNumeric(giamToiDa)) {
+            JOptionPane.showMessageDialog(this, "Giảm tối đa phải là số nguyên và không được chứa kí tự đặc biệt");
+            return null;
+        }
+        BigDecimal giamToiDaBigDecimal = new BigDecimal(giamToiDa);
+
+        if (giamToiDaBigDecimal.compareTo(BigDecimal.ZERO) <= 0) {
+            JOptionPane.showMessageDialog(this, "Giảm tối đa phải >0");
+            return null;
+        }
+        maGiamGiaViewModel.setGiamToiDa(giamToiDaBigDecimal);
 
         if (!isNumeric(soLuong)) {
             JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên và không được chứa kí tự đặc biệt");
@@ -257,19 +271,9 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Số lượng phải >0");
             return null;
         }
+        maGiamGiaViewModel.setSoLuong(soLuongInt);
 
         int maNhanVienInt = Integer.parseInt(maNhanVien);
-        BigDecimal giamToiDaBigDecimal = new BigDecimal(giamToiDa);
-
-        if (giamToiDaBigDecimal.compareTo(BigDecimal.ZERO) <= 0) {
-            JOptionPane.showMessageDialog(this, "Giảm tối đa phải >0");
-            return null;
-        }
-
-        maGiamGiaViewModel.setPhanTramGiam(phanTramGiamInt);
-        maGiamGiaViewModel.setDonToiThieu(hoaDonToiThieuInt);
-        maGiamGiaViewModel.setGiamToiDa(giamToiDaBigDecimal);
-        maGiamGiaViewModel.setSoLuong(soLuongInt);
 
         try {
             LocalDate ngayKetThucLocalDate = LocalDate.parse(ngayKetThuc);
