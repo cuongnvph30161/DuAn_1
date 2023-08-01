@@ -309,6 +309,11 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void loadTableSanPham() {
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
         DefaultTableModel tableModelSanPham = (DefaultTableModel) tblQuanLySanPham.getModel();
+        tableModelSanPham.setColumnCount(0);
+        tableModelSanPham.addColumn("Mã sản phẩm");
+        tableModelSanPham.addColumn("Tên sản phẩm");
+        tableModelSanPham.addColumn("Trạng thái");
+        tableModelSanPham.addColumn("Mô tả");
         tableModelSanPham.setRowCount(0);
         for (SanPhamViewModel spView : listSanPham) {
             tableModelSanPham.addRow(new Object[]{
@@ -333,6 +338,8 @@ public class TraSua_QL extends javax.swing.JFrame {
         chkSizeMThem.setSelected(false);
         chkSizeLThem.setSelected(false);
         txtGiaSizeSThem.setText("");
+        txtGiaSizeMThem.setText("");
+        txtGiaSizeLThem.setText("");
         txtMoTaSanPhamThem.setText("");
     }
 
@@ -415,165 +422,154 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
     }
 
-    private void themSP() {
-        try {
-            String tenSanPham = txtTenSanPhamThem.getText();
-            String tt = cboTrangThaiSanPhamThem.getSelectedItem().toString();
-            int trangThai = -1;
-            if (tt.equals("Còn hàng")) {
-                trangThai = 1;
-            }
-            if (tt.equals("Hết hàng")) {
-                trangThai = 0;
-            }
-            if (tt.equals("Ngừng kinh doanh")) {
-                trangThai = 2;
-            }
-            String moTa = txtMoTaSanPhamThem.getText();
-            Icon icon = lblAnhSanPhamThem.getIcon();
-            Blob anh = null;
-            if (icon != null) {
-                byte[] imageData = getImageDataFromIcon(icon);
-                anh = createBlobFromImageData(imageData);
-            } else {
-            }
-            if (anh == null) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn ảnh");
-                return;
-            }
-            if (Uhelper.checkNullText(txtTenSanPhamThem, "Tên sản phẩm không được để trống")) {
-                return;
-            }
-            if (chkSizeSThem.isSelected() == false && chkSizeMThem.isSelected() == false && chkSizeLThem.isSelected() == false) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn size!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (chkSizeSThem.isSelected()) {
-                if (txtGiaSizeSThem.getText().equals("")) {
-                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size S không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                try {
-                    BigDecimal gia = new BigDecimal(txtGiaSizeSThem.getText());
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Giá size S phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-            }
-            if (chkSizeMThem.isSelected()) {
-                if (txtGiaSizeMThem.getText().equals("")) {
-                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size M không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                try {
-                    BigDecimal gia = new BigDecimal(txtGiaSizeMThem.getText());
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Giá size M phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-            }
-            if (chkSizeLThem.isSelected()) {
-                if (txtGiaSizeLThem.getText().equals("")) {
-                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size L không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                try {
-                    BigDecimal gia = new BigDecimal(txtGiaSizeLThem.getText());
-
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Giá size L phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-            }
-            SanPhamViewModel spVM = new SanPhamViewModel();
-            spVM.setTenSanPham(tenSanPham);
-            spVM.setTrangThai(trangThai);
-            spVM.setMotTa(moTa);
-            spVM.setAnh(anh);
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
-            iCTSPSe.insertSanPham(spVM);
-        } catch (Exception e) {
+    private boolean checkThemQLSP() {
+        Icon icon = lblAnhSanPhamThem.getIcon();
+        Blob anh = null;
+        if (icon != null) {
+            byte[] imageData = getImageDataFromIcon(icon);
+            anh = createBlobFromImageData(imageData);
+        } else {
+            anh = null;
         }
+        if (anh == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ảnh", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (txtTenSanPhamThem.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        ////////////////////////////////checkThemCTSP
+        if (chkSizeSThem.isSelected() == false && chkSizeMThem.isSelected() == false && chkSizeLThem.isSelected() == false) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn size!", "LỖI", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (chkSizeSThem.isSelected()) {
+            if (txtGiaSizeSThem.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Giá sản phẩm size S không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            try {
+                BigDecimal gia = new BigDecimal(txtGiaSizeSThem.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Giá size S phải là số và không được chứa khoảng trắng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            if (new BigDecimal(txtGiaSizeSThem.getText()).compareTo(new BigDecimal(0)) == -1) {
+                JOptionPane.showMessageDialog(this, "Giá size S phải >0!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+
+        if (chkSizeMThem.isSelected()) {
+            if (txtGiaSizeMThem.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Giá sản phẩm size M không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                return false;
+            }
+            try {
+                BigDecimal gia = new BigDecimal(txtGiaSizeMThem.getText());
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Giá size M phải là số và không được chứa khoảng trắng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                return false;
+            }
+            if (new BigDecimal(txtGiaSizeMThem.getText()).compareTo(new BigDecimal(0)) == -1) {
+                JOptionPane.showMessageDialog(this, "Giá size M phải >0!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+
+        }
+        if (chkSizeLThem.isSelected()) {
+            if (txtGiaSizeLThem.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Giá sản phẩm size L không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                return false;
+            }
+            try {
+                BigDecimal gia = new BigDecimal(txtGiaSizeLThem.getText());
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Giá size L phải là số và không được chứa khoảng trắng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                return false;
+            }
+            if (new BigDecimal(txtGiaSizeLThem.getText()).compareTo(new BigDecimal(0)) == -1) {
+                JOptionPane.showMessageDialog(this, "Giá size L phải >0 !", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+        //////////////////////////////////
+        return true;
+
+    }
+
+    private void themSP() {
+        String tenSanPham = txtTenSanPhamThem.getText();
+        String tt = cboTrangThaiSanPhamThem.getSelectedItem().toString();
+        int trangThai = -1;
+        if (tt.equals("Còn hàng")) {
+            trangThai = 1;
+        }
+        if (tt.equals("Hết hàng")) {
+            trangThai = 0;
+        }
+        if (tt.equals("Ngừng kinh doanh")) {
+            trangThai = 2;
+        }
+        String moTa = txtMoTaSanPhamThem.getText();
+        Icon icon = lblAnhSanPhamThem.getIcon();
+        Blob anh = null;
+        if (icon != null) {
+            byte[] imageData = getImageDataFromIcon(icon);
+            anh = createBlobFromImageData(imageData);
+        } else {
+            anh = null;
+        }
+
+        SanPhamViewModel spVM = new SanPhamViewModel();
+        spVM.setTenSanPham(tenSanPham);
+        spVM.setTrangThai(trangThai);
+        spVM.setMotTa(moTa);
+        spVM.setAnh(anh);
+        iCTSPSe.insertSanPham(spVM);
     }
 
     private void themSizeCTSP() {
 
-        try {
-            int index = tblQuanLySanPham.getSelectedRow();
-            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
-            if (chkSizeSXem.isSelected()) {
-                if (txtGiaSizeSXem.getText().equals("")) {
-                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size S không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                try {
-                    BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Giá size S phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
-                if (iCTSPSe.checkTonCTSP(maSanPham, "S") == false) {
-                    ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
-                    iCTSPSe.insertChiTietSP(ctspVM);
-                }
+        int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+        if (chkSizeSXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "S") == false) {
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "S", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
             }
-            if (chkSizeMXem.isSelected()) {
-                if (txtGiaSizeMXem.getText().equals("")) {
-                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size M không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
-
-                    return;
-                }
-                try {
-                    BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
-
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Giá size M phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
-
-                    return;
-                }
-
-                BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
-                if (iCTSPSe.checkTonCTSP(maSanPham, "M") == false) {
-                    ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
-                    iCTSPSe.insertChiTietSP(ctspVM);
-                }
-            }
-            if (chkSizeLXem.isSelected()) {
-                if (txtGiaSizeLXem.getText().equals("")) {
-                    JOptionPane.showMessageDialog(this, "Giá sản phẩm size L không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
-
-                    return;
-                }
-                try {
-                    BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
-
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Giá size L phải là số!", "LỖI", JOptionPane.WARNING_MESSAGE);
-
-                    return;
-                }
-                BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
-                if (iCTSPSe.checkTonCTSP(maSanPham, "L") == false) {
-                    ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
-                    iCTSPSe.insertChiTietSP(ctspVM);
-                }
-
-            }
-        } catch (Exception e) {
         }
-        JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-        clearCapNhat();
+        if (chkSizeMXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "M") == false) {
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "M", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
+            }
+        }
+        if (chkSizeLXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "L") == false) {
+                ChiTietSanPhamViewModel ctspVM = new ChiTietSanPhamViewModel(maSanPham, "", 0, "L", gia, "", null);
+                iCTSPSe.insertChiTietSP(ctspVM);
+            }
+        }
 
     }
 
     private void themCTSP() {
         try {
             int lastRow = tblQuanLySanPham.getRowCount() - 1; // Lấy chỉ số hàng cuối cùng   
-            System.out.println("chỉ số hàng cuối cùng:" + lastRow);
-            int maSanPham = (int) (tblQuanLySanPham.getValueAt(lastRow, 0)) + 1;
-            System.out.println("mã sản phẩm:" + maSanPham);
+
+            int maSanPham = (int) (tblQuanLySanPham.getValueAt(lastRow, 0));
+
             int maCTSP = 0;
 
             if (chkSizeSThem.isSelected()) {
@@ -598,112 +594,172 @@ public class TraSua_QL extends javax.swing.JFrame {
                 iCTSPSe.insertChiTietSP(ctspVM);
             }
 
-            loadTableSanPham();
         } catch (Exception e) {
         }
+    }
+
+    private boolean checkCapNhatSP() {
+        Icon icon = lblAnhSanPhamXem.getIcon();
+        Blob anh = null;
+        if (icon != null) {
+            byte[] imageData = getImageDataFromIcon(icon);
+            anh = createBlobFromImageData(imageData);
+        } else {
+            anh = null;
+        }
+        if (anh == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ảnh", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (txtTenSanPhamXem.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (chkSizeSXem.isSelected() == false) {
+            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
+                chkSizeSXem.setSelected(true);
+                JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
+                CTSPMouclick();
+                return false;
+            }
+        }
+        if (chkSizeMXem.isSelected() == false) {
+            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "M") == true) {
+                chkSizeMXem.setSelected(true);
+                JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
+                CTSPMouclick();
+                return false;
+            }
+
+        }
+        if (chkSizeLXem.isSelected() == false) {
+            int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
+            if (iCTSPSe.checkTonCTSP(maSanPham, "L") == true) {
+                chkSizeLXem.setSelected(true);
+                JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
+                CTSPMouclick();
+                return false;
+            }
+
+        }
+        ////////////////////////////////checkThemCTSP
+        if (chkSizeSXem.isSelected()) {
+            if (txtGiaSizeSXem.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Giá sản phẩm size S không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            try {
+                BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Giá size S phải là số và không được chứa khoảng trắng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            if (new BigDecimal(txtGiaSizeSXem.getText()).compareTo(new BigDecimal(0)) == -1) {
+                JOptionPane.showMessageDialog(this, "Giá size S phải >0!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+
+        if (chkSizeMXem.isSelected()) {
+            if (txtGiaSizeMXem.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Giá sản phẩm size M không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                return false;
+            }
+            try {
+                BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Giá size M phải là số và không được chứa khoảng trắng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                return false;
+            }
+            if (new BigDecimal(txtGiaSizeMXem.getText()).compareTo(new BigDecimal(0)) == -1) {
+                JOptionPane.showMessageDialog(this, "Giá size M phải >0!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+
+        }
+        if (chkSizeLXem.isSelected()) {
+            if (txtGiaSizeLXem.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Giá sản phẩm size L không được để trống!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                return false;
+            }
+            try {
+                BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Giá size L phải là số và không được chứa khoảng trắng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+
+                return false;
+            }
+            if (new BigDecimal(txtGiaSizeLXem.getText()).compareTo(new BigDecimal(0)) == -1) {
+                JOptionPane.showMessageDialog(this, "Giá size L phải >0 !", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+        //////////////////////////////////
+        return true;
 
     }
 
     private void capNhatSanPham() {
-        try {
-            int index = tblQuanLySanPham.getSelectedRow();
-            if (index == -1) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần cập nhật");
-            }
-            int maSanPham = (int) tblQuanLySanPham.getValueAt(index, 0);
-            String tenSanPham = txtTenSanPhamXem.getText();
-            String tt = cboTrangThaiSanPhamXem.getSelectedItem().toString();
-            int trangThai = -1;
-            if (tt.equals("Còn hàng")) {
-                trangThai = 1;
-            }
-            if (tt.equals("Hết hàng")) {
-                trangThai = 0;
-            }
-            if (tt.equals("Ngừng kinh doanh")) {
-                trangThai = 2;
-            }
-            String moTa = txtMoTaSanPhamXem.getText();
 
-            Icon icon = lblAnhSanPhamXem.getIcon();
-            Blob anh = null;
-            if (icon != null) {
-                byte[] imageData = getImageDataFromIcon(icon);
-                anh = createBlobFromImageData(imageData);
-
-            } else {
-                // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
-                anh = null;
-
-            }
-            SanPhamViewModel spVM = new SanPhamViewModel(maSanPham, tenSanPham, trangThai, moTa, anh);
-            iCTSPSe.updateSanPham(spVM);
-
-        } catch (Exception e) {
+        int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = (int) tblQuanLySanPham.getValueAt(index, 0);
+        String tenSanPham = txtTenSanPhamXem.getText();
+        String tt = cboTrangThaiSanPhamXem.getSelectedItem().toString();
+        int trangThai = -1;
+        if (tt.equals("Còn hàng")) {
+            trangThai = 1;
         }
+        if (tt.equals("Hết hàng")) {
+            trangThai = 0;
+        }
+        if (tt.equals("Ngừng kinh doanh")) {
+            trangThai = 2;
+        }
+        String moTa = txtMoTaSanPhamXem.getText();
+
+        Icon icon = lblAnhSanPhamXem.getIcon();
+        Blob anh = null;
+        if (icon != null) {
+            byte[] imageData = getImageDataFromIcon(icon);
+            anh = createBlobFromImageData(imageData);
+
+        } else {
+            // Nếu không có ảnh, gán giá trị null cho trường ảnh trong nhanVienViewModel
+            anh = null;
+
+        }
+        SanPhamViewModel spVM = new SanPhamViewModel(maSanPham, tenSanPham, trangThai, moTa, anh);
+        iCTSPSe.updateSanPham(spVM);
+
     }
 
     private void updateGiaCTSP() {
-        try {
-            int index = tblQuanLySanPham.getSelectedRow();
-            int maSanPham = (int) tblQuanLySanPham.getValueAt(index, 0);
-            if (chkSizeSXem.isSelected()) {
-                BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
-                String size = "S";
-                iCTSPSe.updateSizeCTSP(maSanPham, size, gia);
-            }
-            if (chkSizeMXem.isSelected()) {
-                BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
-                String size = "M";
-                iCTSPSe.updateSizeCTSP(maSanPham, size, gia);
-            }
-            if (chkSizeLXem.isSelected()) {
-                BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
-                String size = "L";
-                iCTSPSe.updateSizeCTSP(maSanPham, size, gia);
-            }
-        } catch (Exception e) {
+
+        int index = tblQuanLySanPham.getSelectedRow();
+        int maSanPham = (int) tblQuanLySanPham.getValueAt(index, 0);
+        if (chkSizeSXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeSXem.getText());
+            String size = "S";
+            iCTSPSe.updateSizeCTSP(maSanPham, size, gia);
         }
-    }
-
-    private boolean checkCapNhatSize() {
-        try {
-            if (chkSizeSXem.isSelected() == false) {
-                int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
-                if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
-                    chkSizeSXem.setSelected(true);
-                    JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    CTSPMouclick();
-                    return false;
-                }
-
-            }
-
-            if (chkSizeMXem.isSelected() == false) {
-                int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
-                if (iCTSPSe.checkTonCTSP(maSanPham, "M") == true) {
-                    chkSizeMXem.setSelected(true);
-                    JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    CTSPMouclick();
-                    return false;
-                }
-
-            }
-
-            if (chkSizeLXem.isSelected() == false) {
-                int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
-                if (iCTSPSe.checkTonCTSP(maSanPham, "L") == true) {
-                    chkSizeLXem.setSelected(true);
-                    JOptionPane.showMessageDialog(this, "Không được bỏ size sản phẩm", "LỖI", JOptionPane.WARNING_MESSAGE);
-                    CTSPMouclick();
-                    return false;
-                }
-
-            }
-
-        } catch (Exception e) {
+        if (chkSizeMXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeMXem.getText());
+            String size = "M";
+            iCTSPSe.updateSizeCTSP(maSanPham, size, gia);
         }
-        return true;
+        if (chkSizeLXem.isSelected()) {
+            BigDecimal gia = new BigDecimal(txtGiaSizeLXem.getText());
+            String size = "L";
+            iCTSPSe.updateSizeCTSP(maSanPham, size, gia);
+        }
 
     }
 
@@ -2154,6 +2210,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         });
 
         txtMaSanPhamXem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtMaSanPhamXem.setEnabled(false);
 
         txtTenSanPhamXem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
@@ -2178,45 +2235,48 @@ public class TraSua_QL extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCapNhatSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnCapNhatSanPham)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMaSanPhamXem))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTenSanPhamXem))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel96, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(32, 32, 32)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtGiaSizeSXem)
-                                    .addComponent(txtGiaSizeMXem)
-                                    .addComponent(cboTrangThaiSanPhamXem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGap(24, 24, 24)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkSizeSXem)
+                                        .addComponent(jLabel11)
                                         .addGap(18, 18, 18)
-                                        .addComponent(chkSizeMXem)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(chkSizeLXem)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(txtGiaSizeLXem, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                    .addComponent(lblAnhSanPhamXem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnChonAnhSanPhamXem, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
+                                        .addComponent(txtMaSanPhamXem))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtTenSanPhamXem))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel96, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(32, 32, 32)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtGiaSizeSXem)
+                                            .addComponent(txtGiaSizeMXem)
+                                            .addComponent(cboTrangThaiSanPhamXem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(chkSizeSXem)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(chkSizeMXem)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(chkSizeLXem))
+                                            .addComponent(txtGiaSizeLXem, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lblAnhSanPhamXem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnChonAnhSanPhamXem, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -2365,7 +2425,6 @@ public class TraSua_QL extends javax.swing.JFrame {
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtTenSanPhamThem))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2389,7 +2448,8 @@ public class TraSua_QL extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(txtGiaSizeLThem, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(lblAnhSanPhamThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnChonAnhSanPhamThem, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
+                    .addComponent(btnChonAnhSanPhamThem, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -2468,23 +2528,15 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         tblQuanLySanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Size", "Mô tả"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         tblQuanLySanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblQuanLySanPhamMouseClicked(evt);
@@ -4573,18 +4625,30 @@ public class TraSua_QL extends javax.swing.JFrame {
         chkSizeMXem.setSelected(false);
         chkSizeLXem.setSelected(false);
         txtGiaSizeSXem.setText("");
+        txtGiaSizeMXem.setText("");
+        txtGiaSizeLXem.setText("");
         txtMoTaSanPhamXem.setText("");
 
     }
     private void btnCapNhatSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatSanPhamActionPerformed
-        capNhatSanPham();
-        if (checkCapNhatSize()) {
-            themSizeCTSP();
-            updateGiaCTSP();
-            loadTableSanPham();
-
+        int dong = tblQuanLySanPham.getSelectedRow();
+        if (dong < 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm muốn cập nhật", "LỖI", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            if (checkCapNhatSP()) {
+                int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?", "THÔNG BÁO", JOptionPane.YES_NO_OPTION);
+                if (chon == JOptionPane.YES_OPTION) {
+                    themSizeCTSP();
+                    updateGiaCTSP();
+                    capNhatSanPham();
+                    JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                    loadTableSanPham();
+                } else {
+                    return;
+                }
+            }
         }
-
     }//GEN-LAST:event_btnCapNhatSanPhamActionPerformed
 
     private void btnChonAnhSanPhamThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhSanPhamThemActionPerformed
@@ -4641,8 +4705,18 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTimKiemSanPhamKeyReleased
 
     private void btnThemSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSanPhamActionPerformed
-        themSP();
-        themCTSP();
+        if (checkThemQLSP()) {
+            int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?", "THÔNG BÁO", JOptionPane.YES_NO_OPTION);
+            if (chon == JOptionPane.YES_OPTION) {
+                themSP();
+                loadTableSanPham();
+                themCTSP();
+                loadTableSanPham();
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+            } else {
+                return;
+            }
+        }
     }//GEN-LAST:event_btnThemSanPhamActionPerformed
     public void cleanMaGiamGia() {
         txtPhanTramGiam.setText("");
