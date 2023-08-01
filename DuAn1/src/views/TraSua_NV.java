@@ -1474,7 +1474,6 @@ public class TraSua_NV extends javax.swing.JFrame {
 
 		}
 		case "pnKhieuNaiHoTro": {
-			cardLayout.show(pnTong, "pnKhieuNaiHoTro");
 			lblQuanLyBan.setBackground(new Color(8, 26, 81));
 			lblHoaDon.setBackground(new Color(8, 26, 81));
 			lblDoiMatKhau.setBackground(new Color(8, 26, 81));
