@@ -4780,12 +4780,14 @@ public class TraSua_QL extends javax.swing.JFrame {
                         }
                     }
                     mapPhanTrangQLHD.put(i, listTrang);
-
                 }
-                truyenTrangQLHD(1);
+                demTrangQLHD = 1;
+                truyenTrangQLHD(demTrangQLHD);
+
             } else {
+                demTrangQLHD = 1;
                 mapPhanTrangQLHD.put(1, listQLHDPhanTrang);
-                truyenTrangQLHD(1);
+                truyenTrangQLHD(demTrangQLHD);
             }
 
             ///////////
@@ -4818,22 +4820,63 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
             DefaultTableModel QLHDModel = (DefaultTableModel) tblQuanLyHoaDon.getModel();
             QLHDModel.setRowCount(0);
+            List<NhanVienHoaDonViewModel> lstDaTim = new ArrayList<>();
             List<NhanVienHoaDonViewModel> listTKQLHD = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD, maGiamGia);
             for (NhanVienHoaDonViewModel n : listTKQLHD) {
                 if (maHoaDon == n.getMaHoaDon()) {
-                    QLHDModel.addRow(new Object[]{n.getMaHoaDon(), n.getThoiGian(), n.getTongThanhToan(), n.getGhiChu()});
-                    JOptionPane.showMessageDialog(this, "Tìm thành công!");
+                    lstDaTim.add(n);
                     checkTKQLHD = 1;
                     break;
                 }
 
             }
             if (checkTKQLHD == 0) {
-                phanTrangQLHD();
-                truyenTrangQLHD(1);
+                tblQuanLyHoaDon.removeAll();
                 JOptionPane.showMessageDialog(this, "Mã hóa đơn không tồn tại, vui lòng kiểm tra lại!", "LỖI", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+            if (lstDaTim.size() > 100) {
+                double a = lstDaTim.size();
+                double b = 100;
+                soTrangQLHD = (int) Math.ceil(a / b);
+
+            } else {
+                soTrangQLHD = 1;
+            }
+            if (soTrangQLHD > 1) {
+                for (int i = 1; i <= soTrangQLHD; i++) {
+                    List<NhanVienHoaDonViewModel> listTrang = new ArrayList<>();
+                    if (i == soTrangQLHD) {
+                        int doDaiTrangCuoi = lstDaTim.size() - (soTrangQLHD - 1) * 100;
+                        for (int j = ((soTrangQLHD - 1) * 100); j < (doDaiTrangCuoi + (((soTrangQLHD - 1) * 100))); j++) {
+                            listTrang.add(lstDaTim.get(j));
+                        }
+
+                    } else {
+                        if (i == 1) {
+                            for (int k = 0; k < 100; k++) {
+                                listTrang.add(lstDaTim.get(k));
+                            }
+                        } else {
+                            for (int h = (i - 1) * 100; h <= ((i - 1) * 100 + 99); h++) {
+                                listTrang.add(lstDaTim.get(h));
+                            }
+                        }
+                    }
+                    mapPhanTrangQLHD.put(i, listTrang);
+                }
+                demTrangQLHD = 1;
+                truyenTrangQLHD(demTrangQLHD);
+                JOptionPane.showMessageDialog(this, "Tìm thành công!");
+
+            } else {
+                demTrangQLHD = 1;
+                mapPhanTrangQLHD.put(1, lstDaTim);
+                truyenTrangQLHD(demTrangQLHD);
+                JOptionPane.showMessageDialog(this, "Tìm thành công!");
+
+            }
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Mã hóa đơn phải là số tự nhiên và không được chứa khoảng trắng, vui lòng kiểm tra lại!", "LỖI", JOptionPane.WARNING_MESSAGE);
             return;
@@ -4843,8 +4886,9 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private void btnXemQLHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemQLHDActionPerformed
         // TODO add your handling code here:
+        demTrangQLHD = 1;
         phanTrangQLHD();
-        truyenTrangQLHD(1);
+        truyenTrangQLHD(demTrangQLHD);
     }//GEN-LAST:event_btnXemQLHDActionPerformed
     private void tblVorCherFromMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVorCherFromMouseClicked
 
@@ -4873,8 +4917,8 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private void lblQLHDDauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLHDDauMouseClicked
         // TODO add your handling code here:
-        truyenTrangQLHD(1);
         demTrangQLHD = 1;
+        truyenTrangQLHD(demTrangQLHD);
     }//GEN-LAST:event_lblQLHDDauMouseClicked
 
     private void lblQLHDLuiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLHDLuiMouseClicked
@@ -4901,8 +4945,8 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private void lblQLHDCuoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLHDCuoiMouseClicked
         // TODO add your handling code here:
-        truyenTrangQLHD(soTrangQLHD);
         demTrangQLHD = soTrangQLHD;
+        truyenTrangQLHD(soTrangQLHD);
     }//GEN-LAST:event_lblQLHDCuoiMouseClicked
 
     private void txtTimKiemMaGiamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemMaGiamGiaActionPerformed

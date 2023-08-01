@@ -158,10 +158,10 @@ VALUES (N'1',5,0),
 	   (N'2',5,1),
 	   (N'3',5,0)
 go
-
+select * from Ban
 --nạp dữ liệu hóa đơn
 INSERT INTO HoaDon
-VALUES(1204,1001,'2023-07-29 14:12:55.373',0,1,80293992,N'ít đường',33.3),
+VALUES(1000,1001,'2023-07-29 14:12:55.373',0,1,80293992,N'ít đường',33.3),
 (1001,1001,GETDATE(),1,0,80294941,N'nhiều đường',33.3),
 (1002,1001,GETDATE(),1,0,80295890,N'nhiều đá',33.3),
 (1003,1001,GETDATE(),0,1,80293992,N'it duong',33.3),
@@ -369,7 +369,7 @@ go
 select * from HoaDon
 --nạp dữ liệu bàn-hóa đơn
 INSERT INTO Ban_HoaDon(MaHoaDon,MaBan)
-VALUES(1000,1000),
+VALUES(1003,1000),
 (1001,1001),
 (1002,1000)
 go
@@ -380,11 +380,12 @@ VALUES(1000,'M',45.4),
 go
 --nạp dữ liệu chi tiết hóa đơn
 INSERT INTO ChiTietHoaDon(MaHoaDon,MaChiTietSanPham,SoLuong,Gia)
-VALUES(1000,1000,4,44.5),
-(1000,1001,2,22.25),
+VALUES(1003,1000,4,44.5),
+(1003,1001,2,22.25),
 (1001,1000,4,44.5),
 (1002,1000,5,44.5),
 (1002,1001,3,44.5)
+select * from ChiTietHoaDon
 go
 
 -- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
