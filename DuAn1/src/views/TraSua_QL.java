@@ -1602,7 +1602,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblQuanLyBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblQuanLyBan.setForeground(new java.awt.Color(255, 255, 255));
         lblQuanLyBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ban2.png"))); // NOI18N
-        lblQuanLyBan.setText("  QUẢN LÝ BÀN");
+        lblQuanLyBan.setText("  BÀN");
         lblQuanLyBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblQuanLyBanMouseClicked(evt);
@@ -3508,7 +3508,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnCleanTaiKhoan.setBackground(new java.awt.Color(45, 132, 252));
         btnCleanTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCleanTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
-        btnCleanTaiKhoan.setText("Clean");
+        btnCleanTaiKhoan.setText("Xóa trắng");
         btnCleanTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCleanTaiKhoanActionPerformed(evt);

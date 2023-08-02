@@ -135,7 +135,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Img/ban2.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="  QU&#x1ea2;N L&#xdd; B&#xc0;N"/>
+            <Property name="text" type="java.lang.String" value="  B&#xc0;N"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblQuanLyBanMouseClicked"/>
@@ -4192,7 +4192,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Clean"/>
+                        <Property name="text" type="java.lang.String" value="X&#xf3;a tr&#x1eaf;ng"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCleanTaiKhoanActionPerformed"/>
