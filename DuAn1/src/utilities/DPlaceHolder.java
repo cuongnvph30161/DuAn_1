@@ -1,5 +1,6 @@
 package utilities;
 
+import java.awt.Color;
 import java.awt.Insets;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -14,6 +15,7 @@ public class DPlaceHolder {
 		txt.setText(title);
 		txt.revalidate();
 		txt.repaint();
+                txt.setForeground(Color.gray);
 	
 		
 		txt.addFocusListener(new FocusAdapter() {

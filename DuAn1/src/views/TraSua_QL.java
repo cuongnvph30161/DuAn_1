@@ -71,6 +71,7 @@ import services.MaGiamGiaService;
 import services.NhanVienHoaDonServices;
 import services.QuanLyBanServices;
 import utilities.DBackUpAndRestore;
+import utilities.DPlaceHolder;
 import utilities.Uhelper;
 import viewmodel.MaGiamGiaViewModel;
 import viewmodel.NhanVienHoaDonViewModel;
@@ -129,7 +130,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         phanTrangQLHD();
         truyenTrangQLHD(1);
         loadChuMoTapTrungTimKiemChoMaGiamGia();
-        
+        DPlaceHolder.addPlaceHolder(txtTimKiemTen, "Nhập tên nhân viên...");
+        DPlaceHolder.addPlaceHolder(txtTimKiemSanPham, "Nhập tên sản phẩm...");
+        DPlaceHolder.addPlaceHolder(txtTimKiemTaiKhoan, "Nhập mã tài khoản...");
+        DPlaceHolder.addPlaceHolder(txtTimKiemMaGiamGia, "Nhập hóa đơn tối thiểu...");
+        DPlaceHolder.addPlaceHolder(txtTimKiemQuanLyHoaDon, "Nhập mã hóa đơn...");
     }
     
     public boolean isNumeric(String str) {
