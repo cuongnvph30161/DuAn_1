@@ -1982,7 +1982,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnClean.setBackground(new java.awt.Color(45, 132, 252));
         btnClean.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnClean.setForeground(new java.awt.Color(255, 255, 255));
-        btnClean.setText("Clean");
+        btnClean.setText("Xóa trắng");
         btnClean.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCleanActionPerformed(evt);
@@ -2401,7 +2401,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnClear.setBackground(new java.awt.Color(45, 132, 252));
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
-        btnClear.setText("Clear");
+        btnClear.setText("Xóa trắng");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);
@@ -2583,7 +2583,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnBanCapNhatClear.setBackground(new java.awt.Color(45, 132, 252));
         btnBanCapNhatClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBanCapNhatClear.setForeground(new java.awt.Color(255, 255, 255));
-        btnBanCapNhatClear.setText("Clear");
+        btnBanCapNhatClear.setText("Xóa trắng");
         btnBanCapNhatClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBanCapNhatClearActionPerformed(evt);
@@ -2769,7 +2769,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("reset");
+        jLabel9.setText("Làm mới");
         jLabel9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2783,13 +2783,13 @@ public class TraSua_QL extends javax.swing.JFrame {
             jpnQLBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnQLBanLayout.createSequentialGroup()
                 .addGroup(jpnQLBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpnQLBanLayout.createSequentialGroup()
+                    .addGroup(jpnQLBanLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpnQLBanLayout.createSequentialGroup()
-                        .addContainerGap(21, Short.MAX_VALUE)
+                        .addContainerGap(86, Short.MAX_VALUE)
                         .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jpnQLBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jpnQLBanLayout.createSequentialGroup()
@@ -2800,7 +2800,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                                 .addComponent(jLabel103, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(cboTimBanTheoTang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(662, Short.MAX_VALUE))
+                .addContainerGap(727, Short.MAX_VALUE))
         );
         jpnQLBanLayout.setVerticalGroup(
             jpnQLBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3054,7 +3054,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(tblQuanLyHoaDon);
 
-        lblQLHDDau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/double_left_30px.png"))); // NOI18N
+        lblQLHDDau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/2.png"))); // NOI18N
         lblQLHDDau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblQLHDDauMouseClicked(evt);
@@ -3075,7 +3075,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             }
         });
 
-        lblQLHDCuoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/double_right_30px.png"))); // NOI18N
+        lblQLHDCuoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/1.png"))); // NOI18N
         lblQLHDCuoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblQLHDCuoiMouseClicked(evt);
@@ -3197,11 +3197,13 @@ public class TraSua_QL extends javax.swing.JFrame {
                             .addComponent(lblQLHDDau)
                             .addComponent(lblQLHDLui, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblQLHDTien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblQLHDCuoi)
-                            .addComponent(lblTrangQLHD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblTrangQLHD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblQLHDCuoi, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(304, Short.MAX_VALUE))
         );
+
+        jpnHoaDonLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblQLHDCuoi, lblQLHDDau, lblQLHDLui, lblQLHDTien, lblTrangQLHD});
 
         jpnTong.add(jpnHoaDon, "card5");
 
@@ -3238,7 +3240,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnCleanMaGiamGia.setBackground(new java.awt.Color(45, 132, 252));
         btnCleanMaGiamGia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCleanMaGiamGia.setForeground(new java.awt.Color(255, 255, 255));
-        btnCleanMaGiamGia.setText("Clean");
+        btnCleanMaGiamGia.setText("Xóa trắng");
         btnCleanMaGiamGia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCleanMaGiamGiaActionPerformed(evt);
