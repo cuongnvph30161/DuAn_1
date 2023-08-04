@@ -46,6 +46,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -304,10 +305,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tblVorCherFrom.getModel();
         defaultTableModel.setRowCount(0);
         int stt = 1;
+        DecimalFormat dcmf = new DecimalFormat("###,###,###");
         for (MaGiamGiaViewModel maGiamGiaViewModel : list) {
             defaultTableModel.addRow(new Object[]{
                 stt++, maGiamGiaViewModel.getMaVoucher(), maGiamGiaViewModel.getPhanTramGiam(),
-                maGiamGiaViewModel.getDonToiThieu(), maGiamGiaViewModel.getGiamToiDa(),
+                (dcmf.format(maGiamGiaViewModel.getDonToiThieu()) + " VND").replaceAll(",", "."), (dcmf.format(maGiamGiaViewModel.getGiamToiDa()) + " VND").replaceAll(",", "."),
                 maGiamGiaViewModel.getSoLuong(), maGiamGiaViewModel.getNgayBatDau(),
                 maGiamGiaViewModel.getNgayKetThuc(), maGiamGiaViewModel.getMaNguoiTao(),
                 maGiamGiaViewModel.getHoTen()
@@ -463,10 +465,12 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        SanPhamViewModel sp = new SanPhamViewModel();
-        if (!name.equals(sp.getTenSanPham())) {
-            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được trùng!", "LỖI", JOptionPane.WARNING_MESSAGE);
-            return false;
+        List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
+        for (SanPhamViewModel sp : listSanPham) {
+            if (name.equals(sp.getTenSanPham())) {
+                JOptionPane.showMessageDialog(this, "Tên sản phẩm không được trùng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
         }
 
         ////////////////////////////////checkThemCTSP
@@ -641,10 +645,24 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ảnh", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (txtTenSanPhamXem.getText().equals("")) {
+        String name=txtTenSanPhamXem.getText();
+        if (name.equals("")) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
+           if (!containsDigits(name)) {
+        } else {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
+        for (SanPhamViewModel sp : listSanPham) {
+            if (name.equals(sp.getTenSanPham())) {
+                JOptionPane.showMessageDialog(this, "Tên sản phẩm không được trùng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+        
         if (chkSizeSXem.isSelected() == false) {
             int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
             if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
@@ -2739,6 +2757,12 @@ public class TraSua_QL extends javax.swing.JFrame {
 
             }
         ));
+        tblQuanLySanPham.setGridColor(new java.awt.Color(0, 65, 123));
+        tblQuanLySanPham.setRowHeight(40);
+        tblQuanLySanPham.setSelectionBackground(new java.awt.Color(51, 204, 255));
+        tblQuanLySanPham.setSelectionForeground(new java.awt.Color(255, 0, 0));
+        tblQuanLySanPham.setShowGrid(true);
+        tblQuanLySanPham.setSurrendersFocusOnKeystroke(true);
         tblQuanLySanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblQuanLySanPhamMouseClicked(evt);
@@ -4120,7 +4144,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNenBan.setBackground(new Color(0, 65, 123));
         jpnNenBackupHeThong.setBackground(new Color(0, 65, 123));
 
-
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -4142,7 +4165,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNenNhanVien.setBackground(new Color(0, 65, 123));
         jpnNenBan.setBackground(new Color(0, 65, 123));
         jpnNenDoiMatKhau.setBackground(new Color(0, 65, 123));
-
 
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
@@ -4175,7 +4197,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNenDoiMatKhau.setBackground(new Color(0, 65, 123));
         jpnNenBackupHeThong.setBackground(new Color(0, 65, 123));
 
-
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -4196,7 +4217,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNenBan.setBackground(new Color(0, 65, 123));
         jpnNenDoiMatKhau.setBackground(new Color(0, 65, 123));
         jpnNenBackupHeThong.setBackground(new Color(0, 65, 123));
-
 
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
@@ -4219,7 +4239,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNenDoiMatKhau.setBackground(new Color(0, 65, 123));
         jpnNenBackupHeThong.setBackground(new Color(0, 65, 123));
 
-
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -4241,7 +4260,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNenDoiMatKhau.setBackground(new Color(0, 65, 123));
         jpnNenBackupHeThong.setBackground(new Color(0, 65, 123));
 
-
         jpnSanPham.setVisible(true);
         jpnNhanVien.setVisible(false);
         jpnTaiKhoan.setVisible(false);
@@ -4262,7 +4280,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnNenBan.setBackground(new Color(0, 65, 123));
         jpnNenDoiMatKhau.setBackground(new Color(0, 65, 123));
         jpnNenBackupHeThong.setBackground(new Color(0, 65, 123));
-
 
         jpnSanPham.setVisible(false);
         jpnNhanVien.setVisible(false);

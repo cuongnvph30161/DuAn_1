@@ -174,7 +174,7 @@ public class ChiTietSanPhamRepository implements IChiTietSanPhamRepository {
     public ArrayList<SanPham> getSanPhamByTen(String tenSanPham) {
         ArrayList<SanPham> getList = new ArrayList<>();
         try {
-            String query = "select MaSanPham,TenSanPham,TrangThai,MoTa from SanPham where TenSanPham like N'" + tenSanPham + "%'";
+            String query = "select MaSanPham,TenSanPham,TrangThai,MoTa from SanPham where TenSanPham like N'%" + tenSanPham + "%'";
             Statement ps = con.createStatement();
             ResultSet rs = ps.executeQuery(query);
             while (rs.next()) {
