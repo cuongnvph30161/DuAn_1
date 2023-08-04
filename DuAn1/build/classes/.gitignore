@@ -1,7 +1,4 @@
 /views/
-/services/
-/viewmodel/
 /repositorys/
-/interfaceservices/
-/domainmodel/
 /utilities/
+/services/

@@ -64,6 +64,23 @@ public class MaGiamGiaRepository implements IMaGiamGiaRepository {
     	JOptionPane.showMessageDialog(null, "Mã giảm giá đã được sử dụng hoặc hết hạn !");
     	return tongThanhToan;
     	
+    } public Integer getReducedAmount(int idVoucher,int tongThanhToan) {
+    	String querry="select PhanTramGiam,HoaDonToiThieu,GiamToiDa from MaGiamGia where (getDate() between NgayBatDau and NgayKetThuc) and MaVoucher=? and soLuong>1";
+    	try {
+			ResultSet rs=JdbcHelper.query(querry, idVoucher);
+			if(rs.next()) {
+				var phanTramGiam=rs.getInt(1);
+				var hoaDonToiThieu=rs.getInt(2);
+				var giamToiDa=rs.getInt(3);
+				var soTienGiam=tongThanhToan<hoaDonToiThieu?0:tongThanhToan*phanTramGiam/100>giamToiDa?giamToiDa:tongThanhToan*phanTramGiam/100;
+				return -soTienGiam;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return 0;
+    	
     }
     @Override
     public List<MaGiamGiaDomainModel> getList() {

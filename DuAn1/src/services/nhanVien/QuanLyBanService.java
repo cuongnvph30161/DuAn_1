@@ -8,6 +8,7 @@ import domainmodel.HoaDonDoMainModel;
 import repositorys.BanHoaDonRepository;
 import repositorys.ChiTietHoaDonRepository;
 import repositorys.HoaDonRepository;
+import utilities.DBill;
 import viewmodel.defaultViewModel.ChiTietHoaDonViewModel;
 import viewmodel.nhanVien.quanLyBan.HoaDon;
 
@@ -43,7 +44,7 @@ public class QuanLyBanService {
 	}
 
 	public boolean thanhToanHoaDon(Integer[] maHoaDon, int maVouCher) {
-
+		new DBill().printHoaDon(maHoaDon, maVouCher);
 		return rpHoaDon.thanhToanHoaDon(maHoaDon, maVouCher);
 	}
 

@@ -90,7 +90,7 @@ public class DBill extends JFrame {
 			public void run() {
 				try {
 					DBill frame = new DBill();
-					frame.printHoaDon(null, ABORT);
+					frame.printHoaDon(new Integer[] {1000}, 0);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -314,7 +314,7 @@ public class DBill extends JFrame {
 		JFrame yourComponent = new JFrame();
 		PrinterJob pjob = PrinterJob.getPrinterJob();
 		
-		PageFormat preformat = pjob.pageDialog(new PageFormat());
+		PageFormat preformat = pjob.defaultPage();
 		preformat.setOrientation(PageFormat.PORTRAIT);
 		
 //		pp.setSize(2.2440944882*72,);
