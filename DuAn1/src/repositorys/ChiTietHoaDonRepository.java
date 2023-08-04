@@ -134,5 +134,17 @@ public class ChiTietHoaDonRepository implements IChiTietHoaDonRepository {
         // TODO Auto-generated method stub
         return null;
     }
+	public ResultSet getBill(Integer maHoaDon) {
+		try {
+			return JdbcHelper.query("select TenSanPham,ChiTietSanPham.Size,ChiTietHoaDon.SoLuong,ChiTietHoaDon.Gia from ChiTietHoaDon left join ChiTietSanPham on ChiTietSanPham.MaChiTietSanPham=ChiTietHoaDon.MaChiTietSanPham left join SanPham on ChiTietSanPham.MaSanPham= SanPham.MaSanPham where MaHoaDon=?", maHoaDon);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }
