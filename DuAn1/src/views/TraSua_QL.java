@@ -443,6 +443,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 
     private boolean checkThemQLSP() {
+         String name = txtTenSanPhamThem.getText();
         Icon icon = lblAnhSanPhamThem.getIcon();
         Blob anh = null;
         if (icon != null) {
@@ -455,11 +456,14 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ảnh", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (txtTenSanPhamThem.getText().equals("")) {
+        if (name.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        String name = txtTenSanPhamThem.getText();
+        if (name.startsWith(" ") || name.endsWith(" ") || name.contains("  ")) {
+                JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }    
         if (!containsDigits(name)) {
         } else {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
@@ -467,7 +471,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
         for (SanPhamViewModel sp : listSanPham) {
-            if (name.equals(sp.getTenSanPham())) {
+            if (name.trim().equals(sp.getTenSanPham())) {
                 JOptionPane.showMessageDialog(this, "Tên sản phẩm không được trùng!", "LỖI", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
@@ -645,24 +649,28 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ảnh", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        String name=txtTenSanPhamXem.getText();
+        String name = txtTenSanPhamXem.getText();
         if (name.equals("")) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-           if (!containsDigits(name)) {
+         if (name.startsWith(" ") || name.endsWith(" ") || name.contains("  ")) {
+                JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        if (!containsDigits(name)) {
         } else {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
         for (SanPhamViewModel sp : listSanPham) {
-            if (name.equals(sp.getTenSanPham())) {
+            if (name.trim().equals(sp.getTenSanPham())) {
                 JOptionPane.showMessageDialog(this, "Tên sản phẩm không được trùng!", "LỖI", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
         }
-        
+
         if (chkSizeSXem.isSelected() == false) {
             int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
             if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
@@ -2336,6 +2344,11 @@ public class TraSua_QL extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblNhanVienForm.setRowHeight(40);
+        tblNhanVienForm.setSelectionBackground(new java.awt.Color(51, 204, 255));
+        tblNhanVienForm.setSelectionForeground(new java.awt.Color(255, 0, 0));
+        tblNhanVienForm.setShowGrid(true);
+        tblNhanVienForm.setSurrendersFocusOnKeystroke(true);
         tblNhanVienForm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblNhanVienFormMouseClicked(evt);
@@ -2964,6 +2977,12 @@ public class TraSua_QL extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblBanBan.setGridColor(new java.awt.Color(0, 65, 123));
+        tblBanBan.setRowHeight(40);
+        tblBanBan.setSelectionBackground(new java.awt.Color(51, 204, 255));
+        tblBanBan.setSelectionForeground(new java.awt.Color(255, 0, 0));
+        tblBanBan.setShowGrid(true);
+        tblBanBan.setSurrendersFocusOnKeystroke(true);
         tblBanBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblBanBanMouseClicked(evt);
@@ -3265,6 +3284,12 @@ public class TraSua_QL extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblQuanLyHoaDon.setGridColor(new java.awt.Color(0, 65, 123));
+        tblQuanLyHoaDon.setRowHeight(40);
+        tblQuanLyHoaDon.setSelectionBackground(new java.awt.Color(51, 204, 255));
+        tblQuanLyHoaDon.setSelectionForeground(new java.awt.Color(255, 0, 0));
+        tblQuanLyHoaDon.setShowGrid(true);
+        tblQuanLyHoaDon.setSurrendersFocusOnKeystroke(true);
         tblQuanLyHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblQuanLyHoaDonMouseClicked(evt);
@@ -3560,6 +3585,12 @@ public class TraSua_QL extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblVorCherFrom.setGridColor(new java.awt.Color(0, 65, 123));
+        tblVorCherFrom.setRowHeight(40);
+        tblVorCherFrom.setSelectionBackground(new java.awt.Color(51, 204, 255));
+        tblVorCherFrom.setSelectionForeground(new java.awt.Color(255, 0, 0));
+        tblVorCherFrom.setShowGrid(true);
+        tblVorCherFrom.setSurrendersFocusOnKeystroke(true);
         tblVorCherFrom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblVorCherFromMouseClicked(evt);
@@ -3820,6 +3851,12 @@ public class TraSua_QL extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblTaiKhoanForm.setGridColor(new java.awt.Color(0, 65, 123));
+        tblTaiKhoanForm.setRowHeight(40);
+        tblTaiKhoanForm.setSelectionBackground(new java.awt.Color(51, 204, 255));
+        tblTaiKhoanForm.setSelectionForeground(new java.awt.Color(255, 0, 0));
+        tblTaiKhoanForm.setShowGrid(true);
+        tblTaiKhoanForm.setSurrendersFocusOnKeystroke(true);
         tblTaiKhoanForm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTaiKhoanFormMouseClicked(evt);
@@ -4635,10 +4672,23 @@ public class TraSua_QL extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBanCapNhatClearActionPerformed
 
     private void btnBanThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanThemActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:           
         try {
-            if (Uhelper.checkNullText(txtBanThemTenBan, "tên bàn trống")) {
+            String nameBan = txtBanThemTenBan.getText();
+            if (nameBan.trim().equals("")) {
+                JOptionPane.showMessageDialog(this, "Tên bàn không được để trống!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
                 return;
+            }
+            if (nameBan.startsWith(" ") || nameBan.endsWith(" ") || nameBan.contains("  ")) {
+                JOptionPane.showMessageDialog(this, "Tên bàn không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            List<QuanLyBanViewmodel> listBanviewmodel = ibanServices.getListBan();
+            for (QuanLyBanViewmodel qlban : listBanviewmodel) {
+                if (nameBan.trim().equals(qlban.getTenBan())) {
+                    JOptionPane.showMessageDialog(this, "Tên bàn không được trùng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
             }
             QuanLyBanViewmodel ban = new QuanLyBanViewmodel(11, txtBanThemTenBan.getText(),
                     Integer.parseInt(cboBanThemTang.getSelectedItem() + ""));
@@ -4663,8 +4713,21 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void btnBanCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanCapNhatActionPerformed
         // TODO add your handling code here:
         try {
-            if (Uhelper.checkNullText(txtBanCapNhatTenBan, "tên bàn trống")) {
+            String nameBan = txtBanThemTenBan.getText();
+            if (nameBan.trim().equals("")) {
+                JOptionPane.showMessageDialog(this, "Tên bàn không được để trống!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
                 return;
+            }
+            if (nameBan.startsWith(" ") || nameBan.endsWith(" ") || nameBan.contains("  ")) {
+                JOptionPane.showMessageDialog(this, "Tên bàn không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            List<QuanLyBanViewmodel> listBanviewmodel = ibanServices.getListBan();
+            for (QuanLyBanViewmodel qlban : listBanviewmodel) {
+                if (nameBan.trim().equals(qlban.getTenBan())) {
+                    JOptionPane.showMessageDialog(this, "Tên bàn không được trùng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
             }
             QuanLyBanViewmodel ban
                     = new QuanLyBanViewmodel(Integer.parseInt(lblBanCapNhatMaBan.getText()),
