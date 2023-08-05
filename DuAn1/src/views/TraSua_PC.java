@@ -62,18 +62,21 @@ public class TraSua_PC extends javax.swing.JFrame {
         modelTongHopDonHANG = (DefaultTableModel) tblPhaCheTongDonHang.getModel();
         modelHoaDon_DSSP = (DefaultTableModel) tblHoaDon_DSSP.getModel();
         modelLichSuDanhSachSp = (DefaultTableModel) tbllichsudanhsachsphoadon.getModel();
-        fillTableLichSuHoaDon();
+        try {
+            fillTableLichSuHoaDon();
+            showGhiChu(0);
+            fillTableDSSP(lst.get(0).getMaHoaDon());
+            LoadSanPham();
+            ///fill hóa đơn trong chức năng hóa đơn
+            fillTableHoaDon_HoaDon();
+            fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
 
-        showGhiChu(0);
-        fillTableDSSP(lst.get(0).getMaHoaDon());
-        LoadSanPham();
-        ///fill hóa đơn trong chức năng hóa đơn
-        fillTableHoaDon_HoaDon();
-        fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
-
-        tongHopHoaDon();
-        loadHd();
-        loadLB();
+            tongHopHoaDon();
+            loadHd();
+            loadLB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void loadLB() {
@@ -107,9 +110,10 @@ public class TraSua_PC extends javax.swing.JFrame {
         int thongBao = HoaDonServices.capNhatTrangThai(Integer.parseInt(lblHoaDon_dssp.getText()),
                 1);
         if (thongBao == 1) {
+            tongHopHoaDon();
+
             fillTableHoaDon_HoaDon();
             fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
-            tongHopHoaDon();
             JOptionPane.showMessageDialog(this, "hoàn thành đơn");
             return;
         }
@@ -186,7 +190,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                 a.getTang(), a.getThoiGian(), a.getGhiChu()});
             stt++;
         }
-
+        tblHoaDon_HoaDon.setRowSelectionInterval(0, 0);
     }
 
     //tổng hợp hóa đơn
@@ -221,10 +225,10 @@ public class TraSua_PC extends javax.swing.JFrame {
 
         }
         for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstCongDon) {
-        modelTongHopDonHANG.addRow(new Object[]{
-        a.getMaSanPham(),a.getTenSanPham(),a.getSize(),a.getSoLuong()
-        });
-        
+            modelTongHopDonHANG.addRow(new Object[]{
+                a.getMaSanPham(), a.getTenSanPham(), a.getSize(), a.getSoLuong()
+            });
+
         }
     }
 
@@ -265,13 +269,13 @@ public class TraSua_PC extends javax.swing.JFrame {
 
     //hiển thị bảng dssp chức năng hóa đơn
     public void fillTableDSSPHoaDon(int maHoaDon) {
+        modelHoaDon_DSSP.setRowCount(0);
         try {
             Map<String, Object> mapBan1 = LichSuServices.getBan();
             Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
             List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
 
             lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
-            modelHoaDon_DSSP.setRowCount(0);
             List<PhaCheLichSuDanhSachSanPhamViewmodel> lstFill = new ArrayList<>();
 
             for (PhaCheLichSuViewModel a : lstCNhoadon) {
@@ -338,7 +342,7 @@ public class TraSua_PC extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblPhaCheTongDonHang = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        lblHoaDon_dssp1 = new javax.swing.JLabel();
         jpnLichSu = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
@@ -516,7 +520,7 @@ public class TraSua_PC extends javax.swing.JFrame {
         jpnHoaDon.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setText("Danh sách sản phẩm");
+        jLabel3.setText("Hoá đơn");
 
         tblHoaDon_HoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -612,15 +616,9 @@ public class TraSua_PC extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(tblPhaCheTongDonHang);
 
-        jButton2.setBackground(new java.awt.Color(45, 132, 252));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Tổng hợp đơn hàng");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        lblHoaDon_dssp1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHoaDon_dssp1.setForeground(new java.awt.Color(0, 102, 255));
+        lblHoaDon_dssp1.setText("Danh sách sản phẩm:");
 
         javax.swing.GroupLayout jpnHoaDonLayout = new javax.swing.GroupLayout(jpnHoaDon);
         jpnHoaDon.setLayout(jpnHoaDonLayout);
@@ -632,18 +630,21 @@ public class TraSua_PC extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHoaDon_HoaDon))
-                .addGap(18, 18, 18)
-                .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3)
-                    .addComponent(lblHoaDon_dssp)
-                    .addComponent(jScrollPane4)
-                    .addComponent(jLabel8)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(677, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnHoaDonLayout.createSequentialGroup()
+                        .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3)
+                            .addComponent(jScrollPane4)
+                            .addComponent(jLabel8)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnHoaDonLayout.createSequentialGroup()
+                        .addComponent(lblHoaDon_dssp1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblHoaDon_dssp)))
+                .addContainerGap(673, Short.MAX_VALUE))
         );
         jpnHoaDonLayout.setVerticalGroup(
             jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -653,23 +654,20 @@ public class TraSua_PC extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoaDon_HoaDon)
-                    .addComponent(lblHoaDon_dssp))
+                    .addComponent(lblHoaDon_dssp)
+                    .addComponent(lblHoaDon_dssp1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
                     .addGroup(jpnHoaDonLayout.createSequentialGroup()
-                        .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jpnHoaDonLayout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addGap(24, 24, 24)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane5))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5))
                 .addContainerGap(209, Short.MAX_VALUE))
         );
 
@@ -941,15 +939,17 @@ public class TraSua_PC extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblHoaDon_HoaDonMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        tongHopHoaDon();
-        JOptionPane.showMessageDialog(null, "tổng hợp đơn hàng đã được hiển thị");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        capNhatTrangThaiHD();
+        modelHoaDon_DSSP.setRowCount(0);
+
+        try {
+            capNhatTrangThaiHD();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        lblHoaDon_dssp.setText("");
+        txtGhiChuHoaDon.setText("");
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtTimKiemSPPhaCheKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemSPPhaCheKeyReleased
@@ -994,12 +994,12 @@ public class TraSua_PC extends javax.swing.JFrame {
                 y++;
             }
         }
-        
+
         if (LstPCSPJPanel.isEmpty()) {
             jpnHienThiSP.removeAll();
             jpnHienThiSP.updateUI();
         }
-        if(txtTimKiemSPPhaChe.equals("")){
+        if (txtTimKiemSPPhaChe.equals("")) {
             LoadSanPham();
         }
 
@@ -1008,18 +1008,18 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void txtTimKiemSPPhaCheFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemSPPhaCheFocusGained
         // TODO add your handling code here:
         //txtTimKiemSPPhaChe
-         if(txtTimKiemSPPhaChe.getText().equalsIgnoreCase("nhập tên sản phẩm...")){
+        if (txtTimKiemSPPhaChe.getText().equalsIgnoreCase("nhập tên sản phẩm...")) {
             txtTimKiemSPPhaChe.setText(null);
             txtTimKiemSPPhaChe.requestFocus();
             Uhelper.removePlayhoder(txtTimKiemSPPhaChe);
-            
+
         }
     }//GEN-LAST:event_txtTimKiemSPPhaCheFocusGained
 
     private void txtTimKiemSPPhaCheFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemSPPhaCheFocusLost
         // TODO add your handling code here:
-         if(txtTimKiemSPPhaChe.getText().length()==0){
-             Uhelper.adPlayhoder(txtTimKiemSPPhaChe);
+        if (txtTimKiemSPPhaChe.getText().length() == 0) {
+            Uhelper.adPlayhoder(txtTimKiemSPPhaChe);
             txtTimKiemSPPhaChe.setText("nhập tên sản phẩm...");
         }
     }//GEN-LAST:event_txtTimKiemSPPhaCheFocusLost
@@ -1049,7 +1049,6 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnKhieuNaiHoTro;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1079,6 +1078,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     private javax.swing.JLabel lblHoaDon;
     private javax.swing.JLabel lblHoaDon_HoaDon;
     private javax.swing.JLabel lblHoaDon_dssp;
+    private javax.swing.JLabel lblHoaDon_dssp1;
     private javax.swing.JLabel lblLichSuDonHang;
     private javax.swing.JLabel lblSanPham;
     private javax.swing.JLabel lblTraSua;
