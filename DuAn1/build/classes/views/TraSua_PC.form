@@ -386,20 +386,25 @@
                           <Component id="jScrollPane1" min="-2" pref="371" max="-2" attributes="0"/>
                           <Component id="lblHoaDon_HoaDon" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPane3" max="32767" attributes="0"/>
-                          <Component id="lblHoaDon_dssp" min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jScrollPane3" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jScrollPane5" min="-2" pref="422" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblHoaDon_dssp1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblHoaDon_dssp" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPane5" pref="406" max="32767" attributes="0"/>
-                          <Component id="jButton2" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="677" max="32767" attributes="0"/>
+                      <EmptySpace pref="673" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -412,27 +417,21 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblHoaDon_HoaDon" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblHoaDon_dssp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblHoaDon_dssp1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="690" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jScrollPane3" min="-2" pref="475" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane4" min="-2" pref="106" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jScrollPane5" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Component id="jButton2" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jScrollPane3" min="-2" pref="475" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="jButton1" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jScrollPane5" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="209" max="32767" attributes="0"/>
                   </Group>
@@ -445,7 +444,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch s&#x1ea3;n ph&#x1ea9;m"/>
+                <Property name="text" type="java.lang.String" value="Ho&#xe1; &#x111;&#x1a1;n"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -678,22 +677,16 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JLabel" name="lblHoaDon_dssp1">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="fc" green="84" red="2d" type="rgb"/>
-                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="1"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                  <Color blue="ff" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="T&#x1ed5;ng h&#x1ee3;p &#x111;&#x1a1;n h&#xe0;ng"/>
+                <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch s&#x1ea3;n ph&#x1ea9;m:"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

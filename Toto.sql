@@ -380,13 +380,13 @@ VALUES(1000,'M',45.4),
 go
 --nạp dữ liệu chi tiết hóa đơn
 INSERT INTO ChiTietHoaDon(MaHoaDon,MaChiTietSanPham,SoLuong,Gia)
-VALUES(1003,1000,4,44.5),
+VALUES(1000,1001,4,44.5),
 (1003,1001,2,22.25),
 (1001,1000,4,44.5),
 (1002,1000,5,44.5),
 (1002,1001,3,44.5)
-select * from ChiTietHoaDon
 go
+select * from ChiTietHoaDon
 
 -- Sửa bảng hóa đơn thêm cột chi dịch vụ phát sinh
 --1 .NhanVien
