@@ -451,4 +451,8 @@ go
 --UPDATE ChiTietHoaDon SET MaChiTietSanPham=? WHERE MaHoaDon=?
 select * from HoaDon
 update HoaDon set TrangThaiOrder=0 where MaHoaDon=1002
-select * from Ban
+select * from SanPham
+select * from ChiTietSanPham
+select * from HoaDon
+select * from ChiTietHoaDon
+
