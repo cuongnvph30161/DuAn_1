@@ -27,6 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -443,7 +444,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 
     private boolean checkThemQLSP() {
-         String name = txtTenSanPhamThem.getText();
+        String name = txtTenSanPhamThem.getText();
         Icon icon = lblAnhSanPhamThem.getIcon();
         Blob anh = null;
         if (icon != null) {
@@ -461,9 +462,9 @@ public class TraSua_QL extends javax.swing.JFrame {
             return false;
         }
         if (name.startsWith(" ") || name.endsWith(" ") || name.contains("  ")) {
-                JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
-                return false;
-            }    
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
         if (!containsDigits(name)) {
         } else {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
@@ -654,23 +655,30 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-         if (name.startsWith(" ") || name.endsWith(" ") || name.contains("  ")) {
-                JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
-                return false;
-            }
+        if (name.startsWith(" ") || name.endsWith(" ")) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
         if (!containsDigits(name)) {
         } else {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
-        for (SanPhamViewModel sp : listSanPham) {
+        int selectedIndex = tblQuanLySanPham.getSelectedRow();
+        for (int i = 0; i < listSanPham.size(); i++) {
+            if (i == selectedIndex) { // Bỏ qua sản phẩm cần cập nhật
+                continue;
+            }
+            SanPhamViewModel sp = listSanPham.get(i);
             if (name.trim().equals(sp.getTenSanPham())) {
                 JOptionPane.showMessageDialog(this, "Tên sản phẩm không được trùng!", "LỖI", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
         }
-
+        SanPhamViewModel selectedProduct = listSanPham.get(selectedIndex);
+        selectedProduct.setTenSanPham(name);
+        
         if (chkSizeSXem.isSelected() == false) {
             int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
             if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
@@ -2456,6 +2464,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         jLabel96.setText("Giá size L");
 
         txtGiaSizeLXem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtGiaSizeLXem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGiaSizeLXemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -2503,7 +2516,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                                         .addComponent(txtGiaSizeLXem, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(lblAnhSanPhamXem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnChonAnhSanPhamXem, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2553,7 +2566,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCapNhatSanPham)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
 
         jTabbedPane1.addTab("Thông tin sản phẩm", jPanel2);
@@ -2636,7 +2649,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(btnClear)
@@ -2676,7 +2689,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                     .addComponent(lblAnhSanPhamThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnChonAnhSanPhamThem, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2728,7 +2741,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThemSanPham)
                     .addComponent(btnClear))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Thêm sản phẩm", jPanel3);
@@ -2897,7 +2910,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         btnBanThemClear.setBackground(new java.awt.Color(45, 132, 252));
         btnBanThemClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBanThemClear.setForeground(new java.awt.Color(255, 255, 255));
-        btnBanThemClear.setText("Clear");
+        btnBanThemClear.setText("Xóa trắng");
         btnBanThemClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBanThemClearActionPerformed(evt);
@@ -5309,6 +5322,10 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void txtTimKiemSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemSanPhamMouseEntered
 
     }//GEN-LAST:event_txtTimKiemSanPhamMouseEntered
+
+    private void txtGiaSizeLXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiaSizeLXemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGiaSizeLXemActionPerformed
     private void loadChuMoTapTrungTimKiemChoMaGiamGia() {
         // Đặt placeholder ban đầu cho thanh tìm kiếm
         txtTimKiemMaGiamGia.setText("Nhập hoá đơn tối thiểu...");
