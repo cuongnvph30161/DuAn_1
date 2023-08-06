@@ -678,7 +678,6 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         SanPhamViewModel selectedProduct = listSanPham.get(selectedIndex);
         selectedProduct.setTenSanPham(name);
-        
         if (chkSizeSXem.isSelected() == false) {
             int maSanPham = Integer.parseInt(txtMaSanPhamXem.getText());
             if (iCTSPSe.checkTonCTSP(maSanPham, "S") == true) {
@@ -4726,8 +4725,14 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void btnBanCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanCapNhatActionPerformed
         // TODO add your handling code here:
         try {
-            String nameBan = txtBanThemTenBan.getText();
-            if (nameBan.trim().equals("")) {
+            List<QuanLyBanViewmodel> listBanviewmodel = ibanServices.getListBan();
+            int selectedIndex = tblBanBan.getSelectedRow();
+            String nameBan = txtBanCapNhatTenBan.getText();       
+            if (selectedIndex == -1) {
+               JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn muốn cập nhật!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);  
+            return;
+            } else {
+                 if (nameBan.trim().equals("")) {
                 JOptionPane.showMessageDialog(this, "Tên bàn không được để trống!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -4735,24 +4740,32 @@ public class TraSua_QL extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Tên bàn không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            List<QuanLyBanViewmodel> listBanviewmodel = ibanServices.getListBan();
-            for (QuanLyBanViewmodel qlban : listBanviewmodel) {
-                if (nameBan.trim().equals(qlban.getTenBan())) {
-                    JOptionPane.showMessageDialog(this, "Tên bàn không được trùng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                String selectedName = listBanviewmodel.get(selectedIndex).getTenBan();
+                for (int i = 0; i < listBanviewmodel.size(); i++) {
+                    if (i == selectedIndex) {
+                        continue;
+                    }
+                    QuanLyBanViewmodel ban = listBanviewmodel.get(i);
+                    if (nameBan.trim().equals(String.valueOf(ban.getTenBan())) && !selectedName.equals(nameBan.trim())) {
+                        JOptionPane.showMessageDialog(this, "Tên bàn không được trùng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                }
+                QuanLyBanViewmodel selectedBan = listBanviewmodel.get(selectedIndex);
+                selectedBan.setTenBan(String.valueOf(nameBan));
+                QuanLyBanViewmodel ban
+                        = new QuanLyBanViewmodel(Integer.parseInt(lblBanCapNhatMaBan.getText()),
+                                txtBanCapNhatTenBan.getText(), Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + ""));
+                int thongBao = ibanServices.CapNhatBan(ban);
+                if (thongBao == 1) {
+                    JOptionPane.showMessageDialog(this, "cập nhật thành công");
+                    fillBanTableBan();
+                    return;
+                } else {
+                    JOptionPane.showMessageDialog(this, "cập nhật thất bại");
                     return;
                 }
-            }
-            QuanLyBanViewmodel ban
-                    = new QuanLyBanViewmodel(Integer.parseInt(lblBanCapNhatMaBan.getText()),
-                            txtBanCapNhatTenBan.getText(), Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + ""));
-            int thongBao = ibanServices.CapNhatBan(ban);
-            if (thongBao == 1) {
-                JOptionPane.showMessageDialog(this, "cập nhật thành công");
-                fillBanTableBan();
-                return;
-            } else {
-                JOptionPane.showMessageDialog(this, "cập nhật thất bại");
-                return;
+
             }
         } catch (Exception e) {
         }
