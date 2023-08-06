@@ -61,6 +61,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.text.html.HTML;
@@ -1050,9 +1051,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             return null;
         }
 
-        // Kiểm tra dấu cách ở đầu và cuối tên, CCCD và địa chỉ
-        if (hoVaTen.startsWith(" ")) {
-            JOptionPane.showMessageDialog(this, "Tên không được chứa dấu cách ở đầu");
+        if (!validateTen(hoVaTen)) {
+            JOptionPane.showMessageDialog(this, "Tên không được là số và có kí tự đặc biệt");
             return null;
         }
         nhanVienViewModel.setHoVaTen(hoVaTen);
@@ -1117,6 +1117,22 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
         nhanVienViewModel.setGhiChu(ghiChu);
         return nhanVienViewModel;
+    }
+
+    public static boolean validateTen(String tenNhanVien) {
+        // Kiểm tra nếu tên chứa số hoặc ký tự đặc biệt
+        Pattern pattern = Pattern.compile("[0-9!@#$%^&*(),.?\":{}|<>]");
+        Matcher matcher = pattern.matcher(tenNhanVien);
+        if (matcher.find()) {
+            return false;
+        }
+
+        // Kiểm tra nếu tên chứa khoảng trắng đầu hoặc cuối
+        if (!tenNhanVien.trim().equals(tenNhanVien)) {
+            return false;
+        }
+
+        return true;
     }
 
     public boolean isCCCDExists(String cccd, boolean isUpdating, String cccdCu) {
@@ -1262,8 +1278,10 @@ public class TraSua_QL extends javax.swing.JFrame {
         if (hoVaTen.trim().equals("") || ngaySinh.trim().equals("") || cccd.trim().equals("") || email.trim().equals("") || soDienThoai.trim().equals("") || diaChi.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
-        } else if (hoVaTen.startsWith(" ")) {
-            JOptionPane.showMessageDialog(this, "Tên không được chứa dấu cách ở đầu");
+        }
+
+        if (!validateTen(hoVaTen)) {
+            JOptionPane.showMessageDialog(this, "Tên không được là số và có kí tự đặc biệt");
             return null;
         }
         nhanVienViewModel.setHoVaTen(hoVaTen);
@@ -4727,19 +4745,19 @@ public class TraSua_QL extends javax.swing.JFrame {
         try {
             List<QuanLyBanViewmodel> listBanviewmodel = ibanServices.getListBan();
             int selectedIndex = tblBanBan.getSelectedRow();
-            String nameBan = txtBanCapNhatTenBan.getText();       
+            String nameBan = txtBanCapNhatTenBan.getText();
             if (selectedIndex == -1) {
-               JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn muốn cập nhật!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);  
-            return;
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn muốn cập nhật!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                return;
             } else {
-                 if (nameBan.trim().equals("")) {
-                JOptionPane.showMessageDialog(this, "Tên bàn không được để trống!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (nameBan.startsWith(" ") || nameBan.endsWith(" ") || nameBan.contains("  ")) {
-                JOptionPane.showMessageDialog(this, "Tên bàn không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
+                if (nameBan.trim().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Tên bàn không được để trống!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (nameBan.startsWith(" ") || nameBan.endsWith(" ") || nameBan.contains("  ")) {
+                    JOptionPane.showMessageDialog(this, "Tên bàn không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 String selectedName = listBanviewmodel.get(selectedIndex).getTenBan();
                 for (int i = 0; i < listBanviewmodel.size(); i++) {
                     if (i == selectedIndex) {
