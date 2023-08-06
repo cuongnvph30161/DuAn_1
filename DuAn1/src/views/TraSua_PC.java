@@ -719,7 +719,7 @@ public class TraSua_PC extends javax.swing.JFrame {
 
         lblHoaDon_dssp1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblHoaDon_dssp1.setForeground(new java.awt.Color(0, 102, 255));
-        lblHoaDon_dssp1.setText("Danh sách sản phẩm:");
+        lblHoaDon_dssp1.setText("Danh sách sản phẩm hoá đơn:");
 
         javax.swing.GroupLayout jpnHoaDonLayout = new javax.swing.GroupLayout(jpnHoaDon);
         jpnHoaDon.setLayout(jpnHoaDonLayout);
@@ -752,7 +752,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                                 .addGap(5, 5, 5)
                                 .addComponent(lblHoaDon_dssp)
                                 .addGap(527, 527, 527)))))
-                .addContainerGap(678, Short.MAX_VALUE))
+                .addContainerGap(649, Short.MAX_VALUE))
         );
         jpnHoaDonLayout.setVerticalGroup(
             jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
