@@ -49,6 +49,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.Normalizer;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeParseException;
@@ -57,6 +58,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -64,6 +66,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.text.html.HTML;
 import repositorys.NhanVienRepository;
 import repositorys.iRepository.INhanVienRepository;
@@ -141,7 +144,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 
     public boolean isNumeric(String str) {
-        return str != null && str.matches("-?\\d+");
+        return str != null && str.matches("-?\\d+(\\.\\d+)?");
     }
 
     private void LoadTableDSSPQLHoaDon() {
@@ -216,6 +219,22 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 ///////////////////////////////////////////////////
 
+    public void displayNumberWithCommas(String numberString, JTextField textField) {
+        try {
+            // Xóa dấu chấm trong số để chuyển về kiểu long
+            long number = Long.parseLong(numberString.replaceAll("\\.", ""));
+
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
+            String formattedNumber = numberFormat.format(number);
+
+            // Thêm dấu chấm ngăn cách vào số
+            textField.setText(formattedNumber);
+        } catch (NumberFormatException e) {
+            // Xử lý nếu người dùng nhập không phải số
+            textField.setText(numberString);
+        }
+    }
+
     public MaGiamGiaViewModel getDataMaGiamGia() {
 
         MaGiamGiaViewModel maGiamGiaViewModel = new MaGiamGiaViewModel();
@@ -262,6 +281,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Giảm tối đa phải là số nguyên và không được chứa kí tự đặc biệt");
             return null;
         }
+
         BigDecimal giamToiDaBigDecimal = new BigDecimal(giamToiDa);
 
         if (giamToiDaBigDecimal.compareTo(BigDecimal.ZERO) <= 0) {
@@ -1123,11 +1143,12 @@ public class TraSua_QL extends javax.swing.JFrame {
         // Kiểm tra nếu tên chứa số hoặc ký tự đặc biệt
         Pattern pattern = Pattern.compile("[0-9!@#$%^&*(),.?\":{}|<>]");
         Matcher matcher = pattern.matcher(tenNhanVien);
+        //find() tìm xem chuỗi con có khớp với trong biểu thức chính quy hay không.Có trả về false
         if (matcher.find()) {
             return false;
         }
 
-        // Kiểm tra nếu tên chứa khoảng trắng đầu hoặc cuối
+        // Tên không có khoảng trắng thì trả về true 
         if (!tenNhanVien.trim().equals(tenNhanVien)) {
             return false;
         }
@@ -3529,9 +3550,19 @@ public class TraSua_QL extends javax.swing.JFrame {
         jPanel7.add(txtPhanTramGiam, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 57, 202, -1));
 
         txtHoaDonToiThieu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtHoaDonToiThieu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtHoaDonToiThieuKeyReleased(evt);
+            }
+        });
         jPanel7.add(txtHoaDonToiThieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 93, 202, -1));
 
         txtGiamToiDa.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+        txtGiamToiDa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtGiamToiDaKeyReleased(evt);
+            }
+        });
         jPanel7.add(txtGiamToiDa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 129, 202, -1));
 
         txtSoLuong.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
@@ -5357,6 +5388,16 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void txtGiaSizeLXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiaSizeLXemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtGiaSizeLXemActionPerformed
+
+    private void txtHoaDonToiThieuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoaDonToiThieuKeyReleased
+        String numberString = txtHoaDonToiThieu.getText();
+        displayNumberWithCommas(numberString, txtHoaDonToiThieu);
+    }//GEN-LAST:event_txtHoaDonToiThieuKeyReleased
+
+    private void txtGiamToiDaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiamToiDaKeyReleased
+        String numberString = txtGiamToiDa.getText();
+        displayNumberWithCommas(numberString, txtGiamToiDa);
+    }//GEN-LAST:event_txtGiamToiDaKeyReleased
     private void loadChuMoTapTrungTimKiemChoMaGiamGia() {
         // Đặt placeholder ban đầu cho thanh tìm kiếm
         txtTimKiemMaGiamGia.setText("Nhập hoá đơn tối thiểu...");
