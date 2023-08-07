@@ -436,15 +436,14 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
     }
 
-    private static boolean containsDigits(String text) {
-        for (int i = 0; i < text.length(); i++) {
-            if (Character.isDigit(text.charAt(i))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+//    private static boolean containsDigits(String text) {
+//        for (int i = 0; i < text.length(); i++) {
+//            if (Character.isDigit(text.charAt(i))) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
     private boolean checkThemQLSP() {
         String name = txtTenSanPhamThem.getText();
         Icon icon = lblAnhSanPhamThem.getIcon();
@@ -463,13 +462,13 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
+
         if (name.startsWith(" ") || name.endsWith(" ") || name.contains("  ")) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (!containsDigits(name)) {
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+        if (!validateTen(name)) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được là số và không được chứa kí tự đặc biệt", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
@@ -661,9 +660,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (!containsDigits(name)) {
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+        if (!validateTen(name)) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được là số và không được chứa kí tự đặc biệt", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
