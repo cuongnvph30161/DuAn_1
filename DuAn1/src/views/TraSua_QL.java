@@ -106,6 +106,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     public INhanVienService iNhanVienService = new NhanVienService();
     public IMaGiamGiaService iMaGiamGiaService = new MaGiamGiaService();
     private String maTaiKhoan;
+    private DecimalFormat dcmfmQLHD = new DecimalFormat("###,###,###");
     /////////////////////////////
     public IChiTietSanPhamService iCTSPSe = new ChiTietSanPhamService();
 
@@ -154,7 +155,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             if (DSSP.getMaHoaDon() == MaHoaDon) {
                 List<PhaCheLichSuDanhSachSanPhamViewmodel> LstSanPham = DSSP.getListSP();
                 for (PhaCheLichSuDanhSachSanPhamViewmodel sp : LstSanPham) {
-                    ModelQLHDDSSanPham.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), sp.getSoLuong(), sp.getSize(), sp.getGiaBigDecimal()});
+                    ModelQLHDDSSanPham.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), sp.getSoLuong(), sp.getSize(), (dcmfmQLHD.format(sp.getGiaBigDecimal())).replaceAll(",", ".")});
                 }
             }
 
@@ -166,7 +167,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         DefaultTableModel ModelQLHD = (DefaultTableModel) tblQuanLyHoaDon.getModel();
         ModelQLHD.setRowCount(0);
         for (NhanVienHoaDonViewModel a : list) {
-            ModelQLHD.addRow(new Object[]{a.getMaHoaDon(), a.getThoiGian(), a.getTongThanhToan(), a.getGhiChu()});
+            ModelQLHD.addRow(new Object[]{a.getMaHoaDon(), a.getThoiGian(), (dcmfmQLHD.format(a.getTongThanhToan())).replaceAll(",", "."), a.getGhiChu()});
         }
 
     }
@@ -5023,7 +5024,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         for (QuanLyHoaDonViewModel hd : qlhd) {
             txtTongThanhToanQLHD.setText(tblQuanLyHoaDon.getValueAt(index, 2) + " VNĐ");
-            txtQLHDTongHoaDon.setText(BigDecimal.valueOf(QLHDService.TongHoaDonQLHD(hd.getMaHoaDon())) + " VNĐ");
+            txtQLHDTongHoaDon.setText((dcmfmQLHD.format(BigDecimal.valueOf(QLHDService.TongHoaDonQLHD(hd.getMaHoaDon())))).replaceAll(",", ".") + " VNĐ");
 
             txtQLHDMaHoaDon.setText(hd.getMaHoaDon() + "");
             txtQLHDMaNhanVien.setText(hd.getMaNhanVien() + "");
@@ -5043,7 +5044,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 txtQLHDMaGiamGia.setText("Không có");
             }
             txtQLHDGhiChu.setText(hd.getGhiChu());
-            txtQLHDDichVuPhatSinh.setText(hd.getDichVuPhatSinh() + " VNĐ");
+            txtQLHDDichVuPhatSinh.setText(dcmfmQLHD.format(hd.getDichVuPhatSinh()).replaceAll(",", ".") + " VNĐ");
         }
         txtQLHDTang.setText("");
         txtQLHDBan.setText("");
