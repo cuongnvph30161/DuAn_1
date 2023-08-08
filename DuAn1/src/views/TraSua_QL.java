@@ -79,6 +79,7 @@ import services.QuanLyBanServices;
 import utilities.DBackUpAndRestore;
 import utilities.DPlaceHolder;
 import utilities.Uhelper;
+import utilities.dauChamKhoangCach;
 import viewmodel.MaGiamGiaViewModel;
 import viewmodel.NhanVienHoaDonViewModel;
 import viewmodel.PhaCheLichSuDanhSachSanPhamViewmodel;
@@ -217,23 +218,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             mapPhanTrangQLHD.put(1, listQLHDPhanTrang);
         }
     }
-///////////////////////////////////////////////////
-
-    public void displayNumberWithCommas(String numberString, JTextField textField) {
-        try {
-            // Xóa dấu chấm trong số để chuyển về kiểu long
-            long number = Long.parseLong(numberString.replaceAll("\\.", ""));
-
-            NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
-            String formattedNumber = numberFormat.format(number);
-
-            // Thêm dấu chấm ngăn cách vào số
-            textField.setText(formattedNumber);
-        } catch (NumberFormatException e) {
-            // Xử lý nếu người dùng nhập không phải số
-            textField.setText(numberString);
-        }
-    }
+/////////////////////////////////////////////////
 
     public MaGiamGiaViewModel getDataMaGiamGia() {
 
@@ -243,6 +228,8 @@ public class TraSua_QL extends javax.swing.JFrame {
         String phanTramGiam = txtPhanTramGiam.getText();
 
         String hoaDonToiThieu = txtHoaDonToiThieu.getText();
+        // Xoá dấu chấm trong chuỗi số
+        String hoaDonToiThieuString = hoaDonToiThieu.replaceAll("\\.", "");
 
         String giamToiDa = txtGiamToiDa.getText();
 
@@ -259,24 +246,27 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Phần trăm giảm phải là số nguyên và không được chứa kí tự đặc biệt");
             return null;
         }
+
         int phanTramGiamInt = Integer.parseInt(phanTramGiam);
         if (phanTramGiamInt <= 0 || phanTramGiamInt > 100) {
             JOptionPane.showMessageDialog(this, "Phần trăm giảm phải thuộc trong khoảng (0,100]");
             return null;
         }
+
         maGiamGiaViewModel.setPhanTramGiam(phanTramGiamInt);
 
         if (!isNumeric(hoaDonToiThieu)) {
             JOptionPane.showMessageDialog(this, "Hoá đơn tối thiểu phải là số nguyên và không được chứa kí tự đặc biệt");
             return null;
         }
-        int hoaDonToiThieuInt = Integer.parseInt(hoaDonToiThieu);
+
+        int hoaDonToiThieuInt = Integer.parseInt(hoaDonToiThieuString);
         if (hoaDonToiThieuInt <= 0) {
             JOptionPane.showMessageDialog(this, "Hoá đơn tối thiểu phải >0");
             return null;
         }
-        maGiamGiaViewModel.setDonToiThieu(hoaDonToiThieuInt);
 
+        maGiamGiaViewModel.setDonToiThieu(hoaDonToiThieuInt);
         if (!isNumeric(giamToiDa)) {
             JOptionPane.showMessageDialog(this, "Giảm tối đa phải là số nguyên và không được chứa kí tự đặc biệt");
             return null;
@@ -288,8 +278,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Giảm tối đa phải >0");
             return null;
         }
-        maGiamGiaViewModel.setGiamToiDa(giamToiDaBigDecimal);
 
+        maGiamGiaViewModel.setGiamToiDa(giamToiDaBigDecimal);
         if (!isNumeric(soLuong)) {
             JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên và không được chứa kí tự đặc biệt");
             return null;
@@ -319,6 +309,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
 
         maGiamGiaViewModel.setMaNguoiTao(maNhanVienInt);
+        System.out.println("hoa don toi thieu" + " " + maGiamGiaViewModel);
 
         return maGiamGiaViewModel;
     }
@@ -331,11 +322,15 @@ public class TraSua_QL extends javax.swing.JFrame {
         for (MaGiamGiaViewModel maGiamGiaViewModel : list) {
             defaultTableModel.addRow(new Object[]{
                 stt++, maGiamGiaViewModel.getMaVoucher(), maGiamGiaViewModel.getPhanTramGiam(),
-                (dcmf.format(maGiamGiaViewModel.getDonToiThieu()) + " VND").replaceAll(",", "."), (dcmf.format(maGiamGiaViewModel.getGiamToiDa()) + " VND").replaceAll(",", "."),
+                (dcmf.format(maGiamGiaViewModel.getDonToiThieu()) + " VND").replaceAll(",", "."),
+                (dcmf.format(maGiamGiaViewModel.getGiamToiDa()) + " VND").replaceAll(",", "."),
                 maGiamGiaViewModel.getSoLuong(), maGiamGiaViewModel.getNgayBatDau(),
                 maGiamGiaViewModel.getNgayKetThuc(), maGiamGiaViewModel.getMaNguoiTao(),
                 maGiamGiaViewModel.getHoTen()
             });
+            System.out.println("load hoa don " + " " + maGiamGiaViewModel.getDonToiThieu());
+            System.out.println("load ma giam gia " + " " + maGiamGiaViewModel.getGiamToiDa());
+
         }
     }
 
@@ -5391,12 +5386,24 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private void txtHoaDonToiThieuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoaDonToiThieuKeyReleased
         String numberString = txtHoaDonToiThieu.getText();
-        displayNumberWithCommas(numberString, txtHoaDonToiThieu);
+        try {
+            BigDecimal number = new BigDecimal(numberString.replaceAll("\\.", ""));
+            dauChamKhoangCach.displayBigDecimalWithCommas(number, txtHoaDonToiThieu);
+        } catch (NumberFormatException e) {
+            // Xử lý nếu người dùng nhập không phải số hợp lệ
+            txtHoaDonToiThieu.setText(numberString);
+        }
     }//GEN-LAST:event_txtHoaDonToiThieuKeyReleased
 
     private void txtGiamToiDaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiamToiDaKeyReleased
         String numberString = txtGiamToiDa.getText();
-        displayNumberWithCommas(numberString, txtGiamToiDa);
+        try {
+            BigDecimal number = new BigDecimal(numberString.replaceAll("\\.", ""));
+            dauChamKhoangCach.displayBigDecimalWithCommas(number, txtGiamToiDa);
+        } catch (NumberFormatException e) {
+            // Xử lý nếu người dùng nhập không phải số hợp lệ
+            txtGiamToiDa.setText(numberString);
+        }
     }//GEN-LAST:event_txtGiamToiDaKeyReleased
     private void loadChuMoTapTrungTimKiemChoMaGiamGia() {
         // Đặt placeholder ban đầu cho thanh tìm kiếm
