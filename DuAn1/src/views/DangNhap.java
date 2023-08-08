@@ -228,15 +228,12 @@ public class DangNhap extends javax.swing.JFrame {
             return;
         }
 
-        try {
-            int trangThai = taiKhoan.getTrangThai();
-            if (trangThai == 0) {
-                JOptionPane.showMessageDialog(this, "Tài khoản của bạn đã bị khoá");
-                return;
-            }
-        } catch (NullPointerException e) {
+        int trangThai = taiKhoan.getTrangThai();
+        if (trangThai == 0) {
+            JOptionPane.showMessageDialog(this, "Tài khoản của bạn đã bị khoá");
             return;
         }
+
         // Kiểm tra tài khoản và mật khẩu (phân biệt chữ hoa/chữ thường)
         if (taiKhoan.getMaTaiKhoan().equals(maTaiKhoan) && taiKhoan.getMatKhau().equals(matKhau)) {
             switch (taiKhoan.getRole()) {
