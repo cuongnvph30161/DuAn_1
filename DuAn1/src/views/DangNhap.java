@@ -217,12 +217,8 @@ public class DangNhap extends javax.swing.JFrame {
             return;
         }
 
-//        if (maTaiKhoan.contains(" ") || matKhau.contains(" ")) {
-//            JOptionPane.showMessageDialog(this, "Tài khoản và mật khẩu không được chứa dấu cách");
-//            return;
-//        }
         TaiKhoanDomail taiKhoan = iTaiKhoanService.getTaiKhoanByMaTaiKhoanAndMatKhau(maTaiKhoan, matKhau);
-        if (taiKhoan == null || maTaiKhoan.contains(" ") || matKhau.contains(" ")) {
+        if (taiKhoan == null) {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
             System.out.println("1");
             return;
