@@ -11,6 +11,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -936,14 +938,11 @@ public class TraSua_PC extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-        new DangXuat().setVisible(true);
+   
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
-//        jpnKhieuNaiHoTro.setVisible(true);
-//        jpnSanPham.setVisible(false);
-//        jpnHoaDon.setVisible(false);
-//        jpnLichSu.setVisible(false);
+
         new HoTroKhachHang().setVisible(true);
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
@@ -961,7 +960,23 @@ public class TraSua_PC extends javax.swing.JFrame {
     }//GEN-LAST:event_lblthietlapMouseClicked
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-
+        DangXuat dangXuat = new DangXuat();
+        dangXuat.show();
+        dangXuat.thongBao("Bạn có chắc chắn muốn đăng xuất không?");
+        dangXuat.yes(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                dangXuat.dispose();
+                new DangNhap().setVisible(true);
+            }
+        });
+        dangXuat.no(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dangXuat.dispose();
+            }
+        });
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void lblLichSuDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLichSuDonHangMouseClicked

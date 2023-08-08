@@ -5,6 +5,7 @@
 package views;
 
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import utilities.XImages;
 
@@ -26,23 +27,22 @@ public class DangXuat extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblThongBao = new javax.swing.JLabel();
         btnYes = new javax.swing.JButton();
         btnNo = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hệ thống quản lý quán trà sữa ToTo");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/hoiCham2.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Bạn có chắc muốn đăng xuất không ?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 61, -1, -1));
+        lblThongBao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblThongBao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lblThongBao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 300, 30));
 
-        btnYes.setBackground(new java.awt.Color(255, 204, 0));
+        btnYes.setBackground(new java.awt.Color(0, 65, 123));
         btnYes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnYes.setForeground(new java.awt.Color(255, 255, 255));
         btnYes.setText("Yes");
@@ -51,9 +51,9 @@ public class DangXuat extends javax.swing.JFrame {
                 btnYesMouseClicked(evt);
             }
         });
-        getContentPane().add(btnYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 234, 110, 40));
+        getContentPane().add(btnYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 150, 40));
 
-        btnNo.setBackground(new java.awt.Color(255, 204, 51));
+        btnNo.setBackground(new java.awt.Color(255, 51, 0));
         btnNo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnNo.setForeground(new java.awt.Color(255, 255, 255));
         btnNo.setText("No");
@@ -62,10 +62,12 @@ public class DangXuat extends javax.swing.JFrame {
                 btnNoMouseClicked(evt);
             }
         });
-        getContentPane().add(btnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 110, 40));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nenXanhPha.jpg"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 330));
+        btnNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 150, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -73,7 +75,17 @@ public class DangXuat extends javax.swing.JFrame {
     private void btnNoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNoMouseClicked
         this.dispose();
     }//GEN-LAST:event_btnNoMouseClicked
-
+ public void thongBao(String thongBao){
+        lblThongBao.setText(thongBao);
+    }
+    
+    public void yes(ActionListener actionListener) {
+        btnYes.addActionListener(actionListener);
+    }
+    
+    public void no(ActionListener actionListene){
+        btnNo.addActionListener(actionListene);
+    }
     private void btnYesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnYesMouseClicked
 
 // TODO add your handling code here:
@@ -81,6 +93,10 @@ public class DangXuat extends javax.swing.JFrame {
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closingEvent);
 
     }//GEN-LAST:event_btnYesMouseClicked
+
+    private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNoActionPerformed
 
     public static void main(String args[]) {
 
@@ -95,8 +111,7 @@ public class DangXuat extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNo;
     private javax.swing.JButton btnYes;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblThongBao;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,6 +21,8 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -4202,12 +4204,28 @@ public class TraSua_QL extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-
+  DangXuat dangXuat = new DangXuat();
+        dangXuat.show();
+        dangXuat.thongBao("Bạn có chắc chắn muốn đăng xuất không?");
+        dangXuat.yes(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                dangXuat.dispose();
+                new DangNhap().setVisible(true);
+            }
+        });
+        dangXuat.no(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dangXuat.dispose();
+            }
+        });
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
 
-        new DangXuat().setVisible(true);
+       
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
