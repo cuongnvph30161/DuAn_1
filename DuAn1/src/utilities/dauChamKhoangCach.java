@@ -14,7 +14,8 @@ import javax.swing.JTextField;
  * @author Admin
  */
 public class dauChamKhoangCach {
-       public static void  displayNumberWithCommas(int number, JTextField textField) {
+
+    public static void displayNumberWithCommas(int number, JTextField textField) {
         NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
         String formattedNumber = numberFormat.format(number);
         textField.setText(formattedNumber);
@@ -25,5 +26,5 @@ public class dauChamKhoangCach {
         String formattedNumber = numberFormat.format(number);
         textField.setText(formattedNumber);
     }
-    
+
 }

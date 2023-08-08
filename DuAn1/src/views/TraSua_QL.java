@@ -144,9 +144,10 @@ public class TraSua_QL extends javax.swing.JFrame {
         DPlaceHolder.addPlaceHolder(txtTimKiemQuanLyHoaDon, "Nhập mã hóa đơn...");
     }
 
-    public boolean isNumeric(String str) {
-        return str != null && str.matches("-?\\d+(\\.\\d+)?");
-    }
+ public boolean isNumeric(String str) {
+    return str != null && str.matches("-?\\d+(\\.\\d+)*");
+}
+
 
     private void LoadTableDSSPQLHoaDon() {
         DefaultTableModel ModelQLHDDSSanPham = (DefaultTableModel) tblQLHDDSSanPham.getModel();
@@ -232,6 +233,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         String hoaDonToiThieuString = hoaDonToiThieu.replaceAll("\\.", "");
 
         String giamToiDa = txtGiamToiDa.getText();
+        String giamToiDaString = giamToiDa.replaceAll("\\.", "");
 
         String soLuong = txtSoLuong.getText();
 
@@ -267,12 +269,15 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
 
         maGiamGiaViewModel.setDonToiThieu(hoaDonToiThieuInt);
+        
+        
+        
         if (!isNumeric(giamToiDa)) {
             JOptionPane.showMessageDialog(this, "Giảm tối đa phải là số nguyên và không được chứa kí tự đặc biệt");
             return null;
         }
 
-        BigDecimal giamToiDaBigDecimal = new BigDecimal(giamToiDa);
+        BigDecimal giamToiDaBigDecimal = new BigDecimal(giamToiDaString);
 
         if (giamToiDaBigDecimal.compareTo(BigDecimal.ZERO) <= 0) {
             JOptionPane.showMessageDialog(this, "Giảm tối đa phải >0");
@@ -328,9 +333,6 @@ public class TraSua_QL extends javax.swing.JFrame {
                 maGiamGiaViewModel.getNgayKetThuc(), maGiamGiaViewModel.getMaNguoiTao(),
                 maGiamGiaViewModel.getHoTen()
             });
-            System.out.println("load hoa don " + " " + maGiamGiaViewModel.getDonToiThieu());
-            System.out.println("load ma giam gia " + " " + maGiamGiaViewModel.getGiamToiDa());
-
         }
     }
 
