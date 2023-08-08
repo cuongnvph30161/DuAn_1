@@ -201,22 +201,30 @@ public class DangNhap extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTaiKhoanActionPerformed
 
-    
+
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         String maTaiKhoan = txtTaiKhoan.getText();
         String matKhau = txtMatKhau.getText();
 
-        if (maTaiKhoan.trim().equals("") || matKhau.trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin đăng nhập");
-            return;
-        } else if (maTaiKhoan.contains(" ") || matKhau.contains(" ")) {
-            JOptionPane.showMessageDialog(this, "Tài khoản và mật khẩu không được chứa dấu cách");
+        if (maTaiKhoan.isEmpty() || maTaiKhoan.equalsIgnoreCase("tên tài khoản...")) {
+            JOptionPane.showMessageDialog(this, "Tài khoản không được để trống");
             return;
         }
 
+        // Kiểm tra mật khẩu
+        if (matKhau.isEmpty() || matKhau.equalsIgnoreCase("mật khẩu...")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
+            return;
+        }
+
+//        if (maTaiKhoan.contains(" ") || matKhau.contains(" ")) {
+//            JOptionPane.showMessageDialog(this, "Tài khoản và mật khẩu không được chứa dấu cách");
+//            return;
+//        }
         TaiKhoanDomail taiKhoan = iTaiKhoanService.getTaiKhoanByMaTaiKhoanAndMatKhau(maTaiKhoan, matKhau);
-        if (taiKhoan == null) {
+        if (taiKhoan == null || maTaiKhoan.contains(" ") || matKhau.contains(" ")) {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
+            System.out.println("1");
             return;
         }
 
@@ -250,12 +258,10 @@ public class DangNhap extends javax.swing.JFrame {
                     traSua_NV.setVisible(true);
                     this.dispose();
                     break;
-                default:
-                    JOptionPane.showMessageDialog(this, "Role không hợp lệ");
-                    break;
             }
         } else {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
+            System.out.println("2");
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
@@ -275,7 +281,7 @@ public class DangNhap extends javax.swing.JFrame {
 
     private void txtTaiKhoanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTaiKhoanFocusLost
         // TODO add your handling code here:
-        if(txtTaiKhoan.getText().length()==0){
+        if (txtTaiKhoan.getText().length() == 0) {
             Uhelper.adPlayhoder(txtTaiKhoan);
             txtTaiKhoan.setText("tên tài khoản...");
         }
@@ -283,7 +289,7 @@ public class DangNhap extends javax.swing.JFrame {
 
     private void txtMatKhauFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMatKhauFocusGained
         // TODO add your handling code here:
-        if(txtMatKhau.getText().equalsIgnoreCase("mật khẩu...")){
+        if (txtMatKhau.getText().equalsIgnoreCase("mật khẩu...")) {
             txtMatKhau.setText(null);
             txtMatKhau.requestFocus();
             txtMatKhau.setEchoChar('\u2022');
@@ -293,11 +299,11 @@ public class DangNhap extends javax.swing.JFrame {
 
     private void txtMatKhauFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMatKhauFocusLost
         // TODO add your handling code here:
-         if(txtMatKhau.getText().length()==0){
+        if (txtMatKhau.getText().length() == 0) {
             Uhelper.adPlayhoder(txtMatKhau);
             txtMatKhau.setText("mật khẩu...");
             txtMatKhau.setEchoChar('\u0000');
-            
+
         }
     }//GEN-LAST:event_txtMatKhauFocusLost
 

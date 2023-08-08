@@ -13,6 +13,5 @@ package domainmodel;
 public enum Role {
     QuanLy,
     PhaChe,
-    NhanVien,
-    
+    NhanVien,  
 }
