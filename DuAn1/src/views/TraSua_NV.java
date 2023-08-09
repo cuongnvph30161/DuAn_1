@@ -199,78 +199,78 @@ public class TraSua_NV extends javax.swing.JFrame {
 	private services.nhanVien.SanPhamService svQLSanPham = new SanPhamService();
 	// End of variables declaration//GEN-END:variables
 
-	int demTrang = 1;
-	List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
-	Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang = new HashMap<>();
-	INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
-	List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
-	Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
-	Map<Integer, String> mapTenBan = NVHoaDonSv.mapTenBan();
-	Map<Integer, Object> maGiamGia = NVHoaDonSv.mapMaGiamGia();
-	List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
-	DefaultTableModel modelNVhoaDon = new DefaultTableModel();
-	List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
-			maGiamGia);
-	private String maTaiKhoan;
-	int soTrang = 1;
+    int demTrang = 1;
+    List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
+    Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang = new HashMap<>();
+    INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
+    List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
+    Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
+    Map<Integer, String> mapTenBan = NVHoaDonSv.mapTenBan();
+    Map<Integer, Object> maGiamGia = NVHoaDonSv.mapMaGiamGia();
+    List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
+    DefaultTableModel modelNVhoaDon = new DefaultTableModel();
+    List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
+            maGiamGia);
+    private String maTaiKhoan;
+    int soTrang = 1;
 
-	public void setMaTaiKhoan(String maTaiKhoan) {
-		this.maTaiKhoan = maTaiKhoan;
+    public void setMaTaiKhoan(String maTaiKhoan) {
+        this.maTaiKhoan = maTaiKhoan;
 
-	}
+    }
 
-	private NhanVienService svNhanVien = new NhanVienService();
-	private int maNhanVien;
+    private NhanVienService svNhanVien = new NhanVienService();
+    private int maNhanVien;
 
-	////////////////////////////////////////////////////////////////
-	BanService banSe = new BanService();
-	IMaGiamGiaService iMGGSe = new MaGiamGiaService();
-	NhanVienBanService nvBanSe = new NhanVienBanService();
-	DefaultTableModel tableModelBan = new DefaultTableModel();
+    ////////////////////////////////////////////////////////////////
+    BanService banSe = new BanService();
+    IMaGiamGiaService iMGGSe = new MaGiamGiaService();
+    NhanVienBanService nvBanSe = new NhanVienBanService();
+    DefaultTableModel tableModelBan = new DefaultTableModel();
 
-	public TraSua_NV(String maTaiKhoan) {
-		initComponents();
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		loadAllComponent();
-		modelNVhoaDon = (DefaultTableModel) tblNhanVienHoaDon.getModel();
-		init();
-		jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
-		jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
-		getContentPane().setLayout(null);
-		getContentPane().add(jpnMenu);
-		getContentPane().add(pnTong);
+    public TraSua_NV(String maTaiKhoan) {
+        initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        loadAllComponent();
+        modelNVhoaDon = (DefaultTableModel) tblNhanVienHoaDon.getModel();
+        init();
+        jdcTu.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
+        jdcDen.setIcon(new ImageIcon(getClass().getResource("/Img/date_1.png")));
+        getContentPane().setLayout(null);
+        getContentPane().add(jpnMenu);
+        getContentPane().add(pnTong);
 
-		phanTrang();
-		truyenTrang(1);
-		fillTableNVHD(listNhanVienHDView);
-		maNhanVien = svNhanVien.getByIdAccount(maTaiKhoan);
-		loadView("pnQuanLyBan");
-		DPlaceHolder.addPlaceHolder(txtSearchTenSanPham, "Tìm kiếm theo tên sản phẩm");
+        phanTrang();
+        truyenTrang(1);
+        fillTableNVHD(listNhanVienHDView);
+        maNhanVien = svNhanVien.getByIdAccount(maTaiKhoan);
+        loadView("pnQuanLyBan");
+        DPlaceHolder.addPlaceHolder(txtSearchTenSanPham, "Tìm kiếm theo tên sản phẩm");
 
-	}
+    }
 
-	List<NhanVienBanViewModel> listNVban = nvBanSe.getAllNhanVienBan();
+    List<NhanVienBanViewModel> listNVban = nvBanSe.getAllNhanVienBan();
 
-	private void FillTableBan() {
-		String chiTiet = " Xem ";
+    private void FillTableBan() {
+        String chiTiet = " Xem ";
 
-		tableModelBan = (DefaultTableModel) tblNhanVienBan.getModel();
-		tableModelBan.setRowCount(0);
-		for (NhanVienBanViewModel nv : listNVban) {
-			tableModelBan.addRow(new Object[] { nv.getMaHoaDon(), nv.getThoiGian(), nv.getTongThanhToan(),
-					nv.getTrangThaiOrder() == 1 ? "Đã làm" : "Đang làm ", chiTiet });
+        tableModelBan = (DefaultTableModel) tblNhanVienBan.getModel();
+        tableModelBan.setRowCount(0);
+        for (NhanVienBanViewModel nv : listNVban) {
+            tableModelBan.addRow(new Object[]{nv.getMaHoaDon(), nv.getThoiGian(), nv.getTongThanhToan(),
+                nv.getTrangThaiOrder() == 1 ? "Đã làm" : "Đang làm ", chiTiet});
 
-		}
-	}
+        }
+    }
 
-	public void truyenTrang(int index) {
+    public void truyenTrang(int index) {
         List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
         lstTruyenTrang = mapPhanTrang.get(index);
         lblNhanVienTrangThaiTrang.setText("trang " + index + "/" + soTrang);
         fillTableNVHD(lstTruyenTrang);
     }
 
-	public void phanTrang() {
+    public void phanTrang() {
         if (listNhanVienHDView.size() > 100) {
             double a = listNhanVienHDView.size();
             double b = 100;
@@ -305,23 +305,24 @@ public class TraSua_NV extends javax.swing.JFrame {
             mapPhanTrang.put(1, listNhanVienHDView);
         }
     }
-	public void init() {
-		setIconImage(XImages.getIconApp());
-	}
 
-	public void fillTableNVHD(List<NhanVienHoaDonViewModel> list) {
-		modelNVhoaDon.setRowCount(0);
-		String trangThai = "";
-		for (NhanVienHoaDonViewModel a : list) {
-			trangThai = a.getTrangThai() == 1 ? "đã thanh toán" : "chưa thanh toán";
-			modelNVhoaDon.addRow(new Object[] { a.getMaHoaDon(), a.getMaNguoiTao(), a.getThoiGian(),
-					a.getTongThanhToan(), trangThai, a.getGhiChu(), "Chi tiết" });
-		}
+    public void init() {
+        setIconImage(XImages.getIconApp());
+    }
 
-	}
+    public void fillTableNVHD(List<NhanVienHoaDonViewModel> list) {
+        modelNVhoaDon.setRowCount(0);
+        String trangThai = "";
+        for (NhanVienHoaDonViewModel a : list) {
+            trangThai = a.getTrangThai() == 1 ? "đã thanh toán" : "chưa thanh toán";
+            modelNVhoaDon.addRow(new Object[]{a.getMaHoaDon(), a.getMaNguoiTao(), a.getThoiGian(),
+                a.getTongThanhToan(), trangThai, a.getGhiChu(), "Chi tiết"});
+        }
 
-	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
@@ -1172,61 +1173,77 @@ public class TraSua_NV extends javax.swing.JFrame {
 
 	}// </editor-fold>//GEN-END:initComponents
 
-	protected void loadBanDuocChon() {
-		DefaultTableModel model = (DefaultTableModel) tblBanDuocChon.getModel();
-		model.setRowCount(0);
-		lstBanDuocChon.forEach(ban -> {
-			svBan.getAll();
-		});
+    protected void loadBanDuocChon() {
+        DefaultTableModel model = (DefaultTableModel) tblBanDuocChon.getModel();
+        model.setRowCount(0);
+        lstBanDuocChon.forEach(ban -> {
+            svBan.getAll();
+        });
 
-	}
+    }
 
-	private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnDangXuatMouseClicked
-		new DangXuat().setVisible(true);
-	}// GEN-LAST:event_btnDangXuatMouseClicked
+    private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnDangXuatMouseClicked
+        DangXuat dangXuat = new DangXuat();
+        dangXuat.show();
+        dangXuat.thongBao("Bạn có chắc chắn muốn đăng xuất không?");
+        dangXuat.yes(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                dangXuat.dispose();
+                new DangNhap().setVisible(true);
+            }
+        });
+        dangXuat.no(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dangXuat.dispose();
+            }
+        });
+    }// GEN-LAST:event_btnDangXuatMouseClicked
 
-	private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
-		HoTroKhachHang htkh=new HoTroKhachHang();
-		htkh.setVisible(true);
-		loadView("pnDoiMatKhau");
-	}// GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
+    private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
+        HoTroKhachHang htkh = new HoTroKhachHang();
+        htkh.setVisible(true);
+        loadView("pnDoiMatKhau");
+    }// GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
-	private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblDoiMatKhauMouseClicked
+    private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblDoiMatKhauMouseClicked
 
-		DoiMatKhau dmk = new DoiMatKhau(maTaiKhoan);
-		pnTrong.removeAll();
-		pnTrong.setLayout(new FlowLayout(FlowLayout.CENTER));
-		pnTrong.add(dmk.getContentPane());
-		loadView("pnDoiMatKhau");
+        DoiMatKhau dmk = new DoiMatKhau(maTaiKhoan);
+        pnTrong.removeAll();
+        pnTrong.setLayout(new FlowLayout(FlowLayout.CENTER));
+        pnTrong.add(dmk.getContentPane());
+        loadView("pnDoiMatKhau");
 
-	}// GEN-LAST:event_lblDoiMatKhauMouseClicked
+    }// GEN-LAST:event_lblDoiMatKhauMouseClicked
 
-	private void lblThietLapMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblThietLapMouseClicked
+    private void lblThietLapMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblThietLapMouseClicked
 
-	}// GEN-LAST:event_lblThietLapMouseClicked
+    }// GEN-LAST:event_lblThietLapMouseClicked
 
-	private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDangXuatActionPerformed
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDangXuatActionPerformed
+      
+    }// GEN-LAST:event_btnDangXuatActionPerformed
 
-	}// GEN-LAST:event_btnDangXuatActionPerformed
+    private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblSanPhamMouseClicked
+        loadView("pnSanPham");
 
-	private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblSanPhamMouseClicked
-		loadView("pnSanPham");
+    }// GEN-LAST:event_lblSanPhamMouseClicked
 
-	}// GEN-LAST:event_lblSanPhamMouseClicked
+    private void lblQuanLyBanMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblQuanLyBanMouseClicked
+        lstBanDuocChon.removeAll(lstBanDuocChon);
+        loadView("pnQuanLyBan");
+    }// GEN-LAST:event_lblQuanLyBanMouseClicked
 
-	private void lblQuanLyBanMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblQuanLyBanMouseClicked
-		lstBanDuocChon.removeAll(lstBanDuocChon);
-		loadView("pnQuanLyBan");
-	}// GEN-LAST:event_lblQuanLyBanMouseClicked
+    private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblHoaDonMouseClicked
+        loadView("pnHoaDon");
 
-	private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblHoaDonMouseClicked
-		loadView("pnHoaDon");
+    }// GEN-LAST:event_lblHoaDonMouseClicked
 
-	}// GEN-LAST:event_lblHoaDonMouseClicked
-
-	private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblTimKiemMouseClicked
-		// TODO add your handling code her
-		try {
+    private void lblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblTimKiemMouseClicked
+        // TODO add your handling code her
+        try {
             if (Uhelper.checkNullText(txtNhanVienNhapMaHD, "bạn chưa nhập mã nhân viên")) {
                 return;
             } else {
@@ -1284,543 +1301,548 @@ public class TraSua_NV extends javax.swing.JFrame {
 
         } catch (Exception e) {
         }
-	}// GEN-LAST:event_lblTimKiemMouseClicked
+    }// GEN-LAST:event_lblTimKiemMouseClicked
 
-	private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblBanHangMouseClicked
-		// TODO add your handling code here:
-	}// GEN-LAST:event_lblBanHangMouseClicked
+    private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblBanHangMouseClicked
+        // TODO add your handling code here:
+    }// GEN-LAST:event_lblBanHangMouseClicked
 
-	private void txtVoucherActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtVoucherActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_txtVoucherActionPerformed
+    private void txtVoucherActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtVoucherActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_txtVoucherActionPerformed
 
-	private void lblNVTrangDauMouseClicked(java.awt.event.MouseEvent evt) {                                           
+    private void lblNVTrangDauMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         truyenTrang(1);
         demTrang = 1;
     }
 
-	private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel27MouseClicked
-		// TODO add your handling code here:
-		truyenTrang(soTrang);
-		demTrang = soTrang;
-	}// GEN-LAST:event_jLabel27MouseClicked
+    private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel27MouseClicked
+        // TODO add your handling code here:
+        truyenTrang(soTrang);
+        demTrang = soTrang;
+    }// GEN-LAST:event_jLabel27MouseClicked
 
-	private void lblNVluiMouseClicked(java.awt.event.MouseEvent evt) {                                      
+    private void lblNVluiMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         if (demTrang > 1) {
             demTrang--;
             truyenTrang(demTrang);
         } else {
-        	  JOptionPane.showMessageDialog(null, "Không thể lùi !", "Lỗi",JOptionPane.ERROR_MESSAGE);            return;
+            JOptionPane.showMessageDialog(null, "Không thể lùi !", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-    
-	}// GEN-LAST:event_lblNVluiMouseClicked
+    }// GEN-LAST:event_lblNVluiMouseClicked
 
-	private void lblNVTienMouseClicked(java.awt.event.MouseEvent evt) {                                       
+    private void lblNVTienMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         if (demTrang < soTrang) {
             demTrang++;
             truyenTrang(demTrang);
         } else {
-            JOptionPane.showMessageDialog(null, "Không thể tiến !", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Không thể tiến !", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
-    }                                      
+    }
     int viTri;
 
-	private void btnApDungBanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnApDungBanActionPerformed
-		DecimalFormat fmt = new DecimalFormat("###,###,###");
+    private void btnApDungBanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnApDungBanActionPerformed
+        DecimalFormat fmt = new DecimalFormat("###,###,###");
 
-		if (tblNhanVienBan.getRowCount() <= 0) {
-			JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn cần thanh toán !", "Lỗi", JOptionPane.ERROR_MESSAGE);
-			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
-			return;
+        if (tblNhanVienBan.getRowCount() <= 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn cần thanh toán !", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
+            return;
 
-		}
-		String voucher = txtVoucher.getValue().toString();
-		if (voucher.length() < 2) {
-			JOptionPane.showMessageDialog(this, "Vui lòng nhập voucher", "Lỗi", JOptionPane.ERROR_MESSAGE);
-			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
+        }
+        String voucher = txtVoucher.getValue().toString();
+        if (voucher.length() < 2) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập voucher", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 
-			return;
-		}
-		try {
-			double voucher2 = Double.parseDouble(voucher);
+            return;
+        }
+        try {
+            double voucher2 = Double.parseDouble(voucher);
 
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
-			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Sai kiểu dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 
-			return;
+            return;
 
-		}
+        }
 
-		if (iMGGSe.checkMaGiamGia(Integer.parseInt(txtVoucher.getValue().toString().trim().equals("") ? "0"
-				: txtVoucher.getValue().toString())) == false) {
-			JOptionPane.showMessageDialog(this, "Mã voucher sai", "Lỗi", JOptionPane.ERROR_MESSAGE);
-			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
+        if (iMGGSe.checkMaGiamGia(Integer.parseInt(txtVoucher.getValue().toString().trim().equals("") ? "0"
+                : txtVoucher.getValue().toString())) == false) {
+            JOptionPane.showMessageDialog(this, "Mã voucher sai", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 
-			return;
-		}
-		_voucher = Integer
-				.parseInt(txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString());
-		lblGiaSauKhiGiam.setText("<html><strike>" + fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND"
-				+ "</strike> "
-				+ fmt.format(_tongDichVuPhatSinh + iMGGSe.applyVoucher(Integer.parseInt(
-						txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString()),
-						_tongTatCaHoaDon))
-				+ " VND </html>");
+            return;
+        }
+        _voucher = Integer
+                .parseInt(txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString());
+        lblGiaSauKhiGiam.setText("<html><strike>" + fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND"
+                + "</strike> "
+                + fmt.format(_tongDichVuPhatSinh + iMGGSe.applyVoucher(Integer.parseInt(
+                        txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString()),
+                        _tongTatCaHoaDon))
+                + " VND </html>");
 
-	}// GEN-LAST:event_btnApDungBanActionPerformed
+    }// GEN-LAST:event_btnApDungBanActionPerformed
 
-	private void btnThanhToanBanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThanhToanBanActionPerformed
-		for (Integer maBan : lstBanDuocChon) {
-			svBan.actives(maBan, false);
-		}
-		System.out.println("Voucehe" + _voucher);
-		lstBanDuocChon.removeAll(lstBanDuocChon);
-		loadDanhSachBan(_tangDuocChon);
-		if (tblNhanVienBan.getRowCount() == 0) {
-			JOptionPane.showMessageDialog(null, "Không có hóa đơn nào cần thanh toán", "Lỗi",
-					JOptionPane.ERROR_MESSAGE);
-			return;
-		}
+    private void btnThanhToanBanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThanhToanBanActionPerformed
+        for (Integer maBan : lstBanDuocChon) {
+            svBan.actives(maBan, false);
+        }
+        System.out.println("Voucehe" + _voucher);
+        lstBanDuocChon.removeAll(lstBanDuocChon);
+        loadDanhSachBan(_tangDuocChon);
+        if (tblNhanVienBan.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Không có hóa đơn nào cần thanh toán", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-		Integer[] danhSachHoaDon = new Integer[tblNhanVienBan.getRowCount()];
-		for (int i = 0; i < tblNhanVienBan.getRowCount(); i++) {
-			danhSachHoaDon[i] = Integer.parseInt(tblNhanVienBan.getValueAt(i, 0).toString());
-		}
-		JOptionPane.showMessageDialog(null,
-				svQuanLyBan.thanhToanHoaDon(danhSachHoaDon, _voucher) ? "Thanh toán thành công !"
-						: "Thanh toán thất bại !");
-		loadHoaDon(lstBanDuocChon);
+        Integer[] danhSachHoaDon = new Integer[tblNhanVienBan.getRowCount()];
+        for (int i = 0; i < tblNhanVienBan.getRowCount(); i++) {
+            danhSachHoaDon[i] = Integer.parseInt(tblNhanVienBan.getValueAt(i, 0).toString());
+        }
+        JOptionPane.showMessageDialog(null,
+                svQuanLyBan.thanhToanHoaDon(danhSachHoaDon, _voucher) ? "Thanh toán thành công !"
+                : "Thanh toán thất bại !");
+        loadHoaDon(lstBanDuocChon);
 
-	}// GEN-LAST:event_btnThanhToanBanActionPerformed
+    }// GEN-LAST:event_btnThanhToanBanActionPerformed
 
-	private void tblNhanVienHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tblNhanVienHoaDonMouseClicked
-		// TODO add your handling code here:
-		int index = tblNhanVienHoaDon.getSelectedRow();
-		NhanVienHoaDonViewModel hoaDon = listNhanVienHDView.get(index);
-		NhanVienHoaDon_ChiTiet nv = new NhanVienHoaDon_ChiTiet(hoaDon);
-		nv.setVisible(true);
+    private void tblNhanVienHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tblNhanVienHoaDonMouseClicked
+        // TODO add your handling code here:
+        int index = tblNhanVienHoaDon.getSelectedRow();
+        NhanVienHoaDonViewModel hoaDon = listNhanVienHDView.get(index);
+        NhanVienHoaDon_ChiTiet nv = new NhanVienHoaDon_ChiTiet(hoaDon);
+        nv.setVisible(true);
 
-	}// GEN-LAST:event_tblNhanVienHoaDonMouseClicked
+    }// GEN-LAST:event_tblNhanVienHoaDonMouseClicked
 
-	public static void main(String args[]) {
+    public static void main(String args[]) {
 
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				String maTaiKhoan = "TK01"; // Lấy mã tài khoản từ giao diện đăng nhập
-				TraSua_NV traSua_NV = new TraSua_NV(maTaiKhoan);
-				traSua_NV.setMaTaiKhoan(maTaiKhoan);
-				traSua_NV.setVisible(true);
-			}
-		});
-	}
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                String maTaiKhoan = "TK01"; // Lấy mã tài khoản từ giao diện đăng nhập
+                TraSua_NV traSua_NV = new TraSua_NV(maTaiKhoan);
+                traSua_NV.setMaTaiKhoan(maTaiKhoan);
+                traSua_NV.setVisible(true);
+            }
+        });
+    }
 
-	private int _tangDuocChon = 0;
+    private int _tangDuocChon = 0;
 
-	private void loadView(String panel) {
-		CardLayout cardLayout = (CardLayout) pnTong.getLayout();
-		switch (panel) {
-		case "pnQuanLyBan": {
-			txtVoucher.getModel().setValue("");
-			cardLayout.show(pnTong, "pnQuanLyBan");
-			lblQuanLyBan.setBackground(new Color(27, 43, 101));
-			lblHoaDon.setBackground(new Color(8, 26, 81));
-			lblDoiMatKhau.setBackground(new Color(8, 26, 81));
-			lblSanPham.setBackground(new Color(8, 26, 81));
-			loadDanhSachBan(_tangDuocChon);
-			loadHoaDon(lstBanDuocChon);
-			break;
-		}
-		case "pnDoiMatKhau": {
-			cardLayout.show(pnTong, "pnTrong");
-			lblQuanLyBan.setBackground(new Color(8, 26, 81));
-			lblHoaDon.setBackground(new Color(8, 26, 81));
-			lblDoiMatKhau.setBackground(new Color(27, 43, 101));
-			lblSanPham.setBackground(new Color(8, 26, 81));
+    private void loadView(String panel) {
+        CardLayout cardLayout = (CardLayout) pnTong.getLayout();
+        switch (panel) {
+            case "pnQuanLyBan": {
+                txtVoucher.getModel().setValue("");
+                cardLayout.show(pnTong, "pnQuanLyBan");
+                lblQuanLyBan.setBackground(new Color(27, 43, 101));
+                lblHoaDon.setBackground(new Color(8, 26, 81));
+                lblDoiMatKhau.setBackground(new Color(8, 26, 81));
+                lblSanPham.setBackground(new Color(8, 26, 81));
+                loadDanhSachBan(_tangDuocChon);
+                loadHoaDon(lstBanDuocChon);
+                break;
+            }
+            case "pnDoiMatKhau": {
+                cardLayout.show(pnTong, "pnTrong");
+                lblQuanLyBan.setBackground(new Color(8, 26, 81));
+                lblHoaDon.setBackground(new Color(8, 26, 81));
+                lblDoiMatKhau.setBackground(new Color(27, 43, 101));
+                lblSanPham.setBackground(new Color(8, 26, 81));
 
-			break;
-		}
+                break;
+            }
 
-		case "pnSanPham": {
-			cardLayout.show(pnTong, "pnSanPham");
-			lblQuanLyBan.setBackground(new Color(8, 26, 81));
-			lblHoaDon.setBackground(new Color(8, 26, 81));
-			lblDoiMatKhau.setBackground(new Color(8, 26, 81));
-			lblSanPham.setBackground(new Color(27, 43, 101));
-			loadDanhSachSanPham();
-			loadDanhSachBan(_tangDuocChon);
-			loadDanhSachBanDuocChon();
-			cboTang.setSelectedIndex(_tangDuocChon);
-			((DefaultTableModel) tblDanhSachSanPham.getModel()).setRowCount(0);
+            case "pnSanPham": {
+                cardLayout.show(pnTong, "pnSanPham");
+                lblQuanLyBan.setBackground(new Color(8, 26, 81));
+                lblHoaDon.setBackground(new Color(8, 26, 81));
+                lblDoiMatKhau.setBackground(new Color(8, 26, 81));
+                lblSanPham.setBackground(new Color(27, 43, 101));
+                loadDanhSachSanPham();
+                loadDanhSachBan(_tangDuocChon);
+                loadDanhSachBanDuocChon();
+                cboTang.setSelectedIndex(_tangDuocChon);
+                ((DefaultTableModel) tblDanhSachSanPham.getModel()).setRowCount(0);
 
-			break;
-		}
-		case "pnHoaDon": {
-			cardLayout.show(pnTong, "pnHoaDon");
-			lblQuanLyBan.setBackground(new Color(8, 26, 81));
-			lblHoaDon.setBackground(new Color(27, 43, 101));
-			lblDoiMatKhau.setBackground(new Color(8, 26, 81));
-			lblSanPham.setBackground(new Color(8, 26, 81));
-			phanTrang();
-			truyenTrang(1);
-			
-			break;
+                break;
+            }
+            case "pnHoaDon": {
+                cardLayout.show(pnTong, "pnHoaDon");
+                lblQuanLyBan.setBackground(new Color(8, 26, 81));
+                lblHoaDon.setBackground(new Color(27, 43, 101));
+                lblDoiMatKhau.setBackground(new Color(8, 26, 81));
+                lblSanPham.setBackground(new Color(8, 26, 81));
+                phanTrang();
+                truyenTrang(1);
 
-		}
-		case "pnKhieuNaiHoTro": {
-			lblQuanLyBan.setBackground(new Color(8, 26, 81));
-			lblHoaDon.setBackground(new Color(8, 26, 81));
-			lblDoiMatKhau.setBackground(new Color(8, 26, 81));
-			lblSanPham.setBackground(new Color(8, 26, 81));
-			break;
-		}
+                break;
 
-		default:
-		}
+            }
+            case "pnKhieuNaiHoTro": {
+                lblQuanLyBan.setBackground(new Color(8, 26, 81));
+                lblHoaDon.setBackground(new Color(8, 26, 81));
+                lblDoiMatKhau.setBackground(new Color(8, 26, 81));
+                lblSanPham.setBackground(new Color(8, 26, 81));
+                break;
+            }
 
-	}
+            default:
+        }
 
-	private void loadDanhSachBanDuocChon() {
-		DefaultTableModel model = (DefaultTableModel) tblBanDuocChon.getModel();
-		model.setRowCount(0);
-		lstBanDuocChon.forEach(maBan -> {
-			BanViewModel vmBan = svBan.getById(maBan);
-			model.addRow(new Object[] { vmBan.getTang() == 0 ? "Mang về" : "Tầng " + vmBan.getTang(), vmBan,
-					vmBan.getTrangThai() == 1 ? "Đã có người" : "Trống",
-					"<html><body style=';text-align: center; color:  #1E90FF'><u>Xóa bàn</u></body></html>" });
-		});
-	}
+    }
 
-	private void loadAllComponent() {
-		loadDanhSachTang(svBan.getAll());
-	}
+    private void loadDanhSachBanDuocChon() {
+        DefaultTableModel model = (DefaultTableModel) tblBanDuocChon.getModel();
+        model.setRowCount(0);
+        lstBanDuocChon.forEach(maBan -> {
+            BanViewModel vmBan = svBan.getById(maBan);
+            model.addRow(new Object[]{vmBan.getTang() == 0 ? "Mang về" : "Tầng " + vmBan.getTang(), vmBan,
+                vmBan.getTrangThai() == 1 ? "Đã có người" : "Trống",
+                "<html><body style=';text-align: center; color:  #1E90FF'><u>Xóa bàn</u></body></html>"});
+        });
+    }
 
-	private void loadDanhSachTang(List<BanViewModel> lstBan) {
+    private void loadAllComponent() {
+        loadDanhSachTang(svBan.getAll());
+    }
 
-		class WrapperBan {
-			private BanViewModel ban;
+    private void loadDanhSachTang(List<BanViewModel> lstBan) {
 
-			public WrapperBan(BanViewModel ban) {
-				this.ban = ban;
-			}
+        class WrapperBan {
 
-			public BanViewModel unwrap() {
-				return this.ban;
-			}
+            private BanViewModel ban;
 
-			@Override
-			public int hashCode() {
-				return Objects.hash(ban.getTang());
-			}
+            public WrapperBan(BanViewModel ban) {
+                this.ban = ban;
+            }
 
-			@Override
-			public boolean equals(Object obj) {
-				if (this == obj)
-					return true;
-				if (obj == null)
-					return false;
-				if (getClass() != obj.getClass())
-					return false;
-				WrapperBan other = (WrapperBan) obj;
-				return ban.getTang() == other.ban.getTang();
-			}
+            public BanViewModel unwrap() {
+                return this.ban;
+            }
 
-		}
+            @Override
+            public int hashCode() {
+                return Objects.hash(ban.getTang());
+            }
 
-		ButtonGroup btnGr = new ButtonGroup();
-		List<JButton> lstBtn = new ArrayList<JButton>();
-		pnTang.removeAll();
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                WrapperBan other = (WrapperBan) obj;
+                return ban.getTang() == other.ban.getTang();
+            }
 
-		lstBan.stream().map(WrapperBan::new).distinct().map(WrapperBan::unwrap)
-				.sorted((tang1, tang2) -> tang1.getTang() > tang2.getTang() ? 1 : -1).forEach(tang -> {
-					JButton btn = new JButton("");
-					btn.setFocusTraversalKeysEnabled(false);
-					btn.setFocusPainted(false);
-					btn.setFocusable(false);
-					btn.setForeground(new Color(255, 255, 255));
-					btn.setFont(new Font("Tahoma", Font.PLAIN, 16));
-					btn.setBackground(new Color(0, 128, 255));
-					btn.setText(tang.getTang() == 0 ? "Mang về" : "Tầng " + tang.getTang());
-					btn.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							loadDanhSachBan(tang.getTang());
-							jScrollPane6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, btn.getText(),
-									javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-									javax.swing.border.TitledBorder.DEFAULT_POSITION,
-									new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
-							lstBtn.forEach(btn -> btn.setBackground(new Color(0, 128, 255)));
-							btn.setBackground(Color.gray);
-							_tangDuocChon = tang.getTang();
+        }
 
-						}
-					});
-					lstBtn.add(btn);
-					btnGr.add(btn);
-					pnTang.add(btn);
+        ButtonGroup btnGr = new ButtonGroup();
+        List<JButton> lstBtn = new ArrayList<JButton>();
+        pnTang.removeAll();
 
-				});
-		loadDanhSachBan(0);
+        lstBan.stream().map(WrapperBan::new).distinct().map(WrapperBan::unwrap)
+                .sorted((tang1, tang2) -> tang1.getTang() > tang2.getTang() ? 1 : -1).forEach(tang -> {
+            JButton btn = new JButton("");
+            btn.setFocusTraversalKeysEnabled(false);
+            btn.setFocusPainted(false);
+            btn.setFocusable(false);
+            btn.setForeground(new Color(255, 255, 255));
+            btn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+            btn.setBackground(new Color(0, 128, 255));
+            btn.setText(tang.getTang() == 0 ? "Mang về" : "Tầng " + tang.getTang());
+            btn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    loadDanhSachBan(tang.getTang());
+                    jScrollPane6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, btn.getText(),
+                            javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
+                            javax.swing.border.TitledBorder.DEFAULT_POSITION,
+                            new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
+                    lstBtn.forEach(btn -> btn.setBackground(new Color(0, 128, 255)));
+                    btn.setBackground(Color.gray);
+                    _tangDuocChon = tang.getTang();
 
-	}
+                }
+            });
+            lstBtn.add(btn);
+            btnGr.add(btn);
+            pnTang.add(btn);
 
-	private Set<Integer> lstBanDuocChon = new HashSet<Integer>();
+        });
+        loadDanhSachBan(0);
 
-	private void loadDanhSachBan(int tang) {
-		Component[] lstCPN = pnTang.getComponents();
-		for (int i = 0; i < lstCPN.length; i++) {
-			lstCPN[i].setBackground(i == _tangDuocChon ? Color.gray : new Color(0, 128, 255));
-		}
-		List<BanViewModel> lstBan = svBan.getAll().stream().filter(ban -> ban.getTang() == tang)
-				.collect(Collectors.toList());
+    }
 
-		cboBan.removeAllItems();
-		((DefaultComboBoxModel<BanViewModel>) cboBan.getModel()).addAll(lstBan);
-		cboBan.setSelectedIndex(0);
-		pnDanhSachBan.setSize(410 / 3, (lstBan.size() / 3 + 1) * 150);
-		pnDanhSachBan.setPreferredSize(new Dimension((int) 410 / 3, (int) ((lstBan.size() / 3 + 1) * 150)));
-		GridBagConstraints gbc = new GridBagConstraints();
-		pnDanhSachBan.setLayout(new GridBagLayout());
-		int row = 0;
-		int col = -1;
-		pnDanhSachBan.removeAll();
-		gbc.insets = new Insets(1, 1, 1, 1);
-		for (BanViewModel ban : lstBan) {
-			if (col == 2) {
-				row++;
-				col = 0;
-			} else
-				col++;
+    private Set<Integer> lstBanDuocChon = new HashSet<Integer>();
 
-			gbc.gridx = col;
-			gbc.gridy = row;
+    private void loadDanhSachBan(int tang) {
+        Component[] lstCPN = pnTang.getComponents();
+        for (int i = 0; i < lstCPN.length; i++) {
+            lstCPN[i].setBackground(i == _tangDuocChon ? Color.gray : new Color(0, 128, 255));
+        }
+        List<BanViewModel> lstBan = svBan.getAll().stream().filter(ban -> ban.getTang() == tang)
+                .collect(Collectors.toList());
+
+        cboBan.removeAllItems();
+        ((DefaultComboBoxModel<BanViewModel>) cboBan.getModel()).addAll(lstBan);
+        cboBan.setSelectedIndex(0);
+        pnDanhSachBan.setSize(410 / 3, (lstBan.size() / 3 + 1) * 150);
+        pnDanhSachBan.setPreferredSize(new Dimension((int) 410 / 3, (int) ((lstBan.size() / 3 + 1) * 150)));
+        GridBagConstraints gbc = new GridBagConstraints();
+        pnDanhSachBan.setLayout(new GridBagLayout());
+        int row = 0;
+        int col = -1;
+        pnDanhSachBan.removeAll();
+        gbc.insets = new Insets(1, 1, 1, 1);
+        for (BanViewModel ban : lstBan) {
+            if (col == 2) {
+                row++;
+                col = 0;
+            } else {
+                col++;
+            }
+
+            gbc.gridx = col;
+            gbc.gridy = row;
 //			System.out.println(rơ);
-			JButton btn = new JButton("");
-			btn.setFocusTraversalKeysEnabled(false);
-			btn.setFocusPainted(false);
-			btn.setFocusable(false);
-			btn.setForeground(new Color(255, 255, 255));
-			btn.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			btn.setBackground(ban.getTrangThai() == 0 ? new Color(0, 128, 255) : new Color(0, 128, 0));
-			if (lstBanDuocChon.contains(ban.getMaBan())) {
-				btn.setBackground(Color.gray);
-			}
-			btn.setText(ban.getTenBan());
-			btn.setPreferredSize(new Dimension(140, 140));
-			btn.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
+            JButton btn = new JButton("");
+            btn.setFocusTraversalKeysEnabled(false);
+            btn.setFocusPainted(false);
+            btn.setFocusable(false);
+            btn.setForeground(new Color(255, 255, 255));
+            btn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+            btn.setBackground(ban.getTrangThai() == 0 ? new Color(0, 128, 255) : new Color(0, 128, 0));
+            if (lstBanDuocChon.contains(ban.getMaBan())) {
+                btn.setBackground(Color.gray);
+            }
+            btn.setText(ban.getTenBan());
+            btn.setPreferredSize(new Dimension(140, 140));
+            btn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
 
-					System.out.println(btn.isSelected());
-					if (btn.isSelected()) {
-						btn.setSelected(false);
-						lstBanDuocChon.remove(ban.getMaBan());
-						btn.setBackground(ban.getTrangThai() == 0 ? new Color(0, 128, 255) : new Color(0, 128, 0));
-						loadHoaDon(lstBanDuocChon);
+                    System.out.println(btn.isSelected());
+                    if (btn.isSelected()) {
+                        btn.setSelected(false);
+                        lstBanDuocChon.remove(ban.getMaBan());
+                        btn.setBackground(ban.getTrangThai() == 0 ? new Color(0, 128, 255) : new Color(0, 128, 0));
+                        loadHoaDon(lstBanDuocChon);
 
-					} else {
-						btn.setSelected(true);
-						lstBanDuocChon.add(ban.getMaBan());
-						btn.setBackground(Color.gray);
-						loadHoaDon(lstBanDuocChon);
-					}
-					System.out.println(lstBanDuocChon.size());
-				}
+                    } else {
+                        btn.setSelected(true);
+                        lstBanDuocChon.add(ban.getMaBan());
+                        btn.setBackground(Color.gray);
+                        loadHoaDon(lstBanDuocChon);
+                    }
+                    System.out.println(lstBanDuocChon.size());
+                }
 
-			});
-			pnDanhSachBan.add(btn, gbc);
-		}
-	}
+            });
+            pnDanhSachBan.add(btn, gbc);
+        }
+    }
 
-	private int _voucher;
-	private int _tongDichVuPhatSinh = 0;
-	private int _tongTatCaHoaDon = 0;
-	private JLabel lblTongDichVuPhatSinh;
+    private int _voucher;
+    private int _tongDichVuPhatSinh = 0;
+    private int _tongTatCaHoaDon = 0;
+    private JLabel lblTongDichVuPhatSinh;
 //	private ListlstHoaDonDetail
-	List<viewmodel.nhanVien.quanLyBan.HoaDon> lstHoaDon = null;
+    List<viewmodel.nhanVien.quanLyBan.HoaDon> lstHoaDon = null;
 
-	private void loadHoaDon(Set<Integer> lstBanDuocChon) {
-		txtVoucher.getModel().setValue("");
-		DefaultTableModel model = new DefaultTableModel();
-		model = (DefaultTableModel) tblNhanVienBan.getModel();
-		model.setRowCount(0);
-		_tongTatCaHoaDon = 0;
-		_tongDichVuPhatSinh = 0;
-		lblGiaSauKhiGiam.setText("0 VND");
-		lblTongDichVuPhatSinh.setText("0 VND");
-		lblTongTien.setText("0 VND");
-		if (lstBanDuocChon.size() < 1) {
-			return;
-		}
-		Integer lstMaBan[] = lstBanDuocChon.toArray(new Integer[0]);
-		lstHoaDon = svQuanLyBan.getLstHoaDonTheoBan(lstMaBan);
-		SimpleDateFormat fm = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+    private void loadHoaDon(Set<Integer> lstBanDuocChon) {
+        txtVoucher.getModel().setValue("");
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) tblNhanVienBan.getModel();
+        model.setRowCount(0);
+        _tongTatCaHoaDon = 0;
+        _tongDichVuPhatSinh = 0;
+        lblGiaSauKhiGiam.setText("0 VND");
+        lblTongDichVuPhatSinh.setText("0 VND");
+        lblTongTien.setText("0 VND");
+        if (lstBanDuocChon.size() < 1) {
+            return;
+        }
+        Integer lstMaBan[] = lstBanDuocChon.toArray(new Integer[0]);
+        lstHoaDon = svQuanLyBan.getLstHoaDonTheoBan(lstMaBan);
+        SimpleDateFormat fm = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 
-		for (viewmodel.nhanVien.quanLyBan.HoaDon hoaDon : lstHoaDon) {
-			int tongTien = 0;
-			for (var cthd : hoaDon.getLstCTHD()) {
-				System.out.println(cthd.getGia().intValue() * cthd.getSoLuong());
-				tongTien += cthd.getGia().intValue() * cthd.getSoLuong();
-			}
+        for (viewmodel.nhanVien.quanLyBan.HoaDon hoaDon : lstHoaDon) {
+            int tongTien = 0;
+            for (var cthd : hoaDon.getLstCTHD()) {
+                System.out.println(cthd.getGia().intValue() * cthd.getSoLuong());
+                tongTien += cthd.getGia().intValue() * cthd.getSoLuong();
+            }
 
-			_tongTatCaHoaDon += tongTien;
-			hoaDon.setTongThanhToan(tongTien + hoaDon.getDichVuPhatSinh());
-			model.addRow(new Object[] { hoaDon.getMaHoaDon(), fm.format(hoaDon.getThoiGian()), tongTien,
-					hoaDon.getTrangThaiOder() == 0 ? "Đã tiếp nhận" : "Đã làm",
-					"<html><body style=';text-align: center; color:  #1E90FF'><u>Xem chi tiết</u></body></html>" });
-			_tongDichVuPhatSinh += hoaDon.getDichVuPhatSinh();
-		}
-		DecimalFormat fmt = new DecimalFormat("###,###,###");
-		lblTongTien.setText(fmt.format(_tongTatCaHoaDon) + " VND");
-		lblTongDichVuPhatSinh.setText(fmt.format(_tongDichVuPhatSinh) + " VND");
+            _tongTatCaHoaDon += tongTien;
+            hoaDon.setTongThanhToan(tongTien + hoaDon.getDichVuPhatSinh());
+            model.addRow(new Object[]{hoaDon.getMaHoaDon(), fm.format(hoaDon.getThoiGian()), tongTien,
+                hoaDon.getTrangThaiOder() == 0 ? "Đã tiếp nhận" : "Đã làm",
+                "<html><body style=';text-align: center; color:  #1E90FF'><u>Xem chi tiết</u></body></html>"});
+            _tongDichVuPhatSinh += hoaDon.getDichVuPhatSinh();
+        }
+        DecimalFormat fmt = new DecimalFormat("###,###,###");
+        lblTongTien.setText(fmt.format(_tongTatCaHoaDon) + " VND");
+        lblTongDichVuPhatSinh.setText(fmt.format(_tongDichVuPhatSinh) + " VND");
 
-		lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
+        lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
 
-		if (iMGGSe.checkMaGiamGia(Integer.parseInt(
-				txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString()))) {
-			lblGiaSauKhiGiam
-					.setText(
-							"<html><strike>" + fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND"
-									+ "</strike> "
-									+ fmt.format(
-											_tongDichVuPhatSinh + iMGGSe.applyVoucher(
-													Integer.parseInt(
-															txtVoucher.getValue().toString().trim().equals("") ? "0"
-																	: txtVoucher.getValue().toString()),
-													_tongTatCaHoaDon))
-									+ " VND </html>");
-			System.out.println("APL");
-			_voucher = Integer.parseInt(
-					txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString());
+        if (iMGGSe.checkMaGiamGia(Integer.parseInt(
+                txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString()))) {
+            lblGiaSauKhiGiam
+                    .setText(
+                            "<html><strike>" + fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND"
+                            + "</strike> "
+                            + fmt.format(
+                                    _tongDichVuPhatSinh + iMGGSe.applyVoucher(
+                                            Integer.parseInt(
+                                                    txtVoucher.getValue().toString().trim().equals("") ? "0"
+                                                    : txtVoucher.getValue().toString()),
+                                            _tongTatCaHoaDon))
+                            + " VND </html>");
+            System.out.println("APL");
+            _voucher = Integer.parseInt(
+                    txtVoucher.getValue().toString().trim().equals("") ? "0" : txtVoucher.getValue().toString());
 
-		} else
-			lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
+        } else {
+            lblGiaSauKhiGiam.setText(fmt.format(_tongDichVuPhatSinh + _tongTatCaHoaDon) + " VND");
+        }
 
-	}
+    }
 
-	List<SanPham> lstELMSP = new ArrayList<SanPham>();
-	private JTextField txtDichVuPhatSinh;
-	private JComboBox<BanViewModel> cboBan;
-	private JTable tblBanDuocChon;
-	private JScrollPane scrollPane;
-	private JPanel panel_1;
-	private DefaultTableModel modelSPDC;
-	private JLabel txtTTTTT;
+    List<SanPham> lstELMSP = new ArrayList<SanPham>();
+    private JTextField txtDichVuPhatSinh;
+    private JComboBox<BanViewModel> cboBan;
+    private JTable tblBanDuocChon;
+    private JScrollPane scrollPane;
+    private JPanel panel_1;
+    private DefaultTableModel modelSPDC;
+    private JLabel txtTTTTT;
 
-	private void loadTTTTTT() {
-		int tongTien = 0;
-		for (int i = 0; i < tblDanhSachSanPham.getRowCount(); i++) {
-			tongTien += (int) tblDanhSachSanPham.getValueAt(i, 2) * (int) tblDanhSachSanPham.getValueAt(i, 3);
-		}
-		try {
-			tongTien += Integer.parseInt(txtDichVuPhatSinh.getText());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		DecimalFormat df = new DecimalFormat("###,###,###");
-		txtTTTTT.setText(df.format(tongTien) + " VND");
-	}
-	List<views.element.SanPham> lstSP;
-	private JPanel panel_2;
-	private void loadDanhSachSanPham() {
-		lstSP = svQLSanPham.getAllSanPham(modelSPDC);
-		pnDanhSachSanPham.removeAll();
-		pnDanhSachSanPham.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
+    private void loadTTTTTT() {
+        int tongTien = 0;
+        for (int i = 0; i < tblDanhSachSanPham.getRowCount(); i++) {
+            tongTien += (int) tblDanhSachSanPham.getValueAt(i, 2) * (int) tblDanhSachSanPham.getValueAt(i, 3);
+        }
+        try {
+            tongTien += Integer.parseInt(txtDichVuPhatSinh.getText());
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        DecimalFormat df = new DecimalFormat("###,###,###");
+        txtTTTTT.setText(df.format(tongTien) + " VND");
+    }
+    List<views.element.SanPham> lstSP;
+    private JPanel panel_2;
 
-		int row = 0;
-		int col = 0;
+    private void loadDanhSachSanPham() {
+        lstSP = svQLSanPham.getAllSanPham(modelSPDC);
+        pnDanhSachSanPham.removeAll();
+        pnDanhSachSanPham.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-		pnDanhSachSanPham.setSize(pnDanhSachSanPham.getWidth(), 280 * (lstSP.size() / 3));
-		System.out.println(pnDanhSachSanPham.getSize());
-		gbc.insets = new Insets(10, 10, 10, 10);
+        int row = 0;
+        int col = 0;
 
-		for (SanPham sp : lstSP) {
-			gbc.gridx = col;
-			gbc.gridy = row;
+        pnDanhSachSanPham.setSize(pnDanhSachSanPham.getWidth(), 280 * (lstSP.size() / 3));
+        System.out.println(pnDanhSachSanPham.getSize());
+        gbc.insets = new Insets(10, 10, 10, 10);
 
-			pnDanhSachSanPham.add(sp, gbc);
-			if (col == 2) {
-				row++;
-				col = 0;
-			} else {
-				col++;
-			}
+        for (SanPham sp : lstSP) {
+            gbc.gridx = col;
+            gbc.gridy = row;
 
-		}
-		pnDanhSachSanPham.revalidate();
-		pnDanhSachSanPham.repaint();
-	}
+            pnDanhSachSanPham.add(sp, gbc);
+            if (col == 2) {
+                row++;
+                col = 0;
+            } else {
+                col++;
+            }
 
-	private void searchDanhSachSanPham() {
-		String searchKey=txtSearchTenSanPham.getText().toLowerCase();
-		if(!searchKey.equalsIgnoreCase("Tìm kiếm theo tên sản phẩm".toLowerCase())) {
-			var searchKeyKD=Normalizer.normalize (searchKey, Normalizer.Form.NFD).replaceAll ("\\p{M}", "");;
-			List<SanPham> lstSP=this.lstSP.stream().filter(sanPham->
-			Normalizer.normalize (sanPham.getTenSanPham().toLowerCase(), Normalizer.Form.NFD).replaceAll ("\\p{M}", "").matches(".*"+searchKeyKD+".*")
-			).collect(Collectors.toList());
-			pnDanhSachSanPham.removeAll();
-			pnDanhSachSanPham.setLayout(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
+        }
+        pnDanhSachSanPham.revalidate();
+        pnDanhSachSanPham.repaint();
+    }
 
-			int row = 0;
-			int col = 0;
+    private void searchDanhSachSanPham() {
+        String searchKey = txtSearchTenSanPham.getText().toLowerCase();
+        if (!searchKey.equalsIgnoreCase("Tìm kiếm theo tên sản phẩm".toLowerCase())) {
+            var searchKeyKD = Normalizer.normalize(searchKey, Normalizer.Form.NFD).replaceAll("\\p{M}", "");;
+            List<SanPham> lstSP = this.lstSP.stream().filter(sanPham
+                    -> Normalizer.normalize(sanPham.getTenSanPham().toLowerCase(), Normalizer.Form.NFD).replaceAll("\\p{M}", "").matches(".*" + searchKeyKD + ".*")
+            ).collect(Collectors.toList());
+            pnDanhSachSanPham.removeAll();
+            pnDanhSachSanPham.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
 
-			pnDanhSachSanPham.setSize(pnDanhSachSanPham.getWidth(), 280 * (lstSP.size() / 3));
-			System.out.println(pnDanhSachSanPham.getSize());
-			gbc.insets = new Insets(10, 10, 10, 10);
+            int row = 0;
+            int col = 0;
 
-			for (SanPham sp : lstSP) {
-				gbc.gridx = col;
-				gbc.gridy = row;
+            pnDanhSachSanPham.setSize(pnDanhSachSanPham.getWidth(), 280 * (lstSP.size() / 3));
+            System.out.println(pnDanhSachSanPham.getSize());
+            gbc.insets = new Insets(10, 10, 10, 10);
 
-				pnDanhSachSanPham.add(sp, gbc);
-				if (col == 2) {
-					row++;
-					col = 0;
-				} else {
-					col++;
-				}
+            for (SanPham sp : lstSP) {
+                gbc.gridx = col;
+                gbc.gridy = row;
 
-			}
-			pnDanhSachSanPham.revalidate();
-			pnDanhSachSanPham.repaint();
-		}
-		else {
-			pnDanhSachSanPham.removeAll();
-			pnDanhSachSanPham.setLayout(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
+                pnDanhSachSanPham.add(sp, gbc);
+                if (col == 2) {
+                    row++;
+                    col = 0;
+                } else {
+                    col++;
+                }
 
-			int row = 0;
-			int col = 0;
+            }
+            pnDanhSachSanPham.revalidate();
+            pnDanhSachSanPham.repaint();
+        } else {
+            pnDanhSachSanPham.removeAll();
+            pnDanhSachSanPham.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
 
-			pnDanhSachSanPham.setSize(pnDanhSachSanPham.getWidth(), 280 * (lstSP.size() / 3));
-			System.out.println(pnDanhSachSanPham.getSize());
-			gbc.insets = new Insets(10, 10, 10, 10);
+            int row = 0;
+            int col = 0;
 
-			for (SanPham sp : lstSP) {
-				gbc.gridx = col;
-				gbc.gridy = row;
+            pnDanhSachSanPham.setSize(pnDanhSachSanPham.getWidth(), 280 * (lstSP.size() / 3));
+            System.out.println(pnDanhSachSanPham.getSize());
+            gbc.insets = new Insets(10, 10, 10, 10);
 
-				pnDanhSachSanPham.add(sp, gbc);
-				if (col == 2) {
-					row++;
-					col = 0;
-				} else {
-					col++;
-				}
+            for (SanPham sp : lstSP) {
+                gbc.gridx = col;
+                gbc.gridy = row;
 
-			}
-			pnDanhSachSanPham.revalidate();
-			pnDanhSachSanPham.repaint();
-		}
+                pnDanhSachSanPham.add(sp, gbc);
+                if (col == 2) {
+                    row++;
+                    col = 0;
+                } else {
+                    col++;
+                }
 
-		
-	}
+            }
+            pnDanhSachSanPham.revalidate();
+            pnDanhSachSanPham.repaint();
+        }
+
+    }
 }
