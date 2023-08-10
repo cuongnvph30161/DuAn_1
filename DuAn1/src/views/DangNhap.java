@@ -206,13 +206,13 @@ public class DangNhap extends javax.swing.JFrame {
         String maTaiKhoan = txtTaiKhoan.getText();
         String matKhau = txtMatKhau.getText();
 
-        if (maTaiKhoan.isEmpty() || maTaiKhoan.equalsIgnoreCase("tên tài khoản...")) {
+        if (maTaiKhoan.trim().equals("") || maTaiKhoan.equalsIgnoreCase("tên tài khoản...")) {
             JOptionPane.showMessageDialog(this, "Tài khoản không được để trống");
             return;
         }
 
         // Kiểm tra mật khẩu
-        if (matKhau.isEmpty() || matKhau.equalsIgnoreCase("mật khẩu...")) {
+        if (matKhau.equalsIgnoreCase("mật khẩu...")) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
             return;
         }
