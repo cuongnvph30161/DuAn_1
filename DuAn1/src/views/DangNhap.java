@@ -210,7 +210,6 @@ public class DangNhap extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tài khoản không được để trống");
             return;
         }
-
         // Kiểm tra mật khẩu
         if (matKhau.equalsIgnoreCase("mật khẩu...")) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
@@ -224,14 +223,13 @@ public class DangNhap extends javax.swing.JFrame {
             return;
         }
 
-        int trangThai = taiKhoan.getTrangThai();
-        if (trangThai == 0) {
-            JOptionPane.showMessageDialog(this, "Tài khoản của bạn đã bị khoá");
-            return;
-        }
-
         // Kiểm tra tài khoản và mật khẩu (phân biệt chữ hoa/chữ thường)
         if (taiKhoan.getMaTaiKhoan().equals(maTaiKhoan) && taiKhoan.getMatKhau().equals(matKhau)) {
+            int trangThai = taiKhoan.getTrangThai();
+            if (trangThai == 0) {
+                JOptionPane.showMessageDialog(this, "Tài khoản của bạn đã bị khoá");
+                return;
+            }
             switch (taiKhoan.getRole()) {
                 case QuanLy:
                     TraSua_QL traSuaQL = new TraSua_QL(maTaiKhoan);
