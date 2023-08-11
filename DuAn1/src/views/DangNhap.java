@@ -205,7 +205,7 @@ public class DangNhap extends javax.swing.JFrame {
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         String maTaiKhoan = txtTaiKhoan.getText();
         String matKhau = txtMatKhau.getText();
-
+        // kiem tra tai khoan
         if (maTaiKhoan.trim().equals("") || maTaiKhoan.equalsIgnoreCase("tên tài khoản...")) {
             JOptionPane.showMessageDialog(this, "Tài khoản không được để trống");
             return;
@@ -215,7 +215,7 @@ public class DangNhap extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
             return;
         }
-
+        // truy vấn nhưng không phân biệt chữ hoa chữ thườngngf
         TaiKhoanDomail taiKhoan = iTaiKhoanService.getTaiKhoanByMaTaiKhoanAndMatKhau(maTaiKhoan, matKhau);
         if (taiKhoan == null) {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
@@ -223,7 +223,7 @@ public class DangNhap extends javax.swing.JFrame {
             return;
         }
 
-        // Kiểm tra tài khoản và mật khẩu (phân biệt chữ hoa/chữ thường)
+        // Kiểm tra tài khoản và mật khẩu (phân biệt chữ hoa/chữ thường)so với dữ liệu sql với mình nhập
         if (taiKhoan.getMaTaiKhoan().equals(maTaiKhoan) && taiKhoan.getMatKhau().equals(matKhau)) {
             int trangThai = taiKhoan.getTrangThai();
             if (trangThai == 0) {

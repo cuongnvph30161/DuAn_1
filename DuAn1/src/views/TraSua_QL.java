@@ -887,24 +887,24 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
         }
-        if (!checkMaTaiKhoan(maTaiKhoan1)) {
+        // check khoảng trắng tên tài khoản
+        if (!checkKhoangTrangAndTrungMaTaiKhoan(maTaiKhoan1)) {
             return null;
         }
+        // check khoảng trắng mật khẩu 
+        if (!checkKhoangTrangAndTrungMaTaiKhoan(matKhau)) {
+            return null;
+        }
+
         if (hasDiacritics(maTaiKhoan1)) {
             JOptionPane.showMessageDialog(this, "Mã tài khoản không được có dấu");
             return null;
         }
-        if (maTaiKhoan1.contains(" ")) {
-            JOptionPane.showMessageDialog(this, "Mã tài khoản không được có dấu cách");
-            return null;
-        }
+
         if (!checkMaNhanVien(maNhanVienInt)) {
             return null;
         }
-        if (matKhau.contains(" ")) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
-            return null;
-        }
+
         if (hasDiacritics(matKhau)) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu");
             return null;
@@ -940,16 +940,16 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
         }
-// Ở phần cập nhật không thay đổi được tên tài khoản
-// check trùng mã nhân viên
-        if (isMNVExists(maNhanVien, true, maNhanVienCu)) {
-            return null;
+        if (isMNVExists(maNhanVien, maNhanVienCu)) {
+            JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại.");
+            return null; // Có lỗi
         }
 
         if (matKhau.contains(" ")) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu cách");
             return null;
         }
+
         if (hasDiacritics(matKhau)) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được có dấu");
             return null;
@@ -988,17 +988,19 @@ public class TraSua_QL extends javax.swing.JFrame {
         return true;
     }
 
-    public boolean checkMaTaiKhoan(String maTaiKhoan) {
-        if (maTaiKhoan.startsWith(" ") || maTaiKhoan.endsWith(" ") || maTaiKhoan.contains("  ")) {
-            JOptionPane.showMessageDialog(this, "Mã tài khoản không được chứa khoảng trắng ở đầu, giữa hoặc cuối.");
+    public boolean checkKhoangTrangAndTrungMaTaiKhoan(String taiKhoan) {
+        if (taiKhoan.contains(" ")) {
+            JOptionPane.showMessageDialog(this, "Mã tài khoản và mật khẩu không được chứa khoảng trắng ở đầu, giữa hoặc cuối.");
             return false;
         }
+
         Set<String> existingMaTaiKhoans = new HashSet<>();
         List<TaiKhoanViewModel> existingTaiKhoans = iTaiKhoanServicess.getAll();
         for (TaiKhoanViewModel tk : existingTaiKhoans) {
             existingMaTaiKhoans.add(tk.getMaTaiKhoan());
         }
-        if (existingMaTaiKhoans.contains(maTaiKhoan)) {
+
+        if (existingMaTaiKhoans.contains(taiKhoan)) {
             JOptionPane.showMessageDialog(this, "Mã tài khoản đã tồn tại. Vui lòng kiểm tra lại.");
             return false;
         }
@@ -1068,12 +1070,6 @@ public class TraSua_QL extends javax.swing.JFrame {
             return null;
         }
         nhanVienViewModel.setHoVaTen(hoVaTen);
-
-        if (cccd.startsWith(" ")) {
-            JOptionPane.showMessageDialog(this, "CCCD không được chứa dấu cách ở đầu");
-            return null;
-        }
-
         // định dạng ngày sinh
         try {
             LocalDate localDate = LocalDate.parse(ngaySinh);
@@ -1098,6 +1094,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "CCCD đã tồn tại. Vui lòng kiểm tra lại.");
             return null;
         }
+
         if (cccd.length() != 12) {
             JOptionPane.showMessageDialog(this, "Căn cước công dân phải đạt 12 số");
             return null;
@@ -1109,6 +1106,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ.");
             return null;
         }
+
         nhanVienViewModel.setEmail(email);
 
         if (isSoDienThoaiExists(soDienThoai, false, soDienThoaiCu)) {
@@ -1120,6 +1118,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải là số và thuộc trong khoảng 10 đến 11 số.");
             return null;
         }
+
         nhanVienViewModel.setSoDienThoai(soDienThoai);
         nhanVienViewModel.setChucVu(chucVu);
         if (trangThai.equals("Đã nghỉ việc")) {
@@ -1214,10 +1213,11 @@ public class TraSua_QL extends javax.swing.JFrame {
             return false;
         }
 
-        String lowercaseEmail = email.toLowerCase();
         String regex = "^[a-z0-9._%+-]+(\\.[a-z0-9._%+-]+)*@[a-z0-9.-]+\\.[a-z]{2,}$";
-        boolean hasConsecutiveDots = lowercaseEmail.contains("..");
-        return lowercaseEmail.matches(regex) && !hasConsecutiveDots;
+        // kiểm tra không được 2 dấu chấm liên tiếp
+        boolean hasConsecutiveDots = email.contains("..");
+        return email.matches(regex) && !hasConsecutiveDots;
+
     }
 
     private byte[] getImageDataFromIcon(Icon icon) {
@@ -1314,12 +1314,8 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         nhanVienViewModel.setDiaChi(diaChi);
 
-        if (cccd.startsWith(" ")) {
-            JOptionPane.showMessageDialog(this, "CCCD không được chứa dấu cách ở đầu");
-            return null;
-        }
         if (!cccd.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số.");
+            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số và không chứa kí tự.");
             return null;
         }
         if (isCCCDExists(cccd, true, cccdCu)) {
@@ -4204,7 +4200,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-  DangXuat dangXuat = new DangXuat();
+        DangXuat dangXuat = new DangXuat();
         dangXuat.show();
         dangXuat.thongBao("Bạn có chắc chắn muốn đăng xuất không?");
         dangXuat.yes(new ActionListener() {
@@ -4225,7 +4221,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
 
-       
+
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
@@ -4693,27 +4689,23 @@ public class TraSua_QL extends javax.swing.JFrame {
         cbbTrangThaiTaiKhoanSua.setSelectedItem(trangThai);
 
     }//GEN-LAST:event_tblTaiKhoanFormMouseClicked
-    public boolean isMNVExists(int maNhanVien, boolean isUpdating, int maNhanVienCu) {
-        if (isUpdating && maNhanVien == (maNhanVienCu)) {
-            return false;
+    public boolean isMNVExists(int maNhanVien, int maNhanVienCu) {
+        if (maNhanVien == maNhanVienCu) {
+            return false; // Không trùng lặp
         }
-        // Lấy danh sách CCCD hiện có từ cơ sở dữ liệu
+
         Set<Integer> existingMANVs = new HashSet<>();
         List<TaiKhoanViewModel> existingTaiKhoans = iTaiKhoanServicess.getAll();
         for (TaiKhoanViewModel tk : existingTaiKhoans) {
             existingMANVs.add(tk.getMaNhanVien());
         }
 
-        // Kiểm tra xem CCCD mới có trong danh sách đã lấy được hay không
         if (existingMANVs.contains(maNhanVien)) {
-            // Kiểm tra nếu đang thực hiện cập nhật (update) thì hiển thị thông báo
-            if (isUpdating) {
-                JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại.");
-            }
+            // Mã nhân viên đã tồn tại, nhưng không cần hiển thị thông báo ở đây
             return true;
         }
 
-        return false;
+        return false; // Không trùng lặp
     }
 
 
