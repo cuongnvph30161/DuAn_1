@@ -1131,16 +1131,13 @@ public class TraSua_QL extends javax.swing.JFrame {
     }
 
     public static boolean validateTen(String tenNhanVien) {
-        // Kiểm tra nếu tên chứa số hoặc ký tự đặc biệt
-        Pattern pattern = Pattern.compile("[0-9!@#$%^&*(),.?\":{}|<>]");
-        Matcher matcher = pattern.matcher(tenNhanVien);
-        //find() tìm xem chuỗi con có khớp với trong biểu thức chính quy hay không.Có trả về false
-        if (matcher.find()) {
+        // Kiểm tra xem tên không chứa số và không có ký tự đặc biệt
+        if (tenNhanVien.matches(".*[0-9!@#$%^&*(),.?\":{}|<>].*")) {
             return false;
         }
 
-        // Tên không có khoảng trắng thì trả về true 
-        if (!tenNhanVien.trim().equals(tenNhanVien)) {
+        // Kiểm tra xem tên không bắt đầu hoặc kết thúc bằng khoảng trắng
+        if (tenNhanVien.startsWith(" ") || tenNhanVien.endsWith(" ")) {
             return false;
         }
 

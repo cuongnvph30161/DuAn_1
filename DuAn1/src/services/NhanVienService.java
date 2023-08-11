@@ -70,6 +70,7 @@ public class NhanVienService implements INhanVienService {
         nhanVienDomainModel.setChucVu(nhanVienViewModel.getChucVu());
 
         if (iNhanVienRepository.checkTrungEmail(nhanVienDomainModel.getEmail())) {
+            System.out.println("email service");
             return "Email không được trùng";
         }
         if (iNhanVienRepository.insertNhanVien(nhanVienDomainModel)) {
