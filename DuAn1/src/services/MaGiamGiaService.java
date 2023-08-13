@@ -29,24 +29,21 @@ public class MaGiamGiaService implements IMaGiamGiaService {
     public IMaGiamGiaRepository iMaGiamGiaRepository = new MaGiamGiaRepository();
     public INhanVienRepository iNhanVienRepository = new NhanVienRepository();
 
-    
-
     @Override
     public boolean checkMaGiamGia(int a) {
         return mggRepo.checkMaGiamGia(a);
     }
 
-   
+    @Override
+    public Integer applyVoucher(int voucher, int tongThanhToan) {
+        return mggRepo.applyVoucher(voucher, tongThanhToan);
+    }
 
-	@Override
-	public Integer applyVoucher(int voucher, int tongThanhToan) {
-		return mggRepo.applyVoucher(voucher, tongThanhToan);
-	}
+    @Override
+    public String[] getLstID() {
+        return mggRepo.getLstID();
+    }
 
-	@Override
-	public String[] getLstID() {
-		return mggRepo.getLstID();
-	}
     @Override
     public boolean checkMaGiamGia(Integer a) {
         return mggRepo.checkMaGiamGia(a);
@@ -87,6 +84,7 @@ public class MaGiamGiaService implements IMaGiamGiaService {
         maGiamGiaDomainModel.setGiamToiDa(maGiamGiaViewModel.getGiamToiDa());
         maGiamGiaDomainModel.setSoLuong(maGiamGiaViewModel.getSoLuong());
         maGiamGiaDomainModel.setMaNguoiTao(maGiamGiaViewModel.getMaNguoiTao());
+        maGiamGiaDomainModel.setNgayBatDau(maGiamGiaViewModel.getNgayBatDau());
         maGiamGiaDomainModel.setNgayKetThuc(maGiamGiaViewModel.getNgayKetThuc());
         if (iMaGiamGiaRepository.insertMaGiamGia(maGiamGiaDomainModel)) {
             return "Thêm mã giảm giá thành công";

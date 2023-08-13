@@ -42,7 +42,7 @@ public class NhanVienHoaDon_ChiTiet extends javax.swing.JFrame {
         int stt = 1;
         for (PhaCheLichSuDanhSachSanPhamViewmodel a : lst) {
             model.addRow(new Object[]{stt,
-                a.getTenSanPham(), a.getSize(), a.getSoLuong(),a.getGiaBigDecimal()
+                a.getTenSanPham(), a.getSize(), a.getSoLuong(),Double.parseDouble(a.getGiaBigDecimal()+"")
             });
           
             stt++;
@@ -53,11 +53,11 @@ public class NhanVienHoaDon_ChiTiet extends javax.swing.JFrame {
         lblBan.setText(hoaDon.getTenBan() + "");
         lblThoiGian.setText(hoaDon.getThoiGian() + "");
         lblPhanTramGiam.setText(hoaDon.getPhanTramGiam() + "");
-        lblGiamToiDa.setText(hoaDon.getGiamToiDa() + "");
-        lblTongThanhToan.setText(hoaDon.getTongThanhToan() + " đ");
-        lblTongTienHD.setText(hoaDon.getTienChuaGiam() + "");
+        lblGiamToiDa.setText(hoaDon.getGiamToiDa() + " VNĐ");
+        lblTongThanhToan.setText(hoaDon.getTongThanhToan() + " VNĐ");
+        lblTongTienHD.setText(hoaDon.getTienChuaGiam() + " VNĐ");
         lblGhiChu.setText(hoaDon.getGhiChu() + "");
-        lbldichvuphatsinh.setText(hoaDon.getDichVuPhatSinh()+ "");
+        lbldichvuphatsinh.setText(Double.parseDouble(hoaDon.getDichVuPhatSinh()+"")+ " VNĐ");
 
     }
 

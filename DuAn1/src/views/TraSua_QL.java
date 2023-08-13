@@ -234,10 +234,10 @@ public class TraSua_QL extends javax.swing.JFrame {
         String giamToiDa = txtGiamToiDa.getText();
 
         String soLuong = txtSoLuong.getText();
-
+        String ngayBatDau = txtNgayBatDau.getText();
         String ngayKetThuc = txtNgayKetThuc.getText();
 
-        if (phanTramGiam.trim().equals("") || hoaDonToiThieu.trim().equals("") || giamToiDa.trim().equals("") || soLuong.trim().equals("") || ngayKetThuc.trim().equals("")) {
+        if (phanTramGiam.trim().equals("") || hoaDonToiThieu.trim().equals("") || giamToiDa.trim().equals("") || soLuong.trim().equals("") || ngayBatDau.trim().equals("") || ngayKetThuc.trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Không được rỗng");
             return null;
         }
@@ -295,10 +295,25 @@ public class TraSua_QL extends javax.swing.JFrame {
         int maNhanVienInt = Integer.parseInt(maNhanVien);
 
         try {
-            LocalDate ngayKetThucLocalDate = LocalDate.parse(ngayKetThuc);
-            LocalDate currentDate = LocalDate.now();
+            LocalDate ngayBatDauLocalDate = LocalDate.parse(ngayBatDau);
+            LocalDate ngayHienTai = LocalDate.now();
 
-            if (ngayKetThucLocalDate.isBefore(currentDate)) {
+            if (ngayBatDauLocalDate.isBefore(ngayHienTai)) {
+                JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày hiện tại");
+                return null;
+            }
+
+            maGiamGiaViewModel.setNgayBatDau(java.sql.Date.valueOf(ngayBatDauLocalDate));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày bắt đầu");
+            return null;
+        }
+
+        try {
+            LocalDate ngayKetThucLocalDate = LocalDate.parse(ngayKetThuc);
+            LocalDate ngayBatDauLocalDate = maGiamGiaViewModel.getNgayBatDau().toLocalDate();
+
+            if (ngayKetThucLocalDate.isBefore(ngayBatDauLocalDate)) {
                 JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn hoặc bằng ngày hiện tại");
                 return null; // Hoặc làm xử lý phù hợp tùy trường hợp
             }
@@ -3568,7 +3583,11 @@ public class TraSua_QL extends javax.swing.JFrame {
         jPanel7.add(jLabel100, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 85, -1));
 
         txtNgayBatDau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
-        txtNgayBatDau.setEnabled(false);
+        txtNgayBatDau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNgayBatDauActionPerformed(evt);
+            }
+        });
         jPanel7.add(txtNgayBatDau, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 202, -1));
 
         jLabel109.setText("Mã người tạo");
@@ -5409,6 +5428,10 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void txtGiamToiDaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiamToiDaKeyReleased
 
     }//GEN-LAST:event_txtGiamToiDaKeyReleased
+
+    private void txtNgayBatDauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNgayBatDauActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNgayBatDauActionPerformed
     private void loadChuMoTapTrungTimKiemChoMaGiamGia() {
         // Đặt placeholder ban đầu cho thanh tìm kiếm
         txtTimKiemMaGiamGia.setText("Nhập hoá đơn tối thiểu...");

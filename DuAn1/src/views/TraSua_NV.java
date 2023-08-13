@@ -203,14 +203,6 @@ public class TraSua_NV extends javax.swing.JFrame {
     List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
     Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang = new HashMap<>();
     INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
-    List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
-    Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
-    Map<Integer, String> mapTenBan = NVHoaDonSv.mapTenBan();
-    Map<Integer, Object> maGiamGia = NVHoaDonSv.mapMaGiamGia();
-    List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
-    DefaultTableModel modelNVhoaDon = new DefaultTableModel();
-    List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
-            maGiamGia);
     private String maTaiKhoan;
     int soTrang = 1;
 
@@ -218,6 +210,13 @@ public class TraSua_NV extends javax.swing.JFrame {
         this.maTaiKhoan = maTaiKhoan;
 
     }
+    DefaultTableModel modelNVhoaDon = new DefaultTableModel();
+    List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
+    Map<Integer, String> mapTenNV = new HashMap<>();
+    Map<Integer, String> mapTenBan = new HashMap<>();
+    Map<Integer, Object> maGiamGia = new HashMap<>();
+    List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = new ArrayList<>();
+    List<NhanVienHoaDonViewModel> listNhanVienHDView = new ArrayList<>();
 
     private NhanVienService svNhanVien = new NhanVienService();
     private int maNhanVien;
@@ -239,16 +238,25 @@ public class TraSua_NV extends javax.swing.JFrame {
         getContentPane().setLayout(null);
         getContentPane().add(jpnMenu);
         getContentPane().add(pnTong);
-
+        layDuLieuNVHD();
         phanTrang();
         truyenTrang(1);
-        fillTableNVHD(listNhanVienHDView);
         maNhanVien = svNhanVien.getByIdAccount(maTaiKhoan);
         loadView("pnQuanLyBan");
         DPlaceHolder.addPlaceHolder(txtSearchTenSanPham, "Tìm kiếm theo tên sản phẩm");
 
     }
 
+    public void layDuLieuNVHD() {
+        listCTHD = NVHoaDonSv.getlistCTHD();
+        mapTenNV = NVHoaDonSv.mapTenNV();
+        mapTenBan = NVHoaDonSv.mapTenBan();
+        maGiamGia = NVHoaDonSv.mapMaGiamGia();
+        ListDSSP = NVHoaDonSv.getDSSP();
+        listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
+                maGiamGia);
+
+    }
     List<NhanVienBanViewModel> listNVban = nvBanSe.getAllNhanVienBan();
 
     private void FillTableBan() {
@@ -1223,7 +1231,7 @@ public class TraSua_NV extends javax.swing.JFrame {
     }// GEN-LAST:event_lblThietLapMouseClicked
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDangXuatActionPerformed
-      
+
     }// GEN-LAST:event_btnDangXuatActionPerformed
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblSanPhamMouseClicked
@@ -1238,6 +1246,9 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblHoaDonMouseClicked
         loadView("pnHoaDon");
+        layDuLieuNVHD();
+        phanTrang();
+        truyenTrang(1);
 
     }// GEN-LAST:event_lblHoaDonMouseClicked
 
@@ -1250,8 +1261,12 @@ public class TraSua_NV extends javax.swing.JFrame {
                 try {
                     int maHD = Integer.parseInt(txtNhanVienNhapMaHD.getText());
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "mã nhân viên phải là số, hãy đảm bảo mã hóa đơn không có khoảng trắng");
+                    JOptionPane.showMessageDialog(this, "mã nhân viên phải là số hoặc hãy đảm bảo mã nhân viên không có khoảng trắng");
                     txtNhanVienNhapMaHD.requestFocus();;
+                    return;
+                }
+                if (Integer.parseInt(txtNhanVienNhapMaHD.getText()) < 0) {
+                    JOptionPane.showMessageDialog(null, "mã nhân viên không được âm");
                     return;
                 }
             }
@@ -1419,10 +1434,16 @@ public class TraSua_NV extends javax.swing.JFrame {
     private void tblNhanVienHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tblNhanVienHoaDonMouseClicked
         // TODO add your handling code here:
         int index = tblNhanVienHoaDon.getSelectedRow();
-        NhanVienHoaDonViewModel hoaDon = listNhanVienHDView.get(index);
+        int maHD = (int) tblNhanVienHoaDon.getValueAt(index, 0);
+        NhanVienHoaDonViewModel hoaDon = new NhanVienHoaDonViewModel();
+        for (NhanVienHoaDonViewModel a : listNhanVienHDView) {
+            if (a.getMaHoaDon() == maHD) {
+                hoaDon = a;
+            }
+        }
+
         NhanVienHoaDon_ChiTiet nv = new NhanVienHoaDon_ChiTiet(hoaDon);
         nv.setVisible(true);
-
     }// GEN-LAST:event_tblNhanVienHoaDonMouseClicked
 
     public static void main(String args[]) {
