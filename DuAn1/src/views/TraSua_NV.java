@@ -209,6 +209,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         this.maTaiKhoan = maTaiKhoan;
 
     }
+	 DefaultTableModel modelNVhoaDon = new DefaultTableModel();
 List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
     Map<Integer, String> mapTenNV = new HashMap<>();
     Map<Integer, String> mapTenBan = new HashMap<>();
@@ -1243,6 +1244,7 @@ List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
 
     private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblHoaDonMouseClicked
         loadView("pnHoaDon");
+	 layDuLieuNVHD();
         phanTrang();
         truyenTrang(1);
 
