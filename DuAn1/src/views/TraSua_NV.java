@@ -209,8 +209,12 @@ public class TraSua_NV extends javax.swing.JFrame {
         this.maTaiKhoan = maTaiKhoan;
 
     }
-
-
+List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
+    Map<Integer, String> mapTenNV = new HashMap<>();
+    Map<Integer, String> mapTenBan = new HashMap<>();
+    Map<Integer, Object> maGiamGia = new HashMap<>();
+    List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = new ArrayList<>();
+     List<NhanVienHoaDonViewModel> listNhanVienHDView = new ArrayList<>();
 	
     private NhanVienService svNhanVien = new NhanVienService();
     private int maNhanVien;
@@ -241,12 +245,12 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     }
 	public void layDuLieuNVHD() {
-        List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
-        Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
-        Map<Integer, String> mapTenBan = NVHoaDonSv.mapTenBan();
-        Map<Integer, Object> maGiamGia = NVHoaDonSv.mapMaGiamGia();
-        List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
-        List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
+        listCTHD = NVHoaDonSv.getlistCTHD();
+        mapTenNV = NVHoaDonSv.mapTenNV();
+         mapTenBan = NVHoaDonSv.mapTenBan();
+         maGiamGia = NVHoaDonSv.mapMaGiamGia();
+         ListDSSP = NVHoaDonSv.getDSSP();
+         listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
                 maGiamGia);
 
     }
