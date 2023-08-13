@@ -1261,7 +1261,7 @@ public class TraSua_NV extends javax.swing.JFrame {
                 try {
                     int maHD = Integer.parseInt(txtNhanVienNhapMaHD.getText());
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "mã nhân viên phải là số, hãy đảm bảo mã hóa đơn không có khoảng trắng");
+                    JOptionPane.showMessageDialog(this, "mã nhân viên phải là số, hãy đảm bảo mã nhân viên không có khoảng trắng");
                     txtNhanVienNhapMaHD.requestFocus();;
                     return;
                 }
