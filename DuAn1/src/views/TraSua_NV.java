@@ -242,7 +242,6 @@ public class TraSua_NV extends javax.swing.JFrame {
 
         phanTrang();
         truyenTrang(1);
-        fillTableNVHD(listNhanVienHDView);
         maNhanVien = svNhanVien.getByIdAccount(maTaiKhoan);
         loadView("pnQuanLyBan");
         DPlaceHolder.addPlaceHolder(txtSearchTenSanPham, "Tìm kiếm theo tên sản phẩm");
@@ -1238,6 +1237,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 
     private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblHoaDonMouseClicked
         loadView("pnHoaDon");
+        phanTrang();
+        truyenTrang(1);
 
     }// GEN-LAST:event_lblHoaDonMouseClicked
 
