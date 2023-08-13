@@ -205,18 +205,19 @@ public class TraSua_NV extends javax.swing.JFrame {
     INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
     private String maTaiKhoan;
     int soTrang = 1;
+
     public void setMaTaiKhoan(String maTaiKhoan) {
         this.maTaiKhoan = maTaiKhoan;
 
     }
-	 DefaultTableModel modelNVhoaDon = new DefaultTableModel();
-List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
+    DefaultTableModel modelNVhoaDon = new DefaultTableModel();
+    List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
     Map<Integer, String> mapTenNV = new HashMap<>();
     Map<Integer, String> mapTenBan = new HashMap<>();
     Map<Integer, Object> maGiamGia = new HashMap<>();
     List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = new ArrayList<>();
-     List<NhanVienHoaDonViewModel> listNhanVienHDView = new ArrayList<>();
-	
+    List<NhanVienHoaDonViewModel> listNhanVienHDView = new ArrayList<>();
+
     private NhanVienService svNhanVien = new NhanVienService();
     private int maNhanVien;
 
@@ -245,13 +246,14 @@ List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
         DPlaceHolder.addPlaceHolder(txtSearchTenSanPham, "Tìm kiếm theo tên sản phẩm");
 
     }
-	public void layDuLieuNVHD() {
+
+    public void layDuLieuNVHD() {
         listCTHD = NVHoaDonSv.getlistCTHD();
         mapTenNV = NVHoaDonSv.mapTenNV();
-         mapTenBan = NVHoaDonSv.mapTenBan();
-         maGiamGia = NVHoaDonSv.mapMaGiamGia();
-         ListDSSP = NVHoaDonSv.getDSSP();
-         listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
+        mapTenBan = NVHoaDonSv.mapTenBan();
+        maGiamGia = NVHoaDonSv.mapMaGiamGia();
+        ListDSSP = NVHoaDonSv.getDSSP();
+        listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
                 maGiamGia);
 
     }
@@ -1229,7 +1231,7 @@ List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
     }// GEN-LAST:event_lblThietLapMouseClicked
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDangXuatActionPerformed
-      
+
     }// GEN-LAST:event_btnDangXuatActionPerformed
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblSanPhamMouseClicked
@@ -1244,7 +1246,7 @@ List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
 
     private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblHoaDonMouseClicked
         loadView("pnHoaDon");
-	 layDuLieuNVHD();
+        layDuLieuNVHD();
         phanTrang();
         truyenTrang(1);
 
@@ -1428,10 +1430,16 @@ List<ChiTietHoaDonDomainModel> listCTHD = new ArrayList<>();
     private void tblNhanVienHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tblNhanVienHoaDonMouseClicked
         // TODO add your handling code here:
         int index = tblNhanVienHoaDon.getSelectedRow();
-        NhanVienHoaDonViewModel hoaDon = listNhanVienHDView.get(index);
+        int maHD = (int) tblNhanVienHoaDon.getValueAt(index, 0);
+        NhanVienHoaDonViewModel hoaDon = new NhanVienHoaDonViewModel();
+        for (NhanVienHoaDonViewModel a : listNhanVienHDView) {
+            if (a.getMaHoaDon() == maHD) {
+                hoaDon = a;
+            }
+        }
+
         NhanVienHoaDon_ChiTiet nv = new NhanVienHoaDon_ChiTiet(hoaDon);
         nv.setVisible(true);
-
     }// GEN-LAST:event_tblNhanVienHoaDonMouseClicked
 
     public static void main(String args[]) {
