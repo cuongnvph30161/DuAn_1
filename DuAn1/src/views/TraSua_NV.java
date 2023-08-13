@@ -203,22 +203,15 @@ public class TraSua_NV extends javax.swing.JFrame {
     List<NhanVienHoaDonViewModel> lstTruyenTrang = new ArrayList<>();
     Map<Integer, List<NhanVienHoaDonViewModel>> mapPhanTrang = new HashMap<>();
     INhanVienHoaDonServices NVHoaDonSv = new NhanVienHoaDonServices();
-    List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
-    Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
-    Map<Integer, String> mapTenBan = NVHoaDonSv.mapTenBan();
-    Map<Integer, Object> maGiamGia = NVHoaDonSv.mapMaGiamGia();
-    List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
-    DefaultTableModel modelNVhoaDon = new DefaultTableModel();
-    List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
-            maGiamGia);
     private String maTaiKhoan;
     int soTrang = 1;
-
     public void setMaTaiKhoan(String maTaiKhoan) {
         this.maTaiKhoan = maTaiKhoan;
 
     }
 
+
+	
     private NhanVienService svNhanVien = new NhanVienService();
     private int maNhanVien;
 
@@ -239,7 +232,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         getContentPane().setLayout(null);
         getContentPane().add(jpnMenu);
         getContentPane().add(pnTong);
-
+        layDuLieuNVHD();
         phanTrang();
         truyenTrang(1);
         maNhanVien = svNhanVien.getByIdAccount(maTaiKhoan);
@@ -247,7 +240,16 @@ public class TraSua_NV extends javax.swing.JFrame {
         DPlaceHolder.addPlaceHolder(txtSearchTenSanPham, "Tìm kiếm theo tên sản phẩm");
 
     }
+	public void layDuLieuNVHD() {
+        List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
+        Map<Integer, String> mapTenNV = NVHoaDonSv.mapTenNV();
+        Map<Integer, String> mapTenBan = NVHoaDonSv.mapTenBan();
+        Map<Integer, Object> maGiamGia = NVHoaDonSv.mapMaGiamGia();
+        List<PhaCheLichSuDanhSachSanPhamViewmodel> ListDSSP = NVHoaDonSv.getDSSP();
+        List<NhanVienHoaDonViewModel> listNhanVienHDView = NVHoaDonSv.getList(ListDSSP, mapTenNV, mapTenBan, listCTHD,
+                maGiamGia);
 
+    }
     List<NhanVienBanViewModel> listNVban = nvBanSe.getAllNhanVienBan();
 
     private void FillTableBan() {
