@@ -1265,6 +1265,9 @@ public class TraSua_NV extends javax.swing.JFrame {
                     txtNhanVienNhapMaHD.requestFocus();;
                     return;
                 }
+                if(Integer.parseInt(txtNhanVienNhapMaHD.getText())<0){
+                    JOptionPane.showMessageDialog(null, "mã nhân viên không được âm");
+                }
             }
             try {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");

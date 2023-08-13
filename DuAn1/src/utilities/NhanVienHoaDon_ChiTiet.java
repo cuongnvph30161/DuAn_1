@@ -42,7 +42,7 @@ public class NhanVienHoaDon_ChiTiet extends javax.swing.JFrame {
         int stt = 1;
         for (PhaCheLichSuDanhSachSanPhamViewmodel a : lst) {
             model.addRow(new Object[]{stt,
-                a.getTenSanPham(), a.getSize(), a.getSoLuong(),a.getGiaBigDecimal()
+                a.getTenSanPham(), a.getSize(), a.getSoLuong(),Double.parseDouble(a.getGiaBigDecimal()+"")
             });
           
             stt++;
