@@ -113,7 +113,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                     tongHopHoaDon();
 
                     try {
-                        sleep(1000);
+                        sleep(10000);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -700,7 +700,7 @@ public class TraSua_PC extends javax.swing.JFrame {
 
         lblHoaDon_dssp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblHoaDon_dssp.setForeground(new java.awt.Color(0, 102, 255));
-        lblHoaDon_dssp.setText("Hóa đơn HD001");
+        lblHoaDon_dssp.setText(".....");
 
         txtGhiChuHoaDon.setColumns(20);
         txtGhiChuHoaDon.setRows(5);
@@ -780,9 +780,9 @@ public class TraSua_PC extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblHoaDon_dssp1)
                                 .addGap(5, 5, 5)
-                                .addComponent(lblHoaDon_dssp)
-                                .addGap(527, 527, 527)))))
-                .addContainerGap(649, Short.MAX_VALUE))
+                                .addComponent(lblHoaDon_dssp, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(470, 470, 470)))))
+                .addContainerGap(682, Short.MAX_VALUE))
         );
         jpnHoaDonLayout.setVerticalGroup(
             jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1085,7 +1085,10 @@ public class TraSua_PC extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         modelHoaDon_DSSP.setRowCount(0);
-
+if(lblHoaDon_dssp.getText().equalsIgnoreCase(".....")){
+    JOptionPane.showMessageDialog(null, "Không có hóa đơn nào");
+    return;
+}
         try {
             capNhatTrangThaiHD();
         } catch (Exception e) {
