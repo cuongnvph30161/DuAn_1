@@ -75,7 +75,10 @@ public class TraSua_PC extends javax.swing.JFrame {
             LoadSanPham();
             ///fill hóa đơn trong chức năng hóa đơn
             fillTableHoaDon_HoaDon();
-            fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+            try {
+                  fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+            } catch (Exception e) {
+            }
 
             tongHopHoaDon();
             loadHd();
@@ -100,11 +103,17 @@ public class TraSua_PC extends javax.swing.JFrame {
             public void run() {
 
                 while (true) {
+
                     fillTableHoaDon_HoaDon();
-                    fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
-                    tongHopHoaDon();
                     try {
-                        sleep(60000);
+                        fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+                    } 
+                    catch(Exception e)  {
+                    }
+                    tongHopHoaDon();
+
+                    try {
+                        sleep(1000);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -121,9 +130,15 @@ public class TraSua_PC extends javax.swing.JFrame {
         if (thongBao == 1) {
             JOptionPane.showMessageDialog(this, "hoàn thành đơn");
 
-            tongHopHoaDon();
             fillTableHoaDon_HoaDon();
-            fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+
+            tongHopHoaDon();
+
+            try {
+                  fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+            } catch (Exception e) {
+            }
+
             return;
         }
 
@@ -187,57 +202,63 @@ public class TraSua_PC extends javax.swing.JFrame {
 
     //fill bảng hóa đơn trong chức năng hóa đơn
     public void fillTableHoaDon_HoaDon() {
-        Map<String, Object> mapBan1 = LichSuServices.getBan();
-        Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
-        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
-        lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
-        modelHoaDon_HoaDon.setRowCount(0);
-        lblHoaDon_HoaDon.setText("Hóa đơn " + lstCNhoadon.get(0).getMaHoaDon());
-        int stt = 1;
-        for (PhaCheLichSuViewModel a : lstCNhoadon) {
-            modelHoaDon_HoaDon.addRow(new Object[]{stt, a.getMaHoaDon(), a.getTenBan(),
-                a.getTang(), a.getThoiGian(), a.getGhiChu()});
-            stt++;
+        try {
+            Map<String, Object> mapBan1 = LichSuServices.getBan();
+            Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
+            lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
+            modelHoaDon_HoaDon.setRowCount(0);
+            lblHoaDon_HoaDon.setText("Hóa đơn " + lstCNhoadon.get(0).getMaHoaDon());
+            int stt = 1;
+            for (PhaCheLichSuViewModel a : lstCNhoadon) {
+                modelHoaDon_HoaDon.addRow(new Object[]{stt, a.getMaHoaDon(), a.getTenBan(),
+                    a.getTang(), a.getThoiGian(), a.getGhiChu()});
+                stt++;
+            }
+            tblHoaDon_HoaDon.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
         }
-        tblHoaDon_HoaDon.setRowSelectionInterval(0, 0);
     }
 
     //tổng hợp hóa đơn
     public void tongHopHoaDon() {
-        Map<String, Object> mapBan1 = LichSuServices.getBan();
-        Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
-        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
-        lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
+        try {
+            Map<String, Object> mapBan1 = LichSuServices.getBan();
+            Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
+            lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
 
-        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstTongHop = new ArrayList<>();
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> lstTongHop = new ArrayList<>();
 
-        for (PhaCheLichSuViewModel a : lstCNhoadon) {
-            for (PhaCheLichSuDanhSachSanPhamViewmodel b : a.getDanhSachSP()) {
-                lstTongHop.add(b);
-            }
-        }
-        modelTongHopDonHANG.setRowCount(0);
-        List<PhaCheLichSuDanhSachSanPhamViewmodel> lstCongDon = new ArrayList<>();
-        lstCongDon.add(new PhaCheLichSuDanhSachSanPhamViewmodel(lstTongHop.get(0).getMaSanPham(),
-                lstTongHop.get(0).getTenSanPham(), lstTongHop.get(0).getSize(), 0));
-        for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstTongHop) {
-            int check = 1;
-            for (PhaCheLichSuDanhSachSanPhamViewmodel b : lstCongDon) {
-                if (a.getMaSanPham() == b.getMaSanPham() && a.getSize().equalsIgnoreCase(b.getSize())) {
-                    b.setSoLuong(a.getSoLuong() + b.getSoLuong());
-                    check = -1;
+            for (PhaCheLichSuViewModel a : lstCNhoadon) {
+                for (PhaCheLichSuDanhSachSanPhamViewmodel b : a.getDanhSachSP()) {
+                    lstTongHop.add(b);
                 }
             }
-            if (check == 1) {
-                lstCongDon.add(a);
+            modelTongHopDonHANG.setRowCount(0);
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> lstCongDon = new ArrayList<>();
+            lstCongDon.add(new PhaCheLichSuDanhSachSanPhamViewmodel(lstTongHop.get(0).getMaSanPham(),
+                    lstTongHop.get(0).getTenSanPham(), lstTongHop.get(0).getSize(), 0));
+            for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstTongHop) {
+                int check = 1;
+                for (PhaCheLichSuDanhSachSanPhamViewmodel b : lstCongDon) {
+                    if (a.getMaSanPham() == b.getMaSanPham() && a.getSize().equalsIgnoreCase(b.getSize())) {
+                        b.setSoLuong(a.getSoLuong() + b.getSoLuong());
+                        check = -1;
+                    }
+                }
+                if (check == 1) {
+                    lstCongDon.add(a);
+                }
+
             }
+            for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstCongDon) {
+                modelTongHopDonHANG.addRow(new Object[]{
+                    a.getMaSanPham(), a.getTenSanPham(), a.getSize(), a.getSoLuong()
+                });
 
-        }
-        for (PhaCheLichSuDanhSachSanPhamViewmodel a : lstCongDon) {
-            modelTongHopDonHANG.addRow(new Object[]{
-                a.getMaSanPham(), a.getTenSanPham(), a.getSize(), a.getSoLuong()
-            });
-
+            }
+        } catch (Exception e) {
         }
     }
 

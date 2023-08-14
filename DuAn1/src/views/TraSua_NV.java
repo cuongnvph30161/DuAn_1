@@ -1451,7 +1451,7 @@ public class TraSua_NV extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                String maTaiKhoan = "TK01"; // Lấy mã tài khoản từ giao diện đăng nhập
+                String maTaiKhoan = "TKNV1001"; // Lấy mã tài khoản từ giao diện đăng nhập
                 TraSua_NV traSua_NV = new TraSua_NV(maTaiKhoan);
                 traSua_NV.setMaTaiKhoan(maTaiKhoan);
                 traSua_NV.setVisible(true);
