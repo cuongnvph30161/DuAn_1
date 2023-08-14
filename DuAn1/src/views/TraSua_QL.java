@@ -493,9 +493,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (!containsDigits(name)) {
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+        if (!validateTen(name)) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa số và không được chứa kí tự đặc biệt!", "LỖI", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
@@ -687,9 +686,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (!containsDigits(name)) {
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+        if (!validateTen(name)) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa số và không được chứa kí tự đặc biệt!", "LỖI", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
@@ -4561,7 +4559,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 // Thiết lập ImageIcon mới cho JLabel
                 lblAnhNhanVienSua.setIcon(scaledIcon);
                 ///////////////tuan anh
-                
+
             } catch (SQLException e) {
                 e.printStackTrace();
                 // Xử lý lỗi khi đọc dữ liệu từ Blob
