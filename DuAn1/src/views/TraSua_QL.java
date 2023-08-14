@@ -299,7 +299,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             LocalDate ngayHienTai = LocalDate.now();
 
             if (ngayBatDauLocalDate.isBefore(ngayHienTai)) {
-                JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày hiện tại");
+                JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại");
                 return null;
             }
 
@@ -308,13 +308,13 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Chưa chuẩn định dạng ngày bắt đầu");
             return null;
         }
-
+//
         try {
             LocalDate ngayKetThucLocalDate = LocalDate.parse(ngayKetThuc);
             LocalDate ngayBatDauLocalDate = maGiamGiaViewModel.getNgayBatDau().toLocalDate();
 
             if (ngayKetThucLocalDate.isBefore(ngayBatDauLocalDate)) {
-                JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn hoặc bằng ngày hiện tại");
+                JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu");
                 return null; // Hoặc làm xử lý phù hợp tùy trường hợp
             }
 
