@@ -2,6 +2,24 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/services/defaultService/BanService.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/services/BanService.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/services/defaultService/BanHoaDonService.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/views/DangNhap.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/views/TraSua_NV.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/repositorys/iRepository/IBanRepository.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/services/NhanVienHoaDonServices.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/repositorys/ChiTietSanPhamRepository.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/services/PhaCheLichSuServices.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/repositorys/BanRepository.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/interfaceservices/IQuanLyBanServices.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/domainmodel/BanDomainModel.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/repositorys/iRepository/IChiTietSanPhamRepository.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/views/TraSua_PC.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/interfaceservices/IBanService.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/services/QuanLyBanServices.java</file>
+            <file>file:/C:/Users/ttuan/OneDrive/Máy%20tính/DuAn1_Nhom2/DuAn_1/DuAn1/src/views/TraSua_QL.java</file>
+        </group>
     </open-files>
 </project-private>
