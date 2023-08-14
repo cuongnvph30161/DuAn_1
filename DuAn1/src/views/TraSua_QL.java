@@ -160,7 +160,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             if (DSSP.getMaHoaDon() == MaHoaDon) {
                 List<PhaCheLichSuDanhSachSanPhamViewmodel> LstSanPham = DSSP.getListSP();
                 for (PhaCheLichSuDanhSachSanPhamViewmodel sp : LstSanPham) {
-                    ModelQLHDDSSanPham.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), sp.getSoLuong(), sp.getSize(), sp.getGiaBigDecimal()});
+                    ModelQLHDDSSanPham.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), sp.getSoLuong(), sp.getSize(), sp.getGiaBigDecimal().doubleValue()});
                 }
             }
 
@@ -172,7 +172,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         DefaultTableModel ModelQLHD = (DefaultTableModel) tblQuanLyHoaDon.getModel();
         ModelQLHD.setRowCount(0);
         for (NhanVienHoaDonViewModel a : list) {
-            ModelQLHD.addRow(new Object[]{a.getMaHoaDon(), a.getThoiGian(), a.getTongThanhToan(), a.getGhiChu()});
+            ModelQLHD.addRow(new Object[]{a.getMaHoaDon(), a.getThoiGian(), a.getTongThanhToan().doubleValue(), a.getGhiChu()});
         }
 
     }
@@ -338,7 +338,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             defaultTableModel.addRow(new Object[]{
                 stt++, maGiamGiaViewModel.getMaVoucher(), maGiamGiaViewModel.getPhanTramGiam(),
                 maGiamGiaViewModel.getDonToiThieu(),
-                maGiamGiaViewModel.getGiamToiDa(),
+                maGiamGiaViewModel.getGiamToiDa().doubleValue(),
                 maGiamGiaViewModel.getSoLuong(), maGiamGiaViewModel.getNgayBatDau(),
                 maGiamGiaViewModel.getNgayKetThuc(), maGiamGiaViewModel.getMaNguoiTao(),
                 maGiamGiaViewModel.getHoTen()
@@ -397,17 +397,17 @@ public class TraSua_QL extends javax.swing.JFrame {
             String size = ctspVM.getSize();
             if (size.equals("S")) {
                 chkSizeSXem.setSelected(true);
-                txtGiaSizeSXem.setText(ctspVM.getGia() + "");
+                txtGiaSizeSXem.setText(ctspVM.getGia().doubleValue() + "");
 
             }
             if (size.equals("M")) {
                 chkSizeMXem.setSelected(true);
-                txtGiaSizeMXem.setText(ctspVM.getGia() + "");
+                txtGiaSizeMXem.setText(ctspVM.getGia().doubleValue() + "");
 
             }
             if (size.equals("L")) {
                 chkSizeLXem.setSelected(true);
-                txtGiaSizeLXem.setText(ctspVM.getGia() + "");
+                txtGiaSizeLXem.setText(ctspVM.getGia().doubleValue() + "");
 
             }
 
@@ -1050,7 +1050,6 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     public NhanVienViewModel getDataNhanVien() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
-
         String hoVaTen = txtHoVaTenThem.getText();
         String ngaySinh = txtNgaySinhThem.getText();
         String diaChi = txtDiaChiThem.getText();
@@ -4544,9 +4543,25 @@ public class TraSua_QL extends javax.swing.JFrame {
 
                 // Chuyển đổi mảng byte thành ImageIcon
                 ImageIcon imageIcon = new ImageIcon(imageData);
+                ///////////////tuan anh
 
-                // Thiết lập ImageIcon lên JLabel
-                lblAnhNhanVienSua.setIcon(imageIcon);
+                // Lấy kích thước của JLabel
+                int labelWidth = lblAnhNhanVienSua.getWidth();
+                int labelHeight = lblAnhNhanVienSua.getHeight();
+
+                // Lấy Image từ ImageIcon
+                Image image = imageIcon.getImage();
+
+                // Thay đổi kích thước của ảnh để khớp với kích thước của JLabel
+                Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+                // Tạo ImageIcon mới từ ảnh đã được thay đổi kích thước
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+                // Thiết lập ImageIcon mới cho JLabel
+                lblAnhNhanVienSua.setIcon(scaledIcon);
+                ///////////////tuan anh
+                
             } catch (SQLException e) {
                 e.printStackTrace();
                 // Xử lý lỗi khi đọc dữ liệu từ Blob
@@ -5069,8 +5084,8 @@ public class TraSua_QL extends javax.swing.JFrame {
         List<QuanLyHoaDonViewModel> qlhd = QLHDService.getListQLHDTheoMaHD(maHoaDon);
 
         for (QuanLyHoaDonViewModel hd : qlhd) {
-            txtTongThanhToanQLHD.setText(tblQuanLyHoaDon.getValueAt(index, 2) + " VNĐ");
-            txtQLHDTongHoaDon.setText(BigDecimal.valueOf(QLHDService.TongHoaDonQLHD(hd.getMaHoaDon())) + " VNĐ");
+            txtTongThanhToanQLHD.setText(tblQuanLyHoaDon.getValueAt(index, 2) + " VND");
+            txtQLHDTongHoaDon.setText(BigDecimal.valueOf(QLHDService.TongHoaDonQLHD(hd.getMaHoaDon())) + " VND");
 
             txtQLHDMaHoaDon.setText(hd.getMaHoaDon() + "");
             txtQLHDMaNhanVien.setText(hd.getMaNhanVien() + "");
@@ -5090,7 +5105,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 txtQLHDMaGiamGia.setText("Không có");
             }
             txtQLHDGhiChu.setText(hd.getGhiChu());
-            txtQLHDDichVuPhatSinh.setText(hd.getDichVuPhatSinh() + " VNĐ");
+            txtQLHDDichVuPhatSinh.setText(hd.getDichVuPhatSinh().doubleValue() + " VND");
         }
         txtQLHDTang.setText("");
         txtQLHDBan.setText("");

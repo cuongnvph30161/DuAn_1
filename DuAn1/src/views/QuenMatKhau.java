@@ -188,8 +188,9 @@ public class QuenMatKhau extends javax.swing.JFrame {
                 "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
         );
-
+  
         public static boolean isValidEmail(String email) {
+            System.out.println("check matcher"+" "+ EMAIL_PATTERN.matcher(email));
             return EMAIL_PATTERN.matcher(email).matches();
         }
     }
