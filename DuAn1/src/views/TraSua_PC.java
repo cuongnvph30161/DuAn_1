@@ -64,6 +64,10 @@ public class TraSua_PC extends javax.swing.JFrame {
         modelTongHopDonHANG = (DefaultTableModel) tblPhaCheTongDonHang.getModel();
         modelHoaDon_DSSP = (DefaultTableModel) tblHoaDon_DSSP.getModel();
         modelLichSuDanhSachSp = (DefaultTableModel) tbllichsudanhsachsphoadon.getModel();
+        modelHoaDon_HoaDon.setRowCount(0);
+        modelTongHopDonHANG.setRowCount(0);
+        modelHoaDon_DSSP.setRowCount(0);
+
         try {
             fillTableLichSuHoaDon();
             showGhiChu(0);
@@ -82,9 +86,12 @@ public class TraSua_PC extends javax.swing.JFrame {
     }
 
     public void loadLB() {
-        lblHoaDon_HoaDon.setText("Hóa đơn " + lstCNhoadon.get(0).getMaHoaDon());
-        lblHoaDon_dssp.setText(lstCNhoadon.get(0).getMaHoaDon() + "");
-        txtGhiChuHoaDon.setText(lstCNhoadon.get(0).getGhiChu());
+        if (lstCNhoadon.size() > 0) {
+
+            lblHoaDon_HoaDon.setText("Hóa đơn " + lstCNhoadon.get(0).getMaHoaDon());
+            lblHoaDon_dssp.setText(lstCNhoadon.get(0).getMaHoaDon() + "");
+            txtGhiChuHoaDon.setText(lstCNhoadon.get(0).getGhiChu());
+        }
     }
 
     public void loadHd() {
@@ -112,11 +119,11 @@ public class TraSua_PC extends javax.swing.JFrame {
         int thongBao = HoaDonServices.capNhatTrangThai(Integer.parseInt(lblHoaDon_dssp.getText()),
                 1);
         if (thongBao == 1) {
-            tongHopHoaDon();
+            JOptionPane.showMessageDialog(this, "hoàn thành đơn");
 
+            tongHopHoaDon();
             fillTableHoaDon_HoaDon();
             fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
-            JOptionPane.showMessageDialog(this, "hoàn thành đơn");
             return;
         }
 
@@ -938,7 +945,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-   
+
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
