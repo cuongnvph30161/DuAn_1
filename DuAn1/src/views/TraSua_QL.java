@@ -1101,7 +1101,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         nhanVienViewModel.setDiaChi(diaChi);
 
         if (!cccd.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số và không chứa kí tự.");
+            JOptionPane.showMessageDialog(this, "CCCD phải là số nguyên không âm và không chứa kí tự.");
             return null;
         }
 
@@ -1130,7 +1130,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
 
         if (!isSoDienThoaiValid(soDienThoai)) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại phải là số và thuộc trong khoảng 10 đến 11 số.");
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải là số nguyên không âm và thuộc trong khoảng 10 đến 11 số.");
             return null;
         }
 
@@ -1327,7 +1327,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         nhanVienViewModel.setDiaChi(diaChi);
 
         if (!cccd.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "CCCD phải là dạng số và không chứa kí tự.");
+            JOptionPane.showMessageDialog(this, "CCCD phải là số nguyên không âm và không chứa kí tự.");
             return null;
         }
         if (isCCCDExists(cccd, true, cccdCu)) {
@@ -1359,7 +1359,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         if (isSoDienThoaiExists(soDienThoai, true, soDienThoaiCu)) {
             return null;
         } else if (!isSoDienThoaiValid(soDienThoai)) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại phải là số và thuộc trong khoảng 10 đến 11 số.");
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải là số nguyên không âm và thuộc trong khoảng 10 đến 11 số.");
             return null;
         }
         nhanVienViewModel.setSoDienThoai(soDienThoai);
