@@ -4780,8 +4780,14 @@ public class TraSua_QL extends javax.swing.JFrame {
                     return;
                 }
             }
+            int tangCN;
+            if ((cboBanCapNhatTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
+                tangCN = 0;
+            } else {
+                tangCN = Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + "");
+            }
             QuanLyBanViewmodel ban = new QuanLyBanViewmodel(11, txtBanThemTenBan.getText(),
-                    Integer.parseInt(cboBanThemTang.getSelectedItem() + ""));
+                    tangCN);
             int thongBao = ibanServices.themBan(ban);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "thêm thành công");
@@ -4831,9 +4837,15 @@ public class TraSua_QL extends javax.swing.JFrame {
                 }
                 QuanLyBanViewmodel selectedBan = listBanviewmodel.get(selectedIndex);
                 selectedBan.setTenBan(String.valueOf(nameBan));
+                int tangCN;
+                if ((cboBanCapNhatTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
+                    tangCN = 0;
+                } else {
+                    tangCN = Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + "");
+                }
                 QuanLyBanViewmodel ban
                         = new QuanLyBanViewmodel(Integer.parseInt(lblBanCapNhatMaBan.getText()),
-                                txtBanCapNhatTenBan.getText(), Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + ""));
+                                txtBanCapNhatTenBan.getText(), tangCN);
                 int thongBao = ibanServices.CapNhatBan(ban);
                 if (thongBao == 1) {
                     JOptionPane.showMessageDialog(this, "cập nhật thành công");
