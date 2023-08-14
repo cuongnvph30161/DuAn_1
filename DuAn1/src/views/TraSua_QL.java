@@ -2857,7 +2857,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtBanCapNhatTenBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        cboBanCapNhatTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cboBanCapNhatTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "Mang về" }));
 
         btnBanCapNhatClear.setBackground(new java.awt.Color(45, 132, 252));
         btnBanCapNhatClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -2940,7 +2940,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtBanThemTenBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        cboBanThemTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cboBanThemTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "Mang về" }));
 
         btnBanThemClear.setBackground(new java.awt.Color(45, 132, 252));
         btnBanThemClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -5474,7 +5474,13 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
         txtBanCapNhatTenBan.setText(listBanviewmodel.get(index).getTenBan());
         txtBanCapNhatTenBan.setText(listBanviewmodel.get(index).getTenBan());
-        cboBanCapNhatTang.setSelectedItem(listBanviewmodel.get(index).getTang() + "");
+
+        if (Integer.parseInt(listBanviewmodel.get(index).getTang() + "") == 0) {
+            cboBanCapNhatTang.setSelectedItem("Mang về");
+
+        } else {
+            cboBanCapNhatTang.setSelectedItem(listBanviewmodel.get(index).getTang() + "");
+        }
     }
 
     public static void main(String args[]) {
