@@ -238,44 +238,37 @@ public class DoiMatKhau extends javax.swing.JFrame {
         String matKhauMoi = txtMatKhauMoi.getText();
         String nhapLaiMatKhauMoi = txtNhapLaiMatKhauMoi.getText();
         String checkMatKhau = iTaiKhoanServicess.checkMatKhau(maTaiKhoan);
-        boolean hasError = false; // Biến kiểm tra lỗi
 // Kiểm tra mật khẩu hiện tại
         if (matKhauHienTai.contains(" ")) {
-            hasError = true;
             JOptionPane.showMessageDialog(this, "Mật khẩu hiện tại không được chứa dấu cách");
             return null;
         }
 
 // Kiểm tra mật khẩu mới
         if (matKhauMoi.contains(" ")) {
-            hasError = true;
             JOptionPane.showMessageDialog(this, "Mật khẩu mới không được chứa dấu cách");
             return null;
         }
 
         // Kiểm tra nhập lại mật khẩu 
         if (nhapLaiMatKhauMoi.contains(" ")) {
-            hasError = true;
             JOptionPane.showMessageDialog(this, "Nhập lại mật khẩu không được chứa dấu cách");
             return null;
         }
         // Kiểm tra trường rỗng
         if (matKhauHienTai.trim().isEmpty() || matKhauMoi.trim().isEmpty() || nhapLaiMatKhauMoi.trim().isEmpty()) {
-            hasError = true;
             JOptionPane.showMessageDialog(this, "Không được bỏ trống");
             return null;
         }
 
         // Kiểm tra mật khẩu hiện tại
         if (!matKhauHienTai.equals(checkMatKhau)) {
-            hasError = true;
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng mật khẩu hiện tại");
             return null;
         }
 
         // Kiểm tra mật khẩu mới và nhập lại mật khẩu mới
         if (!matKhauMoi.equals(nhapLaiMatKhauMoi)) {
-            hasError = true;
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu mới khớp nhau");
             return null;
         }
