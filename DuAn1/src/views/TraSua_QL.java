@@ -2858,7 +2858,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtBanCapNhatTenBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        cboBanCapNhatTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cboBanCapNhatTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "Mang về" }));
 
         btnBanCapNhatClear.setBackground(new java.awt.Color(45, 132, 252));
         btnBanCapNhatClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -2941,7 +2941,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtBanThemTenBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        cboBanThemTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cboBanThemTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "Mang về" }));
 
         btnBanThemClear.setBackground(new java.awt.Color(45, 132, 252));
         btnBanThemClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -4787,8 +4787,14 @@ public class TraSua_QL extends javax.swing.JFrame {
                     return;
                 }
             }
+            int tangCN;
+            if ((cboBanCapNhatTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
+                tangCN = 0;
+            } else {
+                tangCN = Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + "");
+            }
             QuanLyBanViewmodel ban = new QuanLyBanViewmodel(11, txtBanThemTenBan.getText(),
-                    Integer.parseInt(cboBanThemTang.getSelectedItem() + ""));
+                    tangCN);
             int thongBao = ibanServices.themBan(ban);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "thêm thành công");
@@ -4838,9 +4844,15 @@ public class TraSua_QL extends javax.swing.JFrame {
                 }
                 QuanLyBanViewmodel selectedBan = listBanviewmodel.get(selectedIndex);
                 selectedBan.setTenBan(String.valueOf(nameBan));
+                int tangCN;
+                if ((cboBanCapNhatTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
+                    tangCN = 0;
+                } else {
+                    tangCN = Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + "");
+                }
                 QuanLyBanViewmodel ban
                         = new QuanLyBanViewmodel(Integer.parseInt(lblBanCapNhatMaBan.getText()),
-                                txtBanCapNhatTenBan.getText(), Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + ""));
+                                txtBanCapNhatTenBan.getText(), tangCN);
                 int thongBao = ibanServices.CapNhatBan(ban);
                 if (thongBao == 1) {
                     JOptionPane.showMessageDialog(this, "cập nhật thành công");
@@ -5485,7 +5497,13 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
         txtBanCapNhatTenBan.setText(listBanviewmodel.get(index).getTenBan());
         txtBanCapNhatTenBan.setText(listBanviewmodel.get(index).getTenBan());
-        cboBanCapNhatTang.setSelectedItem(listBanviewmodel.get(index).getTang() + "");
+
+        if (Integer.parseInt(listBanviewmodel.get(index).getTang() + "") == 0) {
+            cboBanCapNhatTang.setSelectedItem("Mang về");
+
+        } else {
+            cboBanCapNhatTang.setSelectedItem(listBanviewmodel.get(index).getTang() + "");
+        }
     }
 
     public static void main(String args[]) {

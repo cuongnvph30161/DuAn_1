@@ -52,7 +52,7 @@ public class NhanVienHoaDon_ChiTiet extends javax.swing.JFrame {
         lblTenNguoiTao.setText(hoaDon.getTenNguoiTao() + "");
         lblBan.setText(hoaDon.getTenBan() + "");
         lblThoiGian.setText(hoaDon.getThoiGian() + "");
-        lblPhanTramGiam.setText(hoaDon.getPhanTramGiam() + "");
+        lblPhanTramGiam.setText(hoaDon.getPhanTramGiam() + " %");
         lblGiamToiDa.setText(hoaDon.getGiamToiDa() + " VNĐ");
         lblTongThanhToan.setText(hoaDon.getTongThanhToan() + " VNĐ");
         lblTongTienHD.setText(hoaDon.getTienChuaGiam() + " VNĐ");
