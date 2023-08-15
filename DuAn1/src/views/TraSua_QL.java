@@ -160,7 +160,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             if (DSSP.getMaHoaDon() == MaHoaDon) {
                 List<PhaCheLichSuDanhSachSanPhamViewmodel> LstSanPham = DSSP.getListSP();
                 for (PhaCheLichSuDanhSachSanPhamViewmodel sp : LstSanPham) {
-                    ModelQLHDDSSanPham.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), sp.getSoLuong(), sp.getSize(), sp.getGiaBigDecimal()});
+                    ModelQLHDDSSanPham.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), sp.getSoLuong(), sp.getSize(), sp.getGiaBigDecimal().doubleValue()});
                 }
             }
 
@@ -172,7 +172,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         DefaultTableModel ModelQLHD = (DefaultTableModel) tblQuanLyHoaDon.getModel();
         ModelQLHD.setRowCount(0);
         for (NhanVienHoaDonViewModel a : list) {
-            ModelQLHD.addRow(new Object[]{a.getMaHoaDon(), a.getThoiGian(), a.getTongThanhToan(), a.getGhiChu()});
+            ModelQLHD.addRow(new Object[]{a.getMaHoaDon(), a.getThoiGian(), a.getTongThanhToan().doubleValue(), a.getGhiChu()});
         }
 
     }
@@ -338,7 +338,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             defaultTableModel.addRow(new Object[]{
                 stt++, maGiamGiaViewModel.getMaVoucher(), maGiamGiaViewModel.getPhanTramGiam(),
                 maGiamGiaViewModel.getDonToiThieu(),
-                maGiamGiaViewModel.getGiamToiDa(),
+                maGiamGiaViewModel.getGiamToiDa().doubleValue(),
                 maGiamGiaViewModel.getSoLuong(), maGiamGiaViewModel.getNgayBatDau(),
                 maGiamGiaViewModel.getNgayKetThuc(), maGiamGiaViewModel.getMaNguoiTao(),
                 maGiamGiaViewModel.getHoTen()
@@ -397,17 +397,17 @@ public class TraSua_QL extends javax.swing.JFrame {
             String size = ctspVM.getSize();
             if (size.equals("S")) {
                 chkSizeSXem.setSelected(true);
-                txtGiaSizeSXem.setText(ctspVM.getGia() + "");
+                txtGiaSizeSXem.setText(ctspVM.getGia().doubleValue() + "");
 
             }
             if (size.equals("M")) {
                 chkSizeMXem.setSelected(true);
-                txtGiaSizeMXem.setText(ctspVM.getGia() + "");
+                txtGiaSizeMXem.setText(ctspVM.getGia().doubleValue() + "");
 
             }
             if (size.equals("L")) {
                 chkSizeLXem.setSelected(true);
-                txtGiaSizeLXem.setText(ctspVM.getGia() + "");
+                txtGiaSizeLXem.setText(ctspVM.getGia().doubleValue() + "");
 
             }
 
@@ -493,9 +493,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (!containsDigits(name)) {
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+        if (!validateTen(name)) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa số và không được chứa kí tự đặc biệt!", "LỖI", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
@@ -687,9 +686,8 @@ public class TraSua_QL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa khoảng trắng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (!containsDigits(name)) {
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa chữ số!", "LỖI", JOptionPane.WARNING_MESSAGE);
+        if (!validateTen(name)) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được chứa số và không được chứa kí tự đặc biệt!", "LỖI", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         List<SanPhamViewModel> listSanPham = iCTSPSe.getListSanPham();
@@ -856,6 +854,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     public void loadComBoBoxTaiKhoanMaNhanVien(List<NhanVienViewModel> listNhanVienViewModels) {
         cbbMaNhanVienTaiKhoanThem.removeAllItems(); // Xóa tất cả các item cũ trong ComboBox
+        System.out.println("xoa tat ca item");
         cbbMaNhanVienTaiKhoanSua.removeAllItems();
 
         for (NhanVienViewModel nhanVienViewModel : listNhanVienViewModels) {
@@ -1050,7 +1049,6 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     public NhanVienViewModel getDataNhanVien() {
         NhanVienViewModel nhanVienViewModel = new NhanVienViewModel();
-
         String hoVaTen = txtHoVaTenThem.getText();
         String ngaySinh = txtNgaySinhThem.getText();
         String diaChi = txtDiaChiThem.getText();
@@ -2860,7 +2858,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtBanCapNhatTenBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        cboBanCapNhatTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cboBanCapNhatTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "Mang về" }));
 
         btnBanCapNhatClear.setBackground(new java.awt.Color(45, 132, 252));
         btnBanCapNhatClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -2943,7 +2941,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtBanThemTenBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
-        cboBanThemTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cboBanThemTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "Mang về" }));
 
         btnBanThemClear.setBackground(new java.awt.Color(45, 132, 252));
         btnBanThemClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -3721,6 +3719,12 @@ public class TraSua_QL extends javax.swing.JFrame {
         txtMaTaiKhoanSua.setEnabled(false);
 
         txtMatKhauTaiKhoanSua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
+
+        cbbMaNhanVienTaiKhoanSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbMaNhanVienTaiKhoanSuaActionPerformed(evt);
+            }
+        });
 
         cbbVaiTroTaiKhoanSua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "QuanLy", "PhaChe", "NhanVien" }));
 
@@ -4544,9 +4548,25 @@ public class TraSua_QL extends javax.swing.JFrame {
 
                 // Chuyển đổi mảng byte thành ImageIcon
                 ImageIcon imageIcon = new ImageIcon(imageData);
+                ///////////////tuan anh
 
-                // Thiết lập ImageIcon lên JLabel
-                lblAnhNhanVienSua.setIcon(imageIcon);
+                // Lấy kích thước của JLabel
+                int labelWidth = lblAnhNhanVienSua.getWidth();
+                int labelHeight = lblAnhNhanVienSua.getHeight();
+
+                // Lấy Image từ ImageIcon
+                Image image = imageIcon.getImage();
+
+                // Thay đổi kích thước của ảnh để khớp với kích thước của JLabel
+                Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+                // Tạo ImageIcon mới từ ảnh đã được thay đổi kích thước
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+                // Thiết lập ImageIcon mới cho JLabel
+                lblAnhNhanVienSua.setIcon(scaledIcon);
+                ///////////////tuan anh
+
             } catch (SQLException e) {
                 e.printStackTrace();
                 // Xử lý lỗi khi đọc dữ liệu từ Blob
@@ -4767,8 +4787,14 @@ public class TraSua_QL extends javax.swing.JFrame {
                     return;
                 }
             }
+            int tangCN;
+            if ((cboBanCapNhatTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
+                tangCN = 0;
+            } else {
+                tangCN = Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + "");
+            }
             QuanLyBanViewmodel ban = new QuanLyBanViewmodel(11, txtBanThemTenBan.getText(),
-                    Integer.parseInt(cboBanThemTang.getSelectedItem() + ""));
+                    tangCN);
             int thongBao = ibanServices.themBan(ban);
             if (thongBao == 1) {
                 JOptionPane.showMessageDialog(this, "thêm thành công");
@@ -4818,9 +4844,15 @@ public class TraSua_QL extends javax.swing.JFrame {
                 }
                 QuanLyBanViewmodel selectedBan = listBanviewmodel.get(selectedIndex);
                 selectedBan.setTenBan(String.valueOf(nameBan));
+                int tangCN;
+                if ((cboBanCapNhatTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
+                    tangCN = 0;
+                } else {
+                    tangCN = Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + "");
+                }
                 QuanLyBanViewmodel ban
                         = new QuanLyBanViewmodel(Integer.parseInt(lblBanCapNhatMaBan.getText()),
-                                txtBanCapNhatTenBan.getText(), Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + ""));
+                                txtBanCapNhatTenBan.getText(), tangCN);
                 int thongBao = ibanServices.CapNhatBan(ban);
                 if (thongBao == 1) {
                     JOptionPane.showMessageDialog(this, "cập nhật thành công");
@@ -5069,8 +5101,8 @@ public class TraSua_QL extends javax.swing.JFrame {
         List<QuanLyHoaDonViewModel> qlhd = QLHDService.getListQLHDTheoMaHD(maHoaDon);
 
         for (QuanLyHoaDonViewModel hd : qlhd) {
-            txtTongThanhToanQLHD.setText(tblQuanLyHoaDon.getValueAt(index, 2) + " VNĐ");
-            txtQLHDTongHoaDon.setText(BigDecimal.valueOf(QLHDService.TongHoaDonQLHD(hd.getMaHoaDon())) + " VNĐ");
+            txtTongThanhToanQLHD.setText(tblQuanLyHoaDon.getValueAt(index, 2) + " VND");
+            txtQLHDTongHoaDon.setText(BigDecimal.valueOf(QLHDService.TongHoaDonQLHD(hd.getMaHoaDon())) + " VND");
 
             txtQLHDMaHoaDon.setText(hd.getMaHoaDon() + "");
             txtQLHDMaNhanVien.setText(hd.getMaNhanVien() + "");
@@ -5090,7 +5122,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 txtQLHDMaGiamGia.setText("Không có");
             }
             txtQLHDGhiChu.setText(hd.getGhiChu());
-            txtQLHDDichVuPhatSinh.setText(hd.getDichVuPhatSinh() + " VNĐ");
+            txtQLHDDichVuPhatSinh.setText(hd.getDichVuPhatSinh().doubleValue() + " VND");
         }
         txtQLHDTang.setText("");
         txtQLHDBan.setText("");
@@ -5432,6 +5464,10 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void txtNgayBatDauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNgayBatDauActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNgayBatDauActionPerformed
+
+    private void cbbMaNhanVienTaiKhoanSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbMaNhanVienTaiKhoanSuaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbMaNhanVienTaiKhoanSuaActionPerformed
     private void loadChuMoTapTrungTimKiemChoMaGiamGia() {
         // Đặt placeholder ban đầu cho thanh tìm kiếm
         txtTimKiemMaGiamGia.setText("Nhập hoá đơn tối thiểu...");
@@ -5461,7 +5497,13 @@ public class TraSua_QL extends javax.swing.JFrame {
         lblBanCapNhatMaBan.setText(listBanviewmodel.get(index).getMaBan() + "");
         txtBanCapNhatTenBan.setText(listBanviewmodel.get(index).getTenBan());
         txtBanCapNhatTenBan.setText(listBanviewmodel.get(index).getTenBan());
-        cboBanCapNhatTang.setSelectedItem(listBanviewmodel.get(index).getTang() + "");
+
+        if (Integer.parseInt(listBanviewmodel.get(index).getTang() + "") == 0) {
+            cboBanCapNhatTang.setSelectedItem("Mang về");
+
+        } else {
+            cboBanCapNhatTang.setSelectedItem(listBanviewmodel.get(index).getTang() + "");
+        }
     }
 
     public static void main(String args[]) {

@@ -530,13 +530,13 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="lblHoaDon_dssp1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                      <Component id="lblHoaDon_dssp" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="527" max="-2" attributes="0"/>
+                                      <Component id="lblHoaDon_dssp" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="470" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="649" max="32767" attributes="0"/>
+                      <EmptySpace pref="682" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -739,7 +739,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="H&#xf3;a &#x111;&#x1a1;n HD001"/>
+                <Property name="text" type="java.lang.String" value="....."/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane4">

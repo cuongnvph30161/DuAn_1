@@ -51,6 +51,11 @@ public class DangXuat extends javax.swing.JFrame {
                 btnYesMouseClicked(evt);
             }
         });
+        btnYes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnYesActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 150, 40));
 
         btnNo.setBackground(new java.awt.Color(255, 51, 0));
@@ -97,6 +102,10 @@ public class DangXuat extends javax.swing.JFrame {
     private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNoActionPerformed
+
+    private void btnYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnYesActionPerformed
 
     public static void main(String args[]) {
 
