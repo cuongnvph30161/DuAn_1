@@ -21,5 +21,7 @@ public interface IBanRepository extends DAO<Integer, BanDomainModel> {
     Integer CapNhatBan(BanDomainModel ban);
 
     List<Ban> getTang1();
+    
+    boolean CheckTrungTenBan(String ten, int tang);
 
 }

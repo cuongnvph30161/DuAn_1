@@ -112,4 +112,9 @@ public class BanService implements IBanService {
         }
         return listTenBanVM;
     }
+
+    @Override
+    public boolean CheckTrungTenBan(String ten, int tang) {
+        return banRepo.CheckTrungTenBan(ten, tang);
+    }
 }

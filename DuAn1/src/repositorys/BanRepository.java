@@ -11,6 +11,8 @@ import repositorys.iRepository.IBanRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilities.DBConnect;
 import utilities.JdbcHelper;
 
@@ -21,41 +23,42 @@ import utilities.JdbcHelper;
 public class BanRepository implements IBanRepository {
 
     static Connection con = DBConnect.getConnect();
+
     @Override
-	public BanDomainModel getById(Integer id) {
+    public BanDomainModel getById(Integer id) {
 
-		try {
-			ResultSet rs = JdbcHelper.query("SELECT MaBan,TenBan,Tang,TrangThai FROM Ban where maBan="+id);
-			if (rs.next()) {
-				return new BanDomainModel(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
-			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+        try {
+            ResultSet rs = JdbcHelper.query("SELECT MaBan,TenBan,Tang,TrangThai FROM Ban where maBan=" + id);
+            if (rs.next()) {
+                return new BanDomainModel(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+            }
 
-    public void actives(int maBan,boolean status) {
-		if(status) {
-			try {
-				JdbcHelper.update("Update ban set trangthai = 1 where maBan=?", maBan);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		else {
-			try {
-				JdbcHelper.update("Update ban set trangthai = 0 where maBan=?", maBan);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-	}
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void actives(int maBan, boolean status) {
+        if (status) {
+            try {
+                JdbcHelper.update("Update ban set trangthai = 1 where maBan=?", maBan);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                JdbcHelper.update("Update ban set trangthai = 0 where maBan=?", maBan);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     @Override
     public List<BanDomainModel> getList() {
         try {
@@ -160,23 +163,21 @@ public class BanRepository implements IBanRepository {
     }
 
     @Override
-	public List<BanDomainModel> getAll(int... page) {
+    public List<BanDomainModel> getAll(int... page) {
 
-		try {
-			ResultSet rs = JdbcHelper.query("SELECT MaBan,TenBan,Tang,TrangThai FROM Ban");
-			List<BanDomainModel> lstBan = new ArrayList<>();
-			while (rs.next()) {
-				lstBan.add(new BanDomainModel(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
-			}
-			return lstBan;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-  
+        try {
+            ResultSet rs = JdbcHelper.query("SELECT MaBan,TenBan,Tang,TrangThai FROM Ban");
+            List<BanDomainModel> lstBan = new ArrayList<>();
+            while (rs.next()) {
+                lstBan.add(new BanDomainModel(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
+            }
+            return lstBan;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Override
     public boolean insert(BanDomainModel object) {
@@ -190,7 +191,6 @@ public class BanRepository implements IBanRepository {
         return false;
     }
 
-  
     @Override
     public List<BanDomainModel> getBySql(String sql, Object... args) {
         // TODO Auto-generated method stub
@@ -213,22 +213,35 @@ public class BanRepository implements IBanRepository {
 
     @Override
     public Integer CapNhatBan(BanDomainModel ban) {
-      try {
+        try {
             String lenh = "UPDATE BAN SET TenBan=?,Tang=? WHERE MaBan=?";
             PreparedStatement rs = con.prepareStatement(lenh);
             rs.setString(1, ban.getTenBan());
             rs.setInt(2, ban.getTang());
-            rs.setInt(3,ban.getMaBan());
+            rs.setInt(3, ban.getMaBan());
             return rs.executeUpdate();
         } catch (Exception e) {
         }
-        return -1;   
-    
+        return -1;
+
     }
 
-	@Override
-	public boolean deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean deleteById(Integer id) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean CheckTrungTenBan(String ten, int tang) {
+        try {
+            String lenh = "SELECT TenBan,Tang FROM Ban where TenBan like ? and Tang=?";
+            PreparedStatement ps = con.prepareStatement(lenh);
+            ps.setString(1, ten);
+            ps.setInt(2, tang);
+            return ps.executeQuery().next();
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
 }

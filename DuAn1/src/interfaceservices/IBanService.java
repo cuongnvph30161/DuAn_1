@@ -21,4 +21,6 @@ public interface IBanService {
     List<TenBanViewModel> getTang4();
 
     List<TenBanViewModel> getTang5();
+    
+    boolean CheckTrungTenBan(String ten, int tang);
 }

@@ -105,6 +105,7 @@ public class TraSua_QL extends javax.swing.JFrame {
     Map<Integer, Object> maGiamGia = NVHoaDonSv.mapMaGiamGia();
     List<ChiTietHoaDonDomainModel> listCTHD = NVHoaDonSv.getlistCTHD();
     ///////
+    IBanService BanService = new BanService();
     List<QuanLyBanViewmodel> listBanviewmodel = new ArrayList<>();
     DefaultTableModel BanBanModel = new DefaultTableModel();
     public IQuanLyBanServices ibanServices = new QuanLyBanServices();
@@ -160,7 +161,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             if (DSSP.getMaHoaDon() == MaHoaDon) {
                 List<PhaCheLichSuDanhSachSanPhamViewmodel> LstSanPham = DSSP.getListSP();
                 for (PhaCheLichSuDanhSachSanPhamViewmodel sp : LstSanPham) {
-                    ModelQLHDDSSanPham.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), sp.getSoLuong(), sp.getSize(), sp.getGiaBigDecimal().doubleValue()});
+                    ModelQLHDDSSanPham.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), sp.getSoLuong(), sp.getSize(), sp.getGiaBigDecimal().intValue()});
                 }
             }
 
@@ -172,7 +173,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         DefaultTableModel ModelQLHD = (DefaultTableModel) tblQuanLyHoaDon.getModel();
         ModelQLHD.setRowCount(0);
         for (NhanVienHoaDonViewModel a : list) {
-            ModelQLHD.addRow(new Object[]{a.getMaHoaDon(), a.getThoiGian(), a.getTongThanhToan().doubleValue(), a.getGhiChu()});
+            ModelQLHD.addRow(new Object[]{a.getMaHoaDon(), a.getThoiGian(), a.getTongThanhToan().intValue(), a.getGhiChu()});
         }
 
     }
@@ -338,7 +339,7 @@ public class TraSua_QL extends javax.swing.JFrame {
             defaultTableModel.addRow(new Object[]{
                 stt++, maGiamGiaViewModel.getMaVoucher(), maGiamGiaViewModel.getPhanTramGiam(),
                 maGiamGiaViewModel.getDonToiThieu(),
-                maGiamGiaViewModel.getGiamToiDa().doubleValue(),
+                maGiamGiaViewModel.getGiamToiDa().intValue(),
                 maGiamGiaViewModel.getSoLuong(), maGiamGiaViewModel.getNgayBatDau(),
                 maGiamGiaViewModel.getNgayKetThuc(), maGiamGiaViewModel.getMaNguoiTao(),
                 maGiamGiaViewModel.getHoTen()
@@ -397,17 +398,17 @@ public class TraSua_QL extends javax.swing.JFrame {
             String size = ctspVM.getSize();
             if (size.equals("S")) {
                 chkSizeSXem.setSelected(true);
-                txtGiaSizeSXem.setText(ctspVM.getGia().doubleValue() + "");
+                txtGiaSizeSXem.setText(ctspVM.getGia().intValue() + "");
 
             }
             if (size.equals("M")) {
                 chkSizeMXem.setSelected(true);
-                txtGiaSizeMXem.setText(ctspVM.getGia().doubleValue() + "");
+                txtGiaSizeMXem.setText(ctspVM.getGia().intValue() + "");
 
             }
             if (size.equals("L")) {
                 chkSizeLXem.setSelected(true);
-                txtGiaSizeLXem.setText(ctspVM.getGia().doubleValue() + "");
+                txtGiaSizeLXem.setText(ctspVM.getGia().intValue() + "");
 
             }
 
@@ -4349,6 +4350,8 @@ public class TraSua_QL extends javax.swing.JFrame {
         jpnQLBan.setVisible(false);
         jpnBackupHeThong.setVisible(false);
         new DoiMatKhau(maTaiKhoan).setVisible(false);
+        phanTrangQLHD();
+        truyenTrangQLHD(1);
     }//GEN-LAST:event_lblHoaDonMouseClicked
 
     private void lblQuanLyBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuanLyBanMouseClicked
@@ -4781,17 +4784,27 @@ public class TraSua_QL extends javax.swing.JFrame {
                 return;
             }
             List<QuanLyBanViewmodel> listBanviewmodel = ibanServices.getListBan();
-            for (QuanLyBanViewmodel qlban : listBanviewmodel) {
-                if (nameBan.trim().equals(qlban.getTenBan())) {
-                    JOptionPane.showMessageDialog(this, "Tên bàn không được trùng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
+//            for (QuanLyBanViewmodel qlban : listBanviewmodel) {
+//                if (nameBan.trim().equals(qlban.getTenBan())) {
+//                    JOptionPane.showMessageDialog(this, "Tên bàn không được trùng!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+//                    return;
+//                }
+//            }
+            int layTang;
+            if ((cboBanThemTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
+                layTang = 0;
+            } else {
+                layTang = Integer.parseInt(cboBanThemTang.getSelectedItem() + "");
+            }
+            if (BanService.CheckTrungTenBan(nameBan, layTang) == true) {
+                JOptionPane.showMessageDialog(this, "Tên bàn đã tồn tại, vui lòng kiểm tra lại!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                return;
             }
             int tangCN;
-            if ((cboBanCapNhatTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
+            if ((cboBanThemTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
                 tangCN = 0;
             } else {
-                tangCN = Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + "");
+                tangCN = Integer.parseInt(cboBanThemTang.getSelectedItem() + "");
             }
             QuanLyBanViewmodel ban = new QuanLyBanViewmodel(11, txtBanThemTenBan.getText(),
                     tangCN);
@@ -4832,16 +4845,27 @@ public class TraSua_QL extends javax.swing.JFrame {
                     return;
                 }
                 String selectedName = listBanviewmodel.get(selectedIndex).getTenBan();
-                for (int i = 0; i < listBanviewmodel.size(); i++) {
-                    if (i == selectedIndex) {
-                        continue;
-                    }
-                    QuanLyBanViewmodel ban = listBanviewmodel.get(i);
-                    if (nameBan.trim().equals(String.valueOf(ban.getTenBan())) && !selectedName.equals(nameBan.trim())) {
-                        JOptionPane.showMessageDialog(this, "Tên bàn không được trùng!", "LỖI", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    }
+//                for (int i = 0; i < listBanviewmodel.size(); i++) {
+//                    if (i == selectedIndex) {
+//                        continue;
+//                    }
+//                    QuanLyBanViewmodel ban = listBanviewmodel.get(i);
+//                    if (nameBan.trim().equals(String.valueOf(ban.getTenBan())) && !selectedName.equals(nameBan.trim())) {
+//                        JOptionPane.showMessageDialog(this, "Tên bàn không được trùng!", "LỖI", JOptionPane.WARNING_MESSAGE);
+//                        return;
+//                    }
+//                }
+                int layTang;
+                if ((cboBanCapNhatTang.getSelectedItem() + "").equalsIgnoreCase("Mang về")) {
+                    layTang = 0;
+                } else {
+                    layTang = Integer.parseInt(cboBanCapNhatTang.getSelectedItem() + "");
                 }
+                if (BanService.CheckTrungTenBan(nameBan, layTang) == true) {
+                    JOptionPane.showMessageDialog(this, "Tên bàn đã tồn tại, vui lòng kiểm tra lại!", "CẢNH BÁO", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
                 QuanLyBanViewmodel selectedBan = listBanviewmodel.get(selectedIndex);
                 selectedBan.setTenBan(String.valueOf(nameBan));
                 int tangCN;
@@ -5095,14 +5119,15 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     private void tblQuanLyHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanLyHoaDonMouseClicked
         // TODO add your handling code here:
+        DecimalFormat dcf = new DecimalFormat("###,###,###");
         int index = tblQuanLyHoaDon.getSelectedRow();
         int maHoaDon = (int) tblQuanLyHoaDon.getValueAt(index, 0);
 
         List<QuanLyHoaDonViewModel> qlhd = QLHDService.getListQLHDTheoMaHD(maHoaDon);
 
         for (QuanLyHoaDonViewModel hd : qlhd) {
-            txtTongThanhToanQLHD.setText(tblQuanLyHoaDon.getValueAt(index, 2) + " VND");
-            txtQLHDTongHoaDon.setText(BigDecimal.valueOf(QLHDService.TongHoaDonQLHD(hd.getMaHoaDon())) + " VND");
+            txtTongThanhToanQLHD.setText(dcf.format(tblQuanLyHoaDon.getValueAt(index, 2)) + " VND");
+            txtQLHDTongHoaDon.setText(dcf.format(BigDecimal.valueOf(QLHDService.TongHoaDonQLHD(hd.getMaHoaDon()))) + " VND");
 
             txtQLHDMaHoaDon.setText(hd.getMaHoaDon() + "");
             txtQLHDMaNhanVien.setText(hd.getMaNhanVien() + "");
@@ -5122,7 +5147,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 txtQLHDMaGiamGia.setText("Không có");
             }
             txtQLHDGhiChu.setText(hd.getGhiChu());
-            txtQLHDDichVuPhatSinh.setText(hd.getDichVuPhatSinh().doubleValue() + " VND");
+            txtQLHDDichVuPhatSinh.setText(dcf.format(hd.getDichVuPhatSinh()) + " VND");
         }
         txtQLHDTang.setText("");
         txtQLHDBan.setText("");
