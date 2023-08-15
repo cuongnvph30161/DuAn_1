@@ -4616,11 +4616,11 @@
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="363" max="-2" attributes="0"/>
                               <Component id="jTabbedPane6" min="-2" pref="532" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="1413" max="32767" attributes="0"/>
+                      <EmptySpace pref="1198" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4629,9 +4629,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                       <Component id="jTabbedPane6" min="-2" pref="477" max="-2" attributes="0"/>
-                      <EmptySpace pref="504" max="32767" attributes="0"/>
+                      <EmptySpace pref="473" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4655,8 +4655,8 @@
                 <Container class="javax.swing.JPanel" name="jPanel16">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Restore">
-                        <Property name="tabTitle" type="java.lang.String" value="Restore"/>
+                      <JTabbedPaneConstraints tabName="Backup">
+                        <Property name="tabTitle" type="java.lang.String" value="Backup"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -4695,9 +4695,9 @@
                               <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButton22" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="20" max="32767" attributes="0"/>
+                              <EmptySpace pref="39" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -4832,8 +4832,8 @@
                 <Container class="javax.swing.JPanel" name="jPanel15">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Backup">
-                        <Property name="tabTitle" type="java.lang.String" value="Backup"/>
+                      <JTabbedPaneConstraints tabName="Restore">
+                        <Property name="tabTitle" type="java.lang.String" value="Restore"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -4897,8 +4897,8 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jButton21" min="-2" pref="125" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane13" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane13" alignment="1" min="-2" pref="452" max="-2" attributes="0"/>
+                                      <Component id="jButton21" alignment="1" min="-2" pref="125" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                               </Group>
@@ -4908,10 +4908,10 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jScrollPane13" min="-2" pref="323" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jScrollPane13" min="-2" pref="311" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jButton21" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -4959,7 +4959,7 @@
                     </Container>
                     <Component class="javax.swing.JLabel" name="jLabel105">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C&#xe1;c th&#xf4;ng tin backup"/>
+                        <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n b&#x1ea3;n sao l&#x1b0;u"/>
                       </Properties>
                     </Component>
                   </SubComponents>

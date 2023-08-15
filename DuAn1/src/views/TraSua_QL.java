@@ -4084,12 +4084,12 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addComponent(jLabel107)
                 .addGap(9, 9, 9)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton22)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        jTabbedPane6.addTab("Restore", jPanel16);
+        jTabbedPane6.addTab("Backup", jPanel16);
 
         jLabel104.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel104.setText("Backup hệ thống");
@@ -4126,21 +4126,21 @@ public class TraSua_QL extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(137, 137, 137))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton21)
-                .addGap(12, 12, 12))
+                .addGap(18, 18, 18))
         );
 
-        jLabel105.setText("Các thông tin backup");
+        jLabel105.setText("Chọn bản sao lưu");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -4170,7 +4170,7 @@ public class TraSua_QL extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane6.addTab("Backup", jPanel15);
+        jTabbedPane6.addTab("Restore", jPanel15);
 
         javax.swing.GroupLayout jpnBackupHeThongLayout = new javax.swing.GroupLayout(jpnBackupHeThong);
         jpnBackupHeThong.setLayout(jpnBackupHeThongLayout);
@@ -4182,18 +4182,18 @@ public class TraSua_QL extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(jLabel7))
                     .addGroup(jpnBackupHeThongLayout.createSequentialGroup()
-                        .addGap(148, 148, 148)
+                        .addGap(363, 363, 363)
                         .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1413, Short.MAX_VALUE))
+                .addContainerGap(1198, Short.MAX_VALUE))
         );
         jpnBackupHeThongLayout.setVerticalGroup(
             jpnBackupHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnBackupHeThongLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel7)
-                .addGap(42, 42, 42)
+                .addGap(73, 73, 73)
                 .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(504, Short.MAX_VALUE))
+                .addContainerGap(473, Short.MAX_VALUE))
         );
 
         jpnTong.add(jpnBackupHeThong, "card8");
