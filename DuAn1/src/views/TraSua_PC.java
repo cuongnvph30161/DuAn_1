@@ -76,7 +76,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             ///fill hóa đơn trong chức năng hóa đơn
             fillTableHoaDon_HoaDon();
             try {
-                  fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+                fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
             } catch (Exception e) {
             }
 
@@ -105,15 +105,14 @@ public class TraSua_PC extends javax.swing.JFrame {
                 while (true) {
 
                     fillTableHoaDon_HoaDon();
-                    try {
-                        fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
-                    } 
-                    catch(Exception e)  {
-                    }
+//                    try {
+//                        fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+//                    } catch (Exception e) {
+//                    }
                     tongHopHoaDon();
 
                     try {
-                        sleep(10000);
+                        sleep(15000);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -135,7 +134,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             tongHopHoaDon();
 
             try {
-                  fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
+                fillTableDSSPHoaDon(lstCNhoadon.get(0).getMaHoaDon());
             } catch (Exception e) {
             }
 
@@ -193,9 +192,17 @@ public class TraSua_PC extends javax.swing.JFrame {
         lst = LichSuServices.getList(mapBan, mapHoaDon, lstSP);
         modelLichSuHoaDon.setRowCount(0);
         lbllichsumahoadon.setText("Hóa đơn " + lst.get(0).getMaHoaDon());
+
+        long millis = System.currentTimeMillis();
+        java.sql.Date soiNgay = new java.sql.Date(millis);
+
         for (PhaCheLichSuViewModel a : lst) {
-            modelLichSuHoaDon.addRow(new Object[]{a.getMaHoaDon(), a.getTenBan(),
-                a.getTang(), a.getThoiGian(), a.getGhiChu()});
+            java.sql.Date soi = new java.sql.Date(a.getThoiGian().getTime());
+            if (soi.toString().equalsIgnoreCase(soiNgay.toString())) {
+                modelLichSuHoaDon.addRow(new Object[]{a.getMaHoaDon(), a.getTenBan(),
+                    a.getTang(), a.getThoiGian(), a.getGhiChu()});
+            }
+
         }
 
     }
@@ -1085,10 +1092,10 @@ public class TraSua_PC extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         modelHoaDon_DSSP.setRowCount(0);
-if(lblHoaDon_dssp.getText().equalsIgnoreCase(".....")){
-    JOptionPane.showMessageDialog(null, "Không có hóa đơn nào");
-    return;
-}
+        if (lblHoaDon_dssp.getText().equalsIgnoreCase(".....")) {
+            JOptionPane.showMessageDialog(null, "Không có hóa đơn nào");
+            return;
+        }
         try {
             capNhatTrangThaiHD();
         } catch (Exception e) {
