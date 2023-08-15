@@ -854,6 +854,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
     public void loadComBoBoxTaiKhoanMaNhanVien(List<NhanVienViewModel> listNhanVienViewModels) {
         cbbMaNhanVienTaiKhoanThem.removeAllItems(); // Xóa tất cả các item cũ trong ComboBox
+        System.out.println("xoa tat ca item");
         cbbMaNhanVienTaiKhoanSua.removeAllItems();
 
         for (NhanVienViewModel nhanVienViewModel : listNhanVienViewModels) {
@@ -3719,6 +3720,12 @@ public class TraSua_QL extends javax.swing.JFrame {
 
         txtMatKhauTaiKhoanSua.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
+        cbbMaNhanVienTaiKhoanSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbMaNhanVienTaiKhoanSuaActionPerformed(evt);
+            }
+        });
+
         cbbVaiTroTaiKhoanSua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "QuanLy", "PhaChe", "NhanVien" }));
 
         cbbTrangThaiTaiKhoanSua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Không Khoá", "Đã Khoá" }));
@@ -5445,6 +5452,10 @@ public class TraSua_QL extends javax.swing.JFrame {
     private void txtNgayBatDauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNgayBatDauActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNgayBatDauActionPerformed
+
+    private void cbbMaNhanVienTaiKhoanSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbMaNhanVienTaiKhoanSuaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbMaNhanVienTaiKhoanSuaActionPerformed
     private void loadChuMoTapTrungTimKiemChoMaGiamGia() {
         // Đặt placeholder ban đầu cho thanh tìm kiếm
         txtTimKiemMaGiamGia.setText("Nhập hoá đơn tối thiểu...");

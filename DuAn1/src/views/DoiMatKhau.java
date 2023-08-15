@@ -12,6 +12,9 @@ import javax.swing.JOptionPane;
 import utilities.XImages;
 import viewmodel.TaiKhoanViewModel;
 import interfaceservices.ITaiKhoanServicess;
+import java.awt.Frame;
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import services.TaiKhoanServicess;
 
 public class DoiMatKhau extends javax.swing.JFrame {
@@ -162,7 +165,8 @@ public class DoiMatKhau extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
-
+        WindowEvent closingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closingEvent);
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
     private void lblBackLaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackLaiMouseClicked
@@ -284,7 +288,14 @@ public class DoiMatKhau extends javax.swing.JFrame {
             return;
         }
         JOptionPane.showMessageDialog(this, iTaiKhoanServicess.doiMatKhau(taiKhoanDomail.getMatKhau(), maTaiKhoan));
-        this.dispose();
+        Frame[] frames = Frame.getFrames();
+        for (Frame frame : frames) {
+            frame.dispose();
+        }
+
+        // Mở lại frame đăng nhập
+        DangNhap dangNhapFrame = new DangNhap();
+        dangNhapFrame.setVisible(true);
 
     }//GEN-LAST:event_btnDoiMatKhauActionPerformed
 
