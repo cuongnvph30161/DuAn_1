@@ -206,15 +206,11 @@ public class DangNhap extends javax.swing.JFrame {
         String maTaiKhoan = txtTaiKhoan.getText();
         String matKhau = txtMatKhau.getText();
         // kiem tra tai khoan
-        if (maTaiKhoan.trim().equals("") || maTaiKhoan.equalsIgnoreCase("tên tài khoản...")) {
-            JOptionPane.showMessageDialog(this, "Tài khoản không được để trống");
+        if (maTaiKhoan.trim().equals("") || maTaiKhoan.equalsIgnoreCase("tên tài khoản...") || matKhau.equalsIgnoreCase("mật khẩu...")) {
+            JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không được để trống");
             return;
         }
-        // Kiểm tra mật khẩu
-        if (matKhau.equalsIgnoreCase("mật khẩu...")) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
-            return;
-        }
+
         // truy vấn nhưng không phân biệt chữ hoa chữ thườngngf
         TaiKhoanDomail taiKhoan = iTaiKhoanService.getTaiKhoanByMaTaiKhoanAndMatKhau(maTaiKhoan, matKhau);
         if (taiKhoan == null) {
