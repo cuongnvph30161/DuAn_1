@@ -39,7 +39,7 @@ public class ManHinhCho extends javax.swing.JFrame {
                       new DangNhap().setVisible(true);
                   }
                     try {
-                        sleep(20);
+                        sleep(10);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
