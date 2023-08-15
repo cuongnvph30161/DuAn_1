@@ -254,7 +254,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 		maNhanVien = svNhanVien.getByIdAccount(maTaiKhoan);
 		loadView("pnQuanLyBan");
 		DPlaceHolder.addPlaceHolder(txtSearchTenSanPham, "Tìm kiếm theo tên sản phẩm");
-		
+		dmk=new DoiMatKhau(maTaiKhoan);
+		htkh=new HoTroKhachHang();
 
 	}
 
@@ -343,6 +344,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// Code">//GEN-BEGIN:initComponents
+	private DoiMatKhau dmk=null;
+	private HoTroKhachHang htkh=null;
 	private void initComponents() {
 		
 		jpnMenu = new javax.swing.JPanel();
@@ -375,7 +378,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 		btnKhieuNaiHoTro.setRequestFocusEnabled(false);
 		btnKhieuNaiHoTro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new HoTroKhachHang().setVisible(true);
+				htkh.setVisible(true);
 			}
 		});
 		btnKhieuNaiHoTro.setMargin(new Insets(2, 0, 2, 0));
@@ -660,11 +663,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 		btnKhieuNaiHoTro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 		btnKhieuNaiHoTro.setForeground(new java.awt.Color(255, 255, 255));
 		btnKhieuNaiHoTro.setText("KHIẾU NẠI HỖ TRỢ ?");
-		btnKhieuNaiHoTro.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				btnKhieuNaiHoTroMouseClicked(evt);
-			}
-		});
+		
 		jpnMenu.add(btnKhieuNaiHoTro);
 
 		btnDangXuat.setBackground(new java.awt.Color(45, 132, 252));
@@ -1250,18 +1249,8 @@ public class TraSua_NV extends javax.swing.JFrame {
 		});
 	}// GEN-LAST:event_btnDangXuatMouseClicked
 
-	private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
-		HoTroKhachHang htkh = new HoTroKhachHang();
-		htkh.setVisible(true);
-		loadView("pnDoiMatKhau");
-	}// GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
 	private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblDoiMatKhauMouseClicked
-
-		DoiMatKhau dmk = new DoiMatKhau(maTaiKhoan);
-		pnTrong.removeAll();
-		pnTrong.setLayout(new FlowLayout(FlowLayout.CENTER));
-		pnTrong.add(dmk.getContentPane());
 		loadView("pnDoiMatKhau");
 
 	}// GEN-LAST:event_lblDoiMatKhauMouseClicked
@@ -1531,7 +1520,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 			break;
 		}
 		case "pnDoiMatKhau": {
-			new DoiMatKhau(maTaiKhoan).setVisible(true);
+		dmk.setVisible(true);
 			break;
 		}
 
@@ -1583,7 +1572,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 		model.setRowCount(0);
 		lstBanDuocChon.forEach(maBan -> {
 			BanViewModel vmBan = svBan.getById(maBan);
-			model.addRow(new Object[] { vmBan.getTang() == 0 ? "Mang về" : "Tầng " + vmBan.getTang(), vmBan.getTenBan(),
+			model.addRow(new Object[] { vmBan.getTang() == 0 ? "Mang về" : "Tầng " + vmBan.getTang(), vmBan,
 					vmBan.getTrangThai() == 1 ? "Đã có người" : "Trống",
 					"<html><body style=';text-align: center; color:  #1E90FF'><u>Xóa bàn</u></body></html>" });
 		});
