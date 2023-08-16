@@ -112,7 +112,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                     tongHopHoaDon();
 
                     try {
-                        sleep(15000);
+                        sleep(5000);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -195,12 +195,34 @@ public class TraSua_PC extends javax.swing.JFrame {
 
         long millis = System.currentTimeMillis();
         java.sql.Date soiNgay = new java.sql.Date(millis);
+        List<PhaCheLichSuViewModel> lstLoc = new ArrayList<>();
 
+        lstLoc.add(new PhaCheLichSuViewModel(
+                lst.get(0).getMaHoaDon(),
+                "", lst.get(0).getTang(),
+                lst.get(0).getThoiGian(),
+                lst.get(0).getGhiChu(),
+                lst.get(0).getDanhSachSP()));
         for (PhaCheLichSuViewModel a : lst) {
+            int check = 1;
+            for (PhaCheLichSuViewModel b : lstLoc) {
+                if (a.getMaHoaDon() == b.getMaHoaDon()) {
+                    b.setTenBan(a.getTenBan() + ", " + b.getTenBan());
+                    check = -1;
+                }
+            }
+            if (check == 1) {
+                lstLoc.add(a);
+            }
+        }
+        lst = lstLoc;
+        for (PhaCheLichSuViewModel a : lst) {
+
             java.sql.Date soi = new java.sql.Date(a.getThoiGian().getTime());
             if (soi.toString().equalsIgnoreCase(soiNgay.toString())) {
                 modelLichSuHoaDon.addRow(new Object[]{a.getMaHoaDon(), a.getTenBan(),
                     a.getTang(), a.getThoiGian(), a.getGhiChu()});
+
             }
 
         }
@@ -222,8 +244,8 @@ public class TraSua_PC extends javax.swing.JFrame {
             lstLoc.add(new PhaCheLichSuViewModel(
                     lstCNhoadon.get(0).getMaHoaDon(),
                     "", lstCNhoadon.get(0).getTang(),
-                    lstCNhoadon.get(0).getThoiGian(), 
-                    lstCNhoadon.get(0).getGhiChu(), 
+                    lstCNhoadon.get(0).getThoiGian(),
+                    lstCNhoadon.get(0).getGhiChu(),
                     lstCNhoadon.get(0).getDanhSachSP()));
             for (PhaCheLichSuViewModel a : lstCNhoadon) {
 
@@ -252,7 +274,7 @@ public class TraSua_PC extends javax.swing.JFrame {
     //tổng hợp hóa đơn
     public void tongHopHoaDon() {
         try {
-           // Map<String, Object> mapBan1 = LichSuServices.getBan();
+            // Map<String, Object> mapBan1 = LichSuServices.getBan();
             //Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
             //List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
             //lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
