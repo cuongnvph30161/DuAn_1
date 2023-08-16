@@ -1517,6 +1517,7 @@ public class TraSua_NV extends javax.swing.JFrame {
 			lblSanPham.setBackground(new Color(8, 26, 81));
 			loadDanhSachBan(_tangDuocChon);
 			loadHoaDon(lstBanDuocChon);
+			txtVoucher.setModel(new SpinnerListModel(iMGGSe.getLstID()));
 			break;
 		}
 		case "pnDoiMatKhau": {
