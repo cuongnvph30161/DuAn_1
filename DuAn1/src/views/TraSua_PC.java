@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import services.PhaCheHoaDonServices;
 import services.PhaCheLichSuServices;
 import services.SanPhamService;
+import utilities.DBConnect;
 import utilities.PhaCheSanPhamJPanel;
 import utilities.Uhelper;
 import utilities.XImages;
@@ -70,8 +71,8 @@ public class TraSua_PC extends javax.swing.JFrame {
 
         try {
             fillTableLichSuHoaDon();
-            showGhiChu(0);
-            fillTableDSSP(lst.get(0).getMaHoaDon());
+           txtlichsuGhiChu.setText(tbllichsudonhang.getValueAt(0, 4) + "");
+//            fillTableDSSP(lst.get(0).getMaHoaDon());
             LoadSanPham();
             ///fill hóa đơn trong chức năng hóa đơn
             fillTableHoaDon_HoaDon();
@@ -83,6 +84,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             tongHopHoaDon();
             loadHd();
             loadLB();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1060,7 +1062,8 @@ public class TraSua_PC extends javax.swing.JFrame {
 
     private void lblLichSuDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLichSuDonHangMouseClicked
         fillTableLichSuHoaDon();
-        fillTableDSSP(lst.get(0).getMaHoaDon());
+        int ma = (int) tbllichsudonhang.getValueAt(0, 0);
+        fixLichSu(ma);
 
         jpnNenLichSu.setBackground(new Color(0, 88, 166));
         jpnNenSanPham.setBackground(new Color(0, 65, 123));
@@ -1100,7 +1103,30 @@ public class TraSua_PC extends javax.swing.JFrame {
         jpnHoaDon.setVisible(false);
         jpnLichSu.setVisible(false);
     }//GEN-LAST:event_lblSanPhamMouseClicked
+    public void fixLichSu(int maHoaDon) {
+        modelLichSuDanhSachSp.setRowCount(0);
+        try {
+            java.sql.Connection con = DBConnect.getConnect();
+            String lenh = "SELECT SanPham.MaSanPham,SanPham.TenSanPham,ChiTietSanPham.Size,ChiTietHoaDon.soLuong FROM ChiTietHoaDon LEFT JOIN ChiTietSanPham ON ChiTietHoaDon.MaChiTietSanPham=ChiTietSanPham.MaChiTietSanPham LEFT JOIN SanPham ON ChiTietSanPham.MaSanPham=SanPham.MaSanPham WHERE MaHoaDon= " + maHoaDon;
+            java.sql.Statement st = con.createStatement();
+            java.sql.ResultSet rs = st.executeQuery(lenh);
+            List<PhaCheLichSuDanhSachSanPhamViewmodel> lst = new ArrayList<>();
+            while (rs.next()) {
+                lst.add(new PhaCheLichSuDanhSachSanPhamViewmodel(rs.getInt(1),
+                        rs.getString(2), rs.getString(3),
+                        rs.getInt(4)));
+            }
+            int stt = 1;
+            for (PhaCheLichSuDanhSachSanPhamViewmodel a : lst) {
+                modelLichSuDanhSachSp.addRow(new Object[]{
+                    stt, a.getMaSanPham(), a.getTenSanPham(), a.getSize(), a.getSoLuong()
+                });
+                stt++;
+            }
 
+        } catch (Exception e) {
+        }
+    }
     private void lblSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_lblSanPhamMouseEntered
@@ -1116,9 +1142,9 @@ public class TraSua_PC extends javax.swing.JFrame {
     private void tbllichsudonhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbllichsudonhangMouseClicked
         // TODO add your handling code here:
         int index = tbllichsudonhang.getSelectedRow();
-        showGhiChu(index);
-        int maHoaDon = lst.get(index).getMaHoaDon();
-        fillTableDSSP(maHoaDon);
+        int maHoaDon = (int) tbllichsudonhang.getValueAt(index, 0);
+        fixLichSu(maHoaDon);
+        txtlichsuGhiChu.setText(tbllichsudonhang.getValueAt(index, 4) + "");
         lbllichsumahoadon.setText("Hóa đơn " + maHoaDon);
     }//GEN-LAST:event_tbllichsudonhangMouseClicked
 
