@@ -117,11 +117,11 @@ go
 -- nạp dữ liệu bảng nhân viên
 INSERT INTO NhanVien(HoVaTen,NgaySinh,DiaChi,CCCD,TrangThai,Email,SoDienThoai,GhiChu,Anh,ChucVu)
 VALUES 
-(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','020367876296',1,'tungdtph3456@gmail.com','0398345987',N'Siêng năng, chăm chỉ',(select * from openrowset (bulk 'D:\Anh nhan vien\tung.jpg', single_blob) as T),N'Quản lý'),
-(N'Nguyễn Hoàng Nam','1999-07-10',N'Bắc Ninh','030467897456',1,'namnh875098@gmail.com','0375486953',N'Hoạt bát, chịu khó',(select * from openrowset (bulk 'D:\Anh nhan vien\nam.jpg', single_blob) as T),N'Nhân viên'),
-(N'Nguyễn Văn Duy','1999-07-10',N'Hà Nội','040154687245',0,'duynvph40976@gmail.com','0333498746',N'Nhiệt tình, chu đáo',(select * from openrowset (bulk 'D:\Anh nhan vien\duy.jpg', single_blob) as T),N'Pha chế'),
-(N'Nguyễn Văn Cường','2000-11-02',N'Hà Nội','020154957245',1,'cuongnvph40976@gmail.com','0865398475',N'Nhiệt tình, chu đáo',(select * from openrowset (bulk 'D:\Anh nhan vien\cuong.jpg', single_blob) as T),N'Nhân viên'),
-(N'Nguyễn Thị Lan','2002-11-12',N'Thanh Hóa','030154957876',1,'lanntph34685@gmail.com','0865765789',N'Lanh lợi , hoạt bát',(select * from openrowset (bulk 'D:\Anh nhan vien\lan.jpg', single_blob) as T),N'Pha chế')
+(N'Dương Thanh Tùng','1999-10-10',N'Bắc Giang','020367876296',1,'tungdtph30319@fpt.edu.vn','0398345987',N'Siêng năng, chăm chỉ',(select * from openrowset (bulk 'D:\Anh nhan vien\tung.jpg', single_blob) as T),N'Quản lý'),
+(N'Nguyễn Hoàng Nam','1999-07-10',N'Bắc Ninh','030467897456',1,'namnhph30310@fpt.edu.vn','0375486953',N'Hoạt bát, chịu khó',(select * from openrowset (bulk 'D:\Anh nhan vien\nam.jpg', single_blob) as T),N'Nhân viên'),
+(N'Nguyễn Văn Duy','1999-07-10',N'Hà Nội','040154687245',1,'duynvph30146@fpt.edu.vn','0333498746',N'Nhiệt tình, chu đáo',(select * from openrowset (bulk 'D:\Anh nhan vien\duy.jpg', single_blob) as T),N'Pha chế'),
+(N'Nguyễn Văn Cường','2000-11-02',N'Hà Nội','020154957245',0,'cuongnvph40976@gmail.com','0865398475',N'Nhiệt tình, chu đáo',(select * from openrowset (bulk 'D:\Anh nhan vien\cuong.jpg', single_blob) as T),N'Nhân viên'),
+(N'Nguyễn Thị Lan','2002-11-12',N'Thanh Hóa','030154957876',0,'lanntph34685@gmail.com','0865765789',N'Lanh lợi , hoạt bát',(select * from openrowset (bulk 'D:\Anh nhan vien\lan.jpg', single_blob) as T),N'Pha chế')
 Select * from NhanVien
 GO
 
@@ -130,9 +130,9 @@ INSERT INTO TaiKhoan(MaTaiKhoan,MaNhanVien,MatKhau,VaiTro,TrangThai)
 VALUES
 ('TKQL1000',1000,'quanly1000',N'QuanLy',1),
 ('TKNV1001',1001,'nhanvien1001',N'NhanVien',1),
-('TKPC1002',1002,'phache1002',N'PhaChe',0),
-('TKNV1003',1003,'nhanvien1003',N'NhanVien',1),
-('TKPC1004',1004,'phache1004',N'PhaChe',1)
+('TKPC1002',1002,'phache1002',N'PhaChe',1),
+('TKNV1003',1003,'nhanvien1003',N'NhanVien',0),
+('TKPC1004',1004,'phache1004',N'PhaChe',0)
 select * from TaiKhoan
 go
 

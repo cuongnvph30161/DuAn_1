@@ -217,6 +217,28 @@ public class TraSua_PC extends javax.swing.JFrame {
             modelHoaDon_HoaDon.setRowCount(0);
             lblHoaDon_HoaDon.setText("Hóa đơn " + lstCNhoadon.get(0).getMaHoaDon());
             int stt = 1;
+
+            List<PhaCheLichSuViewModel> lstLoc = new ArrayList<>();
+            lstLoc.add(new PhaCheLichSuViewModel(
+                    lstCNhoadon.get(0).getMaHoaDon(),
+                    "", lstCNhoadon.get(0).getTang(),
+                    lstCNhoadon.get(0).getThoiGian(), 
+                    lstCNhoadon.get(0).getGhiChu(), 
+                    lstCNhoadon.get(0).getDanhSachSP()));
+            for (PhaCheLichSuViewModel a : lstCNhoadon) {
+
+                int check = 1;
+                for (PhaCheLichSuViewModel b : lstLoc) {
+                    if (a.getMaHoaDon() == b.getMaHoaDon()) {
+                        b.setTenBan(a.getTenBan() + ", " + b.getTenBan());
+                        check = -1;
+                    }
+                }
+                if (check == 1) {
+                    lstLoc.add(a);
+                }
+            }
+            lstCNhoadon = lstLoc;
             for (PhaCheLichSuViewModel a : lstCNhoadon) {
                 modelHoaDon_HoaDon.addRow(new Object[]{stt, a.getMaHoaDon(), a.getTenBan(),
                     a.getTang(), a.getThoiGian(), a.getGhiChu()});
@@ -230,10 +252,10 @@ public class TraSua_PC extends javax.swing.JFrame {
     //tổng hợp hóa đơn
     public void tongHopHoaDon() {
         try {
-            Map<String, Object> mapBan1 = LichSuServices.getBan();
-            Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
-            List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
-            lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
+           // Map<String, Object> mapBan1 = LichSuServices.getBan();
+            //Map<String, Object> mapHoaDon1 = LichSuServices.getHoaDon();
+            //List<PhaCheLichSuDanhSachSanPhamViewmodel> lstSP1 = LichSuServices.getDSSP();
+            //lstCNhoadon = HoaDonServices.getList(mapBan1, mapHoaDon1, lstSP1);
 
             List<PhaCheLichSuDanhSachSanPhamViewmodel> lstTongHop = new ArrayList<>();
 
@@ -789,7 +811,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                                 .addGap(5, 5, 5)
                                 .addComponent(lblHoaDon_dssp, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(470, 470, 470)))))
-                .addContainerGap(682, Short.MAX_VALUE))
+                .addContainerGap(592, Short.MAX_VALUE))
         );
         jpnHoaDonLayout.setVerticalGroup(
             jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -905,7 +927,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                 .addGroup(jpnLichSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbllichsumahoadon))
-                .addContainerGap(680, Short.MAX_VALUE))
+                .addContainerGap(594, Short.MAX_VALUE))
         );
         jpnLichSuLayout.setVerticalGroup(
             jpnLichSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -941,7 +963,7 @@ public class TraSua_PC extends javax.swing.JFrame {
             .addGroup(jpnKhieuNaiHoTroLayout.createSequentialGroup()
                 .addGap(97, 97, 97)
                 .addComponent(jLabel4)
-                .addContainerGap(1765, Short.MAX_VALUE))
+                .addContainerGap(1679, Short.MAX_VALUE))
         );
         jpnKhieuNaiHoTroLayout.setVerticalGroup(
             jpnKhieuNaiHoTroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -961,7 +983,7 @@ public class TraSua_PC extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jpnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jpnTong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpnTong, javax.swing.GroupLayout.DEFAULT_SIZE, 1879, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
