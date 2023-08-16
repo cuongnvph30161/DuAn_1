@@ -1698,15 +1698,9 @@ public class TraSua_QL extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnKhieuNaiHoTroMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnKhieuNaiHoTroMouseEntered(evt);
-            }
+           
         });
-        btnKhieuNaiHoTro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKhieuNaiHoTroActionPerformed(evt);
-            }
-        });
+      
         jpnMenu.add(btnKhieuNaiHoTro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 650, -1, 40));
 
         btnDangXuat.setBackground(new java.awt.Color(45, 132, 252));
@@ -4244,7 +4238,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnDangXuatMouseClicked
-
+    private HoTroKhachHang htkh=new HoTroKhachHang();
     private void btnKhieuNaiHoTroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroMouseClicked
 //        jpnNhanVien.setVisible(false);
 //        jpnSanPham.setVisible(false);
@@ -4253,7 +4247,7 @@ public class TraSua_QL extends javax.swing.JFrame {
 //        jpnVoucher.setVisible(false);
 //        jpnTaiKhoan.setVisible(false);
 //        jpnBackupHeThong.setVisible(false);
-        new HoTroKhachHang().setVisible(true);
+      htkh.setVisible(true);
 
     }//GEN-LAST:event_btnKhieuNaiHoTroMouseClicked
 
@@ -4892,9 +4886,7 @@ public class TraSua_QL extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBanCapNhatActionPerformed
 
-    private void btnKhieuNaiHoTroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhieuNaiHoTroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnKhieuNaiHoTroActionPerformed
+   
 
     private void cboTimBanTheoTangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cboTimBanTheoTangKeyPressed
         // TODO add your handling code here:
